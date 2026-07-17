@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Breadcrumb } from "@/components/common/breadcrumb";
-import { PageHero } from "@/components/sections/page-hero";
 import { Container } from "@/components/common/container";
 import { ContactForm } from "@/components/forms/contact-form";
-import { buildMetadata } from "@/lib/seo";
+import { PageHero } from "@/components/sections/page-hero";
 import { siteConfig } from "@/config/site";
+import { buildMetadata } from "@/lib/seo";
 import { toTelHref } from "@/lib/utils";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = buildMetadata({
   title: "Contact",
@@ -21,10 +21,17 @@ const infoItems = [
   { icon: Clock, label: "Hours", value: "Sat–Thu, 9am–6pm", href: undefined },
 ];
 
+// how to make contact page
+
 export default function ContactPage() {
   return (
     <>
-      <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact" }]} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Contact", href: "/contact" },
+        ]}
+      />
       <PageHero
         eyebrow="Contact"
         title="Let's talk about your project"
