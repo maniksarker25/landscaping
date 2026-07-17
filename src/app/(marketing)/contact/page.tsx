@@ -21,7 +21,7 @@ const infoItems = [
   { icon: Clock, label: "Hours", value: "Sat–Thu, 9am–6pm", href: undefined },
 ];
 
-// how to make contact page
+// how to make contact page0000000000000000000
 
 export default function ContactPage() {
   return (
