@@ -16,7 +16,7 @@ export default function NotFound() {
           </span>
           <h1 className="mt-8 font-display text-4xl">Page not found</h1>
           <p className="mt-3 max-w-sm text-muted-foreground">
-            The page you're looking for may have moved or no longer exists.
+            The page you&apos;re looking for may have moved or no longer exists.
           </p>
           <Button asChild size="lg" className="mt-8">
             <Link href="/">
