@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  CSS variables mirror `src/config/theme.ts`. If you change a value here,
+  change it there too (and vice versa) — theme.ts is the documented source
+  of truth, these variables are what Tailwind actually consumes at runtime.
+*/
+@layer base {
+  :root {
+    --primary: 174 61% 14%;
+    --primary-foreground: 45 38% 92%;
+
+    --secondary: 168 24% 58%;
+    --secondary-foreground: 174 61% 10%;
+
+    --accent: 39 45% 47%;
+    --accent-foreground: 45 38% 96%;
+
+    --background: 44 33% 92%;
+    --foreground: 160 12% 12%;
+
+    --muted: 42 22% 87%;
+    --muted-foreground: 160 8% 38%;
+
+    --card: 45 40% 97%;
+    --card-foreground: 160 12% 12%;
+
+    --border: 42 18% 80%;
+    --input: 42 18% 80%;
+    --ring: 174 61% 14%;
+
+    --destructive: 6 74% 45%;
+    --destructive-foreground: 45 38% 96%;
+
+    --success: 152 45% 32%;
+    --success-foreground: 45 38% 96%;
+
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Signature wave divider — used sparingly between sections */
+.wave-divider svg {
+  width: 200%;
+  animation: wave 16s ease-in-out infinite;
+}
