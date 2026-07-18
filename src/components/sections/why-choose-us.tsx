@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { ShieldCheck, Users, Gem, Clock } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { SectionTitle } from "@/components/common/section-title";
 import { fadeUp, staggerContainer, staggerItem, viewport } from "@/lib/animations";
+import { motion } from "framer-motion";
+import { Clock, Gem, ShieldCheck, Users } from "lucide-react";
+import Image from "next/image";
 
 const reasons = [
   {
@@ -42,7 +42,7 @@ export function WhyChooseUs() {
           className="relative aspect-[4/5] overflow-hidden rounded-lg"
         >
           <Image
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop"
+            src="https://i.pinimg.com/1200x/f1/78/08/f1780840d9d18b94504d35b8ee87ae2a.jpg"
             alt="Landscaped villa garden with pool"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"

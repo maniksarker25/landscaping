@@ -48,11 +48,11 @@
 // components/Gallery.tsx
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useMemo, useState } from "react";
 
 interface GalleryItem {
   id: string;
@@ -76,10 +76,10 @@ const PROJECT_IMAGES: Omit<GalleryItem, "id">[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1416331108676-a22ccb276e35?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
-  {
-    imageUrl:
-      "https://images.unsplash.com/photo-1621437102383-99e5cf9859c7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
+  // {
+  //   imageUrl:
+  //     "https://images.unsplash.com/photo-1621437102383-99e5cf9859c7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  // },
   {
     imageUrl:
       "https://images.unsplash.com/photo-1782939355849-4a748ada9c84?q=80&w=2084&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -92,11 +92,12 @@ const PROJECT_IMAGES: Omit<GalleryItem, "id">[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1711114378509-acc95d490b25?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
-  {
-    imageUrl:
-      "https://images.unsplash.com/photo-1618606338706-fc3bad33dbe6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
+  // {
+  //   imageUrl:
+  //     "https://images.unsplash.com/photo-1618606338706-fc3bad33dbe6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  // },
+
+    {
     imageUrl:
       "https://images.unsplash.com/photo-1774597998589-a47635d76ee5?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
@@ -115,6 +116,10 @@ const PROJECT_IMAGES: Omit<GalleryItem, "id">[] = [
   {
     imageUrl:
       "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+    {
+    imageUrl:
+      "https://images.unsplash.com/photo-1774597998589-a47635d76ee5?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 
@@ -193,7 +198,7 @@ export default function Gallery() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 animate-fade-in">
       <h1 className="text-4xl font-bold text-gray-900 mb-8 text-center font-display tracking-tight text-primary">
-        Projects Gallery
+        Our Recent Projects
       </h1>
 
       {/* Skeleton state on first load */}
@@ -260,11 +265,11 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-between bg-black/95 p-4 backdrop-blur-md select-none"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-between  p-4 backdrop-blur-sm select-none"
           >
             {/* Top Bar */}
-            <div className="flex w-full max-w-7xl items-center justify-between text-white py-3 px-4 relative z-[102]">
-              <span className="text-sm font-medium tracking-wider text-gray-400 font-sans">
+            <div className="flex w-full max-w-7xl items-center justify-between  text-white py-3 px-4 relative z-[102]">
+              <span className="text-sm font-medium tracking-wider text-black font-sans">
                 {selectedImageIndex + 1} / {items.length}
               </span>
 
@@ -273,28 +278,28 @@ export default function Gallery() {
                   type="button"
                   onClick={() => setScale((prev) => Math.max(1, prev - 0.5))}
                   disabled={scale <= 1}
-                  className="rounded-full bg-white/10 p-2 text-white transition-all hover:bg-white/20 disabled:opacity-40 disabled:hover:bg-white/10"
+                  className="rounded-full bg-black p-2 text-white transition-all hover:bg-white/20 disabled:opacity-40 disabled:hover:bg-black"
                   aria-label="Zoom out"
                 >
                   <ZoomOut className="h-5 w-5" />
                 </button>
-                <span className="text-xs font-semibold text-gray-300 min-w-[40px] text-center font-sans">
+                <span className="text-xs font-semibold text-black min-w-[40px] text-center font-sans">
                   {Math.round(scale * 100)}%
                 </span>
                 <button
                   type="button"
                   onClick={() => setScale((prev) => Math.min(3, prev + 0.5))}
                   disabled={scale >= 3}
-                  className="rounded-full bg-white/10 p-2 text-white transition-all hover:bg-white/20 disabled:opacity-40 disabled:hover:bg-white/10"
+                  className="rounded-full bg-black p-2 text-white transition-all hover:bg-white/20 disabled:opacity-40 disabled:hover:bg-black"
                   aria-label="Zoom in"
                 >
                   <ZoomIn className="h-5 w-5" />
                 </button>
-                <div className="h-6 w-px bg-white/10 mx-1" />
+                <div className="h-6 w-px bg-black mx-1" />
                 <button
                   type="button"
                   onClick={() => setSelectedImageIndex(null)}
-                  className="rounded-full bg-white/10 p-2 text-white transition-all hover:bg-white/20 hover:scale-105 active:scale-95"
+                  className="rounded-full bg-black p-2 text-white transition-all hover:bg-white/20 hover:scale-105 active:scale-95"
                   aria-label="Close gallery"
                 >
                   <X className="h-5 w-5" />
@@ -377,7 +382,7 @@ export default function Gallery() {
               <button
                 type="button"
                 onClick={handlePrev}
-                className="rounded-full bg-white/10 border border-white/10 p-3 text-white active:bg-white/20"
+                className="rounded-full bg-black border border-white/10 p-3 text-white active:bg-white/20"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -388,7 +393,7 @@ export default function Gallery() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-full bg-white/10 border border-white/10 p-3 text-white active:bg-white/20"
+                className="rounded-full bg-black border border-white/10 p-3 text-white active:bg-white/20"
                 aria-label="Next image"
               >
                 <ChevronRight className="h-5 w-5" />

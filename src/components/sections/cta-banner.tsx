@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { Container } from "@/components/common/container";
+import { WaveDivider } from "@/components/common/wave-divider";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
+import { fadeUp, viewport } from "@/lib/animations";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Container } from "@/components/common/container";
-import { Button } from "@/components/ui/button";
-import { WaveDivider } from "@/components/common/wave-divider";
-import { fadeUp, viewport } from "@/lib/animations";
-import { siteConfig } from "@/config/site";
+import Link from "next/link";
 
 export function CtaBanner() {
   return (

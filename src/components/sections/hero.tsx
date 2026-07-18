@@ -1,16 +1,16 @@
 "use client";
 
-import * as React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
-import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
-import { stats } from "@/data/stats";
-import { cn } from "@/lib/utils";
 import { heroSlides } from "@/data/hero-slides";
+import { stats } from "@/data/stats";
+import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
+import { cn } from "@/lib/utils";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Play } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import * as React from "react";
 
 const SLIDE_DURATION = 5000; // ms each slide stays on screen
 
@@ -33,12 +33,10 @@ export function Hero() {
   React.useEffect(() => {
     const onVisibilityChange = () => setPaused(document.hidden);
     document.addEventListener("visibilitychange", onVisibilityChange);
-    return () =>
-      document.removeEventListener("visibilitychange", onVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", onVisibilityChange);
   }, []);
 
-  const goTo = (index: number) =>
-    setActive(((index % slideCount) + slideCount) % slideCount);
+  const goTo = (index: number) => setActive(((index % slideCount) + slideCount) % slideCount);
 
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
@@ -53,7 +51,7 @@ export function Hero() {
             key={slide.id}
             className={cn(
               "absolute inset-0 transition-all duration-[2s] ease-out",
-              index === active ? "opacity-90" : "opacity-0",
+              index === active ? "opacity-90" : "opacity-0"
             )}
             aria-hidden={index !== active}
           >
@@ -67,7 +65,7 @@ export function Hero() {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-black/0.5  backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/40" />
       </div>
 
       <Container className="relative flex min-h-[calc(100vh_-_15vh)] flex-col justify-end py-12 md:py-28">
@@ -94,14 +92,10 @@ export function Hero() {
             variants={staggerItem}
             className="mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg"
           >
-            We design and build swimming pools and gardens that are engineered
-            for this climate and finished to last — from first sketch to the
-            final walkthrough.
+            We design and build swimming pools and gardens that are engineered for this climate and
+            finished to last — from first sketch to the final walkthrough.
           </motion.p>
-          <motion.div
-            variants={staggerItem}
-            className="mt-9 flex flex-wrap items-center gap-4"
-          >
+          <motion.div variants={staggerItem} className="mt-9 flex flex-wrap items-center gap-4">
             <Button asChild size="lg" variant="accent">
               <Link href="/contact">
                 Request a Quote
@@ -140,10 +134,7 @@ export function Hero() {
                     initial={{ width: "0%" }}
                     animate={{ width: "100%" }}
                     transition={{
-                      duration:
-                        paused || prefersReducedMotion
-                          ? 0
-                          : SLIDE_DURATION / 1000,
+                      duration: paused || prefersReducedMotion ? 0 : SLIDE_DURATION / 1000,
                       ease: "linear",
                     }}
                   />
