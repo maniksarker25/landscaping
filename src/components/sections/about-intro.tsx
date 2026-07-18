@@ -22,7 +22,7 @@ export function AboutIntro() {
               viewport={viewport}
               className="relative"
             >
-              <div className="relative aspect-[4/3] sm:aspect-[4/5] lg:aspect-square w-full rounded-3xl overflow-hidden shadow-2xl">
+              <div className="relative aspect-[4/3] sm:aspect-[4/5] lg:aspect-square w-full rounded-xl overflow-hidden">
                 <Image
                   src="https://i.pinimg.com/1200x/8a/ac/70/8aac706bc4423fb4173526652e3e4258.jpg"
                   alt="Luxurious swimming pool design in Dubai"

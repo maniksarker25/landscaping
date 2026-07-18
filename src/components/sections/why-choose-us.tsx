@@ -48,6 +48,7 @@ export function WhyChooseUs() {
             sizes="(min-width: 1024px) 50vw, 100vw"
             className="object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         </motion.div>
 
         <div>

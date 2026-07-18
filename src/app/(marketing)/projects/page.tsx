@@ -56,6 +56,7 @@ import { useEffect, useMemo, useState } from "react";
 
 interface GalleryItem {
   id: string;
+  title: string;
   imageUrl: string;
 }
 
@@ -65,61 +66,49 @@ interface GalleryItem {
 // the aspect ratio you set here always matches what's downloaded.
 const PROJECT_IMAGES: Omit<GalleryItem, "id">[] = [
   {
+    title: "PALM JUMEIRAH",
     imageUrl:
       "https://plus.unsplash.com/premium_photo-1682377521564-b180edfc960c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
+    title: "JUMEIRAH ISLAND",
     imageUrl:
       "https://images.unsplash.com/photo-1757439402214-2311405d70bd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
+    title: "JUMEIRAH PARK",
     imageUrl:
       "https://images.unsplash.com/photo-1416331108676-a22ccb276e35?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
-  // {
-  //   imageUrl:
-  //     "https://images.unsplash.com/photo-1621437102383-99e5cf9859c7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  // },
   {
+    title: "MEADOWS",
     imageUrl:
       "https://images.unsplash.com/photo-1782939355849-4a748ada9c84?q=80&w=2084&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
+    title: "PEARL JUMEIRAH",
     imageUrl:
       "https://images.unsplash.com/photo-1777907604937-69219987431f?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
+    title: "ARABIAN RANCHES",
     imageUrl:
       "https://images.unsplash.com/photo-1711114378509-acc95d490b25?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
-  // {
-  //   imageUrl:
-  //     "https://images.unsplash.com/photo-1618606338706-fc3bad33dbe6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  // },
-
-    {
+  {
+    title: "PALM JUMEIRAH",
     imageUrl:
       "https://images.unsplash.com/photo-1774597998589-a47635d76ee5?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
+    title: "PEARL JUMEIRAH",
     imageUrl:
       "https://images.unsplash.com/photo-1645447556616-e9d1c52e8037?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
+    title: "JUMEIRAH ISLAND",
     imageUrl:
       "https://images.unsplash.com/photo-1700957814555-0a05851e1d21?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    imageUrl:
-      "https://plus.unsplash.com/premium_photo-1687960116764-f3526d29dae6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    imageUrl:
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-    {
-    imageUrl:
-      "https://images.unsplash.com/photo-1774597998589-a47635d76ee5?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 
@@ -190,8 +179,7 @@ export default function Gallery() {
   };
 
   const skeletonHeights = useMemo(
-    () =>
-      Array.from({ length: 8 }, () => Math.floor(Math.random() * 200) + 220),
+    () => Array.from({ length: 6 }, () => 300),
     [],
   );
 
@@ -203,44 +191,56 @@ export default function Gallery() {
 
       {/* Skeleton state on first load */}
       {loading && (
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 [column-fill:_balance]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {skeletonHeights.map((h, i) => (
-            <div
-              key={`skeleton-${i}`}
-              className="mb-4 break-inside-avoid rounded-xl bg-muted animate-pulse"
-              style={{ height: `${h}px` }}
-            />
+            <div key={`skeleton-${i}`} className="flex flex-col gap-0 shadow-sm">
+              <div
+                className="w-full bg-muted animate-pulse"
+                style={{ height: `${h}px` }}
+              />
+              <div className="py-4 px-2 bg-white flex items-center justify-center border-t border-gray-100">
+                <div className="h-3 w-32 bg-muted rounded animate-pulse" />
+              </div>
+            </div>
           ))}
         </div>
       )}
 
-      {/* Masonry gallery */}
+      {/* Grid gallery */}
       {!loading && (
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 [column-fill:_balance]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence>
             {items.map((item, index) => (
               <motion.div
                 key={item?.id}
                 onClick={() => setSelectedImageIndex(index)}
-                className="relative mb-4 break-inside-avoid group cursor-pointer overflow-hidden rounded-2xl bg-muted border border-border/40 shadow-sm transition-all hover:shadow-md hover:border-accent/30"
+                className="group cursor-pointer flex flex-col bg-white shadow-sm border border-gray-100/50 hover:shadow-lg transition-all duration-300"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <Image
-                  src={item?.imageUrl as string}
-                  alt={""}
-                  width={600}
-                  height={600}
-                  className={`w-full h-auto object-cover transition-all duration-500 group-hover:scale-105 ${
-                    loadedIds.has(item?.id) ? "image-loaded" : "image-loading"
-                  }`}
-                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  onLoad={() => handleImageLoad(item?.id)}
-                />
-
-                {/* Visual Premium Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="relative w-full aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={item?.imageUrl as string}
+                    alt={item?.title || "Project Image"}
+                    fill
+                    className={`object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90 ${
+                      loadedIds.has(item?.id) ? "image-loaded" : "image-loading"
+                    }`}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    onLoad={() => handleImageLoad(item?.id)}
+                  />
+                  
+                  {/* Visual Premium Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                </div>
+                
+                {/* Title Box */}
+                <div className="py-5 px-4 text-center bg-white z-10 transition-colors group-hover:bg-gray-50 flex items-center justify-center">
+                  <span className="text-xs font-bold tracking-[0.2em] uppercase text-black">
+                    {item.title || "Project"}
+                  </span>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>

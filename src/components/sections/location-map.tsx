@@ -36,7 +36,6 @@ export function LocationMap() {
           onClick={() => setIsInteractive(true)}
         >
           <Button 
-            variant="secondary" 
             className="shadow-xl backdrop-blur-md bg-background/90 hover:bg-background pointer-events-none transition-transform group-hover:-translate-y-1"
           >
             <Map className="w-4 h-4 mr-2" />
