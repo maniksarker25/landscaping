@@ -12,7 +12,7 @@ import { stats } from "@/data/stats";
 import { cn } from "@/lib/utils";
 import { heroSlides } from "@/data/hero-slides";
 
-const SLIDE_DURATION = 3000; // ms each slide stays on screen
+const SLIDE_DURATION = 5000; // ms each slide stays on screen
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
@@ -28,7 +28,7 @@ export function Hero() {
     }, SLIDE_DURATION);
 
     return () => window.clearInterval(id);
-  }, [paused, prefersReducedMotion, slideCount]);
+  }, [active, paused, prefersReducedMotion, slideCount]);
 
   React.useEffect(() => {
     const onVisibilityChange = () => setPaused(document.hidden);
@@ -41,11 +41,7 @@ export function Hero() {
     setActive(((index % slideCount) + slideCount) % slideCount);
 
   return (
-    <section
-      className="relative overflow-hidden bg-primary text-primary-foreground"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <section className="relative overflow-hidden bg-primary text-primary-foreground">
       <div
         className="absolute inset-0 "
         role="region"
@@ -56,8 +52,8 @@ export function Hero() {
           <div
             key={slide.id}
             className={cn(
-              "absolute inset-0 transition-opacity duration-1000 ease-out",
-              index === active ? "opacity-100" : "opacity-0",
+              "absolute inset-0 transition-all duration-[2s] ease-out",
+              index === active ? "opacity-90" : "opacity-0",
             )}
             aria-hidden={index !== active}
           >

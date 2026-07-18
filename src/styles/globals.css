@@ -7,15 +7,17 @@
   change it there too (and vice versa) — theme.ts is the documented source
   of truth, these variables are what Tailwind actually consumes at runtime.
 */
+/* #1362AB hsl(209, 80%, 37%) */
 @layer base {
   :root {
-    --primary: 174 61% 14%;
+    --primary: 209 80% 37%;
     --primary-foreground: 45 38% 92%;
 
     --secondary: 168 24% 58%;
     --secondary-foreground: 174 61% 10%;
 
-    --accent: 39 45% 47%;
+    /* --accent: 39 45% 47%; */
+    --accent: 209 80% 37%;
     --accent-foreground: 45 38% 96%;
 
     --background: 44 33% 92%;
@@ -78,6 +80,34 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+
+  /* Smooth image loading */
+  .image-loading {
+    @apply blur-sm scale-110;
+  }
+
+  .image-loaded {
+    @apply blur-0 scale-100 transition-all duration-500;
   }
 }
 

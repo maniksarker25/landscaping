@@ -7,7 +7,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group block overflow-hidden rounded-lg border border-border bg-card"
+      className="group block overflow-hidden rounded-3xl border border-border bg-card"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image

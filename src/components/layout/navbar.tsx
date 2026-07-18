@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { Waves, ArrowRight, Mail, Phone } from "lucide-react";
 import { siteConfig, type NavItem } from "@/config/site";
 import { Container } from "@/components/common/container";
-import { Button } from "@/components/ui/button";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import {
   NavigationMenu,
@@ -17,6 +16,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -50,7 +50,9 @@ export function Navbar() {
     <div
       className={cn(
         "sticky top-0 z-50 w-full transition-colors duration-300",
-        scrolled ? "border-b border-border shadow-sm" : "border-b border-transparent"
+        scrolled
+          ? "border-b border-border shadow-sm"
+          : "border-b border-transparent",
       )}
     >
       {/* Top Header / Utility Bar */}
@@ -77,18 +79,21 @@ export function Navbar() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 transition-colors hover:text-green-400"
             >
-              <WhatsAppIcon className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+              <WhatsAppIcon
+                className="h-3.5 w-3.5 fill-current"
+                aria-hidden="true"
+              />
               <span className="hidden sm:inline">WhatsApp</span>
             </a>
           </div>
-          <div>
+          {/* <div>
             <Link
               href="/contact"
               className="inline-flex h-7 items-center justify-center rounded bg-accent px-3 text-[11px] font-semibold text-accent-foreground transition-all hover:bg-accent/90 hover:scale-[1.02] active:scale-[0.98]"
             >
               Get a Quote
             </Link>
-          </div>
+          </div> */}
         </Container>
       </div>
 
@@ -97,109 +102,115 @@ export function Navbar() {
           "h-[72px] w-full transition-colors duration-300",
           scrolled
             ? "bg-background/95 backdrop-blur-sm"
-            : "bg-background/70 backdrop-blur-sm"
+            : "bg-background/70 backdrop-blur-sm",
         )}
       >
-      <Container className="flex h-full items-center justify-between">
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-display text-xl tracking-tight text-primary"
-        >
-          <Waves className="h-6 w-6 text-accent" aria-hidden="true" />
-          {siteConfig.name}
-        </Link>
+        <Container className="flex h-full items-center justify-between">
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-display text-xl tracking-tight text-primary"
+          >
+            <Waves className="h-6 w-6 text-accent" aria-hidden="true" />
+            {siteConfig.name}
+          </Link>
 
-        <NavigationMenu className="hidden lg:flex" delayDuration={100}>
-          <NavigationMenuList>
-            {siteConfig.nav.map((item) => {
-              const isActive = isItemActive(item);
+          <NavigationMenu className="hidden lg:flex" delayDuration={100}>
+            <NavigationMenuList>
+              {siteConfig.nav.map((item) => {
+                const isActive = isItemActive(item);
 
-              if (item.children?.length) {
+                if (item.children?.length) {
+                  return (
+                    <NavigationMenuItem key={item.href}>
+                      <NavigationMenuTrigger
+                        className={cn(isActive && "text-primary")}
+                      >
+                        {item.label}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[560px] grid-cols-2 gap-1 p-4 lg:w-[640px]">
+                          {item.children.map((child) => {
+                            const Icon = child.icon;
+                            return (
+                              <li key={child.href}>
+                                <NavigationMenuLink asChild>
+                                  <Link
+                                    href={child.href}
+                                    className="group flex items-start gap-3 rounded-lg p-3 transition-colors hover:bg-muted focus:bg-muted focus:outline-none"
+                                  >
+                                    {Icon && (
+                                      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
+                                        <Icon
+                                          className="h-4.5 w-4.5"
+                                          aria-hidden="true"
+                                        />
+                                      </span>
+                                    )}
+                                    <span className="flex flex-col gap-0.5">
+                                      <span className="text-sm font-medium text-primary">
+                                        {child.label}
+                                      </span>
+                                      <span className="text-xs leading-snug text-foreground/60">
+                                        {child.description}
+                                      </span>
+                                    </span>
+                                  </Link>
+                                </NavigationMenuLink>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                        <div className="flex items-center justify-between border-t border-border bg-muted/50 px-5 py-3">
+                          <span className="text-xs text-foreground/60">
+                            Not sure where to start?
+                          </span>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={item.href}
+                              className="flex items-center gap-1 text-xs font-medium text-accent hover:underline"
+                            >
+                              View all {item.label.toLowerCase()}
+                              <ArrowRight
+                                className="h-3 w-3"
+                                aria-hidden="true"
+                              />
+                            </Link>
+                          </NavigationMenuLink>
+                        </div>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  );
+                }
+
                 return (
                   <NavigationMenuItem key={item.href}>
-                    <NavigationMenuTrigger
-                      className={cn(isActive && "text-primary")}
-                    >
-                      {item.label}
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <ul className="grid w-[560px] grid-cols-2 gap-1 p-4 lg:w-[640px]">
-                        {item.children.map((child) => {
-                          const Icon = child.icon;
-                          return (
-                            <li key={child.href}>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  href={child.href}
-                                  className="group flex items-start gap-3 rounded-lg p-3 transition-colors hover:bg-muted focus:bg-muted focus:outline-none"
-                                >
-                                  {Icon && (
-                                    <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
-                                      <Icon className="h-4.5 w-4.5" aria-hidden="true" />
-                                    </span>
-                                  )}
-                                  <span className="flex flex-col gap-0.5">
-                                    <span className="text-sm font-medium text-primary">
-                                      {child.label}
-                                    </span>
-                                    <span className="text-xs leading-snug text-foreground/60">
-                                      {child.description}
-                                    </span>
-                                  </span>
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                      <div className="flex items-center justify-between border-t border-border bg-muted/50 px-5 py-3">
-                        <span className="text-xs text-foreground/60">
-                          Not sure where to start?
-                        </span>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href={item.href}
-                            className="flex items-center gap-1 text-xs font-medium text-accent hover:underline"
-                          >
-                            View all {item.label.toLowerCase()}
-                            <ArrowRight className="h-3 w-3" aria-hidden="true" />
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                    </NavigationMenuContent>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href={item.href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={cn(
+                          "inline-flex items-center text-sm font-medium tracking-wide transition-colors hover:text-accent",
+                          isActive ? "text-primary" : "text-foreground/80",
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 );
-              }
+              })}
+            </NavigationMenuList>
+          </NavigationMenu>
 
-              return (
-                <NavigationMenuItem key={item.href}>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href={item.href}
-                      aria-current={isActive ? "page" : undefined}
-                      className={cn(
-                        "inline-flex items-center text-sm font-medium tracking-wide transition-colors hover:text-accent",
-                        isActive ? "text-primary" : "text-foreground/80"
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              );
-            })}
-          </NavigationMenuList>
-        </NavigationMenu>
+          <div className="hidden lg:block">
+            <Button asChild>
+              <Link href="/contact">Request a Quote</Link>
+            </Button>
+          </div>
 
-        <div className="hidden lg:block">
-          <Button asChild>
-            <Link href="/contact">Request a Quote</Link>
-          </Button>
-        </div>
-
-        <MobileMenu />
-      </Container>
-    </header>
+          <MobileMenu />
+        </Container>
+      </header>
     </div>
   );
 }

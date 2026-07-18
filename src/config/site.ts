@@ -58,13 +58,13 @@ export const siteConfig: SiteConfig = {
       children: [
         {
           label: "Swimming Pool Construction",
-          href: "/pools/construction",
+          href: `/`,
           description: "Custom-built pools engineered from the ground up.",
           icon: Waves,
         },
         {
           label: "Skimmer Swimming Pool",
-          href: "/pools/skimmer",
+          href: "/",
           description: "Classic skimmer systems, reliable and cost-effective.",
           icon: CircleDot,
         },
@@ -149,13 +149,14 @@ export const siteConfig: SiteConfig = {
         {
           label: "Landscape Lighting Services",
           href: "/landscaping/lighting",
-          description: "Lighting design that transforms outdoor spaces at night.",
+          description:
+            "Lighting design that transforms outdoor spaces at night.",
           icon: Lightbulb,
         },
       ],
     },
     // { label: "Services", href: "/services" },
-    { label: "Project", href: "/project" },
+    { label: "Project", href: "/projects" },
     // { label: "Blog", href: "/blog" },
     { label: "Contact Us", href: "/contact" },
   ],
