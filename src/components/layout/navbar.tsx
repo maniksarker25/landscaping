@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import Image from "next/image";
+import { IMAGE } from "../../../public/images/index.image";
 
 function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -106,12 +108,16 @@ export function Navbar() {
         )}
       >
         <Container className="flex h-full items-center justify-between">
+          {/* <Image src={IMAGE.logo} width={600} height={450} alt="" className="w-24" /> */}
           <Link
             href="/"
-            className="flex items-center gap-2 font-display text-xl tracking-tight text-primary"
+            className="flex items-end justify-end gap-2 font-display text-xl tracking-tight text-primary"
+
           >
-            <Waves className="h-6 w-6 text-accent" aria-hidden="true" />
-            {siteConfig.name}
+            <div className="flex items-end justify-end">
+              <h1>DFL</h1>
+              <h1 className="text-[10px] mb-1">LLC</h1>
+            </div>
           </Link>
 
           <NavigationMenu className="hidden lg:flex" delayDuration={100}>

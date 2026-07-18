@@ -54,7 +54,7 @@ export const siteConfig: SiteConfig = {
     { label: "Home", href: "/" },
     {
       label: "Pools",
-      href: "/pools",
+      href: "/",
       children: [
         {
           label: "Swimming Pool Construction",
@@ -70,31 +70,31 @@ export const siteConfig: SiteConfig = {
         },
         {
           label: "Overflow Swimming Pool",
-          href: "/pools/overflow",
+          href: "/",
           description: "Seamless overflow edges for a sleek, modern finish.",
           icon: Droplets,
         },
         {
           label: "Infinity Swimming Pool",
-          href: "/pools/infinity",
+          href: "/",
           description: "Vanishing-edge pools with uninterrupted views.",
           icon: InfinityIcon,
         },
         {
           label: "Swimming Pool Maintenance",
-          href: "/pools/maintenance",
+          href: "/",
           description: "Ongoing care to keep your pool pristine year-round.",
           icon: Wrench,
         },
         {
           label: "Water Features",
-          href: "/pools/water-features",
+          href: "/",
           description: "Sculptural water elements that elevate any pool.",
           icon: Sparkles,
         },
         {
           label: "Water Fountains",
-          href: "/pools/water-fountains",
+          href: "/",
           description: "Statement fountains for gardens, courtyards and pools.",
           icon: GlassWater,
         },
@@ -102,53 +102,53 @@ export const siteConfig: SiteConfig = {
     },
     {
       label: "Landscaping",
-      href: "/landscaping",
+      href: "/",
       children: [
         {
           label: "Villa Landscaping",
-          href: "/landscaping/villa",
+          href: "/",
           description: "Full-scale outdoor design for private villas.",
           icon: Home,
         },
         {
           label: "Residential Landscaping",
-          href: "/landscaping/residential",
+          href: "/",
           description: "Thoughtful garden design for everyday living.",
           icon: Trees,
         },
         {
           label: "Commercial Landscaping",
-          href: "/landscaping/commercial",
+          href: "/",
           description: "Grounds that make the right first impression.",
           icon: Building2,
         },
         {
           label: "Garden Maintenance",
-          href: "/landscaping/garden-maintenance",
+          href: "/",
           description: "Scheduled upkeep to keep gardens flourishing.",
           icon: Sprout,
         },
         {
           label: "Irrigation System",
-          href: "/landscaping/irrigation",
+          href: "/",
           description: "Efficient, automated watering built to last.",
           icon: Droplet,
         },
         {
           label: "Pergola & Gazebo",
-          href: "/landscaping/pergola-gazebo",
+          href: "/",
           description: "Shaded structures that extend your living space.",
           icon: Home,
         },
         {
           label: "Lawn Care",
-          href: "/landscaping/lawn-care",
+          href: "/",
           description: "Healthy, well-kept lawns in every season.",
           icon: Flower2,
         },
         {
           label: "Landscape Lighting Services",
-          href: "/landscaping/lighting",
+          href: "/",
           description:
             "Lighting design that transforms outdoor spaces at night.",
           icon: Lightbulb,
@@ -156,9 +156,9 @@ export const siteConfig: SiteConfig = {
       ],
     },
     // { label: "Services", href: "/services" },
-    { label: "Project", href: "/projects" },
+    { label: "Project", href: "/" },
     // { label: "Blog", href: "/blog" },
-    { label: "Contact Us", href: "/contact" },
+    { label: "Contact Us", href: "/" },
   ],
   socials: [
     { label: "Instagram", href: "https://instagram.com" },

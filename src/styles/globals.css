@@ -7,17 +7,19 @@
   change it there too (and vice versa) — theme.ts is the documented source
   of truth, these variables are what Tailwind actually consumes at runtime.
 */
-/* #1362AB hsl(209, 80%, 37%) */
+/* #1362AB 209 80% 37%*/
+/* prev-prim- 174 61% 14% */
 @layer base {
   :root {
-    --primary: 209 80% 37%;
+    --primary: 174 61% 14%;
     --primary-foreground: 45 38% 92%;
 
     --secondary: 168 24% 58%;
     --secondary-foreground: 174 61% 10%;
 
     /* --accent: 39 45% 47%; */
-    --accent: 209 80% 37%;
+    /* --accent: 209 80% 37%; */
+    --accent: 174 61% 14%;
     --accent-foreground: 45 38% 96%;
 
     --background: 44 33% 92%;

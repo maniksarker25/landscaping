@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import type { Testimonial } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
@@ -11,12 +12,25 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             <Star key={i} className="h-4 w-4 fill-current" />
           ))}
         </div>
-        <p className="mt-4 text-[15px] leading-relaxed text-foreground">
+        <p className="mt-4 text-[15px] leading-relaxed text-foreground line-clamp-3">
           &ldquo;{testimonial.quote}&rdquo;
         </p>
-        <div className="mt-6">
-          <p className="font-display text-base">{testimonial.name}</p>
-          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+        <div className="mt-6 flex items-start gap-2">
+          <Image
+            src={testimonial.avatar as string}
+            alt={testimonial.name}
+            width={50}
+            height={50}
+            className="w-12 h-12 overflow-hidden rounded-full border border-primary p-[2px]"
+          />
+          <div className="flex flex-col items-start justify-center">
+            <p className="font-display text-base line-clamp-1">
+              {testimonial.name}
+            </p>
+            <p className="text-sm text-muted-foreground line-clamp-1">
+              {testimonial.role}
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>

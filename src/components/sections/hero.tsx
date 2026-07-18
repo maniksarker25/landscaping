@@ -114,7 +114,7 @@ export function Hero() {
               variant="ghost"
               className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
             >
-              <Link href="/projects">
+              <Link href="/">
                 <Play className="h-4 w-4" aria-hidden="true" />
                 View Our Work
               </Link>
