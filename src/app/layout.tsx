@@ -19,12 +19,16 @@ const publicSans = Public_Sans({
 });
 
 export const metadata: Metadata = buildMetadata({
-  title: `${siteConfig.name} — ${siteConfig.tagline}`,
+  title: `${siteConfig.name} — ${siteConfig.description}`,
   description: siteConfig.description,
   path: "/",
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const organizationJsonLd = buildOrganizationJsonLd();
 
   return (
@@ -33,7 +37,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
         />
         {children}
       </body>

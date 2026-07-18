@@ -1,6 +1,32 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Waves,
+  CircleDot,
+  Droplets,
+  Infinity as InfinityIcon,
+  Wrench,
+  Sparkles,
+  GlassWater,
+  Home,
+  Building2,
+  Trees,
+  Sprout,
+  Droplet,
+  Flower2,
+  Lightbulb,
+} from "lucide-react";
+
+export interface NavChild {
+  label: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+}
+
 export interface NavItem {
   label: string;
   href: string;
+  children?: NavChild[];
 }
 
 export interface SiteConfig {
@@ -16,22 +42,122 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Aurelia Outdoor",
+  name: "Poolscape",
   tagline: "Pools & Landscapes, Considered",
   description:
-    "Bespoke pool construction and landscape design for residential and commercial properties across the Emirates. From concept to completion, we build outdoor spaces meant to last generations.",
-  url: "https://www.aureliaoutdoor.example",
+    "Bespoke swimming pool construction and landscaping, designed and built end to end.",
+  url: "https://poolscape.ae",
   phone: "+971 4 000 0000",
-  email: "studio@aureliaoutdoor.example",
+  email: "studio@poolscape.ae",
   address: "Al Quoz Industrial Area 3, Dubai, UAE",
   nav: [
     { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Services", href: "/services" },
-    { label: "Projects", href: "/projects" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Blog", href: "/blog" },
-    { label: "FAQs", href: "/faqs" },
+    {
+      label: "Pools",
+      href: "/pools",
+      children: [
+        {
+          label: "Swimming Pool Construction",
+          href: "/pools/construction",
+          description: "Custom-built pools engineered from the ground up.",
+          icon: Waves,
+        },
+        {
+          label: "Skimmer Swimming Pool",
+          href: "/pools/skimmer",
+          description: "Classic skimmer systems, reliable and cost-effective.",
+          icon: CircleDot,
+        },
+        {
+          label: "Overflow Swimming Pool",
+          href: "/pools/overflow",
+          description: "Seamless overflow edges for a sleek, modern finish.",
+          icon: Droplets,
+        },
+        {
+          label: "Infinity Swimming Pool",
+          href: "/pools/infinity",
+          description: "Vanishing-edge pools with uninterrupted views.",
+          icon: InfinityIcon,
+        },
+        {
+          label: "Swimming Pool Maintenance",
+          href: "/pools/maintenance",
+          description: "Ongoing care to keep your pool pristine year-round.",
+          icon: Wrench,
+        },
+        {
+          label: "Water Features",
+          href: "/pools/water-features",
+          description: "Sculptural water elements that elevate any pool.",
+          icon: Sparkles,
+        },
+        {
+          label: "Water Fountains",
+          href: "/pools/water-fountains",
+          description: "Statement fountains for gardens, courtyards and pools.",
+          icon: GlassWater,
+        },
+      ],
+    },
+    {
+      label: "Landscaping",
+      href: "/landscaping",
+      children: [
+        {
+          label: "Villa Landscaping",
+          href: "/landscaping/villa",
+          description: "Full-scale outdoor design for private villas.",
+          icon: Home,
+        },
+        {
+          label: "Residential Landscaping",
+          href: "/landscaping/residential",
+          description: "Thoughtful garden design for everyday living.",
+          icon: Trees,
+        },
+        {
+          label: "Commercial Landscaping",
+          href: "/landscaping/commercial",
+          description: "Grounds that make the right first impression.",
+          icon: Building2,
+        },
+        {
+          label: "Garden Maintenance",
+          href: "/landscaping/garden-maintenance",
+          description: "Scheduled upkeep to keep gardens flourishing.",
+          icon: Sprout,
+        },
+        {
+          label: "Irrigation System",
+          href: "/landscaping/irrigation",
+          description: "Efficient, automated watering built to last.",
+          icon: Droplet,
+        },
+        {
+          label: "Pergola & Gazebo",
+          href: "/landscaping/pergola-gazebo",
+          description: "Shaded structures that extend your living space.",
+          icon: Home,
+        },
+        {
+          label: "Lawn Care",
+          href: "/landscaping/lawn-care",
+          description: "Healthy, well-kept lawns in every season.",
+          icon: Flower2,
+        },
+        {
+          label: "Landscape Lighting Services",
+          href: "/landscaping/lighting",
+          description: "Lighting design that transforms outdoor spaces at night.",
+          icon: Lightbulb,
+        },
+      ],
+    },
+    // { label: "Services", href: "/services" },
+    { label: "Project", href: "/project" },
+    // { label: "Blog", href: "/blog" },
+    { label: "Contact Us", href: "/contact" },
   ],
   socials: [
     { label: "Instagram", href: "https://instagram.com" },

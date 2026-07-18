@@ -1,30 +1,80 @@
 "use client";
 
+import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
 import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
 import { stats } from "@/data/stats";
+import { cn } from "@/lib/utils";
+import { heroSlides } from "@/data/hero-slides";
+
+const SLIDE_DURATION = 3000; // ms each slide stays on screen
 
 export function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+  const [active, setActive] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+  const slideCount = heroSlides.length;
+
+  React.useEffect(() => {
+    if (paused || prefersReducedMotion || slideCount <= 1) return;
+
+    const id = window.setInterval(() => {
+      setActive((current) => (current + 1) % slideCount);
+    }, SLIDE_DURATION);
+
+    return () => window.clearInterval(id);
+  }, [paused, prefersReducedMotion, slideCount]);
+
+  React.useEffect(() => {
+    const onVisibilityChange = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+  }, []);
+
+  const goTo = (index: number) =>
+    setActive(((index % slideCount) + slideCount) % slideCount);
+
   return (
-    <section className="relative overflow-hidden bg-primary text-primary-foreground">
-      <div className="absolute inset-0">
-        <Image
-          src="https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=2000&auto=format&fit=crop"
-          alt=""
-          fill
-          priority
-          className="object-cover opacity-30"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/40" />
+    <section
+      className="relative overflow-hidden bg-primary text-primary-foreground"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div
+        className="absolute inset-0 "
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Featured pool and landscape projects"
+      >
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={cn(
+              "absolute inset-0 transition-opacity duration-1000 ease-out",
+              index === active ? "opacity-100" : "opacity-0",
+            )}
+            aria-hidden={index !== active}
+          >
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-black/0.5  backdrop-blur-sm" />
       </div>
 
-      <Container className="relative flex min-h-[88vh] flex-col justify-end pb-16 pt-40 sm:pb-20">
+      <Container className="relative flex min-h-[calc(100vh_-_15vh)] flex-col justify-end py-12 md:py-28">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -33,7 +83,7 @@ export function Hero() {
         >
           <motion.span
             variants={staggerItem}
-            className="mb-5 inline-block rounded-full border border-primary-foreground/20 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-secondary"
+            className="mb-5 inline-block rounded-full border border-primary-foreground/20 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-md"
           >
             Pool & Landscape Studio &middot; UAE
           </motion.span>
@@ -52,14 +102,22 @@ export function Hero() {
             for this climate and finished to last — from first sketch to the
             final walkthrough.
           </motion.p>
-          <motion.div variants={staggerItem} className="mt-9 flex flex-wrap items-center gap-4">
+          <motion.div
+            variants={staggerItem}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
             <Button asChild size="lg" variant="accent">
               <Link href="/contact">
                 Request a Quote
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+            <Button
+              asChild
+              size="lg"
+              variant="ghost"
+              className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
+            >
               <Link href="/projects">
                 <Play className="h-4 w-4" aria-hidden="true" />
                 View Our Work
@@ -68,11 +126,42 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
+        {slideCount > 1 && (
+          <div className="mt-10 flex items-center gap-2.5">
+            {heroSlides.map((slide, index) => (
+              <button
+                key={slide.id}
+                type="button"
+                onClick={() => goTo(index)}
+                aria-label={`Show slide ${index + 1} of ${slideCount}`}
+                aria-current={index === active}
+                className="group relative h-1.5 flex-1 max-w-10 overflow-hidden rounded-full bg-primary-foreground/25"
+              >
+                {index === active && (
+                  <motion.span
+                    key={active}
+                    className="absolute inset-y-0 left-0 rounded-full bg-secondary"
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{
+                      duration:
+                        paused || prefersReducedMotion
+                          ? 0
+                          : SLIDE_DURATION / 1000,
+                      ease: "linear",
+                    }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+
         <motion.dl
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mt-16 grid grid-cols-2 gap-8 border-t border-primary-foreground/10 pt-8 sm:grid-cols-4"
+          className="mt-6 grid grid-cols-2 gap-8 border-y border-primary-foreground/10 p-4 backdrop-blur-md sm:grid-cols-4"
         >
           {stats.map((stat) => (
             <div key={stat.id}>
