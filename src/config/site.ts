@@ -48,7 +48,7 @@ export const siteConfig: SiteConfig = {
     "Bespoke swimming pool construction and landscaping, designed and built end to end.",
   url: "https://poolscape.ae",
   phone: "+971 4 000 0000",
-  email: "studio@poolscape.ae",
+  email: "info@dreamfloor.ae",
   address: "Al Quoz Industrial Area 3, Dubai, UAE",
   nav: [
     { label: "Home", href: "/" },

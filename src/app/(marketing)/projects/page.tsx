@@ -193,7 +193,10 @@ export default function Gallery() {
       {loading && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {skeletonHeights.map((h, i) => (
-            <div key={`skeleton-${i}`} className="flex flex-col gap-0 shadow-sm">
+            <div
+              key={`skeleton-${i}`}
+              className="flex flex-col gap-0 shadow-sm"
+            >
               <div
                 className="w-full bg-muted animate-pulse"
                 style={{ height: `${h}px` }}
@@ -214,7 +217,7 @@ export default function Gallery() {
               <motion.div
                 key={item?.id}
                 onClick={() => setSelectedImageIndex(index)}
-                className="group cursor-pointer flex flex-col bg-white shadow-sm border border-gray-100/50 hover:shadow-lg transition-all duration-300"
+                className="group cursor-pointer rounded-md overflow-hidden flex flex-col bg-white shadow-sm border border-gray-100/50 hover:shadow-lg transition-all duration-300"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
@@ -230,11 +233,11 @@ export default function Gallery() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     onLoad={() => handleImageLoad(item?.id)}
                   />
-                  
+
                   {/* Visual Premium Hover Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
-                
+
                 {/* Title Box */}
                 <div className="py-5 px-4 text-center bg-white z-10 transition-colors group-hover:bg-gray-50 flex items-center justify-center">
                   <span className="text-xs font-bold tracking-[0.2em] uppercase text-black">
