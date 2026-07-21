@@ -54,7 +54,7 @@ export function getPoolIconBySlug(slug: string): LucideIcon {
 }
 
 export function getDynamicPoolsNavChildren(): NavChild[] {
-  return Object.values(poolsDetailData).map((pool) => ({
+  return poolsDetailData.map((pool) => ({
     label: pool.title,
     href: `/pools/${pool.slug}`,
     description: pool.subtitle || pool.description || pool.seo?.metaDescription || "",

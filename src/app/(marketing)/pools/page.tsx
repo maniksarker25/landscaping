@@ -24,7 +24,7 @@ const iconMap = {
 };
 
 export default function PoolsOverviewPage() {
-  const poolsList = Object.values(poolsDetailData);
+  const poolsList = poolsDetailData;
 
   return (
     <main className="min-h-screen bg-background">
@@ -55,7 +55,7 @@ export default function PoolsOverviewPage() {
               <div>
                 <div className="relative h-56 w-full overflow-hidden bg-muted">
                   <Image
-                    src={pool.heroImage}
+                    src={pool.heroImage || pool.featuredImage || ""}
                     alt={pool.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

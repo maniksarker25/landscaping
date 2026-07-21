@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 interface PoolDetailHeroProps {
   title: string;
   subtitle?: string;
-  heroImage: string;
+  heroImage?: string;
   badge?: string;
   className?: string;
 }
@@ -18,7 +18,7 @@ interface PoolDetailHeroProps {
 export function PoolDetailHero({
   title,
   subtitle,
-  heroImage,
+  heroImage = "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=2000&auto=format&fit=crop",
   badge,
   className,
 }: PoolDetailHeroProps) {

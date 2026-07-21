@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PoolPageProps): Promise<Metad
     openGraph: {
       title: pool.seo.metaTitle,
       description: pool.seo.metaDescription,
-      images: [{ url: pool.heroImage }],
+      images: [{ url: pool.heroImage || pool.featuredImage || "" }],
     },
   };
 }
@@ -50,13 +50,16 @@ export default async function PoolDetailPage({ params }: PoolPageProps) {
     notFound();
   }
 
+  const heroSection = pool.sections.find((s) => s.blockType === "hero_section" || s.type === "hero_section");
+  const heroData = heroSection?.content?.hero;
+
   return (
     <main className="min-h-screen bg-background">
       {/* Dynamic Header Hero Banner */}
       <PoolDetailHero
-        title={pool.title}
-        subtitle={pool.subtitle}
-        heroImage={pool.heroImage}
+        title={heroData?.headline || pool.title}
+        subtitle={heroData?.subheadline || pool.subtitle}
+        heroImage={heroData?.bgImage || pool.featuredImage}
         badge={pool.badge}
       />
 
@@ -72,7 +75,7 @@ export default async function PoolDetailPage({ params }: PoolPageProps) {
           </div>
 
           {/* Right Column (Sticky Quick Consultation Form) */}
-          <div className="lg:col-span-4 w-full">
+          <div className="lg:col-span-4 w-full lg:sticky lg:top-24 h-fit">
             <PoolSidebarForm currentPoolTitle={pool.title} />
           </div>
         </div>

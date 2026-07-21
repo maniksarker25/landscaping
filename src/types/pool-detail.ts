@@ -128,7 +128,7 @@ export interface PoolDetailData {
   category?: string;
   isPublished?: boolean;
   featuredImage?: string;
-  heroImage: string;
+  heroImage?: string;
   subtitle?: string;
   badge?: string;
   aliases?: string[];

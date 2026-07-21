@@ -7,9 +7,9 @@ import { PoolGalleryGrid } from "./pool-gallery-grid";
 import { PoolCtaBanner } from "./pool-cta-banner";
 import { PoolTrustReviews } from "./pool-trust-reviews";
 import { cn } from "@/lib/utils";
-import { PoolHeroBlock } from "./pool-hero-block";
 import { PoolFeaturesGrid } from "./pool-features-grid";
 import { PoolFaqAccordion } from "./pool-faq-accordion";
+import { defaultGoogleReviews } from "@/data/pools-detail-data";
 
 interface PoolDynamicRendererProps {
   sections: PoolDetailSection[];
@@ -24,17 +24,28 @@ export function PoolDynamicRenderer({
 }: PoolDynamicRendererProps) {
   if (!sections || sections.length === 0) return null;
 
+  const reviewsData = googleReviews || defaultGoogleReviews;
+  const hasReviews = sections.some((s) => s.blockType === "trust-reviews" || s.type === "trust-reviews");
+  const finalSections = hasReviews
+    ? sections
+    : [
+        ...sections,
+        {
+          id: "trust-reviews-virtual",
+          type: "trust-reviews" as const,
+          title: "What Our Clients Say About Us",
+        },
+      ];
+
   return (
     <div className={cn("space-y-8", className)}>
-      {sections.map((section, index) => {
+      {finalSections.map((section, index) => {
         const key = section.id || `section-${index}`;
         const blockKind = section.blockType || section.type;
 
         switch (blockKind) {
           case "hero_section":
-            return section.content?.hero ? (
-              <PoolHeroBlock key={key} hero={section.content.hero} />
-            ) : null;
+            return null;
 
           case "rich_text_jodit":
           case "rich-text": {
@@ -166,7 +177,7 @@ export function PoolDynamicRenderer({
               <PoolTrustReviews
                 key={key}
                 title={section.title}
-                data={googleReviews}
+                data={reviewsData}
               />
             );
 
