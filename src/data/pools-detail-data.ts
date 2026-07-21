@@ -37,21 +37,32 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
     slug: "infinity-swimming-pool",
     aliases: ["infinity", "infinity-pool"],
     title: "Looking For Infinity Swimming Pool Contractors In Dubai?",
-    subtitle: "Engineered vanishing-edge pools that seamlessly blend water, horizon, and modern architecture.",
-    heroImage: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=2000&auto=format&fit=crop",
+    subtitle:
+      "Engineered vanishing-edge pools that seamlessly blend water, horizon, and modern architecture.",
+    heroImage:
+      "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=2000&auto=format&fit=crop",
     badge: "Premier Infinity Edge Builders",
-    description: "Bespoke infinity edge swimming pools designed and constructed for luxury Dubai villas and commercial developments.",
+    description:
+      "Bespoke infinity edge swimming pools designed and constructed for luxury Dubai villas and commercial developments.",
     seo: {
-      metaTitle: "Infinity Swimming Pool Contractors in Dubai | Bespoke Vanishing Edge Pools",
-      metaDescription: "Top-rated infinity swimming pool design & construction contractors in Dubai. Custom engineered vanishing edge pools, glass wall features, and luxury landscape integration.",
-      keywords: ["infinity pool Dubai", "infinity pool contractors Dubai", "vanishing edge pool build", "luxury swimming pool Dubai"],
+      metaTitle:
+        "Infinity Swimming Pool Contractors in Dubai | Bespoke Vanishing Edge Pools",
+      metaDescription:
+        "Top-rated infinity swimming pool design & construction contractors in Dubai. Custom engineered vanishing edge pools, glass wall features, and luxury landscape integration.",
+      keywords: [
+        "infinity pool Dubai",
+        "infinity pool contractors Dubai",
+        "vanishing edge pool build",
+        "luxury swimming pool Dubai",
+      ],
     },
     googleReviews: defaultGoogleReviews,
     sections: [
       {
         id: "intro",
         type: "rich-text",
-        title: "Your Search Ends Right Here! Looking for a Pool Company in Dubai",
+        title:
+          "Your Search Ends Right Here! Looking for a Pool Company in Dubai",
         contentHtml: `
           <p class="text-base sm:text-lg text-foreground/80 leading-relaxed">
             Searching for premier <strong>Infinity Swimming Pool Contractors in Dubai</strong>? You have landed in the right place. At <strong>Poolscape & Landscaping LLC</strong>, we specialize in conceptualizing, engineering, and constructing architectural infinity edge pools that create a breathtaking illusion of water dropping straight into the horizon.
@@ -65,12 +76,30 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         id: "intro-gallery",
         type: "gallery-6grid",
         images: [
-          { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop", alt: "Infinity pool overview with modern villa" },
-          { src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop", alt: "Sunset view infinity pool edge" },
-          { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop", alt: "Luxury villa pool with loungers" },
-          { src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop", alt: "Glass edge infinity pool" },
-          { src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop", alt: "Modern villa courtyard pool" },
-          { src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop", alt: "Illuminated evening infinity pool" },
+          {
+            src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop",
+            alt: "Infinity pool overview with modern villa",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
+            alt: "Sunset view infinity pool edge",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+            alt: "Luxury villa pool with loungers",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop",
+            alt: "Glass edge infinity pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop",
+            alt: "Modern villa courtyard pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
+            alt: "Illuminated evening infinity pool",
+          },
         ],
       },
       {
@@ -103,7 +132,8 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "cta-callout",
         cta: {
           headline: "Looking for Infinity Pool Contractors in Dubai?",
-          subline: "Call us today to schedule a free site survey & 3D consultation!",
+          subline:
+            "Call us today to schedule a free site survey & 3D consultation!",
           phoneNumber: "+971529990092",
           phoneDisplay: "+971 52 999 0092",
           buttonText: "Call Now",
@@ -123,35 +153,46 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         id: "design-images",
         type: "side-by-side-images",
         images: [
-          { src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop", alt: "Illuminated step entry pool" },
-          { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop", alt: "Sunset beach style infinity edge" },
+          {
+            src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop",
+            alt: "Illuminated step entry pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop",
+            alt: "Sunset beach style infinity edge",
+          },
         ],
       },
       {
         id: "process",
         type: "process-timeline",
         title: "The Process Of Infinity Swimming Pool Construction",
-        subtitle: "A systematic 4-step engineering approach ensuring safety, durability, and flawless execution.",
+        subtitle:
+          "A systematic 4-step engineering approach ensuring safety, durability, and flawless execution.",
         processSteps: [
           {
             stepNumber: 1,
             title: "Site Survey & Engineering Design",
-            description: "Geotechnical soil testing, 3D architectural renders, structural concrete calculations, and local Dubai authority permits.",
+            description:
+              "Geotechnical soil testing, 3D architectural renders, structural concrete calculations, and local Dubai authority permits.",
           },
           {
             stepNumber: 2,
             title: "Excavation, Steel Mesh & Gunite Shell",
-            description: "Precision excavation, double-layer reinforced steel rebar cage construction, and high-strength shotcrete/gunite pouring.",
+            description:
+              "Precision excavation, double-layer reinforced steel rebar cage construction, and high-strength shotcrete/gunite pouring.",
           },
           {
             stepNumber: 3,
             title: "Waterproofing & Premium Finishes",
-            description: "Multi-layer crystalline waterproofing membrane, surge tank plumbing, hand-laid glass mosaics, and natural stone edge coping.",
+            description:
+              "Multi-layer crystalline waterproofing membrane, surge tank plumbing, hand-laid glass mosaics, and natural stone edge coping.",
           },
           {
             stepNumber: 4,
             title: "Plant Room Setup & Commissioning",
-            description: "Installation of high-efficiency pumps, sand/cartridge filters, automation controllers, water chemical balancing, and owner handover.",
+            description:
+              "Installation of high-efficiency pumps, sand/cartridge filters, automation controllers, water chemical balancing, and owner handover.",
           },
         ],
       },
@@ -160,12 +201,30 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "gallery-6grid",
         title: "Get Inspired By Our Recent Work",
         images: [
-          { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop", alt: "Recent villa infinity pool project" },
-          { src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop", alt: "Palm Jumeirah luxury pool build" },
-          { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop", alt: "Emirates Hills residential pool" },
-          { src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop", alt: "Modern sleek vanishing pool" },
-          { src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop", alt: "Jumeirah Golf Estates pool design" },
-          { src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop", alt: "Dubai Hills villa landscaping with pool" },
+          {
+            src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop",
+            alt: "Recent villa infinity pool project",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
+            alt: "Palm Jumeirah luxury pool build",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+            alt: "Emirates Hills residential pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop",
+            alt: "Modern sleek vanishing pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop",
+            alt: "Jumeirah Golf Estates pool design",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
+            alt: "Dubai Hills villa landscaping with pool",
+          },
         ],
       },
       {
@@ -173,10 +232,26 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "features-list",
         title: "Infinity Pool Features and Enhancements",
         features: [
-          { title: "Glass Panel Edge Walls", description: "Seamless structural acrylic or tempered glass panels creating a floating water perspective." },
-          { title: "Perimeter LED Illumination", description: "Programmable RGBW underwater spotlights for vibrant nighttime ambiance." },
-          { title: "Integrated Sunken Loungers", description: "Shallow tanning ledges (baja shelves) crafted inside the pool perimeter." },
-          { title: "Automated Heat & Chill Systems", description: "Keep water at a comfortable 28°C all year round despite Dubai summer heat." },
+          {
+            title: "Glass Panel Edge Walls",
+            description:
+              "Seamless structural acrylic or tempered glass panels creating a floating water perspective.",
+          },
+          {
+            title: "Perimeter LED Illumination",
+            description:
+              "Programmable RGBW underwater spotlights for vibrant nighttime ambiance.",
+          },
+          {
+            title: "Integrated Sunken Loungers",
+            description:
+              "Shallow tanning ledges (baja shelves) crafted inside the pool perimeter.",
+          },
+          {
+            title: "Automated Heat & Chill Systems",
+            description:
+              "Keep water at a comfortable 28°C all year round despite Dubai summer heat.",
+          },
         ],
       },
       {
@@ -190,15 +265,26 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
   "overflow-swimming-pool": {
     slug: "overflow-swimming-pool",
     aliases: ["overflow", "overflow-pool"],
-    title: "Searching For The Premier Overflow Swimming Pool Contractor In Dubai!",
-    subtitle: "Glass-like water surface level pools engineered for continuous perimeter filtration and luxury modern aesthetic.",
-    heroImage: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2000&auto=format&fit=crop",
+    title:
+      "Searching For The Premier Overflow Swimming Pool Contractor In Dubai!",
+    subtitle:
+      "Glass-like water surface level pools engineered for continuous perimeter filtration and luxury modern aesthetic.",
+    heroImage:
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2000&auto=format&fit=crop",
     badge: "Master Overflow Pool Engineers",
-    description: "Expert overflow pool builders in Dubai specializing in perimeter slot drains, stone channels, and whisper-quiet recirculation systems.",
+    description:
+      "Expert overflow pool builders in Dubai specializing in perimeter slot drains, stone channels, and whisper-quiet recirculation systems.",
     seo: {
-      metaTitle: "Overflow Swimming Pool Contractor in Dubai | Perimeter Channel Pools",
-      metaDescription: "Premier overflow swimming pool contractor in Dubai. Experience crystal-clear water with 360-degree perimeter overflow channels, stone gratings, and custom pool engineering.",
-      keywords: ["overflow pool Dubai", "overflow swimming pool contractor", "perimeter channel pool", "deck slot pool Dubai"],
+      metaTitle:
+        "Overflow Swimming Pool Contractor in Dubai | Perimeter Channel Pools",
+      metaDescription:
+        "Premier overflow swimming pool contractor in Dubai. Experience crystal-clear water with 360-degree perimeter overflow channels, stone gratings, and custom pool engineering.",
+      keywords: [
+        "overflow pool Dubai",
+        "overflow swimming pool contractor",
+        "perimeter channel pool",
+        "deck slot pool Dubai",
+      ],
     },
     googleReviews: defaultGoogleReviews,
     sections: [
@@ -219,12 +305,30 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         id: "intro-gallery",
         type: "gallery-6grid",
         images: [
-          { src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop", alt: "Overflow pool surface level with deck" },
-          { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop", alt: "Perimeter overflow channel with granite tiles" },
-          { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop", alt: "Modern villa overflow pool landscape" },
-          { src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop", alt: "Slot channel overflow detail" },
-          { src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop", alt: "Evening lighted overflow pool" },
-          { src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop", alt: "Villa poolside overflow setup" },
+          {
+            src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
+            alt: "Overflow pool surface level with deck",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop",
+            alt: "Perimeter overflow channel with granite tiles",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+            alt: "Modern villa overflow pool landscape",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop",
+            alt: "Slot channel overflow detail",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop",
+            alt: "Evening lighted overflow pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
+            alt: "Villa poolside overflow setup",
+          },
         ],
       },
       {
@@ -267,35 +371,47 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         id: "advantages",
         type: "side-by-side-images",
         images: [
-          { src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop", alt: "Perimeter slot grate finish" },
-          { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop", alt: "Overflow pool with travertine deck" },
+          {
+            src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop",
+            alt: "Perimeter slot grate finish",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop",
+            alt: "Overflow pool with travertine deck",
+          },
         ],
       },
       {
         id: "process",
         type: "process-timeline",
-        title: "Leading The Way In Overflow Swimming Pool Construction in Dubai",
-        subtitle: "Precision engineering from underground surge tanks to flush stone perimeter slots.",
+        title:
+          "Leading The Way In Overflow Swimming Pool Construction in Dubai",
+        subtitle:
+          "Precision engineering from underground surge tanks to flush stone perimeter slots.",
         processSteps: [
           {
             stepNumber: 1,
             title: "Structural & Hydraulic Engineering",
-            description: "Determining surge tank volume, pump head calculations, and slab reinforcements signed by chartered Dubai engineers.",
+            description:
+              "Determining surge tank volume, pump head calculations, and slab reinforcements signed by chartered Dubai engineers.",
           },
           {
             stepNumber: 2,
             title: "Concrete Shell & Perimeter Channel Formwork",
-            description: "Forming the main pool vessel alongside the outer overflow gutter channel and balance tank.",
+            description:
+              "Forming the main pool vessel alongside the outer overflow gutter channel and balance tank.",
           },
           {
             stepNumber: 3,
             title: "Double Membrane Waterproofing & Tiling",
-            description: "Full tanking test followed by installation of non-porous glass ceramic tiles and custom slot covers.",
+            description:
+              "Full tanking test followed by installation of non-porous glass ceramic tiles and custom slot covers.",
           },
           {
             stepNumber: 4,
             title: "Automated Balancing & Water Handover",
-            description: "Calibrating auto-fill sensors, water chemistry controls, and providing complete client training.",
+            description:
+              "Calibrating auto-fill sensors, water chemistry controls, and providing complete client training.",
           },
         ],
       },
@@ -304,12 +420,30 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "gallery-6grid",
         title: "Get Inspired By Our Recent Work",
         images: [
-          { src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop", alt: "Completed overflow pool project" },
-          { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop", alt: "Luxury villa garden overflow pool" },
-          { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop", alt: "Modern overflow pool night view" },
-          { src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop", alt: "Surge tank overflow setup" },
-          { src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop", alt: "Custom marble edge pool" },
-          { src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop", alt: "Residential villa pool build" },
+          {
+            src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
+            alt: "Completed overflow pool project",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop",
+            alt: "Luxury villa garden overflow pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+            alt: "Modern overflow pool night view",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop",
+            alt: "Surge tank overflow setup",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop",
+            alt: "Custom marble edge pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
+            alt: "Residential villa pool build",
+          },
         ],
       },
       {
@@ -324,14 +458,24 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
     slug: "skimmer-swimming-pool",
     aliases: ["skimmer", "skimmer-pool"],
     title: "Looking For Skimmer Swimming Pool Contractors In Dubai?",
-    subtitle: "Classic, reliable, and cost-effective swimming pool solutions designed for family villas.",
-    heroImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2000&auto=format&fit=crop",
+    subtitle:
+      "Classic, reliable, and cost-effective swimming pool solutions designed for family villas.",
+    heroImage:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2000&auto=format&fit=crop",
     badge: "Classic Pool Specialists",
-    description: "High quality skimmer pool design, construction, and maintenance across Dubai. Fast installation, low operational cost, and elegant finishes.",
+    description:
+      "High quality skimmer pool design, construction, and maintenance across Dubai. Fast installation, low operational cost, and elegant finishes.",
     seo: {
-      metaTitle: "Skimmer Swimming Pool Contractors in Dubai | Cost Effective Pools",
-      metaDescription: "Reliable skimmer swimming pool contractors in Dubai. Custom built skimmer pools with heavy-duty filtration, durable coping tiles, and low maintenance overhead.",
-      keywords: ["skimmer pool Dubai", "skimmer swimming pool contractor", "budget pool build Dubai", "family swimming pool"],
+      metaTitle:
+        "Skimmer Swimming Pool Contractors in Dubai | Cost Effective Pools",
+      metaDescription:
+        "Reliable skimmer swimming pool contractors in Dubai. Custom built skimmer pools with heavy-duty filtration, durable coping tiles, and low maintenance overhead.",
+      keywords: [
+        "skimmer pool Dubai",
+        "skimmer swimming pool contractor",
+        "budget pool build Dubai",
+        "family swimming pool",
+      ],
     },
     googleReviews: defaultGoogleReviews,
     sections: [
@@ -352,18 +496,37 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         id: "intro-gallery",
         type: "gallery-6grid",
         images: [
-          { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop", alt: "Skimmer pool overview in villa" },
-          { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop", alt: "Custom skimmer pool with sun loungers" },
-          { src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop", alt: "Family backyard skimmer pool" },
-          { src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop", alt: "Built-in jacuzzi in skimmer pool" },
-          { src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop", alt: "Night time LED lit skimmer pool" },
-          { src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop", alt: "Clear blue water skimmer pool finish" },
+          {
+            src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+            alt: "Skimmer pool overview in villa",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop",
+            alt: "Custom skimmer pool with sun loungers",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
+            alt: "Family backyard skimmer pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop",
+            alt: "Built-in jacuzzi in skimmer pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop",
+            alt: "Night time LED lit skimmer pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
+            alt: "Clear blue water skimmer pool finish",
+          },
         ],
       },
       {
         id: "why-choose",
         type: "rich-text",
-        title: "Transform Your Vision Into Reality With The Main Skimmer Pool Contractor",
+        title:
+          "Transform Your Vision Into Reality With The Main Skimmer Pool Contractor",
         contentHtml: `
           <ul class="space-y-3 my-4 text-foreground/85">
             <li class="flex items-start gap-3">
@@ -390,7 +553,8 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "cta-callout",
         cta: {
           headline: "Looking to Build a Skimmer Pool in Dubai?",
-          subline: "Call us today at +971 52 999 0092 for immediate expert advice!",
+          subline:
+            "Call us today at +971 52 999 0092 for immediate expert advice!",
           phoneNumber: "+971529990092",
           phoneDisplay: "+971 52 999 0092",
           buttonText: "Call Now",
@@ -400,35 +564,46 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         id: "design-images",
         type: "side-by-side-images",
         images: [
-          { src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop", alt: "Skimmer entry steps detail" },
-          { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop", alt: "Poolside wooden deck with skimmer pool" },
+          {
+            src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop",
+            alt: "Skimmer entry steps detail",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop",
+            alt: "Poolside wooden deck with skimmer pool",
+          },
         ],
       },
       {
         id: "process",
         type: "process-timeline",
         title: "Tailored Skimmer Pool Construction Solutions",
-        subtitle: "A streamlined construction journey engineered for peace of mind.",
+        subtitle:
+          "A streamlined construction journey engineered for peace of mind.",
         processSteps: [
           {
             stepNumber: 1,
             title: "Site Consultation & 3D Design",
-            description: "Mapping out pool boundaries, sun exposure, depth profiles, and obtaining municipality structural NOCs.",
+            description:
+              "Mapping out pool boundaries, sun exposure, depth profiles, and obtaining municipality structural NOCs.",
           },
           {
             stepNumber: 2,
             title: "Excavation & Structural Shelling",
-            description: "Excavating soil, installing steel reinforcement cages, and pouring heavy-duty reinforced concrete.",
+            description:
+              "Excavating soil, installing steel reinforcement cages, and pouring heavy-duty reinforced concrete.",
           },
           {
             stepNumber: 3,
             title: "Plumbing, Skimmer Box & Waterproofing",
-            description: "Installing commercial-grade skimmer units, return jets, suction lines, and certified liquid membrane waterproofing.",
+            description:
+              "Installing commercial-grade skimmer units, return jets, suction lines, and certified liquid membrane waterproofing.",
           },
           {
             stepNumber: 4,
             title: "Tiling & Equipment Handover",
-            description: "Laying ceramic tiles, connecting plant room pumps & heaters, water chemistry balancing, and final client sign-off.",
+            description:
+              "Laying ceramic tiles, connecting plant room pumps & heaters, water chemistry balancing, and final client sign-off.",
           },
         ],
       },
@@ -437,12 +612,30 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "gallery-6grid",
         title: "Get Inspired By Our Recent Work",
         images: [
-          { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop", alt: "Recent skimmer pool project" },
-          { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop", alt: "Dubai villa garden skimmer pool" },
-          { src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop", alt: "Backyard resort style pool build" },
-          { src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop", alt: "Skimmer pool with glass mosaic tiles" },
-          { src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop", alt: "Integrated spa and skimmer pool" },
-          { src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop", alt: "Modern skimmer pool handover" },
+          {
+            src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+            alt: "Recent skimmer pool project",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop",
+            alt: "Dubai villa garden skimmer pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
+            alt: "Backyard resort style pool build",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop",
+            alt: "Skimmer pool with glass mosaic tiles",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop",
+            alt: "Integrated spa and skimmer pool",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
+            alt: "Modern skimmer pool handover",
+          },
         ],
       },
       {
@@ -457,14 +650,24 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
     slug: "swimming-pool-construction",
     aliases: ["construction", "pool-construction"],
     title: "End-to-End Swimming Pool Construction In Dubai",
-    subtitle: "Custom concrete pool engineering, structural shell installation, and full turnkey project management.",
-    heroImage: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=2000&auto=format&fit=crop",
+    subtitle:
+      "Custom concrete pool engineering, structural shell installation, and full turnkey project management.",
+    heroImage:
+      "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=2000&auto=format&fit=crop",
     badge: "Certified Pool Builders",
-    description: "Turnkey swimming pool construction in Dubai. Fully engineered concrete shells, waterproofing, plant room mechanics, and municipality approvals.",
+    description:
+      "Turnkey swimming pool construction in Dubai. Fully engineered concrete shells, waterproofing, plant room mechanics, and municipality approvals.",
     seo: {
-      metaTitle: "Swimming Pool Construction Contractors in Dubai | Complete Pool Build",
-      metaDescription: "Leading swimming pool construction company in Dubai. Turnkey engineering, permits, concrete shell pouring, tiling, and smart plant room automation.",
-      keywords: ["swimming pool construction Dubai", "pool builder Dubai", "pool installation contractors", "villa pool construction"],
+      metaTitle:
+        "Swimming Pool Construction Contractors in Dubai | Complete Pool Build",
+      metaDescription:
+        "Leading swimming pool construction company in Dubai. Turnkey engineering, permits, concrete shell pouring, tiling, and smart plant room automation.",
+      keywords: [
+        "swimming pool construction Dubai",
+        "pool builder Dubai",
+        "pool installation contractors",
+        "villa pool construction",
+      ],
     },
     googleReviews: defaultGoogleReviews,
     sections: [
@@ -485,39 +688,62 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         id: "intro-gallery",
         type: "gallery-6grid",
         images: [
-          { src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop", alt: "Custom pool construction site" },
-          { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop", alt: "Reinforced steel shell pouring" },
-          { src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop", alt: "Waterproofing test in progress" },
-          { src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop", alt: "Tile fitting on pool floor" },
-          { src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop", alt: "Plant room pump installation" },
-          { src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop", alt: "Finished pool handover in Dubai villa" },
+          {
+            src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
+            alt: "Custom pool construction site",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop",
+            alt: "Reinforced steel shell pouring",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
+            alt: "Waterproofing test in progress",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+            alt: "Tile fitting on pool floor",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?q=80&w=800&auto=format&fit=crop",
+            alt: "Plant room pump installation",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=800&auto=format&fit=crop",
+            alt: "Finished pool handover in Dubai villa",
+          },
         ],
       },
       {
         id: "process",
         type: "process-timeline",
         title: "Our 4-Phase Pool Construction Workflow",
-        subtitle: "From site survey to initial water splash — executed with precision engineering.",
+        subtitle:
+          "From site survey to initial water splash — executed with precision engineering.",
         processSteps: [
           {
             stepNumber: 1,
             title: "Design & Authority Permits",
-            description: "3D architectural render design, soil test, structural drawing approval from Dubai Municipality / DDA.",
+            description:
+              "3D architectural render design, soil test, structural drawing approval from Dubai Municipality / DDA.",
           },
           {
             stepNumber: 2,
             title: "Excavation & Gunite Shell",
-            description: "Earthwork excavation, gravel base, steel rebar grid, and high-density shotcrete concrete spraying.",
+            description:
+              "Earthwork excavation, gravel base, steel rebar grid, and high-density shotcrete concrete spraying.",
           },
           {
             stepNumber: 3,
             title: "Hydraulic Plumbing & Waterproofing",
-            description: "Installing heavy-duty PVC pipework, main drains, skimmers/gutters, and multi-layer waterproof membrane.",
+            description:
+              "Installing heavy-duty PVC pipework, main drains, skimmers/gutters, and multi-layer waterproof membrane.",
           },
           {
             stepNumber: 4,
             title: "Finishes, Decking & Handover",
-            description: "Laying Spanish mosaic tiles, granite coping, deck paving, pump room automation, and chemical balancing.",
+            description:
+              "Laying Spanish mosaic tiles, granite coping, deck paving, pump room automation, and chemical balancing.",
           },
         ],
       },
@@ -526,7 +752,8 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "cta-callout",
         cta: {
           headline: "Ready to Build Your Custom Pool in Dubai?",
-          subline: "Schedule a free consultation with our head pool engineer today!",
+          subline:
+            "Schedule a free consultation with our head pool engineer today!",
           phoneNumber: "+971529990092",
           phoneDisplay: "+971 52 999 0092",
           buttonText: "Call Now",
@@ -544,14 +771,24 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
     slug: "swimming-pool-maintenance",
     aliases: ["maintenance", "pool-maintenance"],
     title: "Professional Swimming Pool Maintenance Services In Dubai",
-    subtitle: "Weekly water balancing, filtration servicing, equipment repair, and emergency 24/7 support.",
-    heroImage: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=2000&auto=format&fit=crop",
+    subtitle:
+      "Weekly water balancing, filtration servicing, equipment repair, and emergency 24/7 support.",
+    heroImage:
+      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=2000&auto=format&fit=crop",
     badge: "Certified Water Technicians",
-    description: "Scheduled pool maintenance programs across Dubai. Keep water crystal clear, safe, and balanced year-round with certified pool technicians.",
+    description:
+      "Scheduled pool maintenance programs across Dubai. Keep water crystal clear, safe, and balanced year-round with certified pool technicians.",
     seo: {
-      metaTitle: "Swimming Pool Maintenance Services Dubai | Water Treatment & Care",
-      metaDescription: "Professional swimming pool maintenance in Dubai. Weekly water testing, filter backwashing, pump repair, chemical dosing, and plant room upkeep.",
-      keywords: ["swimming pool maintenance Dubai", "pool cleaning company Dubai", "pool water treatment", "pool pump repair Dubai"],
+      metaTitle:
+        "Swimming Pool Maintenance Services Dubai | Water Treatment & Care",
+      metaDescription:
+        "Professional swimming pool maintenance in Dubai. Weekly water testing, filter backwashing, pump repair, chemical dosing, and plant room upkeep.",
+      keywords: [
+        "swimming pool maintenance Dubai",
+        "pool cleaning company Dubai",
+        "pool water treatment",
+        "pool pump repair Dubai",
+      ],
     },
     googleReviews: defaultGoogleReviews,
     sections: [
@@ -573,7 +810,8 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "cta-callout",
         cta: {
           headline: "Need Urgent Pool Maintenance or Water Chemical Balancing?",
-          subline: "Speak to our maintenance team now for flexible contract packages!",
+          subline:
+            "Speak to our maintenance team now for flexible contract packages!",
           phoneNumber: "+971529990092",
           phoneDisplay: "+971 52 999 0092",
           buttonText: "Call Now",
@@ -584,10 +822,26 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "features-list",
         title: "Comprehensive Maintenance Contract Benefits",
         features: [
-          { title: "Weekly Chemical Balancing", description: "Precision chemical dosing to prevent algae, bacteria, and eye irritation." },
-          { title: "Filter & Pump Servicing", description: "Regular backwashing, media replacement, and mechanical pump inspections." },
-          { title: "Surface Skimming & Vacuuming", description: "Deep floor vacuuming, wall brushing, and skimmer basket debris clearance." },
-          { title: "24/7 Emergency Callout", description: "Fast repair support for pump leaks, heater failures, or sudden water cloudiness." },
+          {
+            title: "Weekly Chemical Balancing",
+            description:
+              "Precision chemical dosing to prevent algae, bacteria, and eye irritation.",
+          },
+          {
+            title: "Filter & Pump Servicing",
+            description:
+              "Regular backwashing, media replacement, and mechanical pump inspections.",
+          },
+          {
+            title: "Surface Skimming & Vacuuming",
+            description:
+              "Deep floor vacuuming, wall brushing, and skimmer basket debris clearance.",
+          },
+          {
+            title: "24/7 Emergency Callout",
+            description:
+              "Fast repair support for pump leaks, heater failures, or sudden water cloudiness.",
+          },
         ],
       },
       {
@@ -602,21 +856,31 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
     slug: "water-features",
     aliases: ["water-feature", "features"],
     title: "Custom Architectural Water Features In Dubai",
-    subtitle: "Sheer descent waterfalls, rain curtains, bubbling jets, and tranquil garden water elements.",
-    heroImage: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=2000&auto=format&fit=crop",
+    subtitle:
+      "Sheer descent waterfalls, rain curtains, bubbling jets, and tranquil garden water elements.",
+    heroImage:
+      "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=2000&auto=format&fit=crop",
     badge: "Water Artisans & Designers",
-    description: "Transform your outdoor space with custom water features in Dubai. Waterfalls, spillways, light-up jets, and decorative garden features.",
+    description:
+      "Transform your outdoor space with custom water features in Dubai. Waterfalls, spillways, light-up jets, and decorative garden features.",
     seo: {
       metaTitle: "Custom Water Features Dubai | Pool Waterfalls & Spillways",
-      metaDescription: "Design & build custom water features in Dubai. Sheer descent waterfalls, rain curtains, rock features, and illuminated jets for luxury gardens & pools.",
-      keywords: ["water features Dubai", "pool waterfall build", "sheer descent waterfall", "garden water feature"],
+      metaDescription:
+        "Design & build custom water features in Dubai. Sheer descent waterfalls, rain curtains, rock features, and illuminated jets for luxury gardens & pools.",
+      keywords: [
+        "water features Dubai",
+        "pool waterfall build",
+        "sheer descent waterfall",
+        "garden water feature",
+      ],
     },
     googleReviews: defaultGoogleReviews,
     sections: [
       {
         id: "intro",
         type: "rich-text",
-        title: "Elevate Your Pool & Outdoor Living Space With Dynamic Water Features",
+        title:
+          "Elevate Your Pool & Outdoor Living Space With Dynamic Water Features",
         contentHtml: `
           <p class="text-base sm:text-lg text-foreground/80 leading-relaxed">
             The soothing sound of running water can mask ambient city noise and turn a normal backyard into a peaceful sanctuary. At <strong>Poolscape LLC</strong>, we design and construct bespoke <strong>Water Features</strong> integrated into swimming pools, villa courtyards, and garden walls.
@@ -631,7 +895,8 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
         type: "cta-callout",
         cta: {
           headline: "Add a Custom Water Feature to Your Villa Pool?",
-          subline: "Contact our landscape design team today for custom 3D concept designs!",
+          subline:
+            "Contact our landscape design team today for custom 3D concept designs!",
           phoneNumber: "+971529990092",
           phoneDisplay: "+971 52 999 0092",
           buttonText: "Call Now",
@@ -649,21 +914,32 @@ export const poolsDetailData: Record<string, PoolDetailData> = {
     slug: "water-fountains",
     aliases: ["fountains", "water-fountain"],
     title: "Statement Water Fountains For Gardens & Villa Entrances",
-    subtitle: "Majestic entryway fountains, courtyard centerpieces, and automated dancing water displays.",
-    heroImage: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2000&auto=format&fit=crop",
+    subtitle:
+      "Majestic entryway fountains, courtyard centerpieces, and automated dancing water displays.",
+    heroImage:
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2000&auto=format&fit=crop",
     badge: "Fountain Specialists",
-    description: "Design and installation of luxury water fountains in Dubai. Tiered fountains, modern geometric spillways, courtyard fountains, and LED water features.",
+    description:
+      "Design and installation of luxury water fountains in Dubai. Tiered fountains, modern geometric spillways, courtyard fountains, and LED water features.",
     seo: {
-      metaTitle: "Water Fountains Contractors Dubai | Villa & Courtyard Fountains",
-      metaDescription: "Custom water fountain contractors in Dubai. Luxury entryway fountains, tiered stone fountains, courtyard water displays, and automated pump systems.",
-      keywords: ["water fountains Dubai", "courtyard fountain contractor", "villa entrance fountain", "garden fountain Dubai"],
+      metaTitle:
+        "Water Fountains Contractors Dubai | Villa & Courtyard Fountains",
+      metaDescription:
+        "Custom water fountain contractors in Dubai. Luxury entryway fountains, tiered stone fountains, courtyard water displays, and automated pump systems.",
+      keywords: [
+        "water fountains Dubai",
+        "courtyard fountain contractor",
+        "villa entrance fountain",
+        "garden fountain Dubai",
+      ],
     },
     googleReviews: defaultGoogleReviews,
     sections: [
       {
         id: "intro",
         type: "rich-text",
-        title: "Create a Regal First Impression With Custom Water Fountains in Dubai",
+        title:
+          "Create a Regal First Impression With Custom Water Fountains in Dubai",
         contentHtml: `
           <p class="text-base sm:text-lg text-foreground/80 leading-relaxed">
             A fountain is the ultimate statement piece for villa driveways, entry foyers, and outdoor garden majlis areas. At <strong>Poolscape LLC</strong>, we craft custom <strong>Water Fountains</strong> using premium natural marble, carved granite, bronze, and weather-resistant composites.

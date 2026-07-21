@@ -7,7 +7,13 @@ export type PoolSectionType =
   | "cta-callout"
   | "process-timeline"
   | "features-list"
-  | "trust-reviews";
+  | "trust-reviews"
+  | "hero_section"
+  | "rich_text_jodit"
+  | "features_grid"
+  | "faq_accordion"
+  | "gallery_grid"
+  | "cta_banner";
 
 export interface PoolGalleryImage {
   src: string;
@@ -19,6 +25,7 @@ export interface PoolFeatureItem {
   title: string;
   description: string;
   iconName?: string;
+  iconUrl?: string;
 }
 
 export interface PoolProcessStep {
@@ -36,9 +43,51 @@ export interface PoolCtaConfig {
   buttonHref?: string;
 }
 
+export interface PoolBlockHeroContent {
+  headline: string;
+  subheadline: string;
+  bgImage: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+export interface PoolBlockFaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface PoolBlockGalleryItem {
+  imageUrl: string;
+  caption?: string;
+  altText?: string;
+}
+
+export interface PoolBlockCtaContent {
+  title: string;
+  description?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  phoneNumber?: string;
+}
+
+export interface PoolBlockContent {
+  hero?: PoolBlockHeroContent;
+  richTextHtml?: string;
+  features?: PoolFeatureItem[];
+  accordionItems?: PoolBlockFaqItem[];
+  gallery?: PoolBlockGalleryItem[];
+  cta?: PoolBlockCtaContent;
+}
+
 export interface PoolDetailSection {
-  id: string;
-  type: PoolSectionType;
+  id?: string;
+  type?: PoolSectionType;
+  blockType?: string;
+  order?: number;
+  layoutStyle?: string;
+  content?: PoolBlockContent;
+
+  // Compatibility fields for legacy section formats
   title?: string;
   subtitle?: string;
   contentHtml?: string;
@@ -65,19 +114,26 @@ export interface GoogleReviewsData {
   reviews: GoogleReviewItem[];
 }
 
+export interface PoolDetailSeo {
+  metaTitle: string;
+  metaDescription: string;
+  keywords?: string[];
+  canonicalUrl?: string;
+  ogImage?: string;
+}
+
 export interface PoolDetailData {
-  slug: string;
-  aliases?: string[];
   title: string;
-  subtitle: string;
+  slug: string;
+  category?: string;
+  isPublished?: boolean;
+  featuredImage?: string;
   heroImage: string;
+  subtitle?: string;
   badge?: string;
-  description: string;
-  seo: {
-    metaTitle: string;
-    metaDescription: string;
-    keywords: string[];
-  };
+  aliases?: string[];
+  description?: string;
+  seo: PoolDetailSeo;
   sections: PoolDetailSection[];
   googleReviews?: GoogleReviewsData;
 }

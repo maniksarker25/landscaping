@@ -6,7 +6,6 @@ import { PoolDetailHero } from "@/components/pools/pool-detail-hero";
 import { PoolDynamicRenderer } from "@/components/pools/pool-dynamic-renderer";
 import { PoolSidebarForm } from "@/components/pools/pool-sidebar-form";
 import { PoolBottomContact } from "@/components/pools/pool-bottom-contact";
-import { PoolDropUsALine } from "@/components/pools/pool-drop-us-a-line";
 import { getPoolDetailBySlug, getAllPoolSlugs } from "@/data/pools-detail-data";
 
 interface PoolPageProps {
@@ -78,9 +77,8 @@ export default async function PoolDetailPage({ params }: PoolPageProps) {
           </div>
         </div>
 
-        {/* Bottom Contact & Map Sections */}
+        {/* Bottom Contact Section */}
         <PoolBottomContact />
-        <PoolDropUsALine />
       </Container>
     </main>
   );
