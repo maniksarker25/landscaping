@@ -3,40 +3,46 @@
 import * as React from "react";
 import Image from "next/image";
 import { ZoomIn, X, ChevronLeft, ChevronRight } from "lucide-react";
-import type { PoolGalleryImage } from "@/types/pool-detail";
+import type { PoolGalleryImage } from "@/types/service";
 import { cn } from "@/lib/utils";
 
-interface PoolGalleryGridProps {
+interface ServiceGalleryGridProps {
   images: PoolGalleryImage[];
   title?: string;
   variant?: "grid-6" | "side-by-side";
+  layoutStyle?: string;
   className?: string;
 }
 
-export function PoolGalleryGrid({
+export function ServiceGalleryGrid({
   images,
   title,
   variant = "grid-6",
+  layoutStyle,
   className,
-}: PoolGalleryGridProps) {
+}: ServiceGalleryGridProps) {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
 
   const handleNext = React.useCallback(
     (e?: React.MouseEvent) => {
       e?.stopPropagation();
       if (selectedIndex === null) return;
-      setSelectedIndex((prev) => (prev !== null && prev < images.length - 1 ? prev + 1 : 0));
+      setSelectedIndex((prev) =>
+        prev !== null && prev < images.length - 1 ? prev + 1 : 0,
+      );
     },
-    [selectedIndex, images.length]
+    [selectedIndex, images.length],
   );
 
   const handlePrev = React.useCallback(
     (e?: React.MouseEvent) => {
       e?.stopPropagation();
       if (selectedIndex === null) return;
-      setSelectedIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : images.length - 1));
+      setSelectedIndex((prev) =>
+        prev !== null && prev > 0 ? prev - 1 : images.length - 1,
+      );
     },
-    [selectedIndex, images.length]
+    [selectedIndex, images.length],
   );
 
   React.useEffect(() => {
@@ -62,6 +68,19 @@ export function PoolGalleryGrid({
 
   const currentImage = selectedIndex !== null ? images[selectedIndex] : null;
 
+  let gridColsClass = "grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3";
+  if (layoutStyle === "grid_1_col") {
+    gridColsClass = "grid-cols-1";
+  } else if (layoutStyle === "grid_2_col" || layoutStyle === "two_column_split") {
+    gridColsClass = "grid-cols-1 sm:grid-cols-2";
+  } else if (layoutStyle === "grid_3_col" || layoutStyle === "default") {
+    gridColsClass = "grid-cols-1 xs:grid-cols-2 md:grid-cols-3";
+  } else if (layoutStyle === "grid_4_col" || layoutStyle === "card_grid") {
+    gridColsClass = "grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4";
+  } else if (layoutStyle === "grid_6_col") {
+    gridColsClass = "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6";
+  }
+
   return (
     <div className={cn("space-y-4 sm:space-y-6 my-6 sm:my-10", className)}>
       {title && (
@@ -70,13 +89,47 @@ export function PoolGalleryGrid({
         </h2>
       )}
 
-      {variant === "side-by-side" ? (
+      {layoutStyle === "grid_2_col" || layoutStyle === "two_column_split" ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {images.map((img, idx) => (
+            <div
+              key={idx}
+              onClick={() => setSelectedIndex(idx)}
+              className="group relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl bg-card border border-border/80 shadow-md cursor-pointer transition-all duration-500 hover:shadow-2xl hover:border-primary/45 hover:-translate-y-1"
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              {/* Premium Gradient Overlay with High Readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white transition-opacity duration-300">
+                <div className="space-y-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/95 px-3 py-1 text-[10px] font-bold tracking-wider uppercase text-white shadow-md">
+                    <ZoomIn className="h-3 w-3 animate-pulse" /> View Design
+                  </span>
+                  <h4 className="text-sm sm:text-base font-bold text-white leading-snug tracking-wide line-clamp-1 drop-shadow-sm">
+                    {img.alt || "Luxury Landscape Showcase"}
+                  </h4>
+                  {img.caption && (
+                    <p className="text-[11px] sm:text-xs text-white/80 font-medium line-clamp-2 leading-relaxed drop-shadow-sm">
+                      {img.caption}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : variant === "side-by-side" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {images.map((img, idx) => (
             <div
               key={idx}
               onClick={() => setSelectedIndex(idx)}
-              className="group relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl bg-muted shadow-md cursor-pointer border border-border/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              className="group relative w-full overflow-hidden rounded-2xl bg-muted shadow-md cursor-pointer border border-border/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
               <Image
                 src={img.src}
@@ -101,8 +154,8 @@ export function PoolGalleryGrid({
           ))}
         </div>
       ) : (
-        /* 6-Grid / Multi-Image Grid - Optimized for Mobile (1-col on tiny, 2-col on sm, 3-col on md/lg) */
-        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4 lg:gap-5">
+        /* 6-Grid / Multi-Image Grid - Optimized dynamically based on layoutStyle */
+        <div className={cn("grid gap-3.5 sm:gap-4 lg:gap-5", gridColsClass)}>
           {images.map((img, idx) => (
             <div
               key={idx}
@@ -186,9 +239,13 @@ export function PoolGalleryGrid({
             {/* Footer Bar */}
             <div className="p-4 bg-background text-foreground flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-border">
               <div>
-                <p className="text-sm font-bold text-primary">{currentImage.alt}</p>
+                <p className="text-sm font-bold text-primary">
+                  {currentImage.alt}
+                </p>
                 {currentImage.caption && (
-                  <p className="text-xs text-muted-foreground mt-0.5">{currentImage.caption}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    {currentImage.caption}
+                  </p>
                 )}
               </div>
               <div className="flex items-center justify-between sm:justify-end gap-3 text-xs text-muted-foreground">

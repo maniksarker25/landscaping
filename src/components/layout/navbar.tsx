@@ -112,7 +112,6 @@ export function Navbar() {
           <Link
             href="/"
             className="flex items-end justify-end gap-2 font-display text-xl tracking-tight text-primary"
-
           >
             <div className="flex items-end justify-end">
               <h1>DFL</h1>
@@ -155,9 +154,6 @@ export function Navbar() {
                                     <span className="flex flex-col gap-0.5">
                                       <span className="text-sm font-medium text-primary">
                                         {child.label}
-                                      </span>
-                                      <span className="text-xs leading-snug text-foreground/60">
-                                        {child.description}
                                       </span>
                                     </span>
                                   </Link>

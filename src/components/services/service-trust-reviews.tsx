@@ -1,22 +1,57 @@
 "use client";
 
 import * as React from "react";
-import { Star, CheckCircle, Quote } from "lucide-react";
-import type { GoogleReviewsData } from "@/types/pool-detail";
-import { defaultGoogleReviews } from "@/data/pools-detail-data";
+import { Star, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import type { GoogleReviewsData } from "@/types/service";
+import { defaultGoogleReviews } from "@/data/services-data";
 import { cn } from "@/lib/utils";
 
-interface PoolTrustReviewsProps {
+interface ServiceTrustReviewsProps {
   data?: GoogleReviewsData;
   title?: string;
   className?: string;
 }
 
-export function PoolTrustReviews({
+export function ServiceTrustReviews({
   data = defaultGoogleReviews,
   title,
   className,
-}: PoolTrustReviewsProps) {
+}: ServiceTrustReviewsProps) {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
+  const [canScrollRight, setCanScrollRight] = React.useState(false);
+
+  const checkScroll = React.useCallback(() => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 2);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const el = scrollRef.current;
+    if (el) {
+      checkScroll();
+      const timer = setTimeout(checkScroll, 100);
+      el.addEventListener("scroll", checkScroll);
+      window.addEventListener("resize", checkScroll);
+      return () => {
+        clearTimeout(timer);
+        el.removeEventListener("scroll", checkScroll);
+        window.removeEventListener("resize", checkScroll);
+      };
+    }
+  }, [data.reviews, checkScroll]);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { clientWidth } = scrollRef.current;
+      const scrollAmount = direction === "left" ? -clientWidth * 0.75 : clientWidth * 0.75;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
   return (
     <div className={cn("my-10 space-y-6 rounded-2xl bg-gradient-to-b from-card/80 via-card to-muted/40 p-6 sm:p-8 border border-border/80 shadow-sm", className)}>
       {title && (
@@ -62,45 +97,73 @@ export function PoolTrustReviews({
         </div>
       </div>
 
-      {/* Review Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-        {data.reviews.map((rev) => (
-          <div
-            key={rev.id}
-            className="flex flex-col justify-between rounded-xl bg-background p-5 border border-border/60 shadow-sm transition-all hover:shadow-md"
+      {/* Review Cards Horizontal Carousel */}
+      <div className="relative group/carousel pt-2">
+        {/* Left Arrow */}
+        {canScrollLeft && (
+          <button
+            onClick={() => scroll("left")}
+            className="absolute -left-2 sm:-left-4 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/95 text-foreground shadow-md hover:bg-background hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-ring"
+            aria-label="Previous reviews"
           >
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">
-                    {rev.authorName.charAt(0)}
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+        )}
+
+        {/* Right Arrow */}
+        {canScrollRight && (
+          <button
+            onClick={() => scroll("right")}
+            className="absolute -right-2 sm:-right-4 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-background/95 text-foreground shadow-md hover:bg-background hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-ring"
+            aria-label="Next reviews"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        )}
+
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex gap-4 overflow-x-auto pb-4 pt-1 scroll-smooth snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {data.reviews.map((rev) => (
+            <div
+              key={rev.id}
+              className="flex flex-col justify-between rounded-xl bg-background p-5 border border-border/60 shadow-sm transition-all hover:shadow-md w-[280px] sm:w-[350px] flex-shrink-0 snap-start"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">
+                      {rev.authorName.charAt(0)}
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-foreground leading-none">
+                        {rev.authorName}
+                      </h4>
+                      <span className="text-xs text-muted-foreground">{rev.timeAgo}</span>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-foreground leading-none">
-                      {rev.authorName}
-                    </h4>
-                    <span className="text-xs text-muted-foreground">{rev.timeAgo}</span>
-                  </div>
+                  {rev.verified && (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                      <CheckCircle className="h-3 w-3" /> Verified
+                    </span>
+                  )}
                 </div>
-                {rev.verified && (
-                  <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    <CheckCircle className="h-3 w-3" /> Verified
-                  </span>
-                )}
-              </div>
 
-              <div className="flex items-center gap-0.5 mb-2">
-                {[...Array(rev.rating)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
+                <div className="flex items-center gap-0.5 mb-2">
+                  {[...Array(rev.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
 
-              <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed relative pl-3 border-l-2 border-primary/30 italic">
-                "{rev.text}"
-              </p>
+                <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed relative pl-3 border-l-2 border-primary/30 italic">
+                  "{rev.text}"
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

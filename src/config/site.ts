@@ -15,7 +15,7 @@ import {
   Flower2,
   Lightbulb,
 } from "lucide-react";
-import { poolsDetailData } from "@/data/pools-detail-data";
+import { serviceData } from "@/data/services-data";
 
 export interface NavChild {
   label: string;
@@ -42,24 +42,44 @@ export interface SiteConfig {
   socials: { label: string; href: string }[];
 }
 
-export function getPoolIconBySlug(slug: string): LucideIcon {
+export function getServiceIconBySlug(slug: string): LucideIcon {
   const s = slug.toLowerCase();
   if (s.includes("skimmer")) return CircleDot;
   if (s.includes("overflow")) return Droplets;
   if (s.includes("infinity")) return InfinityIcon;
   if (s.includes("maintenance")) return Wrench;
+  if (s.includes("gardening")) return Sprout;
   if (s.includes("feature")) return Sparkles;
   if (s.includes("fountain")) return GlassWater;
+  if (s.includes("lighting")) return Lightbulb;
+  if (s.includes("pergola")) return Home;
+  if (s.includes("irrigation")) return Droplet;
+  if (s.includes("villa")) return Trees;
+  if (s.includes("residential")) return Building2;
   return Waves;
 }
 
-export function getDynamicPoolsNavChildren(): NavChild[] {
-  return poolsDetailData.map((pool) => ({
-    label: pool.title,
-    href: `/pools/${pool.slug}`,
-    description: pool.subtitle || pool.description || pool.seo?.metaDescription || "",
-    icon: getPoolIconBySlug(pool.slug),
-  }));
+export function getDynamicNavChildrenByCategory(category: "Pools" | "Landscaping"): NavChild[] {
+  return serviceData
+    .filter((item) => item.category === category && item.isPublished !== false)
+    .map((item) => {
+      // Clean up labels for navbar presentation (e.g. remove " Dubai", " Construction", etc.)
+      const cleanedLabel = item.title
+        .replace(" Construction Dubai", "")
+        .replace(" Services In Dubai", "")
+        .replace(" Dubai UAE", "")
+        .replace(" Dubai", "")
+        .replace(" In Dubai", "")
+        .replace(" Company", "")
+        .trim();
+
+      return {
+        label: cleanedLabel,
+        href: `/services/${item.slug}`,
+        description: item.subtitle || item.description || item.seo?.metaDescription || "",
+        icon: getServiceIconBySlug(item.slug),
+      };
+    });
 }
 
 export const siteConfig: SiteConfig = {
@@ -77,62 +97,12 @@ export const siteConfig: SiteConfig = {
       {
         label: "Pools",
         href: "/pools",
-        children: getDynamicPoolsNavChildren(),
+        children: getDynamicNavChildrenByCategory("Pools"),
       },
       {
         label: "Landscaping",
-        href: "/",
-        children: [
-          {
-            label: "Villa Landscaping",
-            href: "/",
-            description: "Full-scale outdoor design for private villas.",
-            icon: Home,
-          },
-          {
-            label: "Residential Landscaping",
-            href: "/",
-            description: "Thoughtful garden design for everyday living.",
-            icon: Trees,
-          },
-          {
-            label: "Commercial Landscaping",
-            href: "/",
-            description: "Grounds that make the right first impression.",
-            icon: Building2,
-          },
-          {
-            label: "Garden Maintenance",
-            href: "/",
-            description: "Scheduled upkeep to keep gardens flourishing.",
-            icon: Sprout,
-          },
-          {
-            label: "Irrigation System",
-            href: "/",
-            description: "Efficient, automated watering built to last.",
-            icon: Droplet,
-          },
-          {
-            label: "Pergola & Gazebo",
-            href: "/",
-            description: "Shaded structures that extend your living space.",
-            icon: Home,
-          },
-          {
-            label: "Lawn Care",
-            href: "/",
-            description: "Healthy, well-kept lawns in every season.",
-            icon: Flower2,
-          },
-          {
-            label: "Landscape Lighting Services",
-            href: "/",
-            description:
-              "Lighting design that transforms outdoor spaces at night.",
-            icon: Lightbulb,
-          },
-        ],
+        href: "/services",
+        children: getDynamicNavChildrenByCategory("Landscaping"),
       },
       { label: "Project", href: "/projects" },
       { label: "Contact Us", href: "/contact" },

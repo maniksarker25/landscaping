@@ -5,26 +5,26 @@ import Image from "next/image";
 import { ContactForm } from "@/components/forms/contact-form";
 import { cn } from "@/lib/utils";
 
-interface PoolDropUsALineProps {
+interface ServiceDropUsALineProps {
   className?: string;
 }
 
-export function PoolDropUsALine({ className }: PoolDropUsALineProps) {
+export function ServiceDropUsALine({ className }: ServiceDropUsALineProps) {
   return (
     <div className={cn("my-16 space-y-8 rounded-2xl bg-card p-6 sm:p-10 border border-border/80 shadow-md", className)}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Left Side: Showcase Image */}
         <div className="lg:col-span-5 relative h-[320px] sm:h-[450px] w-full overflow-hidden rounded-xl bg-muted shadow-md border border-border/60">
           <Image
-            src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1200&auto=format&fit=crop"
-            alt="Luxury Pool Construction in Dubai"
+            src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=1200&auto=format&fit=crop"
+            alt="Luxury Landscaping & Pools in Dubai"
             fill
             sizes="(max-width: 1024px) 100vw, 40vw"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-6 flex flex-col justify-end text-white">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-              Dream Pool Specialists
+              Outdoor Space Specialists
             </span>
             <h3 className="font-display text-2xl font-bold mt-1">
               Ready To Start Your Project?
@@ -42,7 +42,7 @@ export function PoolDropUsALine({ className }: PoolDropUsALineProps) {
               Drop Us A Line
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-              Feel free to send us your query or request a quote for pool construction.
+              Feel free to send us your query or request a quote for pool & landscaping construction.
             </p>
           </div>
 

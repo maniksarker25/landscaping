@@ -2,16 +2,16 @@
 
 import * as React from "react";
 import { Phone, ArrowRight } from "lucide-react";
-import type { PoolCtaConfig } from "@/types/pool-detail";
+import type { PoolCtaConfig } from "@/types/service";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-interface PoolCtaBannerProps {
+interface ServiceCtaBannerProps {
   cta: PoolCtaConfig;
   className?: string;
 }
 
-export function PoolCtaBanner({ cta, className }: PoolCtaBannerProps) {
+export function ServiceCtaBanner({ cta, className }: ServiceCtaBannerProps) {
   return (
     <div
       className={cn(

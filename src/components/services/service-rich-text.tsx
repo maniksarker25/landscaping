@@ -3,13 +3,13 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-interface PoolRichTextProps {
+interface ServiceRichTextProps {
   contentHtml: string;
   title?: string;
   className?: string;
 }
 
-export function PoolRichText({ contentHtml, title, className }: PoolRichTextProps) {
+export function ServiceRichText({ contentHtml, title, className }: ServiceRichTextProps) {
   return (
     <div className={cn("space-y-4", className)}>
       {title && (

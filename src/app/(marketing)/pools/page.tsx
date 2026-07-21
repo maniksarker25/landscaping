@@ -5,26 +5,15 @@ import Image from "next/image";
 import { ArrowRight, Waves, CircleDot, Droplets, Infinity as InfinityIcon, Wrench, Sparkles, GlassWater } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/config/site";
-import { poolsDetailData } from "@/data/pools-detail-data";
+import { serviceData } from "@/data/services-data";
 
 export const metadata: Metadata = {
   title: "Swimming Pool Construction & Services in Dubai | Poolscape",
   description: "Explore our luxury swimming pool construction services in Dubai. Infinity pools, overflow pools, skimmer pools, pool maintenance, and water features.",
 };
 
-const iconMap = {
-  Waves,
-  CircleDot,
-  Droplets,
-  InfinityIcon,
-  Wrench,
-  Sparkles,
-  GlassWater,
-};
-
 export default function PoolsOverviewPage() {
-  const poolsList = poolsDetailData;
+  const poolsList = serviceData.filter((item) => item.category === "Pools");
 
   return (
     <main className="min-h-screen bg-background">
@@ -74,7 +63,7 @@ export default function PoolsOverviewPage() {
                     {pool.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed line-clamp-3">
-                    {pool.subtitle}
+                    {pool.subtitle || pool.sections[1]?.content?.richTextHtml?.replace(/<[^>]*>/g, "").substring(0, 150) + "..."}
                   </p>
                 </div>
               </div>
@@ -84,7 +73,7 @@ export default function PoolsOverviewPage() {
                   Turnkey Dubai Service
                 </span>
                 <Button asChild size="sm" variant="ghost" className="text-primary font-bold hover:text-emerald-700 hover:bg-emerald-50">
-                  <Link href={`/pools/${pool.slug}`}>
+                  <Link href={`/services/${pool.slug}`}>
                     Explore Details <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Link>
                 </Button>

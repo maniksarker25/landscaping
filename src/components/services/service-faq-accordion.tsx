@@ -8,20 +8,20 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
-import type { PoolBlockFaqItem } from "@/types/pool-detail";
+import type { PoolBlockFaqItem } from "@/types/service";
 import { cn } from "@/lib/utils";
 
-interface PoolFaqAccordionProps {
+interface ServiceFaqAccordionProps {
   items: PoolBlockFaqItem[];
   title?: string;
   className?: string;
 }
 
-export function PoolFaqAccordion({
+export function ServiceFaqAccordion({
   items,
   title = "Frequently Asked Questions",
   className,
-}: PoolFaqAccordionProps) {
+}: ServiceFaqAccordionProps) {
   if (!items || items.length === 0) return null;
 
   return (

@@ -1,31 +1,34 @@
 "use client";
 
 import * as React from "react";
-import type { PoolDetailSection, GoogleReviewsData } from "@/types/pool-detail";
-import { PoolRichText } from "./pool-rich-text";
-import { PoolGalleryGrid } from "./pool-gallery-grid";
-import { PoolCtaBanner } from "./pool-cta-banner";
-import { PoolTrustReviews } from "./pool-trust-reviews";
+import type { PoolDetailSection, GoogleReviewsData } from "@/types/service";
+import { ServiceRichText } from "./service-rich-text";
+import { ServiceGalleryGrid } from "./service-gallery-grid";
+import { ServiceCtaBanner } from "./service-cta-banner";
+import { ServiceTrustReviews } from "./service-trust-reviews";
 import { cn } from "@/lib/utils";
-import { PoolFeaturesGrid } from "./pool-features-grid";
-import { PoolFaqAccordion } from "./pool-faq-accordion";
-import { defaultGoogleReviews } from "@/data/pools-detail-data";
+import { ServiceFeaturesGrid } from "./service-features-grid";
+import { ServiceFaqAccordion } from "./service-faq-accordion";
+import { ServiceDropUsALine } from "./service-drop-us-a-line";
+import { defaultGoogleReviews } from "@/data/services-data";
 
-interface PoolDynamicRendererProps {
+interface ServiceDynamicRendererProps {
   sections: PoolDetailSection[];
   googleReviews?: GoogleReviewsData;
   className?: string;
 }
 
-export function PoolDynamicRenderer({
+export function ServiceDynamicRenderer({
   sections,
   googleReviews,
   className,
-}: PoolDynamicRendererProps) {
+}: ServiceDynamicRendererProps) {
   if (!sections || sections.length === 0) return null;
 
   const reviewsData = googleReviews || defaultGoogleReviews;
-  const hasReviews = sections.some((s) => s.blockType === "trust-reviews" || s.type === "trust-reviews");
+  const hasReviews = sections.some(
+    (s) => s.blockType === "trust-reviews" || s.type === "trust-reviews",
+  );
   const finalSections = hasReviews
     ? sections
     : [
@@ -51,7 +54,7 @@ export function PoolDynamicRenderer({
           case "rich-text": {
             const html = section.content?.richTextHtml || section.contentHtml;
             return html ? (
-              <PoolRichText
+              <ServiceRichText
                 key={key}
                 title={section.title}
                 contentHtml={html}
@@ -63,24 +66,31 @@ export function PoolDynamicRenderer({
           case "features-list": {
             const feats = section.content?.features || section.features || [];
             return feats.length > 0 ? (
-              <PoolFeaturesGrid
+              <ServiceFeaturesGrid
                 key={key}
                 title={section.title}
                 features={feats}
+                layoutStyle={section.layoutStyle}
               />
             ) : null;
           }
 
-          case "faq_accordion": {
+          case "faq_accordion":
+          case "technical_specs": {
             const faqItems = section.content?.accordionItems || [];
             return faqItems.length > 0 ? (
-              <PoolFaqAccordion
+              <ServiceFaqAccordion
                 key={key}
-                title={section.title}
+                title={section.title || (blockKind === "technical_specs" ? "Technical Specifications & Phases" : undefined)}
                 items={faqItems}
               />
             ) : null;
           }
+
+          case "contact_form":
+            return (
+              <ServiceDropUsALine key={key} />
+            );
 
           case "gallery_grid":
           case "gallery-6grid":
@@ -90,7 +100,7 @@ export function PoolDynamicRenderer({
             if (!images && section.content?.gallery) {
               images = section.content.gallery.map((g) => ({
                 src: g.imageUrl,
-                alt: g.altText || g.caption || "Swimming pool image",
+                alt: g.altText || g.caption || "Service showcase image",
                 caption: g.caption,
               }));
             }
@@ -99,11 +109,12 @@ export function PoolDynamicRenderer({
               blockKind === "side-by-side-images" ? "side-by-side" : "grid-6";
 
             return images && images.length > 0 ? (
-              <PoolGalleryGrid
+              <ServiceGalleryGrid
                 key={key}
                 title={section.title}
                 images={images}
                 variant={variant}
+                layoutStyle={section.layoutStyle}
               />
             ) : null;
           }
@@ -125,7 +136,7 @@ export function PoolDynamicRenderer({
             }
 
             return ctaConfig ? (
-              <PoolCtaBanner key={key} cta={ctaConfig} />
+              <ServiceCtaBanner key={key} cta={ctaConfig} />
             ) : null;
           }
 
@@ -174,7 +185,7 @@ export function PoolDynamicRenderer({
 
           case "trust-reviews":
             return (
-              <PoolTrustReviews
+              <ServiceTrustReviews
                 key={key}
                 title={section.title}
                 data={reviewsData}

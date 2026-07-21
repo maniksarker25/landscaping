@@ -3,11 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, Waves, Sparkles } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { cn } from "@/lib/utils";
 
-interface PoolDetailHeroProps {
+interface ServiceDetailHeroProps {
   title: string;
   subtitle?: string;
   heroImage?: string;
@@ -15,13 +15,13 @@ interface PoolDetailHeroProps {
   className?: string;
 }
 
-export function PoolDetailHero({
+export function ServiceDetailHero({
   title,
   subtitle,
-  heroImage = "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=2000&auto=format&fit=crop",
+  heroImage = "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2000&auto=format&fit=crop",
   badge,
   className,
-}: PoolDetailHeroProps) {
+}: ServiceDetailHeroProps) {
   return (
     <div className={cn("relative w-full overflow-hidden bg-primary text-primary-foreground min-h-[340px] sm:min-h-[420px] flex items-center justify-center", className)}>
       {/* Background Image with Overlay */}
@@ -43,8 +43,8 @@ export function PoolDetailHero({
             Home
           </Link>
           <ChevronRight className="h-3 w-3 text-primary-foreground/50" />
-          <Link href="/pools" className="hover:text-white transition-colors">
-            Pools
+          <Link href="/services" className="hover:text-white transition-colors">
+            Services
           </Link>
           <ChevronRight className="h-3 w-3 text-primary-foreground/50" />
           <span className="text-white font-medium truncate max-w-[180px] sm:max-w-none">

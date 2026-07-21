@@ -19,27 +19,33 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-interface PoolSidebarFormProps {
-  currentPoolTitle?: string;
+interface ServiceSidebarFormProps {
+  currentServiceTitle?: string;
   className?: string;
 }
 
-export function PoolSidebarForm({ currentPoolTitle, className }: PoolSidebarFormProps) {
+export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSidebarFormProps) {
   const [status, setStatus] = React.useState<"idle" | "submitting" | "success" | "error">(
     "idle"
   );
 
-  const poolOptions = [
+  const serviceOptions = [
     "Infinity Swimming Pool",
     "Overflow Swimming Pool",
     "Skimmer Swimming Pool",
     "Custom Pool Construction",
     "Pool Maintenance",
     "Water Features & Fountains",
+    "Villa Landscaping",
+    "Residential Landscaping",
+    "Gardening Services",
+    "Pergola & Gazebo Build",
+    "Smart Irrigation System",
+    "Landscape Lighting",
   ];
 
-  const defaultPoolService =
-    poolOptions.find((p) => currentPoolTitle?.toLowerCase().includes(p.toLowerCase())) ||
+  const defaultService =
+    serviceOptions.find((p) => currentServiceTitle?.toLowerCase().includes(p.toLowerCase())) ||
     "Infinity Swimming Pool";
 
   const {
@@ -54,7 +60,7 @@ export function PoolSidebarForm({ currentPoolTitle, className }: PoolSidebarForm
       name: "",
       email: "",
       phone: "",
-      service: defaultPoolService,
+      service: defaultService,
       message: "",
     },
   });
@@ -91,7 +97,7 @@ export function PoolSidebarForm({ currentPoolTitle, className }: PoolSidebarForm
           Get Free Consultation
         </h3>
         <p className="text-xs text-muted-foreground">
-          Fill out the form below & our pool engineering experts will respond within 24 hours.
+          Fill out the form below & our landscape and pool experts will respond within 24 hours.
         </p>
       </div>
 
@@ -166,19 +172,19 @@ export function PoolSidebarForm({ currentPoolTitle, className }: PoolSidebarForm
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="sidebar-poolType" className="text-xs font-semibold">
-              Swimming Pool Type
+            <Label htmlFor="sidebar-serviceType" className="text-xs font-semibold">
+              Select Service Type
             </Label>
             <Controller
               control={control}
               name="service"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger id="sidebar-poolType" className="h-10 text-sm bg-background/50">
-                    <SelectValue placeholder="Select Pool Type" />
+                  <SelectTrigger id="sidebar-serviceType" className="h-10 text-sm bg-background/50">
+                    <SelectValue placeholder="Select Service" />
                   </SelectTrigger>
                   <SelectContent>
-                    {poolOptions.map((option) => (
+                    {serviceOptions.map((option) => (
                       <SelectItem key={option} value={option}>
                         {option}
                       </SelectItem>
@@ -196,7 +202,7 @@ export function PoolSidebarForm({ currentPoolTitle, className }: PoolSidebarForm
             <Textarea
               id="sidebar-message"
               rows={3}
-              placeholder="Specify pool size, location in Dubai, or custom features..."
+              placeholder="Specify requirements, location in Dubai, or custom features..."
               className="text-sm bg-background/50 focus:bg-background resize-none"
               {...register("message")}
             />

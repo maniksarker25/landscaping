@@ -5,11 +5,11 @@ import { MapPin, Phone, Mail, MessageSquare } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-interface PoolBottomContactProps {
+interface ServiceBottomContactProps {
   className?: string;
 }
 
-export function PoolBottomContact({ className }: PoolBottomContactProps) {
+export function ServiceBottomContact({ className }: ServiceBottomContactProps) {
   return (
     <div className={cn("my-16 space-y-8 rounded-2xl bg-card p-6 sm:p-10 border border-border/80 shadow-md", className)}>
       <div className="text-center max-w-xl mx-auto space-y-2">
@@ -20,7 +20,7 @@ export function PoolBottomContact({ className }: PoolBottomContactProps) {
           How To Find Us?
         </h2>
         <p className="text-sm text-muted-foreground">
-          Visit our Dubai office or get in touch with our swimming pool construction team.
+          Visit our Dubai office or get in touch with our design and construction team.
         </p>
       </div>
 
