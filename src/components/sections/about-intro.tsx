@@ -2,7 +2,12 @@
 
 import { Container } from "@/components/common/container";
 import { siteConfig } from "@/config/site";
-import { fadeUp, staggerContainer, staggerItem, viewport } from "@/lib/animations";
+import {
+  fadeUp,
+  staggerContainer,
+  staggerItem,
+  viewport,
+} from "@/lib/animations";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
@@ -11,9 +16,9 @@ export function AboutIntro() {
   return (
     <>
       {/* Main Content Section */}
-      <section className="py-24 sm:py-32 overflow-hidden bg-background">
+      <section className="py-12 sm:py-32 overflow-hidden bg-background">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             {/* Image Side */}
             <motion.div
               variants={fadeUp}
@@ -47,13 +52,14 @@ export function AboutIntro() {
               className="flex flex-col justify-center"
             >
               <motion.div variants={staggerItem}>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight tracking-tight">
-                  Searching For Swimming Pool And Landscaping Companies In Dubai, UAE?
+                <h2 className="text-xl sm:text-2xl lg:text-4xl font-display font-bold text-foreground leading-tight tracking-tight">
+                  Searching For Swimming Pool And Landscaping Companies In
+                  Dubai, UAE?
                 </h2>
               </motion.div>
 
               <motion.div variants={staggerItem} className="mt-6">
-                <h3 className="text-xl font-semibold text-secondary uppercase tracking-wide">
+                <h3 className="text-lg font-semibold text-secondary uppercase tracking-wide">
                   Welcome to {siteConfig.name}
                 </h3>
               </motion.div>
@@ -63,17 +69,19 @@ export function AboutIntro() {
                 className="mt-6 space-y-6 text-muted-foreground leading-relaxed"
               >
                 <p>
-                  Are you seeking premium swimming pool and landscaping companies in Dubai, UAE? If
-                  so, your search ends right here at {siteConfig.name}. We proudly say that we're
-                  your premier destination for creating stunning outdoor environments in Dubai, Abu
-                  Dhabi, Sharjah, and all nearby areas. We specialize in transforming ordinary
-                  spaces into extraordinary retreats.
+                  Are you seeking premium swimming pool and landscaping
+                  companies in Dubai, UAE? If so, your search ends right here at{" "}
+                  {siteConfig.name}. We proudly say that we're your premier
+                  destination for creating stunning outdoor environments in
+                  Dubai, Abu Dhabi, Sharjah, and all nearby areas. We specialize
+                  in transforming ordinary spaces into extraordinary retreats.
                 </p>
                 <p>
-                  Being the best is not a claim that we make out of thin air; our track record
-                  speaks for it. Our portfolio showcases our commitment to excellence and dedication
-                  to customer satisfaction. Discover how we can bring your vision to life with our
-                  expert pool construction and landscaping.
+                  Being the best is not a claim that we make out of thin air;
+                  our track record speaks for it. Our portfolio showcases our
+                  commitment to excellence and dedication to customer
+                  satisfaction. Discover how we can bring your vision to life
+                  with our expert pool construction and landscaping.
                 </p>
               </motion.div>
 
@@ -91,7 +99,9 @@ export function AboutIntro() {
                     <div className="flex-shrink-0 h-8 w-8 rounded-full bg-secondary/10 flex items-center justify-center">
                       <CheckCircle2 className="h-5 w-5 text-secondary" />
                     </div>
-                    <span className="font-medium text-foreground">{feature}</span>
+                    <span className="font-medium text-foreground">
+                      {feature}
+                    </span>
                   </div>
                 ))}
               </motion.div>

@@ -10,13 +10,24 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = buildMetadata({
   title: "Contact",
-  description: "Get in touch to arrange a site visit and a fixed-scope quote for your project.",
+  description:
+    "Get in touch to arrange a site visit and a fixed-scope quote for your project.",
   path: "/contact",
 });
 
 const infoItems = [
-  { icon: Phone, label: "Phone", value: siteConfig.phone, href: toTelHref(siteConfig.phone) },
-  { icon: Mail, label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: siteConfig.phone,
+    href: toTelHref(siteConfig.phone),
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    value: siteConfig.email,
+    href: `mailto:${siteConfig.email}`,
+  },
   { icon: MapPin, label: "Studio", value: siteConfig.address, href: undefined },
   { icon: Clock, label: "Hours", value: "Sat–Thu, 9am–6pm", href: undefined },
 ];
@@ -53,7 +64,9 @@ export default function ContactPage() {
                       <span className="block text-xs uppercase tracking-wide text-muted-foreground">
                         {item.label}
                       </span>
-                      <span className="mt-0.5 block text-sm text-foreground">{item.value}</span>
+                      <span className="mt-0.5 block text-sm text-foreground">
+                        {item.value}
+                      </span>
                     </span>
                   </>
                 );
@@ -75,7 +88,7 @@ export default function ContactPage() {
               <iframe
                 title="Studio location map"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=55.20%2C25.10%2C55.30%2C25.18&layer=mapnik"
-                className="h-full w-full grayscale"
+                className="h-full w-full"
                 loading="lazy"
               />
             </div>

@@ -8,7 +8,7 @@ import { services } from "@/data/services";
 
 export function ServicesOverview() {
   return (
-    <section className="py-24 sm:py-28">
+    <section className="py-12 sm:py-28">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <SectionTitle

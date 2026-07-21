@@ -45,7 +45,7 @@ export function SectionTitle({
       )}
       <h2
         className={cn(
-          "font-display text-3xl leading-tight sm:text-4xl lg:text-[2.75rem]",
+          "font-display text-xl leading-tight sm:text-4xl lg:text-[2.75rem]",
           light ? "text-primary-foreground" : "text-foreground"
         )}
       >

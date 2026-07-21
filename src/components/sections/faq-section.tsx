@@ -17,7 +17,7 @@ export function FaqSection({ limit, showTitle = true }: FaqSectionProps) {
   const items = limit ? faqs.slice(0, limit) : faqs;
 
   return (
-    <section className="py-24 sm:py-28">
+    <section className="py-12 sm:py-28">
       <Container className="max-w-3xl">
         {showTitle && (
           <SectionTitle

@@ -9,7 +9,7 @@ export function LocationMap() {
   const [isInteractive, setIsInteractive] = useState(false);
 
   return (
-    <section 
+    <section
       className="relative w-full h-[400px] overflow-hidden group"
       onMouseLeave={() => setIsInteractive(false)}
     >
@@ -31,13 +31,11 @@ export function LocationMap() {
 
       {/* Interaction Overlay */}
       {!isInteractive && (
-        <div 
+        <div
           className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer transition-colors bg-transparent"
           onClick={() => setIsInteractive(true)}
         >
-          <Button 
-            className="shadow-xl backdrop-blur-md bg-background/90 hover:bg-background pointer-events-none transition-transform group-hover:-translate-y-1"
-          >
+          <Button className="shadow-xl backdrop-blur-md  text-black bg-background/90 hover:bg-background pointer-events-none transition-transform group-hover:-translate-y-1">
             <Map className="w-4 h-4 mr-2" />
             Click to interact
           </Button>
@@ -46,4 +44,3 @@ export function LocationMap() {
     </section>
   );
 }
-

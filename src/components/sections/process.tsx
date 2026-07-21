@@ -8,7 +8,7 @@ import { fadeUp, viewport } from "@/lib/animations";
 
 export function Process() {
   return (
-    <section className="py-24 sm:py-28">
+    <section className="py-12 sm:py-28">
       <Container>
         <SectionTitle
           eyebrow="Our Process"
@@ -17,7 +17,7 @@ export function Process() {
           className="mx-auto"
         />
 
-        <div className="relative mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
+        <div className="relative mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
           <div
             className="absolute top-6 left-0 right-0 hidden h-px bg-border lg:block"
             aria-hidden="true"

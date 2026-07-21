@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { SectionTitle } from "@/components/common/section-title";
@@ -9,16 +10,28 @@ import { TestimonialCard } from "@/components/cards/testimonial-card";
 import { testimonials } from "@/data/testimonials";
 
 export function Testimonials() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "start" },
+    [Autoplay({ delay: 2000 })],
+  );
 
-  const scrollPrev = React.useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
-  const scrollNext = React.useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const scrollPrev = React.useCallback(
+    () => emblaApi?.scrollPrev(),
+    [emblaApi],
+  );
+  const scrollNext = React.useCallback(
+    () => emblaApi?.scrollNext(),
+    [emblaApi],
+  );
 
   return (
-    <section className="py-24 sm:py-28">
+    <section className="py-12 sm:py-28">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <SectionTitle eyebrow="Client Stories" title="What it's like to work with us" />
+          <SectionTitle
+            eyebrow="Client Stories"
+            title="What it's like to work with us"
+          />
           <div className="hidden gap-2 sm:flex">
             <button
               type="button"
