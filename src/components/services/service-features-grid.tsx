@@ -70,9 +70,9 @@ export function ServiceFeaturesGrid({
           return (
             <div
               key={idx}
-              className="group flex items-start gap-4 p-5 rounded-2xl bg-card border border-border/80 shadow-sm transition-all duration-300 hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5"
+              className="group flex items-start gap-4 p-5 rounded-2xl bg-card border border-border/80 shadow-sm transition-all duration-300 "
             >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <div className="hidden md:flex h-11 w-11 shrink-0 items-center justify-center transition-all rounded-xl bg-primary/10 text-primary">
                 <Icon className="h-5.5 w-5.5" />
               </div>
               <div className="space-y-1">

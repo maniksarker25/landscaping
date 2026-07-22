@@ -24,7 +24,7 @@ export default function HomePage() {
         <Gallery />
       </div>
       <AboutIntro />
-      <div className="md:block hidden">
+      <div className="hidden md:block">
         <Gallery />
       </div>
       <ServicesOverview />

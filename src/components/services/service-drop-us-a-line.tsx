@@ -11,8 +11,13 @@ interface ServiceDropUsALineProps {
 
 export function ServiceDropUsALine({ className }: ServiceDropUsALineProps) {
   return (
-    <div className={cn("my-16 space-y-8 rounded-2xl bg-card p-6 sm:p-10 border border-border/80 shadow-md", className)}>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <div
+      className={cn(
+        "my-16 space-y-8 rounded-2xl bg-card p-6 sm:p-10 border border-border/80 shadow-md",
+        className,
+      )}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
         {/* Left Side: Showcase Image */}
         <div className="lg:col-span-5 relative h-[320px] sm:h-[450px] w-full overflow-hidden rounded-xl bg-muted shadow-md border border-border/60">
           <Image
@@ -42,7 +47,8 @@ export function ServiceDropUsALine({ className }: ServiceDropUsALineProps) {
               Drop Us A Line
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-              Feel free to send us your query or request a quote for pool & landscaping construction.
+              Feel free to send us your query or request a quote for pool &
+              landscaping construction.
             </p>
           </div>
 

@@ -47,18 +47,24 @@ export function ServiceTrustReviews({
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const { clientWidth } = scrollRef.current;
-      const scrollAmount = direction === "left" ? -clientWidth * 0.75 : clientWidth * 0.75;
+      const scrollAmount =
+        direction === "left" ? -clientWidth * 0.75 : clientWidth * 0.75;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
   return (
-    <div className={cn("my-10 space-y-6 rounded-2xl bg-gradient-to-b from-card/80 via-card to-muted/40 p-6 sm:p-8 border border-border/80 shadow-sm", className)}>
-      {title && (
+    <div
+      className={cn(
+        "my-10 space-y-6 rounded-2xl bg-gradient-to-b from-card/80 via-card to-muted/40 p-6 sm:p-8 border border-border/80 shadow-sm",
+        className,
+      )}
+    >
+      {/* {title && (
         <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-primary text-center sm:text-left">
           {title}
         </h2>
-      )}
+      )} */}
 
       {/* Google Ratings Header Badge */}
       <div className="flex flex-col items-center justify-center space-y-2 py-4 border-b border-border/60 text-center">
@@ -68,7 +74,10 @@ export function ServiceTrustReviews({
 
         <div className="flex items-center gap-1.5">
           {[...Array(5)].map((_, i) => (
-            <Star key={i} className="h-6 w-6 fill-amber-400 text-amber-400 drop-shadow-sm" />
+            <Star
+              key={i}
+              className="h-6 w-6 fill-amber-400 text-amber-400 drop-shadow-sm"
+            />
           ))}
         </div>
 
@@ -92,7 +101,8 @@ export function ServiceTrustReviews({
             />
           </svg>
           <span className="text-sm font-semibold text-foreground/80">
-            Rated {data.averageRating.toFixed(1)} / 5.0 based on {data.totalReviews}+ Google Reviews
+            Rated {data.averageRating.toFixed(1)} / 5.0 based on{" "}
+            {data.totalReviews}+ Google Reviews
           </span>
         </div>
       </div>
@@ -141,7 +151,9 @@ export function ServiceTrustReviews({
                       <h4 className="text-sm font-bold text-foreground leading-none">
                         {rev.authorName}
                       </h4>
-                      <span className="text-xs text-muted-foreground">{rev.timeAgo}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {rev.timeAgo}
+                      </span>
                     </div>
                   </div>
                   {rev.verified && (
@@ -153,7 +165,10 @@ export function ServiceTrustReviews({
 
                 <div className="flex items-center gap-0.5 mb-2">
                   {[...Array(rev.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                    <Star
+                      key={i}
+                      className="h-4 w-4 fill-amber-400 text-amber-400"
+                    />
                   ))}
                 </div>
 

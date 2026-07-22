@@ -3,7 +3,13 @@
 import * as React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, Loader2, Send, ShieldCheck, PhoneCall } from "lucide-react";
+import {
+  CheckCircle2,
+  Loader2,
+  Send,
+  ShieldCheck,
+  PhoneCall,
+} from "lucide-react";
 import { contactFormSchema, type ContactFormValues } from "@/lib/validations";
 import { siteConfig } from "@/config/site";
 import { Input } from "@/components/ui/input";
@@ -24,10 +30,13 @@ interface ServiceSidebarFormProps {
   className?: string;
 }
 
-export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSidebarFormProps) {
-  const [status, setStatus] = React.useState<"idle" | "submitting" | "success" | "error">(
-    "idle"
-  );
+export function ServiceSidebarForm({
+  currentServiceTitle,
+  className,
+}: ServiceSidebarFormProps) {
+  const [status, setStatus] = React.useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
 
   const serviceOptions = [
     "Infinity Swimming Pool",
@@ -45,8 +54,9 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
   ];
 
   const defaultService =
-    serviceOptions.find((p) => currentServiceTitle?.toLowerCase().includes(p.toLowerCase())) ||
-    "Infinity Swimming Pool";
+    serviceOptions.find((p) =>
+      currentServiceTitle?.toLowerCase().includes(p.toLowerCase()),
+    ) || "Infinity Swimming Pool";
 
   const {
     register,
@@ -84,8 +94,8 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
   return (
     <div
       className={cn(
-        "rounded-2xl border border-emerald-200 bg-card p-6 shadow-xl backdrop-blur-sm sticky top-24 z-20 space-y-5 transition-all",
-        className
+        "rounded-2xl border border-gray-300 bg-card p-6 backdrop-blur-sm sticky top-24 z-20 space-y-5 transition-all",
+        className,
       )}
     >
       {/* Header */}
@@ -97,7 +107,8 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
           Get Free Consultation
         </h3>
         <p className="text-xs text-muted-foreground">
-          Fill out the form below & our landscape and pool experts will respond within 24 hours.
+          Fill out the form below & our landscape and pool experts will respond
+          within 24 hours.
         </p>
       </div>
 
@@ -111,7 +122,8 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
             Consultation Requested!
           </h4>
           <p className="text-xs text-emerald-800 leading-relaxed">
-            Thank you! Our senior engineer will contact you shortly to schedule your free site visit and 3D design session.
+            Thank you! Our senior engineer will contact you shortly to schedule
+            your free site visit and 3D design session.
           </p>
           <Button
             variant="outline"
@@ -123,7 +135,11 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
           </Button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          className="space-y-4"
+        >
           <div className="space-y-1.5">
             <Label htmlFor="sidebar-name" className="text-xs font-semibold">
               Full Name <span className="text-destructive">*</span>
@@ -135,7 +151,9 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
               {...register("name")}
             />
             {errors.name && (
-              <p className="text-[11px] text-destructive">{errors.name.message}</p>
+              <p className="text-[11px] text-destructive">
+                {errors.name.message}
+              </p>
             )}
           </div>
 
@@ -151,7 +169,9 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
               {...register("phone")}
             />
             {errors.phone && (
-              <p className="text-[11px] text-destructive">{errors.phone.message}</p>
+              <p className="text-[11px] text-destructive">
+                {errors.phone.message}
+              </p>
             )}
           </div>
 
@@ -167,12 +187,17 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
               {...register("email")}
             />
             {errors.email && (
-              <p className="text-[11px] text-destructive">{errors.email.message}</p>
+              <p className="text-[11px] text-destructive">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="sidebar-serviceType" className="text-xs font-semibold">
+            <Label
+              htmlFor="sidebar-serviceType"
+              className="text-xs font-semibold"
+            >
               Select Service Type
             </Label>
             <Controller
@@ -180,7 +205,10 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
               name="service"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger id="sidebar-serviceType" className="h-10 text-sm bg-background/50">
+                  <SelectTrigger
+                    id="sidebar-serviceType"
+                    className="h-10 text-sm bg-background/50"
+                  >
                     <SelectValue placeholder="Select Service" />
                   </SelectTrigger>
                   <SelectContent>
@@ -217,12 +245,13 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
           <Button
             type="submit"
             size="lg"
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md transition-transform active:scale-[0.98]"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-transform active:scale-[0.98]"
             disabled={status === "submitting"}
           >
             {status === "submitting" ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending Request...
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending
+                Request...
               </>
             ) : (
               <>
@@ -236,7 +265,8 @@ export function ServiceSidebarForm({ currentServiceTitle, className }: ServiceSi
               href={`tel:${siteConfig.phone.replace(/\s+/g, "")}`}
               className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
             >
-              <PhoneCall className="h-3.5 w-3.5" /> Direct Call: {siteConfig.phone}
+              <PhoneCall className="h-3.5 w-3.5" /> Direct Call:{" "}
+              {siteConfig.phone}
             </a>
           </div>
         </form>

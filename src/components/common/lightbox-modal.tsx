@@ -28,7 +28,10 @@ export function LightboxModal({
 }: LightboxModalProps) {
   const [scale, setScale] = React.useState(1);
 
-  const isOpen = selectedIndex !== null && selectedIndex >= 0 && selectedIndex < items.length;
+  const isOpen =
+    selectedIndex !== null &&
+    selectedIndex >= 0 &&
+    selectedIndex < items.length;
   const currentItem = isOpen ? items[selectedIndex] : null;
 
   // Lock body scroll when lightbox is open
@@ -95,11 +98,11 @@ export function LightboxModal({
         {/* Top Control Bar */}
         <div className="flex w-full max-w-7xl items-center justify-between text-white py-3 px-4 relative z-[102]">
           <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold tracking-wider font-sans">
+            <span className="hidden md:block text-sm font-semibold tracking-wider font-sans">
               {selectedIndex! + 1} / {items.length}
             </span>
             {currentItem.category && (
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/20 uppercase font-bold tracking-wider">
+              <span className="text-xs px-2.5 py-0.5 hidden md:block rounded-full bg-white/20 uppercase font-bold tracking-wider">
                 {currentItem.category}
               </span>
             )}
@@ -184,7 +187,9 @@ export function LightboxModal({
               onDoubleClick={() => setScale((prev) => (prev === 1 ? 2 : 1))}
               className={cn(
                 "relative max-w-full max-h-full flex items-center justify-center touch-none",
-                scale > 1 ? "cursor-grab active:cursor-grabbing" : "cursor-zoom-in"
+                scale > 1
+                  ? "cursor-grab active:cursor-grabbing"
+                  : "cursor-zoom-in",
               )}
             >
               <Image
@@ -219,7 +224,7 @@ export function LightboxModal({
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <span className="text-xs text-white/80 font-medium font-sans truncate max-w-[200px]">
+          <span className="text-xs hidden md:block text-white/80 font-medium font-sans truncate max-w-[200px]">
             {currentItem.title}
           </span>
           <button

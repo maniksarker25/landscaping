@@ -25,12 +25,17 @@ export function ServiceFaqAccordion({
   if (!items || items.length === 0) return null;
 
   return (
-    <div className={cn("my-10 space-y-6 rounded-2xl bg-card border border-border/80 p-6 sm:p-8 shadow-sm", className)}>
+    <div
+      className={cn(
+        "my-10 space-y-6 rounded-2xl bg-card border border-border/80 p-2 sm:p-8 shadow-sm",
+        className,
+      )}
+    >
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <div className="h-10 hidden md:flex w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
           <HelpCircle className="h-5 w-5" />
         </div>
-        <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-primary">
+        <h2 className="font-display text-base sm:text-3xl font-bold tracking-tight text-primary">
           {title}
         </h2>
       </div>

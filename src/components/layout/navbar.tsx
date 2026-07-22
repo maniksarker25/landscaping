@@ -162,7 +162,7 @@ export function Navbar() {
                             );
                           })}
                         </ul>
-                        <div className="flex items-center justify-between border-t border-border bg-muted/50 px-5 py-3">
+                        {/* <div className="flex items-center justify-between border-t border-border bg-muted/50 px-5 py-3">
                           <span className="text-xs text-foreground/60">
                             Not sure where to start?
                           </span>
@@ -178,7 +178,7 @@ export function Navbar() {
                               />
                             </Link>
                           </NavigationMenuLink>
-                        </div>
+                        </div> */}
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                   );

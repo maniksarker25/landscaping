@@ -81,16 +81,21 @@ export function ServiceDynamicRenderer({
             return faqItems.length > 0 ? (
               <ServiceFaqAccordion
                 key={key}
-                title={section.title || (blockKind === "technical_specs" ? "Technical Specifications & Phases" : undefined)}
+                title={
+                  section.title ||
+                  (blockKind === "technical_specs"
+                    ? "Technical Specifications & Phases"
+                    : undefined)
+                }
                 items={faqItems}
               />
             ) : null;
           }
 
-          case "contact_form":
-            return (
-              <ServiceDropUsALine key={key} />
-            );
+          // case "contact_form":
+          //   return (
+          //     <ServiceDropUsALine key={key} />
+          //   );
 
           case "gallery_grid":
           case "gallery-6grid":

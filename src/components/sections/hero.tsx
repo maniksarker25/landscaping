@@ -67,7 +67,7 @@ export function Hero() {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-primary/30" />
       </div>
 
       <Container className="relative flex min-h-[calc(100vh_-_15vh)] flex-col justify-end py-12 md:py-28">
@@ -85,14 +85,14 @@ export function Hero() {
           </motion.span>
           <motion.h1
             variants={staggerItem}
-            className="font-display text-4xl leading-[1.08] sm:text-5xl lg:text-6xl"
+            className="font-display text-3xl leading-[1.08] sm:text-5xl lg:text-6xl"
           >
             Pools & landscapes, <br className="hidden sm:block" />
             considered from the ground up.
           </motion.h1>
           <motion.p
             variants={staggerItem}
-            className="mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg"
+            className="mt-6 max-w-xl text-sm md:text-base leading-relaxed text-primary-foreground/75 sm:text-lg"
           >
             We design and build swimming pools and gardens that are engineered
             for this climate and finished to last — from first sketch to the
@@ -102,19 +102,19 @@ export function Hero() {
             variants={staggerItem}
             className="mt-9 flex flex-wrap items-center gap-4"
           >
-            <Button asChild size="lg" variant="accent">
-              <Link href="/contact">
+            <Button asChild size="sm" variant="accent">
+              <Link href="/contact" className="text-xs md:text-base">
                 Request a Quote
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>
             <Button
               asChild
-              size="lg"
+              size="sm"
               variant="ghost"
               className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
             >
-              <Link href="/">
+              <Link href="/projects" className="text-xs md:text-base">
                 <Play className="h-4 w-4" aria-hidden="true" />
                 View Our Work
               </Link>
@@ -157,7 +157,7 @@ export function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mt-6 md:grid grid-cols-2 hidden gap-8 border-y border-primary-foreground/10 p-4 backdrop-blur-md sm:grid-cols-4"
+          className="mt-6 md:grid grid-cols-2 hidden gap-8 border rounded-md bg-white/10 border-primary-foreground/10 p-4 backdrop-blur-md sm:grid-cols-4"
         >
           {stats.map((stat) => (
             <div key={stat.id}>
