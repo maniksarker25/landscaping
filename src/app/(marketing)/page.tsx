@@ -20,16 +20,19 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <div className="block md:hidden">
+        <Gallery />
+      </div>
       <AboutIntro />
+      <div className="md:block hidden">
+        <Gallery />
+      </div>
       <ServicesOverview />
       <WhyChooseUs />
       <Process />
-      {/* <FeaturedProjects /> */}
-      <Gallery />
       <Testimonials />
       <FaqSection limit={5} />
       <LocationMap />
-      {/* <CtaBanner /> */}
     </>
   );
 }

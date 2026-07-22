@@ -9,8 +9,9 @@ import {
 } from "@/components/common/lightbox-modal";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { Filter, X, Check, ChevronDown, ZoomIn } from "lucide-react";
+import { Filter, X, Check, ChevronDown, ZoomIn, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -82,7 +83,7 @@ const buildItems = (): LightboxItem[] =>
   PROJECT_IMAGES.map((item, i) => ({ ...item, id: `project-${i}` }));
 
 export default function Gallery() {
-  const [items, setItems] = useState<LightboxItem[]>([]);
+  const [items, setItems] = useState<LightboxItem[]>([]);                       
   const [loading, setLoading] = useState(true);
   const [loadedIds, setLoadedIds] = useState<Set<string>>(new Set());
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
@@ -100,11 +101,18 @@ export default function Gallery() {
     return () => clearTimeout(timer);
   }, []);
 
+  const isProjectsPage = pathname === "/projects";
+
   // Filter items dynamically based on active category
   const filteredItems = useMemo(() => {
     if (activeCategory === "all") return items;
     return items.filter((item) => item.category === activeCategory);
   }, [items, activeCategory]);
+
+  const displayedItems = useMemo(() => {
+    if (isProjectsPage) return filteredItems;
+    return filteredItems.slice(0, 3);
+  }, [filteredItems, isProjectsPage]);
 
   const handleImageLoad = (id: string) => {
     setLoadedIds((prev) => new Set(prev).add(id));
@@ -119,8 +127,8 @@ export default function Gallery() {
     categories.find((c) => c.value === activeCategory)?.label || "All Projects";
 
   const skeletonHeights = useMemo(
-    () => Array.from({ length: 6 }, () => 300),
-    [],
+    () => Array.from({ length: isProjectsPage ? 6 : 3 }, () => 300),
+    [isProjectsPage],
   );
 
   return (
@@ -216,61 +224,76 @@ export default function Gallery() {
 
         {/* Dynamic Filtered Grid Gallery */}
         {!loading && (
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredItems.map((item, index) => (
-                <motion.div
-                  layout
-                  key={item.id}
-                  onClick={() => setSelectedImageIndex(index)}
-                  className="group cursor-pointer rounded-xl overflow-hidden flex flex-col bg-card shadow-sm border border-border/80 hover:shadow-xl hover:border-primary/40 transition-all duration-300"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-muted">
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.title || "Project Image"}
-                      fill
-                      className={`object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-95 ${
-                        loadedIds.has(item.id)
-                          ? "image-loaded"
-                          : "image-loading"
-                      }`}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      onLoad={() => handleImageLoad(item.id)}
-                    />
+          <>
+            <motion.div
+              layout
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <AnimatePresence mode="popLayout">
+                {displayedItems.map((item, index) => (
+                  <motion.div
+                    layout
+                    key={item.id}
+                    onClick={() => setSelectedImageIndex(index)}
+                    className="group cursor-pointer rounded-xl overflow-hidden flex flex-col bg-card shadow-sm border border-border/80 hover:shadow-xl hover:border-primary/40 transition-all duration-300"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="relative w-full aspect-[4/3] overflow-hidden bg-muted">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.title || "Project Image"}
+                        fill
+                        className={`object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-95 ${
+                          loadedIds.has(item.id)
+                            ? "image-loaded"
+                            : "image-loading"
+                        }`}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        onLoad={() => handleImageLoad(item.id)}
+                      />
 
-                    {/* Category Badge Tag on Image */}
-                    <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-block rounded-full bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white shadow">
-                        {item.category?.replace("-", " ")}
-                      </span>
-                    </div>
+                      {/* Category Badge Tag on Image */}
+                      <div className="absolute top-3 left-3 z-10">
+                        <span className="inline-block rounded-full bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white shadow">
+                          {item.category?.replace("-", " ")}
+                        </span>
+                      </div>
 
-                    {/* Visual Premium Hover Overlay */}
-                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                      <div className="h-10 w-10 rounded-full bg-background/90 text-primary flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
-                        <ZoomIn className="h-5 w-5" />
+                      {/* Visual Premium Hover Overlay */}
+                      <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                        <div className="h-10 w-10 rounded-full bg-background/90 text-primary flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+                          <ZoomIn className="h-5 w-5" />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Title Box */}
-                  <div className="py-4 px-4 text-center bg-card z-10 transition-colors group-hover:bg-muted/40 flex items-center justify-center border-t border-border/40">
-                    <span className="text-xs font-bold tracking-[0.15em] uppercase text-foreground group-hover:text-primary transition-colors">
-                      {item.title || "Project"}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+                    {/* Title Box */}
+                    <div className="py-4 px-4 text-center bg-card z-10 transition-colors group-hover:bg-muted/40 flex items-center justify-center border-t border-border/40">
+                      <span className="text-xs font-bold tracking-[0.15em] uppercase text-foreground group-hover:text-primary transition-colors">
+                        {item.title || "Project"}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Show All Projects Button (Visible when NOT on /projects page) */}
+            {!isProjectsPage && (
+              <div className="mt-8 sm:mt-10 flex justify-center">
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-xs sm:text-sm font-bold text-primary-foreground shadow-md hover:bg-primary/90 hover:shadow-lg transition-all duration-300 hover:scale-105"
+                >
+                  <span>Show All Projects</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            )}
+          </>
         )}
 
         {!loading && filteredItems.length === 0 && (
@@ -293,7 +316,7 @@ export default function Gallery() {
 
         {/* Standalone Lightbox Component */}
         <LightboxModal
-          items={filteredItems}
+          items={displayedItems}
           selectedIndex={selectedImageIndex}
           onClose={() => setSelectedImageIndex(null)}
           onIndexChange={(newIndex) => setSelectedImageIndex(newIndex)}
@@ -371,8 +394,8 @@ export default function Gallery() {
         )}
       </AnimatePresence>
 
-      <Testimonials />
-      <QuoteMapSection />
+      {pathname === "/projects" && <Testimonials />}
+      {pathname === "/projects" && <QuoteMapSection />}
     </div>
   );
 }

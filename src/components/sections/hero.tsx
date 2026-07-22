@@ -33,10 +33,12 @@ export function Hero() {
   React.useEffect(() => {
     const onVisibilityChange = () => setPaused(document.hidden);
     document.addEventListener("visibilitychange", onVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", onVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", onVisibilityChange);
   }, []);
 
-  const goTo = (index: number) => setActive(((index % slideCount) + slideCount) % slideCount);
+  const goTo = (index: number) =>
+    setActive(((index % slideCount) + slideCount) % slideCount);
 
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
@@ -51,7 +53,7 @@ export function Hero() {
             key={slide.id}
             className={cn(
               "absolute inset-0 transition-all duration-[2s] ease-out",
-              index === active ? "opacity-90" : "opacity-0"
+              index === active ? "opacity-90" : "opacity-0",
             )}
             aria-hidden={index !== active}
           >
@@ -92,10 +94,14 @@ export function Hero() {
             variants={staggerItem}
             className="mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg"
           >
-            We design and build swimming pools and gardens that are engineered for this climate and
-            finished to last — from first sketch to the final walkthrough.
+            We design and build swimming pools and gardens that are engineered
+            for this climate and finished to last — from first sketch to the
+            final walkthrough.
           </motion.p>
-          <motion.div variants={staggerItem} className="mt-9 flex flex-wrap items-center gap-4">
+          <motion.div
+            variants={staggerItem}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
             <Button asChild size="lg" variant="accent">
               <Link href="/contact">
                 Request a Quote
@@ -134,7 +140,10 @@ export function Hero() {
                     initial={{ width: "0%" }}
                     animate={{ width: "100%" }}
                     transition={{
-                      duration: paused || prefersReducedMotion ? 0 : SLIDE_DURATION / 1000,
+                      duration:
+                        paused || prefersReducedMotion
+                          ? 0
+                          : SLIDE_DURATION / 1000,
                       ease: "linear",
                     }}
                   />
@@ -148,7 +157,7 @@ export function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mt-6 grid grid-cols-2 gap-8 border-y border-primary-foreground/10 p-4 backdrop-blur-md sm:grid-cols-4"
+          className="mt-6 md:grid grid-cols-2 hidden gap-8 border-y border-primary-foreground/10 p-4 backdrop-blur-md sm:grid-cols-4"
         >
           {stats.map((stat) => (
             <div key={stat.id}>
