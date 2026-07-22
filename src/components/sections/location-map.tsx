@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { Map } from "lucide-react";
 import { useState } from "react";
-
+// add comment for push
 export function LocationMap() {
   const [isInteractive, setIsInteractive] = useState(false);
 
