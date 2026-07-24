@@ -118,3 +118,30 @@
   width: 200%;
   animation: wave 16s ease-in-out infinite;
 }
+
+/* Legal & prose content styling for dangerouslySetInnerHTML */
+.prose-legal h2 {
+  @apply font-display text-2xl font-semibold text-foreground mt-10 mb-4 tracking-tight border-b border-border/60 pb-2;
+}
+.prose-legal h3 {
+  @apply font-display text-xl font-semibold text-foreground mt-6 mb-3;
+}
+.prose-legal p {
+  @apply text-muted-foreground leading-relaxed mb-4 text-base;
+}
+.prose-legal ul {
+  @apply list-disc list-outside space-y-2 mb-6 text-muted-foreground pl-5;
+}
+.prose-legal ol {
+  @apply list-decimal list-outside space-y-2 mb-6 text-muted-foreground pl-5;
+}
+.prose-legal li {
+  @apply leading-relaxed;
+}
+.prose-legal a {
+  @apply text-primary font-medium underline underline-offset-4 hover:text-accent transition-colors;
+}
+.prose-legal strong {
+  @apply text-foreground font-semibold;
+}
+
