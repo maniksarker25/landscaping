@@ -69,19 +69,17 @@ export function AboutIntro() {
                 className="mt-6 space-y-6 text-muted-foreground leading-relaxed"
               >
                 <p>
-                  Are you seeking premium swimming pool and landscaping
-                  companies in Dubai, UAE? If so, your search ends right here at{" "}
-                  {siteConfig.name}. We proudly say that we're your premier
-                  destination for creating stunning outdoor environments in
-                  Dubai, Abu Dhabi, Sharjah, and all nearby areas. We specialize
-                  in transforming ordinary spaces into extraordinary retreats.
+                  Dream Floor Landscaping designs and builds exceptional outdoor
+                  spaces for villas and residential communities across Dubai.
+                  From custom swimming pools and landscaping to pergolas, BBQ
+                  areas, irrigation systems, natural stone, and outdoor tiling,
+                  we deliver complete outdoor solutions with quality
+                  craftsmanship and attention to every detail.
                 </p>
                 <p>
-                  Being the best is not a claim that we make out of thin air;
-                  our track record speaks for it. Our portfolio showcases our
-                  commitment to excellence and dedication to customer
-                  satisfaction. Discover how we can bring your vision to life
-                  with our expert pool construction and landscaping.
+                  With over 16 years of industry experience, we deliver complete
+                  outdoor solutions for villas and residential communities
+                  across Dubai.
                 </p>
               </motion.div>
 
@@ -90,10 +88,13 @@ export function AboutIntro() {
                 className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4"
               >
                 {[
-                  "Expert Pool Construction",
-                  "Premium Landscaping",
-                  "Dedicated Maintenance",
-                  "Customer Satisfaction",
+                  "Landscape Makeovers",
+                  "Landscape Design & Build",
+                  "Irrigation Systems",
+                  "Swimming Pool Construction",
+                  "Custom Pergolas",
+                  "Outdoor Barbecue Areas",
+                  "Natural Stones & Outdoor Tiling",
                 ].map((feature) => (
                   <div key={feature} className="flex items-center gap-3">
                     <div className="flex-shrink-0 h-8 w-8 rounded-full bg-secondary/10 flex items-center justify-center">

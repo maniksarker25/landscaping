@@ -87,8 +87,8 @@ export function Hero() {
             variants={staggerItem}
             className="font-display text-3xl leading-[1.08] sm:text-5xl lg:text-6xl"
           >
-            Pools & landscapes, <br className="hidden sm:block" />
-            considered from the ground up.
+            Leading Landscaping &<br className="hidden sm:block" />
+            Swimming Pool Specialists in Dubai
           </motion.h1>
           <motion.p
             variants={staggerItem}

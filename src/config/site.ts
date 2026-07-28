@@ -59,7 +59,9 @@ export function getServiceIconBySlug(slug: string): LucideIcon {
   return Waves;
 }
 
-export function getDynamicNavChildrenByCategory(category: "Pools" | "Landscaping"): NavChild[] {
+export function getDynamicNavChildrenByCategory(
+  category: "Pools" | "Landscaping",
+): NavChild[] {
   return serviceData
     .filter((item) => item.category === category && item.isPublished !== false)
     .map((item) => {
@@ -76,18 +78,19 @@ export function getDynamicNavChildrenByCategory(category: "Pools" | "Landscaping
       return {
         label: cleanedLabel,
         href: `/services/${item.slug}`,
-        description: item.subtitle || item.description || item.seo?.metaDescription || "",
+        description:
+          item.subtitle || item.description || item.seo?.metaDescription || "",
         icon: getServiceIconBySlug(item.slug),
       };
     });
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Poolscape",
+  name: "Dream Floor Landscaping",
   tagline: "Pools & Landscapes, Considered",
   description:
     "Bespoke swimming pool construction and landscaping, designed and built end to end.",
-  url: "https://poolscape.ae",
+  url: "https://dreamfloor.ae",
   phone: "+971 4 000 0000",
   email: "info@dreamfloor.ae",
   address: "Al Quoz Industrial Area 3, Dubai, UAE",
