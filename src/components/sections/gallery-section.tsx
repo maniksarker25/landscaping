@@ -25,6 +25,8 @@ import { usePathname } from "next/navigation";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
+import type { ServiceData } from "@/types/service";
+
 
 const DEFAULT_FALLBACK_ITEMS: GalleryItem[] = [
   {
@@ -113,7 +115,64 @@ export function Gallery({
   );
   const [activeCategory, setActiveCategory] = useState("all");
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [apiServices, setApiServices] = useState<ServiceData[]>([]);
   const pathname = usePathname();
+
+  useEffect(() => {
+    fetch("/api/service/get-all")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+          setApiServices(json.data);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch services for gallery slug matching:", err),
+      );
+  }, []);
+
+  const getTargetSlug = useCallback(
+    (item: GalleryItem) => {
+      // 1. If item itself has a slug from backend, use it
+      const rawSlug = (item as any)?.slug;
+      if (rawSlug) {
+        return rawSlug.startsWith("/") ? rawSlug : `/services/${rawSlug}`;
+      }
+
+
+      // 2. Match with fetched API services by category
+      const itemCat = (item?.category || "").toLowerCase().trim();
+
+      if (apiServices.length > 0) {
+        const matched = apiServices.find(
+          (s) =>
+            s.category?.toLowerCase().trim() === itemCat &&
+            s.isPublished !== false,
+        );
+        if (matched?.slug) {
+          return `/services/${matched.slug}`;
+        }
+      }
+
+      // 3. Fallbacks directly matching backend API service slugs
+      if (itemCat === "pools" || itemCat.includes("pool")) {
+        return "/services/the-premier-overflow-swimming-pool-contractor";
+      }
+      if (
+        itemCat === "landscaping" ||
+        itemCat.includes("landscape") ||
+        itemCat.includes("living")
+      ) {
+        return "/services/tempora-labore-nemo";
+      }
+
+      return apiServices[0]?.slug
+        ? `/services/${apiServices[0].slug}`
+        : "/services/the-premier-overflow-swimming-pool-contractor";
+    },
+    [apiServices],
+  );
+
 
   // Dynamic list of available categories computed from loaded items
   const categories = useMemo(() => {
@@ -279,16 +338,10 @@ export function Gallery({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item, index) => {
-              const targetSlug = (item as any)?.slug
-                ? (item as any).slug.startsWith("/")
-                  ? (item as any).slug
-                  : `/services/${(item as any).slug}`
-                : `/services/${(item?.imageAlt || item?.category || "service")
-                    .toLowerCase()
-                    .replace(/[^a-z0-9]+/g, "-")
-                    .replace(/^-|-$/g, "")}`;
+              const targetSlug = getTargetSlug(item);
 
               return (
+
                 <motion.div
                   key={item?._id}
                   className="group rounded-xl overflow-hidden flex flex-col bg-card shadow-sm border border-border/80 hover:border-primary/40 transition-all duration-300 transform-gpu"
