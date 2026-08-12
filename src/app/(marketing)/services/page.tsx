@@ -5,7 +5,7 @@ import { Container } from "@/components/common/container";
 import { ServiceCard } from "@/components/cards/service-card";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { buildMetadata } from "@/lib/seo";
-import { services } from "@/data/services";
+import { getServicesAsync } from "@/data/services";
 
 export const metadata: Metadata = buildMetadata({
   title: "Services",
@@ -14,10 +14,17 @@ export const metadata: Metadata = buildMetadata({
   path: "/services",
 });
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const servicesList = await getServicesAsync();
+
   return (
     <>
-      <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Services", href: "/services" }]} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+        ]}
+      />
       <PageHero
         eyebrow="Services"
         title="Every discipline your outdoor space needs, in-house"
@@ -27,7 +34,7 @@ export default function ServicesPage() {
       <section className="py-20 sm:py-24">
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
+            {servicesList.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
           </div>

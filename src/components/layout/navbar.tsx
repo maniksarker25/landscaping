@@ -4,7 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Waves, ArrowRight, Mail, Phone } from "lucide-react";
-import { siteConfig, type NavItem } from "@/config/site";
+import {
+  siteConfig,
+  buildNavChildrenFromServices,
+  type NavItem,
+} from "@/config/site";
+import type { ServiceData } from "@/types/service";
+
 import { Container } from "@/components/common/container";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import {
@@ -37,6 +43,7 @@ function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
 export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = React.useState(false);
+  const [apiServices, setApiServices] = React.useState<ServiceData[]>([]);
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -45,10 +52,47 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  React.useEffect(() => {
+    fetch("/api/service/get-all")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+          setApiServices(json.data);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch API services for navbar:", err),
+      );
+  }, []);
+
+  const navItems = React.useMemo(() => {
+    return siteConfig.nav.map((item) => {
+      if (item.label === "Pools") {
+        const children = buildNavChildrenFromServices(apiServices, "Pools");
+        return {
+          ...item,
+          children: children.length > 0 ? children : item.children,
+        };
+      }
+      if (item.label === "Landscaping") {
+        const children = buildNavChildrenFromServices(apiServices, "Landscaping");
+        return {
+          ...item,
+          children: children.length > 0 ? children : item.children,
+        };
+      }
+      return item;
+    });
+  }, [apiServices]);
+
+
+
+
   const isItemActive = (item: NavItem) =>
     item.href === "/"
       ? pathname === "/"
       : Boolean(pathname?.startsWith(item.href));
+
 
   return (
     <div
@@ -123,7 +167,8 @@ export function Navbar() {
 
           <NavigationMenu className="hidden lg:flex" delayDuration={100}>
             <NavigationMenuList>
-              {siteConfig.nav.map((item) => {
+              {navItems.map((item) => {
+
                 const isActive = isItemActive(item);
 
                 if (item.children?.length) {
@@ -154,10 +199,16 @@ export function Navbar() {
                                       </span>
                                     )}
                                     <span className="flex flex-col gap-0.5">
-                                      <span className="text-sm font-medium text-primary">
+                                      <span className="text-sm font-semibold text-primary group-hover:text-accent transition-colors">
                                         {child.label}
                                       </span>
+                                      {child.description && (
+                                        <span className="text-xs text-muted-foreground line-clamp-2 leading-relaxed font-normal">
+                                          {child.description}
+                                        </span>
+                                      )}
                                     </span>
+
                                   </Link>
                                 </NavigationMenuLink>
                               </li>
@@ -212,7 +263,8 @@ export function Navbar() {
             </Button>
           </div>
 
-          <MobileMenu />
+          <MobileMenu items={navItems} />
+
         </Container>
       </header>
     </div>

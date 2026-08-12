@@ -6,7 +6,10 @@ import { ServiceDetailHero } from "@/components/services/service-detail-hero";
 import { ServiceDynamicRenderer } from "@/components/services/service-dynamic-renderer";
 import { ServiceSidebarForm } from "@/components/services/service-sidebar-form";
 import { ServiceBottomContact } from "@/components/services/service-bottom-contact";
-import { getServiceDetailBySlug, getAllServiceSlugs } from "@/data/services-data";
+import {
+  getServiceDetailBySlugAsync,
+  getAllServiceSlugsAsync,
+} from "@/data/services-data";
 
 interface ServicePageProps {
   params: Promise<{
@@ -15,13 +18,13 @@ interface ServicePageProps {
 }
 
 export async function generateStaticParams() {
-  const slugs = getAllServiceSlugs();
+  const slugs = await getAllServiceSlugsAsync();
   return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = getServiceDetailBySlug(slug);
+  const service = await getServiceDetailBySlugAsync(slug);
 
   if (!service) {
     return {
@@ -31,12 +34,12 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   }
 
   return {
-    title: `${service.seo.metaTitle} | Poolscape Dubai`,
-    description: service.seo.metaDescription,
-    keywords: service.seo.keywords,
+    title: `${service.seo?.metaTitle || service.title} | Poolscape Dubai`,
+    description: service.seo?.metaDescription || "",
+    keywords: service.seo?.keywords || [],
     openGraph: {
-      title: service.seo.metaTitle,
-      description: service.seo.metaDescription,
+      title: service.seo?.metaTitle || service.title,
+      description: service.seo?.metaDescription || "",
       images: [{ url: service.heroImage || service.featuredImage || "" }],
     },
   };
@@ -44,11 +47,12 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = getServiceDetailBySlug(slug);
+  const service = await getServiceDetailBySlugAsync(slug);
 
   if (!service) {
     notFound();
   }
+
 
   const heroSection = service.sections.find((s) => s.blockType === "hero_section" || s.type === "hero_section");
   const heroData = heroSection?.content?.hero;

@@ -2,18 +2,22 @@ import * as React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Waves, CircleDot, Droplets, Infinity as InfinityIcon, Wrench, Sparkles, GlassWater } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
-import { serviceData } from "@/data/services-data";
+import { fetchServicesData } from "@/lib/api/services";
 
 export const metadata: Metadata = {
   title: "Swimming Pool Construction & Services in Dubai | Poolscape",
-  description: "Explore our luxury swimming pool construction services in Dubai. Infinity pools, overflow pools, skimmer pools, pool maintenance, and water features.",
+  description:
+    "Explore our luxury swimming pool construction services in Dubai. Infinity pools, overflow pools, skimmer pools, pool maintenance, and water features.",
 };
 
-export default function PoolsOverviewPage() {
-  const poolsList = serviceData.filter((item) => item.category === "Pools");
+export default async function PoolsOverviewPage() {
+  const response = await fetchServicesData();
+  const poolsList = (response.data || []).filter(
+    (item) => item.category?.toLowerCase().trim() === "pools",
+  );
 
   return (
     <main className="min-h-screen bg-background">
@@ -38,7 +42,7 @@ export default function PoolsOverviewPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {poolsList.map((pool) => (
             <div
-              key={pool.slug}
+              key={pool.slug || pool._id}
               className="group flex flex-col justify-between rounded-2xl bg-card border border-border/80 shadow-md overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1"
             >
               <div>
@@ -63,7 +67,10 @@ export default function PoolsOverviewPage() {
                     {pool.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed line-clamp-3">
-                    {pool.subtitle || pool.sections[1]?.content?.richTextHtml?.replace(/<[^>]*>/g, "").substring(0, 150) + "..."}
+                    {pool.subtitle ||
+                      pool.sections?.[0]?.content?.richTextHtml
+                        ?.replace(/<[^>]*>/g, "")
+                        .substring(0, 150) + "..."}
                   </p>
                 </div>
               </div>
@@ -72,7 +79,12 @@ export default function PoolsOverviewPage() {
                 <span className="text-xs font-semibold text-muted-foreground">
                   Turnkey Dubai Service
                 </span>
-                <Button asChild size="sm" variant="ghost" className="text-primary font-bold hover:text-emerald-700 hover:bg-emerald-50">
+                <Button
+                  asChild
+                  size="sm"
+                  variant="ghost"
+                  className="text-primary font-bold hover:text-emerald-700 hover:bg-emerald-50"
+                >
                   <Link href={`/services/${pool.slug}`}>
                     Explore Details <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Link>

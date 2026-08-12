@@ -125,6 +125,7 @@ export interface PoolDetailSeo {
 }
 
 export interface ServiceData {
+  _id?: string;
   title: string;
   slug: string;
   category?: string;
@@ -135,10 +136,11 @@ export interface ServiceData {
   badge?: string;
   aliases?: string[];
   description?: string;
-  seo: PoolDetailSeo;
+  seo?: PoolDetailSeo;
   sections: PoolDetailSection[];
   googleReviews?: GoogleReviewsData;
 }
+
 
 // Aliases for compatibility
 export type PoolDetailData = ServiceData;

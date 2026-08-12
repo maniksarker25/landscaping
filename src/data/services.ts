@@ -1,8 +1,20 @@
-import { Waves, Trees, Lightbulb, Flame, Wrench, Sparkles, Home, Building2, Sprout, Droplet, Infinity as InfinityIcon, GlassWater } from "lucide-react";
+import {
+  Waves,
+  Trees,
+  Lightbulb,
+  Wrench,
+  Sparkles,
+  Home,
+  Sprout,
+  Droplet,
+  Infinity as InfinityIcon,
+  GlassWater,
+} from "lucide-react";
 import type { Service } from "@/types";
-import { serviceData } from "./services-data";
+import type { ServiceData } from "@/types/service";
+import { fetchServicesData } from "@/lib/api/services";
 
-function getIconForService(slug: string) {
+export function getIconForService(slug: string) {
   const s = slug.toLowerCase();
   if (s.includes("infinity")) return InfinityIcon;
   if (s.includes("overflow")) return GlassWater;
@@ -17,17 +29,25 @@ function getIconForService(slug: string) {
   return Waves;
 }
 
-export const services: Service[] = serviceData.map((item) => {
-  const desc = item.subtitle || item.seo.metaDescription;
+export function convertServiceDataToService(item: ServiceData): Service {
+  const desc =
+    item.subtitle || item.description || item.seo?.metaDescription || "";
 
-  const featuresSection = item.sections.find((s) => s.blockType === "features_grid");
-  const featuresList = featuresSection?.content?.features?.map((f) => f.title) || [];
+  const featuresSection = item.sections?.find(
+    (s) => s.blockType === "features_grid",
+  );
+  const featuresList =
+    featuresSection?.content?.features?.map((f) => f.title) || [];
 
-  const processSection = item.sections.find((s) => s.blockType === "technical_specs" || s.blockType === "faq_accordion");
-  const processSteps = processSection?.content?.accordionItems?.map((a) => ({
-    title: a.question,
-    description: a.answer.replace(/<[^>]*>/g, ""),
-  })) || [];
+  const processSection = item.sections?.find(
+    (s) =>
+      s.blockType === "technical_specs" || s.blockType === "faq_accordion",
+  );
+  const processSteps =
+    processSection?.content?.accordionItems?.map((a) => ({
+      title: a.question,
+      description: a.answer.replace(/<[^>]*>/g, ""),
+    })) || [];
 
   return {
     slug: item.slug,
@@ -35,17 +55,48 @@ export const services: Service[] = serviceData.map((item) => {
     shortDescription: item.subtitle || desc,
     description: desc,
     icon: getIconForService(item.slug),
-    heroImage: item.featuredImage || "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=1600&auto=format&fit=crop",
-    features: featuresList.length > 0 ? featuresList : ["Professional Design", "Turnkey Construction", "Expert Engineering", "Premium Materials"],
-    process: processSteps.length > 0 ? processSteps.slice(0, 4) : [
-      { title: "Consultation", description: "Initial site visit & requirement gathering." },
-      { title: "3D Design", description: "Premium architectural layout visualization." },
-      { title: "Construction", description: "Precision engineering and structural building." },
-      { title: "Handover", description: "Rigorous quality checks and final delivery." },
-    ],
+    heroImage:
+      item.featuredImage ||
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=1600&auto=format&fit=crop",
+    features:
+      featuresList.length > 0
+        ? featuresList
+        : [
+            "Professional Design",
+            "Turnkey Construction",
+            "Expert Engineering",
+            "Premium Materials",
+          ],
+    process:
+      processSteps.length > 0
+        ? processSteps.slice(0, 4)
+        : [
+            {
+              title: "Consultation",
+              description: "Initial site visit & requirement gathering.",
+            },
+            {
+              title: "3D Design",
+              description: "Premium architectural layout visualization.",
+            },
+            {
+              title: "Construction",
+              description: "Precision engineering and structural building.",
+            },
+            {
+              title: "Handover",
+              description: "Rigorous quality checks and final delivery.",
+            },
+          ],
   };
-});
-
-export function getServiceBySlug(slug: string): Service | undefined {
-  return services.find((service) => service.slug === slug);
 }
+
+export async function getServicesAsync(): Promise<Service[]> {
+  const res = await fetchServicesData();
+  if (res.data && Array.isArray(res.data)) {
+    return res.data.map(convertServiceDataToService);
+  }
+  return [];
+}
+
+export const services: Service[] = [];

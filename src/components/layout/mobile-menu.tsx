@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, X, ArrowRight } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig, type NavItem } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -15,9 +15,15 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
-export function MobileMenu() {
+
+interface MobileMenuProps {
+  items?: NavItem[];
+}
+
+export function MobileMenu({ items }: MobileMenuProps) {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
+  const menuItems = items || siteConfig.nav;
 
   React.useEffect(() => {
     setOpen(false);
@@ -61,7 +67,8 @@ export function MobileMenu() {
             className="flex-1 overflow-y-auto px-5 py-2"
           >
             <ul className="flex flex-col">
-              {siteConfig.nav.map((item) => {
+              {menuItems.map((item) => {
+
                 const isActive =
                   item.href === "/"
                     ? pathname === "/"

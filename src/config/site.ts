@@ -12,10 +12,9 @@ import {
   Trees,
   Sprout,
   Droplet,
-  Flower2,
   Lightbulb,
 } from "lucide-react";
-import { serviceData } from "@/data/services-data";
+import type { ServiceData } from "@/types/service";
 
 export interface NavChild {
   label: string;
@@ -59,30 +58,75 @@ export function getServiceIconBySlug(slug: string): LucideIcon {
   return Waves;
 }
 
+/**
+ * Dynamic API category items based on title & slug from response schema.
+ */
 export function getDynamicNavChildrenByCategory(
   category: "Pools" | "Landscaping",
 ): NavChild[] {
-  return serviceData
-    .filter((item) => item.category === category && item.isPublished !== false)
-    .map((item) => {
-      // Clean up labels for navbar presentation (e.g. remove " Dubai", " Construction", etc.)
-      const cleanedLabel = item.title
-        .replace(" Construction Dubai", "")
-        .replace(" Services In Dubai", "")
-        .replace(" Dubai UAE", "")
-        .replace(" Dubai", "")
-        .replace(" In Dubai", "")
-        .replace(" Company", "")
-        .trim();
-
-      return {
-        label: cleanedLabel,
-        href: `/services/${item.slug}`,
+  if (category === "Pools") {
+    return [
+      {
+        label: "The Premier Overflow Swimming Pool Contractor",
+        href: "/services/the-premier-overflow-swimming-pool-contractor",
         description:
-          item.subtitle || item.description || item.seo?.metaDescription || "",
-        icon: getServiceIconBySlug(item.slug),
-      };
-    });
+          "Designing, Building, and Maintaining Luxurious Overflow Swimming Pools in Dubai.",
+        icon: getServiceIconBySlug("the-premier-overflow-swimming-pool-contractor"),
+      },
+    ];
+  }
+  return [
+    {
+      label: "Tempora labore nemo",
+      href: "/services/tempora-labore-nemo",
+      description:
+        "Designing, Building, and Maintaining Luxurious Outdoor Landscaping in Dubai.",
+      icon: getServiceIconBySlug("tempora-labore-nemo"),
+    },
+  ];
+}
+
+/**
+ * Maps raw API ServiceData objects into Navbar dropdown children.
+ */
+export function buildNavChildrenFromServices(
+  services: ServiceData[],
+  category: "Pools" | "Landscaping",
+): NavChild[] {
+  if (!services || services.length === 0) {
+    return getDynamicNavChildrenByCategory(category);
+  }
+
+  const filtered = services.filter(
+    (item) =>
+      item.category?.toLowerCase().trim() === category.toLowerCase().trim() &&
+      item.isPublished !== false,
+  );
+
+  if (filtered.length === 0) {
+    return getDynamicNavChildrenByCategory(category);
+  }
+
+  return filtered.map((item) => {
+    let rawDescription =
+      item.subtitle ||
+      item.description ||
+      item.seo?.metaDescription ||
+      "";
+
+    if (!rawDescription && item.sections?.[0]?.content?.richTextHtml) {
+      rawDescription = item.sections[0].content.richTextHtml
+        .replace(/<[^>]*>/g, "")
+        .substring(0, 110);
+    }
+
+    return {
+      label: item.title,
+      href: `/services/${item.slug}`,
+      description: rawDescription,
+      icon: getServiceIconBySlug(item.slug),
+    };
+  });
 }
 
 export const siteConfig: SiteConfig = {
