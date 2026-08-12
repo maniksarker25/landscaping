@@ -11,6 +11,7 @@ export interface LightboxItem {
   title: string;
   imageUrl: string;
   category?: string;
+  slug?: string;
 }
 
 export interface LightboxModalProps {

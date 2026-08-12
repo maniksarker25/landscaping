@@ -148,9 +148,10 @@ export const siteConfig: SiteConfig = {
       },
       {
         label: "Landscaping",
-        href: "/services",
+        href: "/landscaping",
         children: getDynamicNavChildrenByCategory("Landscaping"),
       },
+
       { label: "Project", href: "/projects" },
       { label: "Contact Us", href: "/contact" },
     ];

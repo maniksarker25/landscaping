@@ -17,9 +17,12 @@ import {
   ZoomIn,
   Loader2,
   RefreshCw,
+  ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 
@@ -99,7 +102,6 @@ export function Gallery({
   initialMeta,
   initialTestimonials,
 }: GalleryProps) {
-
   const [items, setItems] = useState<GalleryItem[]>(() => {
     if (initialData && initialData.length > 0) return initialData;
     return DEFAULT_FALLBACK_ITEMS;
@@ -117,7 +119,7 @@ export function Gallery({
   const categories = useMemo(() => {
     const unique = new Set<string>();
     items.forEach((item) => {
-      if (item.category) unique.add(item.category.trim());
+      if (item?.category) unique.add(item?.category.trim());
     });
 
     const categoryList: { label: string; value: string }[] = [
@@ -173,17 +175,17 @@ export function Gallery({
   const filteredItems = useMemo(() => {
     if (activeCategory === "all") return items;
     return items.filter(
-      (item) => item.category?.toLowerCase() === activeCategory.toLowerCase(),
+      (item) => item?.category?.toLowerCase() === activeCategory.toLowerCase(),
     );
   }, [items, activeCategory]);
 
   // Map GalleryItems to LightboxItem structure for LightboxModal
   const lightboxItems: LightboxItem[] = useMemo(() => {
     return filteredItems.map((item) => ({
-      id: item._id,
-      title: item.imageAlt || `${item.location} ${item.category}`,
-      imageUrl: item.image,
-      category: item.category,
+      id: item?._id,
+      title: item?.imageAlt || `${item?.location} ${item?.category}`,
+      imageUrl: item?.image,
+      category: item?.category,
     }));
   }, [filteredItems]);
 
@@ -276,55 +278,74 @@ export function Gallery({
         {/* Dynamic Filtered Grid Gallery */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => (
-              <motion.div
-                key={item._id}
-                onClick={() => setSelectedImageIndex(index)}
-                className="group cursor-pointer rounded-xl overflow-hidden flex flex-col bg-card shadow-sm border border-border/80 hover:border-primary/40 transition-all duration-300 transform-gpu"
-                initial={{ opacity: 0, scale: 0.99 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.99 }}
-                transition={{ duration: 0.1, ease: "easeOut" }}
-              >
-                <div className="relative w-full aspect-[4/3] overflow-hidden bg-muted">
-                  <Image
-                    src={item.image}
-                    alt={item.imageAlt || item.location || "Project Image"}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    quality={75}
-                    priority={index < 2}
-                    className="object-cover transition-transform duration-500 ease-out transform-gpu group-hover:scale-105"
-                  />
+            {filteredItems.map((item, index) => {
+              const targetSlug = (item as any)?.slug
+                ? (item as any).slug.startsWith("/")
+                  ? (item as any).slug
+                  : `/services/${(item as any).slug}`
+                : `/services/${(item?.imageAlt || item?.category || "service")
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-|-$/g, "")}`;
 
-                  {/* Category Badge Tag on Image */}
-                  <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
-                    <span className="inline-block rounded-full bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white shadow">
-                      {item.category?.replace("-", " ")}
-                    </span>
-                    {item.location && (
-                      <span className="inline-block rounded-full bg-primary/80 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold tracking-wider text-white shadow">
-                        {item.location}
+              return (
+                <motion.div
+                  key={item?._id}
+                  className="group rounded-xl overflow-hidden flex flex-col bg-card shadow-sm border border-border/80 hover:border-primary/40 transition-all duration-300 transform-gpu"
+                  initial={{ opacity: 0, scale: 0.99 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.99 }}
+                  transition={{ duration: 0.1, ease: "easeOut" }}
+                >
+                  {/* Image Area - Clicking opens Lightbox Modal */}
+                  <div
+                    onClick={() => setSelectedImageIndex(index)}
+                    className="relative w-full aspect-[4/3] overflow-hidden bg-muted cursor-pointer"
+                  >
+                    <Image
+                      src={item?.image}
+                      alt={item?.imageAlt || item?.location || "Project Image"}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      quality={75}
+                      priority={index < 2}
+                      className="object-cover transition-transform duration-500 ease-out transform-gpu group-hover:scale-105"
+                    />
+
+                    {/* Category Badge Tag on Image */}
+                    <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
+                      <span className="inline-block rounded-full bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white shadow">
+                        {item?.category?.replace("-", " ")}
                       </span>
-                    )}
-                  </div>
+                      {item?.location && (
+                        <span className="inline-block rounded-full bg-primary/80 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold tracking-wider text-white shadow">
+                          {item?.location}
+                        </span>
+                      )}
+                    </div>
 
-                  {/* Visual Premium Hover Overlay */}
-                  <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                    <div className="h-10 w-10 rounded-full bg-background/90 text-primary flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform transform-gpu">
-                      <ZoomIn className="h-5 w-5" />
+                    {/* Visual Premium Hover Overlay */}
+                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                      <div className="h-10 w-10 rounded-full bg-background/90 text-primary flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform transform-gpu">
+                        <ZoomIn className="h-5 w-5" />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Title Box */}
-                <div className="py-4 px-4 flex text-center bg-card z-10 transition-colors group-hover:bg-muted/40 items-center justify-center border-t border-border/40">
-                  <span className="text-xs font-bold tracking-[0.15em] uppercase text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                    {item.imageAlt || item.location || "Luxury Project"}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+                  {/* Title Box - Clicking navigates to /services/item?.slug */}
+                  <Link
+                    href={targetSlug}
+                    onClick={(e) => e.stopPropagation()}
+                    className="py-4 px-4 flex text-center bg-card z-10 transition-colors group-hover:bg-muted/40 items-center justify-center border-t border-border/40 hover:text-primary cursor-pointer"
+                  >
+                    <span className="text-xs font-bold tracking-[0.15em] uppercase text-foreground group-hover:text-primary transition-colors line-clamp-1 flex items-center justify-center gap-1.5">
+                      {item?.imageAlt || item?.location || "Luxury Project"}
+                      <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                    </span>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
         </div>
 

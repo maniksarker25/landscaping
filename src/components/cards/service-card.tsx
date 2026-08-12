@@ -11,9 +11,9 @@ export function ServiceCard({ service }: { service: Service }) {
         <div className="h-12 hidden md:flex w-12 items-center justify-center rounded-full bg-primary/5 text-primary transition-colors group-hover:bg-accent/10 group-hover:text-accent">
           <Icon className="h-6 w-6" aria-hidden="true" />
         </div>
-        <h3 className="mt-3 md:mt-6 font-display text-xl">{service.title}</h3>
-        <p className="mt-3 text-xs md:text-sm leading-relaxed text-muted-foreground">
-          {service.shortDescription}
+        <h3 className="mt-3 md:mt-6 font-display text-xl line-clamp-1">{service?.title}</h3>
+        <p className="mt-3 text-xs md:text-sm leading-relaxed text-muted-foreground line-clamp-4">
+          {service?.shortDescription}
         </p>
       </div>
       <Link
