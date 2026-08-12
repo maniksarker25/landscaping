@@ -11,6 +11,7 @@ import { buildMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Gallery from "./projects/page";
 import { getTestimonialsAsync } from "@/data/testimonials";
+import { getFaqsAsync } from "@/data/faqs";
 
 export const metadata: Metadata = buildMetadata({
   title: `${siteConfig.name} — ${siteConfig.tagline}`,
@@ -18,7 +19,10 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default async function HomePage() {
-  const initialTestimonials = await getTestimonialsAsync();
+  const [initialTestimonials, initialFaqs] = await Promise.all([
+    getTestimonialsAsync(),
+    getFaqsAsync(),
+  ]);
 
   return (
     <>
@@ -34,7 +38,7 @@ export default async function HomePage() {
       <WhyChooseUs />
       <Process />
       <Testimonials initialTestimonials={initialTestimonials} />
-      <FaqSection limit={5} />
+      <FaqSection limit={5} initialFaqs={initialFaqs} />
       <LocationMap />
     </>
   );

@@ -67,32 +67,31 @@ export function Navbar() {
 
   const navItems = React.useMemo(() => {
     return siteConfig.nav.map((item) => {
-      if (item.label === "Pools") {
+      if (item?.label === "Pools") {
         const children = buildNavChildrenFromServices(apiServices, "Pools");
         return {
           ...item,
-          children: children.length > 0 ? children : item.children,
+          children: children.length > 0 ? children : item?.children,
         };
       }
-      if (item.label === "Landscaping") {
-        const children = buildNavChildrenFromServices(apiServices, "Landscaping");
+      if (item?.label === "Landscaping") {
+        const children = buildNavChildrenFromServices(
+          apiServices,
+          "Landscaping",
+        );
         return {
           ...item,
-          children: children.length > 0 ? children : item.children,
+          children: children.length > 0 ? children : item?.children,
         };
       }
       return item;
     });
   }, [apiServices]);
 
-
-
-
   const isItemActive = (item: NavItem) =>
-    item.href === "/"
+    item?.href === "/"
       ? pathname === "/"
-      : Boolean(pathname?.startsWith(item.href));
-
+      : Boolean(pathname?.startsWith(item?.href));
 
   return (
     <div
@@ -168,20 +167,19 @@ export function Navbar() {
           <NavigationMenu className="hidden lg:flex" delayDuration={100}>
             <NavigationMenuList>
               {navItems.map((item) => {
-
                 const isActive = isItemActive(item);
 
-                if (item.children?.length) {
+                if (item?.children?.length) {
                   return (
-                    <NavigationMenuItem key={item.href}>
+                    <NavigationMenuItem key={item?.href}>
                       <NavigationMenuTrigger
                         className={cn(isActive && "text-primary")}
                       >
-                        {item.label}
+                        {item?.label}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className="grid w-[560px] grid-cols-2 gap-1 p-4 lg:w-[640px]">
-                          {item.children.map((child) => {
+                          {item?.children.map((child) => {
                             const Icon = child.icon;
                             return (
                               <li key={child.href}>
@@ -208,7 +206,6 @@ export function Navbar() {
                                         </span>
                                       )}
                                     </span>
-
                                   </Link>
                                 </NavigationMenuLink>
                               </li>
@@ -221,10 +218,10 @@ export function Navbar() {
                           </span>
                           <NavigationMenuLink asChild>
                             <Link
-                              href={item.href}
+                              href={item?.href}
                               className="flex items-center gap-1 text-xs font-medium text-accent hover:underline"
                             >
-                              View all {item.label.toLowerCase()}
+                              View all {item?.label.toLowerCase()}
                               <ArrowRight
                                 className="h-3 w-3"
                                 aria-hidden="true"
@@ -238,17 +235,17 @@ export function Navbar() {
                 }
 
                 return (
-                  <NavigationMenuItem key={item.href}>
+                  <NavigationMenuItem key={item?.href}>
                     <NavigationMenuLink asChild>
                       <Link
-                        href={item.href}
+                        href={item?.href}
                         aria-current={isActive ? "page" : undefined}
                         className={cn(
                           "inline-flex items-center text-sm font-medium tracking-wide transition-colors hover:text-accent",
                           isActive ? "text-primary" : "text-foreground/80",
                         )}
                       >
-                        {item.label}
+                        {item?.label}
                       </Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
@@ -264,7 +261,6 @@ export function Navbar() {
           </div>
 
           <MobileMenu items={navItems} />
-
         </Container>
       </header>
     </div>

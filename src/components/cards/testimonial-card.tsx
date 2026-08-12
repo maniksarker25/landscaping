@@ -21,7 +21,7 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             alt={testimonial.name}
             width={50}
             height={50}
-            className="w-12 h-12 overflow-hidden rounded-full border border-primary p-[2px]"
+            className="w-12 h-12 overflow-hidden rounded-full border object-cover border-primary p-[2px]"
           />
           <div className="flex flex-col items-start justify-center">
             <p className="font-display text-base line-clamp-1">

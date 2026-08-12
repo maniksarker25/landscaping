@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
-
 interface MobileMenuProps {
   items?: NavItem[];
 }
@@ -62,32 +61,27 @@ export function MobileMenu({ items }: MobileMenuProps) {
             </Dialog.Close>
           </div>
 
-          <nav
-            aria-label="Mobile"
-            className="flex-1 overflow-y-auto px-5 py-2"
-          >
+          <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5 py-2">
             <ul className="flex flex-col">
               {menuItems.map((item) => {
-
                 const isActive =
-                  item.href === "/"
+                  item?.href === "/"
                     ? pathname === "/"
-                    : Boolean(pathname?.startsWith(item.href));
+                    : Boolean(pathname?.startsWith(item?.href));
 
-
-                if (item.children?.length) {
+                if (item?.children?.length) {
                   return (
-                    <li key={item.href}>
+                    <li key={item?.href}>
                       <Accordion type="single" collapsible>
-                        <AccordionItem value={item.href}>
+                        <AccordionItem value={item?.href}>
                           <AccordionTrigger
                             className={cn(isActive && "text-accent")}
                           >
-                            {item.label}
+                            {item?.label}
                           </AccordionTrigger>
                           <AccordionContent>
                             <ul className="flex flex-col gap-1">
-                              {item.children.map((child) => (
+                              {item?.children.map((child) => (
                                 <li key={child.href}>
                                   <Link
                                     href={child.href}
@@ -99,11 +93,14 @@ export function MobileMenu({ items }: MobileMenuProps) {
                               ))}
                             </ul>
                             <Link
-                              href={item.href}
+                              href={item?.href}
                               className="mt-1 flex items-center gap-1 rounded-md px-2 py-2 text-sm font-medium text-accent"
                             >
-                              View all {item.label.toLowerCase()}
-                              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                              View all {item?.label.toLowerCase()}
+                              <ArrowRight
+                                className="h-3.5 w-3.5"
+                                aria-hidden="true"
+                              />
                             </Link>
                           </AccordionContent>
                         </AccordionItem>
@@ -114,18 +111,18 @@ export function MobileMenu({ items }: MobileMenuProps) {
 
                 return (
                   <li
-                    key={item.href}
+                    key={item?.href}
                     className="border-b border-border last:border-b-0"
                   >
                     <Link
-                      href={item.href}
+                      href={item?.href}
                       aria-current={isActive ? "page" : undefined}
                       className={cn(
                         "block py-4 text-base font-medium tracking-wide transition-colors hover:text-accent",
-                        isActive ? "text-primary" : "text-foreground/80"
+                        isActive ? "text-primary" : "text-foreground/80",
                       )}
                     >
-                      {item.label}
+                      {item?.label}
                     </Link>
                   </li>
                 );

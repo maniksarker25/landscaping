@@ -4,19 +4,22 @@ import { PageHero } from "@/components/sections/page-hero";
 import { FaqSection } from "@/components/sections/faq-section";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { buildMetadata, buildBreadcrumbJsonLd } from "@/lib/seo";
-import { faqs } from "@/data/faqs";
+import { getFaqsAsync } from "@/data/faqs";
 
 export const metadata: Metadata = buildMetadata({
   title: "FAQs",
-  description: "Answers to common questions about pool construction, landscaping, pricing, and maintenance.",
+  description:
+    "Answers to common questions about pool construction, landscaping, pricing, and maintenance.",
   path: "/faqs",
 });
 
-export default function FaqsPage() {
+export default async function FaqsPage() {
+  const faqList = await getFaqsAsync();
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
+    mainEntity: faqList.map((faq) => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: { "@type": "Answer", text: faq.answer },
@@ -40,13 +43,18 @@ export default function FaqsPage() {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "FAQs", href: "/faqs" }]} />
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "FAQs", href: "/faqs" },
+        ]}
+      />
       <PageHero
         eyebrow="FAQs"
         title="Questions we hear often"
         description="Can't find what you're looking for? Reach out and we'll answer directly."
       />
-      <FaqSection showTitle={false} />
+      <FaqSection showTitle={false} initialFaqs={faqList} />
       <CtaBanner />
     </>
   );
