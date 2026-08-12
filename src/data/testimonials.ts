@@ -1,44 +1,29 @@
 import type { Testimonial } from "@/types";
+import type { TestimonialItem } from "@/types/testimonial";
+import { fetchTestimonialsData } from "@/lib/api/testimonials";
 
-export const testimonials: Testimonial[] = [
-  {
-    id: "t1",
-    name: "Sara Al Mansoori",
-    role: "Homeowner, Al Barari",
-    quote:
-      "They treated our garden's existing trees as something to design around, not remove. The pool feels like it was always meant to be there.",
-    rating: 5,
+export function convertTestimonialItemToTestimonial(
+  item: TestimonialItem,
+): Testimonial {
+  return {
+    id: item._id,
+    name: item.name,
+    role: item.roleOrLocation || "Client, Dubai",
+    quote: item.quote,
+    rating: item.rating || 5,
     avatar:
-      "https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: "t2",
-    name: "James Whitfield",
-    role: "Homeowner, Emirates Hills",
-    quote:
-      "Clear communication from the first site visit to handover. No surprise costs, no delays we weren't warned about in advance.",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: "t3",
-    name: "Fatima Rahman",
-    role: "Property Manager, Jumeirah Golf Estates",
-    quote:
-      "We manage renovation projects across several villas — this was the smoothest pool renovation we've overseen.",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: "t4",
-    name: "David Okafor",
-    role: "Homeowner, Palm Jumeirah",
-    quote:
-      "Building on a rooftop terrace came with real structural constraints. Their engineering team worked through every one of them with us.",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
+      item.image ||
+      "https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=2080&auto=format&fit=crop",
+  };
+}
+
+export async function getTestimonialsAsync(): Promise<Testimonial[]> {
+  const res = await fetchTestimonialsData();
+  if (res.data && Array.isArray(res.data)) {
+    return res.data.map(convertTestimonialItemToTestimonial);
+  }
+  return [];
+}
+
+// Deprecated static dummy array removed in favor of backend API
+export const testimonials: Testimonial[] = [];

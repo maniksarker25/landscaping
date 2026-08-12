@@ -1,6 +1,8 @@
 import type { GetServerSideProps } from "next";
 import { Gallery } from "@/components/sections/gallery-section";
 import { fetchGalleryData } from "@/lib/api/gallery";
+import { getTestimonialsAsync } from "@/data/testimonials";
+import type { Testimonial } from "@/types";
 import type {
   GalleryItem,
   GalleryMeta,
@@ -10,13 +12,21 @@ import type {
 interface ProjectsPageProps {
   initialData: GalleryItem[];
   initialMeta: GalleryMeta;
+  initialTestimonials: Testimonial[];
 }
 
 export default function ProjectsSSRPage({
   initialData,
   initialMeta,
+  initialTestimonials,
 }: ProjectsPageProps) {
-  return <Gallery initialData={initialData} initialMeta={initialMeta} />;
+  return (
+    <Gallery
+      initialData={initialData}
+      initialMeta={initialMeta}
+      initialTestimonials={initialTestimonials}
+    />
+  );
 }
 
 export const getServerSideProps: GetServerSideProps<ProjectsPageProps> = async (
@@ -34,6 +44,7 @@ export const getServerSideProps: GetServerSideProps<ProjectsPageProps> = async (
   };
 
   const response = await fetchGalleryData(queryParams);
+  const testimonials = await getTestimonialsAsync();
 
   return {
     props: {
@@ -44,6 +55,7 @@ export const getServerSideProps: GetServerSideProps<ProjectsPageProps> = async (
         total: response.data?.length || 0,
         totalPage: 1,
       },
+      initialTestimonials: testimonials,
     },
   };
 };

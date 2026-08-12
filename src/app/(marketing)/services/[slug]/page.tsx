@@ -10,6 +10,8 @@ import {
   getServiceDetailBySlugAsync,
   getAllServiceSlugsAsync,
 } from "@/data/services-data";
+import { fetchTestimonialsData } from "@/lib/api/testimonials";
+
 
 interface ServicePageProps {
   params: Promise<{
@@ -47,14 +49,18 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = await getServiceDetailBySlugAsync(slug);
+  const [service, testimonialsRes] = await Promise.all([
+    getServiceDetailBySlugAsync(slug),
+    fetchTestimonialsData(),
+  ]);
 
   if (!service) {
     notFound();
   }
 
-
-  const heroSection = service.sections.find((s) => s.blockType === "hero_section" || s.type === "hero_section");
+  const heroSection = service.sections.find(
+    (s) => s.blockType === "hero_section" || s.type === "hero_section",
+  );
   const heroData = heroSection?.content?.hero;
 
   return (
@@ -75,8 +81,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <ServiceDynamicRenderer
               sections={service.sections}
               googleReviews={service.googleReviews}
+              initialTestimonials={testimonialsRes.data || []}
             />
           </div>
+
 
           {/* Right Column (Sticky Quick Consultation Form) */}
           <div className="lg:col-span-4 w-full lg:sticky lg:top-24 h-fit">

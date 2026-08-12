@@ -10,13 +10,16 @@ import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Gallery from "./projects/page";
+import { getTestimonialsAsync } from "@/data/testimonials";
 
 export const metadata: Metadata = buildMetadata({
   title: `${siteConfig.name} — ${siteConfig.tagline}`,
   path: "/",
 });
 
-export default function HomePage() {
+export default async function HomePage() {
+  const initialTestimonials = await getTestimonialsAsync();
+
   return (
     <>
       <Hero />
@@ -30,7 +33,7 @@ export default function HomePage() {
       <ServicesOverview />
       <WhyChooseUs />
       <Process />
-      <Testimonials />
+      <Testimonials initialTestimonials={initialTestimonials} />
       <FaqSection limit={5} />
       <LocationMap />
     </>

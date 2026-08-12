@@ -12,17 +12,22 @@ import { ServiceFaqAccordion } from "./service-faq-accordion";
 import { ServiceDropUsALine } from "./service-drop-us-a-line";
 import { defaultGoogleReviews } from "@/data/services-data";
 
+import type { TestimonialItem } from "@/types/testimonial";
+
 interface ServiceDynamicRendererProps {
   sections: PoolDetailSection[];
   googleReviews?: GoogleReviewsData;
+  initialTestimonials?: TestimonialItem[];
   className?: string;
 }
 
 export function ServiceDynamicRenderer({
   sections,
   googleReviews,
+  initialTestimonials,
   className,
 }: ServiceDynamicRendererProps) {
+
   if (!sections || sections.length === 0) return null;
 
   const reviewsData = googleReviews || defaultGoogleReviews;
@@ -194,8 +199,10 @@ export function ServiceDynamicRenderer({
                 key={key}
                 title={section.title}
                 data={reviewsData}
+                initialTestimonials={initialTestimonials}
               />
             );
+
 
           default:
             return null;

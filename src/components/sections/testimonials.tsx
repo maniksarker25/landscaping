@@ -7,12 +7,22 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { SectionTitle } from "@/components/common/section-title";
 import { TestimonialCard } from "@/components/cards/testimonial-card";
-import { testimonials } from "@/data/testimonials";
+import type { Testimonial } from "@/types";
+import type { TestimonialItem } from "@/types/testimonial";
+import { convertTestimonialItemToTestimonial } from "@/data/testimonials";
 
-export function Testimonials() {
+interface TestimonialsProps {
+  initialTestimonials?: Testimonial[];
+}
+
+export function Testimonials({ initialTestimonials }: TestimonialsProps) {
+  const [dataList, setDataList] = React.useState<Testimonial[]>(
+    initialTestimonials || [],
+  );
+
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start" },
-    [Autoplay({ delay: 2000 })],
+    [Autoplay({ delay: 3000 })],
   );
 
   const scrollPrev = React.useCallback(
@@ -23,6 +33,26 @@ export function Testimonials() {
     () => emblaApi?.scrollNext(),
     [emblaApi],
   );
+
+  React.useEffect(() => {
+    fetch("/api/testimonial/get-all")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+          const mapped = json.data.map((item: TestimonialItem) =>
+            convertTestimonialItemToTestimonial(item),
+          );
+          setDataList(mapped);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch client testimonials:", err),
+      );
+  }, []);
+
+  if (!dataList || dataList.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-12 sm:py-28">
@@ -54,7 +84,7 @@ export function Testimonials() {
 
         <div className="mt-12 overflow-hidden" ref={emblaRef}>
           <div className="-ml-6 flex">
-            {testimonials.map((testimonial) => (
+            {dataList.map((testimonial) => (
               <div
                 key={testimonial.id}
                 className="min-w-0 shrink-0 grow-0 basis-full pl-6 sm:basis-1/2 lg:basis-1/3"

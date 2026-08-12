@@ -86,12 +86,20 @@ const DEFAULT_FALLBACK_ITEMS: GalleryItem[] = [
   },
 ];
 
+import type { Testimonial } from "@/types";
+
 export interface GalleryProps {
   initialData?: GalleryItem[];
   initialMeta?: GalleryMeta;
+  initialTestimonials?: Testimonial[];
 }
 
-export function Gallery({ initialData, initialMeta }: GalleryProps) {
+export function Gallery({
+  initialData,
+  initialMeta,
+  initialTestimonials,
+}: GalleryProps) {
+
   const [items, setItems] = useState<GalleryItem[]>(() => {
     if (initialData && initialData.length > 0) return initialData;
     return DEFAULT_FALLBACK_ITEMS;
@@ -417,7 +425,10 @@ export function Gallery({ initialData, initialMeta }: GalleryProps) {
         )}
       </AnimatePresence>
 
-      {pathname === "/projects" && <Testimonials />}
+      {pathname === "/projects" && (
+        <Testimonials initialTestimonials={initialTestimonials} />
+      )}
+
       {pathname === "/projects" && <QuoteMapSection />}
     </div>
   );

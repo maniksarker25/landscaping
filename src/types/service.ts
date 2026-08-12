@@ -103,11 +103,13 @@ export interface GoogleReviewItem {
   id: string;
   authorName: string;
   authorAvatar?: string;
+  avatar?: string;
   timeAgo: string;
   rating: number;
   text: string;
   verified?: boolean;
 }
+
 
 export interface GoogleReviewsData {
   averageRating: number;

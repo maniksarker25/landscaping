@@ -3,23 +3,64 @@
 import * as React from "react";
 import { Star, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import type { GoogleReviewsData } from "@/types/service";
-import { defaultGoogleReviews } from "@/data/services-data";
+import type { TestimonialItem } from "@/types/testimonial";
 import { cn } from "@/lib/utils";
 
 interface ServiceTrustReviewsProps {
   data?: GoogleReviewsData;
+  initialTestimonials?: TestimonialItem[];
   title?: string;
   className?: string;
 }
 
 export function ServiceTrustReviews({
-  data = defaultGoogleReviews,
+  data,
+  initialTestimonials = [],
   title,
   className,
 }: ServiceTrustReviewsProps) {
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(false);
+  const [apiTestimonials, setApiTestimonials] = React.useState<
+    TestimonialItem[]
+  >(initialTestimonials);
+
+  React.useEffect(() => {
+    fetch("/api/testimonial/get-all")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+          setApiTestimonials(json.data);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch testimonials for ServiceTrustReviews:", err),
+      );
+  }, []);
+
+  const reviewsList = React.useMemo(() => {
+    if (apiTestimonials.length > 0) {
+      return apiTestimonials.map((item) => ({
+        id: item._id,
+        authorName: item.name,
+        authorAvatar: item.image,
+        avatar: item.image,
+        timeAgo: item.roleOrLocation || "Client Review",
+        rating: item.rating || 5,
+        text: item.quote,
+        verified: true,
+      }));
+    }
+    if (data?.reviews && data.reviews.length > 0) {
+      return data.reviews.map((r) => ({
+        ...r,
+        avatar: r.avatar || r.authorAvatar,
+        authorAvatar: r.authorAvatar || r.avatar,
+      }));
+    }
+    return [];
+  }, [apiTestimonials, data?.reviews]);
 
   const checkScroll = React.useCallback(() => {
     if (scrollRef.current) {
@@ -42,7 +83,7 @@ export function ServiceTrustReviews({
         window.removeEventListener("resize", checkScroll);
       };
     }
-  }, [data.reviews, checkScroll]);
+  }, [reviewsList, checkScroll]);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -53,6 +94,11 @@ export function ServiceTrustReviews({
     }
   };
 
+  const badgeTitle = data?.badgeTitle || "EXCELLENT";
+  const averageRating = data?.averageRating || 5.0;
+  const totalReviews =
+    data?.totalReviews || (reviewsList.length > 0 ? reviewsList.length : 128);
+
   return (
     <div
       className={cn(
@@ -60,16 +106,10 @@ export function ServiceTrustReviews({
         className,
       )}
     >
-      {/* {title && (
-        <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-primary text-center sm:text-left">
-          {title}
-        </h2>
-      )} */}
-
-      {/* Google Ratings Header Badge */}
+      {/* Header Badge */}
       <div className="flex flex-col items-center justify-center space-y-2 py-4 border-b border-border/60 text-center">
         <span className="text-sm font-extrabold tracking-widest text-emerald-800 uppercase">
-          {data.badgeTitle || "EXCELLENT"}
+          {badgeTitle}
         </span>
 
         <div className="flex items-center gap-1.5">
@@ -101,15 +141,13 @@ export function ServiceTrustReviews({
             />
           </svg>
           <span className="text-sm font-semibold text-foreground/80">
-            Rated {data.averageRating.toFixed(1)} / 5.0 based on{" "}
-            {data.totalReviews}+ Google Reviews
+            Rated {averageRating.toFixed(1)} / 5.0 based on {totalReviews}+ Verified Reviews
           </span>
         </div>
       </div>
 
-      {/* Review Cards Horizontal Carousel */}
+      {/* Review Cards Carousel */}
       <div className="relative group/carousel pt-2">
-        {/* Left Arrow */}
         {canScrollLeft && (
           <button
             onClick={() => scroll("left")}
@@ -120,7 +158,6 @@ export function ServiceTrustReviews({
           </button>
         )}
 
-        {/* Right Arrow */}
         {canScrollRight && (
           <button
             onClick={() => scroll("right")}
@@ -136,48 +173,79 @@ export function ServiceTrustReviews({
           onScroll={checkScroll}
           className="flex gap-4 overflow-x-auto pb-4 pt-1 scroll-smooth snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          {data.reviews.map((rev) => (
-            <div
-              key={rev.id}
-              className="flex flex-col justify-between rounded-xl bg-background p-5 border border-border/60 shadow-sm transition-all hover:shadow-md w-[280px] sm:w-[350px] flex-shrink-0 snap-start"
-            >
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">
-                      {rev.authorName.charAt(0)}
+          {reviewsList.length > 0 ? (
+            reviewsList.map((rev) => (
+              <div
+                key={rev.id}
+                className="flex flex-col justify-between rounded-xl bg-background p-5 border border-border/60 shadow-sm transition-all hover:shadow-md w-[280px] sm:w-[350px] flex-shrink-0 snap-start"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-2.5">
+                      {rev.avatar || rev.authorAvatar ? (
+                        <img
+                          src={rev.avatar || rev.authorAvatar}
+                          alt={rev.authorName}
+                          className="h-9 w-9 rounded-full object-cover border border-primary/30"
+                        />
+                      ) : (
+                        <div className="h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">
+                          {rev.authorName.charAt(0)}
+                        </div>
+                      )}
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground leading-none">
+                          {rev.authorName}
+                        </h4>
+                        <span className="text-xs text-muted-foreground">
+                          {rev.timeAgo}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-foreground leading-none">
-                        {rev.authorName}
-                      </h4>
-                      <span className="text-xs text-muted-foreground">
-                        {rev.timeAgo}
+                    {rev.verified && (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                        <CheckCircle className="h-3 w-3" /> Verified
                       </span>
-                    </div>
+                    )}
                   </div>
-                  {rev.verified && (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                      <CheckCircle className="h-3 w-3" /> Verified
-                    </span>
-                  )}
-                </div>
 
-                <div className="flex items-center gap-0.5 mb-2">
-                  {[...Array(rev.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-amber-400 text-amber-400"
-                    />
-                  ))}
-                </div>
+                  <div className="flex items-center gap-0.5 mb-2">
+                    {[...Array(rev.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="h-4 w-4 fill-amber-400 text-amber-400"
+                      />
+                    ))}
+                  </div>
 
-                <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed relative pl-3 border-l-2 border-primary/30 italic">
-                  "{rev.text}"
-                </p>
+                  <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed relative pl-3 border-l-2 border-primary/30 italic">
+                    "{rev.text}"
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            // Skeleton loaders while fetching API testimonials
+            [...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                className="flex flex-col justify-between rounded-xl bg-card/60 p-5 border border-border/40 w-[280px] sm:w-[350px] flex-shrink-0 animate-pulse space-y-4"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="h-9 w-9 rounded-full bg-muted" />
+                  <div className="space-y-1.5 flex-1">
+                    <div className="h-3 w-24 rounded bg-muted" />
+                    <div className="h-2.5 w-16 rounded bg-muted/70" />
+                  </div>
+                </div>
+                <div className="h-3 w-20 rounded bg-amber-200/50" />
+                <div className="space-y-2 pt-1">
+                  <div className="h-3 w-full rounded bg-muted/80" />
+                  <div className="h-3 w-4/5 rounded bg-muted/60" />
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -72,4 +72,6 @@ export interface GalleryImage {
 }
 
 export * from "./gallery";
+export * from "./testimonial";
+
 
