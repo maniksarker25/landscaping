@@ -70,3 +70,6 @@ export interface GalleryImage {
   alt: string;
   category: "pools" | "landscaping" | "outdoor-living" | "lighting";
 }
+
+export * from "./gallery";
+

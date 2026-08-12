@@ -46,7 +46,9 @@ export function Navbar() {
   }, []);
 
   const isItemActive = (item: NavItem) =>
-    item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+    item.href === "/"
+      ? pathname === "/"
+      : Boolean(pathname?.startsWith(item.href));
 
   return (
     <div

@@ -63,7 +63,10 @@ export function MobileMenu() {
             <ul className="flex flex-col">
               {siteConfig.nav.map((item) => {
                 const isActive =
-                  item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                  item.href === "/"
+                    ? pathname === "/"
+                    : Boolean(pathname?.startsWith(item.href));
+
 
                 if (item.children?.length) {
                   return (
