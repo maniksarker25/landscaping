@@ -71,7 +71,9 @@ export function getDynamicNavChildrenByCategory(
         href: "/services/the-premier-overflow-swimming-pool-contractor",
         description:
           "Designing, Building, and Maintaining Luxurious Overflow Swimming Pools in Dubai.",
-        icon: getServiceIconBySlug("the-premier-overflow-swimming-pool-contractor"),
+        icon: getServiceIconBySlug(
+          "the-premier-overflow-swimming-pool-contractor",
+        ),
       },
     ];
   }
@@ -109,10 +111,7 @@ export function buildNavChildrenFromServices(
 
   return filtered.map((item) => {
     let rawDescription =
-      item.subtitle ||
-      item.description ||
-      item.seo?.metaDescription ||
-      "";
+      item.subtitle || item.description || item.seo?.metaDescription || "";
 
     if (!rawDescription && item.sections?.[0]?.content?.richTextHtml) {
       rawDescription = item.sections[0].content.richTextHtml
