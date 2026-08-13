@@ -178,7 +178,14 @@ export function Navbar() {
                         {item?.label}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[560px] grid-cols-2 gap-1 p-4 lg:w-[640px]">
+                        <ul
+                          className={cn(
+                            "grid gap-1 p-4",
+                            item?.children?.length === 1
+                              ? "w-[320px] lg:w-[360px] grid-cols-1"
+                              : "min-w-[560px] lg:w-[640px] grid-cols-2",
+                          )}
+                        >
                           {item?.children.map((child) => {
                             const Icon = child.icon;
                             return (
@@ -186,7 +193,7 @@ export function Navbar() {
                                 <NavigationMenuLink asChild>
                                   <Link
                                     href={child.href}
-                                    className="group flex items-start gap-3 rounded-lg p-3 transition-colors hover:bg-muted focus:bg-muted focus:outline-none"
+                                    className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-muted focus:bg-muted focus:outline-none"
                                   >
                                     {Icon && (
                                       <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
@@ -197,14 +204,14 @@ export function Navbar() {
                                       </span>
                                     )}
                                     <span className="flex flex-col gap-0.5">
-                                      <span className="text-sm font-semibold text-primary group-hover:text-accent transition-colors">
+                                      <span className="text-sm line-clamp-1 font-semibold text-primary group-hover:text-accent transition-colors">
                                         {child.label}
                                       </span>
-                                      {child.description && (
+                                      {/* {child.description && (
                                         <span className="text-xs text-muted-foreground line-clamp-2 leading-relaxed font-normal">
                                           {child.description}
                                         </span>
-                                      )}
+                                      )} */}
                                     </span>
                                   </Link>
                                 </NavigationMenuLink>

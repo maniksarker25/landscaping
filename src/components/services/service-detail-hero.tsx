@@ -32,7 +32,7 @@ export function ServiceDetailHero({
         priority
         className="object-cover opacity-25 scale-105 transition-transform duration-1000"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/20 to-transparent" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-primary/50 to-primary" />
 
       {/* Hero Content */}
