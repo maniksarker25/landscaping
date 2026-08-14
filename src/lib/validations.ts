@@ -26,17 +26,20 @@ export const contactPayloadSchema = z
     name: z.string().trim().min(2, "Full name must be at least 2 characters."),
     email: z.string().trim().email("Please enter a valid email address."),
     phone: z.string().trim().optional().or(z.literal("")),
+    interestedCategory: z.string().trim().optional(),
     interestedService: z.string().trim().optional(),
     service: z.string().trim().optional(),
     message: z.string().trim().min(1, "Please enter a message."),
   })
   .transform((data) => {
     const interestedService =
-      data.interestedService || data.service || "General Inquiry";
+      data.interestedService || data.interestedCategory || data.service || "General Inquiry";
+    const interestedCategory = data.interestedCategory || interestedService;
     return {
       name: data.name,
       email: data.email,
       phone: data.phone || "",
+      interestedCategory,
       interestedService,
       message: data.message,
     };

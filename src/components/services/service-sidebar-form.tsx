@@ -91,6 +91,7 @@ export function ServiceSidebarForm({
           email: values.email,
           phone: values.phone || "",
           interestedService: values.interestedService,
+          interestedCategory: values.interestedService,
           message: values.message,
         }),
       });

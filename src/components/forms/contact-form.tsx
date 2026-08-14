@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { baseUrl } from "@/lib/helper";
 
 export function ContactForm() {
   const [status, setStatus] = React.useState<
@@ -74,20 +75,21 @@ export function ContactForm() {
     setErrorMessage(null);
 
     try {
-      const response = await fetch("/contact/create", {
+      const response = await fetch(`${baseUrl}/contact/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          name: values.name.trim(),
-          email: values.email.trim(),
-          phone: values.phone?.trim() || "",
-          interestedService: values.interestedService,
-          message: values.message.trim(),
+          name: values?.name.trim(),
+          email: values?.email.trim(),
+          phone: values?.phone?.trim() || "",
+          interestedService: values?.interestedService,
+          interestedCategory: values?.interestedService,
+          message: values?.message.trim(),
         }),
-      });            
+      });
 
       const data = await response.json().catch(() => null);
 
