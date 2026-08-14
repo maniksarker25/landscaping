@@ -85,6 +85,7 @@ export function QuoteMapSection({
           email: values.email,
           phone: values.phone,
           interestedService: values.service,
+          interestedCategory: values.service,
           message: values.message || "",
         }),
       });

@@ -37,6 +37,7 @@ export async function handleContactCreate(request: Request) {
       name: payload.name,
       email: payload.email,
       phone: payload.phone,
+      interestedCategory: payload.interestedCategory,
       interestedService: payload.interestedService,
       message: payload.message,
       createdAt: new Date().toISOString(),
