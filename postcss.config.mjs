@@ -9,5 +9,4 @@ const config = {
     autoprefixer: {},
   },
 };
-// nice
 export default config;
