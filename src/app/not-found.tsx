@@ -8,7 +8,6 @@ import { Footer } from "@/components/layout/footer";
 export default function NotFound() {
   return (
     <>
-      <Navbar />
       <main>
         <Container className="flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
           <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/5 text-primary">
@@ -26,7 +25,6 @@ export default function NotFound() {
           </Button>
         </Container>
       </main>
-      <Footer />
     </>
   );
 }
