@@ -38,25 +38,30 @@ export function ServiceSidebarForm({
     "idle" | "submitting" | "success" | "error"
   >("idle");
 
-  const serviceOptions = [
-    "Infinity Swimming Pool",
-    "Overflow Swimming Pool",
-    "Skimmer Swimming Pool",
-    "Custom Pool Construction",
-    "Pool Maintenance",
-    "Water Features & Fountains",
-    "Villa Landscaping",
-    "Residential Landscaping",
-    "Gardening Services",
-    "Pergola & Gazebo Build",
-    "Smart Irrigation System",
-    "Landscape Lighting",
-  ];
+  const [serviceOptions, setServiceOptions] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    fetch("/api/service/get-all")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+          const titles = json.data
+            .map((item: { title?: string; name?: string }) => item.title || item.name)
+            .filter((t: string): t is string => Boolean(t) && typeof t === "string");
+          if (titles.length > 0) {
+            setServiceOptions(titles);
+          }
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch API services for sidebar form:", err),
+      );
+  }, []);
 
   const defaultService =
     serviceOptions.find((p) =>
       currentServiceTitle?.toLowerCase().includes(p.toLowerCase()),
-    ) || "Infinity Swimming Pool";
+    ) || serviceOptions[0] || "Infinity Swimming Pool";
 
   const {
     register,
@@ -70,7 +75,7 @@ export function ServiceSidebarForm({
       name: "",
       email: "",
       phone: "",
-      service: defaultService,
+      interestedService: defaultService,
       message: "",
     },
   });
@@ -78,10 +83,16 @@ export function ServiceSidebarForm({
   async function onSubmit(values: ContactFormValues) {
     setStatus("submitting");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/contact/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone || "",
+          interestedService: values.interestedService,
+          message: values.message,
+        }),
       });
       if (!res.ok) throw new Error("Submission failed");
       setStatus("success");
@@ -202,7 +213,7 @@ export function ServiceSidebarForm({
             </Label>
             <Controller
               control={control}
-              name="service"
+              name="interestedService"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger

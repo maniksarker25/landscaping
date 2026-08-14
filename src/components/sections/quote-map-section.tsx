@@ -77,10 +77,16 @@ export function QuoteMapSection({
   async function onSubmit(values: QuoteFormValues) {
     setStatus("submitting");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/contact/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          interestedService: values.service,
+          message: values.message || "",
+        }),
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");

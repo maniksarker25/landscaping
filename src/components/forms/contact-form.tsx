@@ -3,9 +3,8 @@
 import * as React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { contactFormSchema, type ContactFormValues } from "@/lib/validations";
-import { services } from "@/data/services";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -19,34 +18,99 @@ import {
 } from "@/components/ui/select";
 
 export function ContactForm() {
-  const [status, setStatus] = React.useState<"idle" | "submitting" | "success" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = React.useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const [serviceOptions, setServiceOptions] = React.useState<string[]>([]);
+  const [isLoadingServices, setIsLoadingServices] =
+    React.useState<boolean>(true);
 
   const {
     register,
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: { name: "", email: "", phone: "", service: "", message: "" },
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      interestedService: "",
+      message: "",
+    },
   });
+
+  React.useEffect(() => {
+    fetch("/api/service/get-all")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+          const titles = json.data
+            .map(
+              (item: { title?: string; name?: string }) =>
+                item.title || item.name,
+            )
+            .filter(
+              (t: string): t is string => Boolean(t) && typeof t === "string",
+            );
+          setServiceOptions(titles);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch API services for contact form:", err),
+      )
+      .finally(() => {
+        setIsLoadingServices(false);
+      });
+  }, []);
+
+  const isLoading = status === "submitting" || isSubmitting;
 
   async function onSubmit(values: ContactFormValues) {
     setStatus("submitting");
+    setErrorMessage(null);
+
     try {
-      const res = await fetch("/api/contact", {
+      const response = await fetch("/contact/create", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      if (!res.ok) throw new Error("Request failed");
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          email: values.email.trim(),
+          phone: values.phone?.trim() || "",
+          interestedService: values.interestedService,
+          message: values.message.trim(),
+        }),
+      });            
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        const errorText =
+          data?.error ||
+          data?.message ||
+          "Failed to submit your inquiry. Please try again.";
+        throw new Error(errorText);
+      }
+
       setStatus("success");
       reset();
-    } catch {
+    } catch (err: unknown) {
+      console.error("Error submitting contact form:", err);
       setStatus("error");
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage(
+          "An unexpected network error occurred. Please try again.",
+        );
+      }
     }
   }
 
@@ -54,14 +118,29 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="flex flex-col items-center gap-3 rounded-lg border border-success/30 bg-success/5 px-6 py-12 text-center"
+        aria-live="polite"
+        className="flex flex-col items-center justify-center text-center gap-3 sm:gap-4 rounded-xl border border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 px-5 sm:px-8 py-10 sm:py-12 animate-in fade-in-50 duration-300"
       >
-        <CheckCircle2 className="h-10 w-10 text-success" aria-hidden="true" />
-        <h3 className="font-display text-xl">Message sent</h3>
-        <p className="max-w-sm text-sm text-muted-foreground">
-          Thank you — a member of our team will get back to you within one business day.
+        <CheckCircle2
+          className="h-10 w-10 sm:h-12 sm:w-12 text-emerald-600 dark:text-emerald-400 shrink-0"
+          aria-hidden="true"
+        />
+        <h3 className="font-display text-lg sm:text-xl font-bold text-foreground">
+          Message Sent Successfully!
+        </h3>
+        <p className="max-w-sm text-xs sm:text-sm text-muted-foreground leading-relaxed">
+          Thank you for reaching out. Our team will review your inquiry and get
+          back to you shortly.
         </p>
-        <Button variant="outline" onClick={() => setStatus("idle")} className="mt-2">
+        <Button
+          variant="outline"
+          size="default"
+          onClick={() => {
+            setStatus("idle");
+            setErrorMessage(null);
+          }}
+          className="mt-2 text-xs sm:text-sm font-medium"
+        >
           Send another message
         </Button>
       </div>
@@ -69,80 +148,184 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="name">Full name</Label>
-          <Input id="name" placeholder="Jane Appleseed" {...register("name")} />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="space-y-4 sm:space-y-5 w-full min-w-0"
+    >
+      <div className="grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-2 min-w-0">
+        {/* Name Field */}
+        <div className="space-y-1.5 min-w-0">
+          <Label htmlFor="name" className="text-xs sm:text-sm font-semibold">
+            Full name <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="name"
+            placeholder="John Doe"
+            disabled={isLoading}
+            className="h-10 sm:h-11 text-sm bg-background"
+            {...register("name")}
+          />
           {errors.name && (
-            <p className="text-xs text-destructive">{errors.name.message}</p>
+            <p className="text-[11px] sm:text-xs text-destructive">
+              {errors.name.message}
+            </p>
           )}
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="jane@email.com" {...register("email")} />
+
+        {/* Email Field */}
+        <div className="space-y-1.5 min-w-0">
+          <Label htmlFor="email" className="text-xs sm:text-sm font-semibold">
+            Email address <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="john@example.com"
+            disabled={isLoading}
+            className="h-10 sm:h-11 text-sm bg-background"
+            {...register("email")}
+          />
           {errors.email && (
-            <p className="text-xs text-destructive">{errors.email.message}</p>
+            <p className="text-[11px] sm:text-xs text-destructive">
+              {errors.email.message}
+            </p>
           )}
         </div>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone (optional)</Label>
-          <Input id="phone" type="tel" placeholder="+971 5x xxx xxxx" {...register("phone")} />
+      <div className="grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-2 min-w-0">
+        {/* Phone Field */}
+        <div className="space-y-1.5 min-w-0">
+          <Label htmlFor="phone" className="text-xs sm:text-sm font-semibold">
+            Phone number
+          </Label>
+          <Input
+            id="phone"
+            type="tel"
+            placeholder="+1234567890"
+            disabled={isLoading}
+            className="h-10 sm:h-11 text-sm bg-background"
+            {...register("phone")}
+          />
           {errors.phone && (
-            <p className="text-xs text-destructive">{errors.phone.message}</p>
+            <p className="text-[11px] sm:text-xs text-destructive">
+              {errors.phone.message}
+            </p>
           )}
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="service">Service of interest</Label>
+
+        {/* Interested Service Field */}
+        <div className="space-y-1.5 min-w-0">
+          <Label
+            htmlFor="interestedService"
+            className="text-xs sm:text-sm font-semibold"
+          >
+            Service of interest <span className="text-destructive">*</span>
+          </Label>
           <Controller
             control={control}
-            name="service"
+            name="interestedService"
             render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger id="service" aria-label="Service of interest">
-                  <SelectValue placeholder="Select a service" />
+              <Select
+                value={field.value}
+                onValueChange={field.onChange}
+                disabled={isLoading || isLoadingServices}
+              >
+                <SelectTrigger
+                  id="interestedService"
+                  aria-label="Service of interest"
+                  className="h-10 sm:h-11 text-sm bg-background"
+                >
+                  <SelectValue
+                    placeholder={
+                      isLoadingServices
+                        ? "Loading services..."
+                        : "Select a service"
+                    }
+                  />
                 </SelectTrigger>
-                <SelectContent>
-                  {services.map((service) => (
-                    <SelectItem key={service.slug} value={service.slug}>
-                      {service.title}
+                <SelectContent className="max-h-60 overflow-y-auto">
+                  {serviceOptions.map((opt) => (
+                    <SelectItem
+                      key={opt}
+                      value={opt}
+                      className="text-xs sm:text-sm"
+                    >
+                      {opt}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             )}
           />
-          {errors.service && (
-            <p className="text-xs text-destructive">{errors.service.message}</p>
+          {errors.interestedService && (
+            <p className="text-[11px] sm:text-xs text-destructive">
+              {errors.interestedService.message}
+            </p>
           )}
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="message">Tell us about your project</Label>
+      {/* Message Field */}
+      <div className="space-y-1.5 min-w-0">
+        <Label htmlFor="message" className="text-xs sm:text-sm font-semibold">
+          Message <span className="text-destructive">*</span>
+        </Label>
         <Textarea
           id="message"
-          placeholder="Plot size, timeline, inspiration — anything that helps us understand the project."
+          rows={4}
+          placeholder="Tell us about your project requirements, location, or ask for a quote..."
+          disabled={isLoading}
+          className="text-sm bg-background resize-none"
           {...register("message")}
         />
         {errors.message && (
-          <p className="text-xs text-destructive">{errors.message.message}</p>
+          <p className="text-[11px] sm:text-xs text-destructive">
+            {errors.message.message}
+          </p>
         )}
       </div>
 
+      {/* Error Alert Box */}
       {status === "error" && (
-        <p role="alert" className="text-sm text-destructive">
-          Something went wrong sending your message. Please try again.
-        </p>
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="flex items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/10 p-3.5 sm:p-4 text-xs sm:text-sm text-destructive break-words max-w-full overflow-hidden"
+        >
+          <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="space-y-0.5 min-w-0 flex-1">
+            <p className="font-semibold">Submission Failed</p>
+            <p className="text-xs opacity-90 leading-relaxed">
+              {errorMessage ||
+                "Something went wrong while sending your message. Please check your connection and try again."}
+            </p>
+          </div>
+        </div>
       )}
 
-      <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={status === "submitting"}>
-        {status === "submitting" && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
-        {status === "submitting" ? "Sending..." : "Send message"}
-      </Button>
+      {/* Submit Button */}
+      <div className="pt-1">
+        <Button
+          type="submit"
+          size="lg"
+          className="w-full sm:w-auto min-w-[160px] h-11 sm:h-12 text-sm font-semibold tracking-wide transition-all active:scale-[0.98]"
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <>
+              <Loader2
+                className="mr-2 h-4 w-4 animate-spin"
+                aria-hidden="true"
+              />
+              Sending Message...
+            </>
+          ) : (
+            "Send Message"
+          )}
+        </Button>
+      </div>
     </form>
   );
 }

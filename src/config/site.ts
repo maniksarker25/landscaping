@@ -65,27 +65,9 @@ export function getDynamicNavChildrenByCategory(
   category: "Pools" | "Landscaping",
 ): NavChild[] {
   if (category === "Pools") {
-    return [
-      {
-        label: "The Premier Overflow Swimming Pool Contractor",
-        href: "/services/the-premier-overflow-swimming-pool-contractor",
-        description:
-          "Designing, Building, and Maintaining Luxurious Overflow Swimming Pools in Dubai.",
-        icon: getServiceIconBySlug(
-          "the-premier-overflow-swimming-pool-contractor",
-        ),
-      },
-    ];
+    return [];
   }
-  return [
-    {
-      label: "Tempora labore nemo",
-      href: "/services/tempora-labore-nemo",
-      description:
-        "Designing, Building, and Maintaining Luxurious Outdoor Landscaping in Dubai.",
-      icon: getServiceIconBySlug("tempora-labore-nemo"),
-    },
-  ];
+  return [];
 }
 
 /**
