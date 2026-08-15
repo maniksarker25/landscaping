@@ -35,7 +35,7 @@ export function ServiceDropUsALine({ className }: ServiceDropUsALineProps) {
               Ready To Start Your Project?
             </h3>
             <p className="text-xs text-white/80 mt-1">
-              Let's create an unbelievable outdoor living space for your home.
+              Let&apos;s create an unbelievable outdoor living space for your home.
             </p>
           </div>
         </div>
