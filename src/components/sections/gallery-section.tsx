@@ -16,7 +16,6 @@ import {
   ChevronDown,
   ZoomIn,
   Loader2,
-  RefreshCw,
   ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
@@ -43,7 +42,7 @@ export function Gallery({
     if (initialData && initialData.length > 0) return initialData;
     return [];
   });
-  const [meta, setMeta] = useState<GalleryMeta | undefined>(initialMeta);
+  const [_meta, setMeta] = useState<GalleryMeta | undefined>(initialMeta);
   const [loading, setLoading] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
@@ -72,7 +71,7 @@ export function Gallery({
   const getTargetSlug = useCallback(
     (item: GalleryItem) => {
       // 1. If item itself has a slug from backend, use it
-      const rawSlug = (item as any)?.slug;
+      const rawSlug = item?.slug;
       if (rawSlug) {
         return rawSlug.startsWith("/") ? rawSlug : `/services/${rawSlug}`;
       }
@@ -314,7 +313,7 @@ export function Gallery({
 
                     {/* Visual Premium Hover Overlay */}
                     <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                      <div className="h-10 w-10 rounded-full bg-background/90 text-primary flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform transform-gpu">
+                      <div className="h-10 w-10 rounded-full bg-background/90 text-primary flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
                         <ZoomIn className="h-5 w-5" />
                       </div>
                     </div>
@@ -344,7 +343,7 @@ export function Gallery({
               No projects found in this category
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground mb-4">
-              Try selecting "All Projects" to view our complete portfolio.
+              Try selecting &quot;All Projects&quot; to view our complete portfolio.
             </p>
             <button
               onClick={() => handleCategorySelect("all")}
