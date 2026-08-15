@@ -38,6 +38,10 @@ export function Gallery({
   initialMeta,
   initialTestimonials,
 }: GalleryProps) {
+  const [allItems, setAllItems] = useState<GalleryItem[]>(() => {
+    if (initialData && initialData.length > 0) return initialData;
+    return [];
+  });
   const [items, setItems] = useState<GalleryItem[]>(() => {
     if (initialData && initialData.length > 0) return initialData;
     return [];
@@ -109,10 +113,10 @@ export function Gallery({
     [apiServices],
   );
 
-  // Dynamic list of available categories computed from loaded items
+  // Dynamic list of available categories computed from all loaded items
   const categories = useMemo(() => {
     const unique = new Set<string>();
-    items.forEach((item) => {
+    allItems.forEach((item) => {
       if (item?.category) unique.add(item?.category.trim());
     });
 
@@ -132,7 +136,7 @@ export function Gallery({
     });
 
     return categoryList;
-  }, [items]);
+  }, [allItems]);
 
   // Fetch updated data from local API proxy when category filter changes on client
   const fetchFilteredGallery = useCallback(async (cat: string) => {
@@ -149,6 +153,14 @@ export function Gallery({
         const json = await res.json();
         if (json.data && Array.isArray(json.data) && json.data.length > 0) {
           setItems(json.data);
+          setAllItems((prev) => {
+            if (prev.length === 0) return json.data;
+            const existingIds = new Set(prev.map((i) => i._id));
+            const newItems = json.data.filter(
+              (i: GalleryItem) => i._id && !existingIds.has(i._id),
+            );
+            return newItems.length > 0 ? [...prev, ...newItems] : prev;
+          });
           if (json.meta) setMeta(json.meta);
         }
       }
@@ -158,6 +170,12 @@ export function Gallery({
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (!initialData || initialData.length === 0) {
+      fetchFilteredGallery("all");
+    }
+  }, [initialData, fetchFilteredGallery]);
 
   const handleCategorySelect = (catValue: string) => {
     setActiveCategory(catValue);
@@ -184,8 +202,8 @@ export function Gallery({
   }, [filteredItems]);
 
   const getItemCount = (catValue: string) => {
-    if (catValue === "all") return items.length;
-    return items.filter(
+    if (catValue === "all") return allItems.length;
+    return allItems.filter(
       (i) => i.category?.toLowerCase() === catValue.toLowerCase(),
     ).length;
   };
