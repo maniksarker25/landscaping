@@ -1,22 +1,7 @@
 import type { Metadata } from "next";
-import { Fraunces, Public_Sans } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { buildMetadata, buildOrganizationJsonLd } from "@/lib/seo";
 import "@/styles/globals.css";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const publicSans = Public_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = buildMetadata({
   title: `${siteConfig.name} — ${siteConfig.description}`,
@@ -32,7 +17,15 @@ export default function RootLayout({
   const organizationJsonLd = buildOrganizationJsonLd();
 
   return (
-    <html lang="en" className={`${fraunces.variable} ${publicSans.variable}`}>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Public+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <script
           type="application/ld+json"
