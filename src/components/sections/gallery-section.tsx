@@ -33,18 +33,14 @@ const GalleryMobileModal = dynamic(
   { ssr: false },
 );
 
-const Testimonials = dynamic(
-  () =>
-    import("@/components/sections/testimonials").then(
-      (mod) => mod.Testimonials,
-    ),
+const Testimonials = dynamic(() =>
+  import("@/components/sections/testimonials").then((mod) => mod.Testimonials),
 );
 
-const QuoteMapSection = dynamic(
-  () =>
-    import("@/components/sections/quote-map-section").then(
-      (mod) => mod.QuoteMapSection,
-    ),
+const QuoteMapSection = dynamic(() =>
+  import("@/components/sections/quote-map-section").then(
+    (mod) => mod.QuoteMapSection,
+  ),
 );
 
 export interface GalleryProps {
@@ -84,12 +80,20 @@ export function Gallery({
     fetch("/api/service/get-all")
       .then((res) => res.json())
       .then((json) => {
-        if (isMounted && json?.data && Array.isArray(json.data) && json.data.length > 0) {
+        if (
+          isMounted &&
+          json?.data &&
+          Array.isArray(json.data) &&
+          json.data.length > 0
+        ) {
           setApiServices(json.data);
         }
       })
       .catch((err) =>
-        console.error("Failed to fetch services for gallery slug matching:", err),
+        console.error(
+          "Failed to fetch services for gallery slug matching:",
+          err,
+        ),
       );
     return () => {
       isMounted = false;
@@ -264,7 +268,9 @@ export function Gallery({
   const lightboxItems: LightboxItem[] = useMemo(() => {
     return (filteredItems ?? []).map((item) => ({
       id: item?._id,
-      title: item?.imageAlt || `${item?.location ?? ""} ${item?.category ?? ""}`.trim(),
+      title:
+        item?.imageAlt ||
+        `${item?.location ?? ""} ${item?.category ?? ""}`.trim(),
       imageUrl: item?.image,
       category: item?.category,
     }));
@@ -339,7 +345,8 @@ export function Gallery({
               No projects found in this category
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground mb-4">
-              Try selecting &quot;All Projects&quot; to view our complete portfolio.
+              Try selecting &quot;All Projects&quot; to view our complete
+              portfolio.
             </p>
             <button
               onClick={() => handleCategorySelect("all")}

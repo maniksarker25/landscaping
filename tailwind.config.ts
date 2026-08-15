@@ -64,8 +64,9 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        display: ["var(--font-display)", "serif"],
-        sans: ["var(--font-sans)", "sans-serif"],
+        display: ["'Google Sans Flex'", "var(--font-display)", "sans-serif"],
+        sans: ["'Google Sans Flex'", "var(--font-sans)", "sans-serif"],
+        google: ["'Google Sans Flex'", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
