@@ -4,7 +4,7 @@ import * as React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { CheckCircle2, Loader2, Send, MapPin, Star, ExternalLink, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Loader2, Star, ExternalLink, ShieldCheck } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -273,7 +273,7 @@ export function QuoteMapSection({
                       >
                         {isCaptchaChecked && <CheckCircle2 className="h-4 w-4" />}
                       </div>
-                      <span className="text-xs font-medium text-foreground">I'm not a robot</span>
+                      <span className="text-xs font-medium text-foreground">I&apos;m not a robot</span>
                       <div className="ml-auto text-[10px] text-muted-foreground flex flex-col items-center leading-tight">
                         <ShieldCheck className="h-4 w-4 text-blue-500" />
                         <span>reCAPTCHA</span>

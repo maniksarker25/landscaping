@@ -26,71 +26,6 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 import type { ServiceData } from "@/types/service";
-
-
-const DEFAULT_FALLBACK_ITEMS: GalleryItem[] = [
-  {
-    _id: "6a70cb159883359416ec6a8a",
-    location: "Dubai",
-    image:
-      "https://res.cloudinary.com/ywodegk2/image/upload/v1785776916/dfl/images/image/1785776914894-FredricksonLandscapeCasaProject-54-d3b93a1fff514f4c92edee013b0c5fa6.jpg",
-    imageAlt: "Korean Grass alternative lawn",
-    category: "Landscaping",
-    createdAt: "2026-08-03T17:08:37.511Z",
-    updatedAt: "2026-08-03T17:08:37.511Z",
-  },
-  {
-    _id: "6a70caa49883359416ec6a84",
-    location: "Dubai",
-    image:
-      "https://res.cloudinary.com/ywodegk2/image/upload/v1785776802/dfl/images/image/1785776799425-ocean-travel-modern-nobody-infinity_1.jpg",
-    imageAlt: "Infinity-edge-pool-at-dusk-update",
-    category: "Pools",
-    createdAt: "2026-08-03T17:06:44.766Z",
-    updatedAt: "2026-08-03T17:12:45.359Z",
-  },
-  {
-    _id: "fallback-3",
-    location: "Palm Jumeirah",
-    image:
-      "https://plus.unsplash.com/premium_photo-1682377521564-b180edfc960c?q=75&w=800&auto=format&fit=crop",
-    imageAlt: "Palm Jumeirah Infinity Pool",
-    category: "Pools",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    _id: "fallback-4",
-    location: "Jumeirah Island",
-    image:
-      "https://images.unsplash.com/photo-1757439402214-2311405d70bd?q=75&w=800&auto=format&fit=crop",
-    imageAlt: "Jumeirah Island Garden",
-    category: "Landscaping",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    _id: "fallback-5",
-    location: "Meadows",
-    image:
-      "https://images.unsplash.com/photo-1782939355849-4a748ada9c84?q=75&w=800&auto=format&fit=crop",
-    imageAlt: "Meadows Overflow Pool",
-    category: "Pools",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    _id: "fallback-6",
-    location: "Pearl Jumeirah",
-    image:
-      "https://images.unsplash.com/photo-1777907604937-69219987431f?q=75&w=800&auto=format&fit=crop",
-    imageAlt: "Pearl Jumeirah Terrace",
-    category: "Outdoor Living",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-];
-
 import type { Testimonial } from "@/types";
 
 export interface GalleryProps {
@@ -106,7 +41,7 @@ export function Gallery({
 }: GalleryProps) {
   const [items, setItems] = useState<GalleryItem[]>(() => {
     if (initialData && initialData.length > 0) return initialData;
-    return DEFAULT_FALLBACK_ITEMS;
+    return [];
   });
   const [meta, setMeta] = useState<GalleryMeta | undefined>(initialMeta);
   const [loading, setLoading] = useState(false);
@@ -127,7 +62,10 @@ export function Gallery({
         }
       })
       .catch((err) =>
-        console.error("Failed to fetch services for gallery slug matching:", err),
+        console.error(
+          "Failed to fetch services for gallery slug matching:",
+          err,
+        ),
       );
   }, []);
 
@@ -138,7 +76,6 @@ export function Gallery({
       if (rawSlug) {
         return rawSlug.startsWith("/") ? rawSlug : `/services/${rawSlug}`;
       }
-
 
       // 2. Match with fetched API services by category
       const itemCat = (item?.category || "").toLowerCase().trim();
@@ -172,7 +109,6 @@ export function Gallery({
     },
     [apiServices],
   );
-
 
   // Dynamic list of available categories computed from loaded items
   const categories = useMemo(() => {
@@ -341,7 +277,6 @@ export function Gallery({
               const targetSlug = getTargetSlug(item);
 
               return (
-
                 <motion.div
                   key={item?._id}
                   className="group rounded-xl overflow-hidden flex flex-col bg-card shadow-sm border border-border/80 hover:border-primary/40 transition-all duration-300 transform-gpu"
