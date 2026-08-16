@@ -52,7 +52,7 @@ export function ServiceFaqAccordion({
             </AccordionTrigger>
             <AccordionContent className="text-sm text-foreground/80 leading-relaxed pt-1 pb-4">
               <div
-                className="prose prose-sm max-w-none text-foreground/80 [&_p]:mb-2 [&_strong]:text-primary"
+                className="prose prose-sm max-w-none text-foreground/80 [&_p]:mb-2 [&_strong:not([style*='color']):not([color])]:text-primary"
                 dangerouslySetInnerHTML={{ __html: item.answer }}
               />
             </AccordionContent>

@@ -129,13 +129,13 @@
 }
 
 /* Legal & prose content styling for dangerouslySetInnerHTML */
-.prose-legal h2 {
+.prose-legal h2:not([style*="color"]):not([color]) {
   @apply font-display text-2xl font-semibold text-foreground mt-10 mb-4 tracking-tight border-b border-border/60 pb-2;
 }
-.prose-legal h3 {
+.prose-legal h3:not([style*="color"]):not([color]) {
   @apply font-display text-xl font-semibold text-foreground mt-6 mb-3;
 }
-.prose-legal p {
+.prose-legal p:not([style*="color"]):not([color]) {
   @apply text-muted-foreground leading-relaxed mb-4 text-base;
 }
 .prose-legal ul {
@@ -147,10 +147,21 @@
 .prose-legal li {
   @apply leading-relaxed;
 }
-.prose-legal a {
+.prose-legal a:not([style*="color"]):not([color]) {
   @apply text-primary font-medium underline underline-offset-4 hover:text-accent transition-colors;
 }
-.prose-legal strong {
+.prose-legal strong:not([style*="color"]):not([color]) {
   @apply text-foreground font-semibold;
 }
+
+/* 
+  Rich text inline text color overrides:
+  Ensures custom inline colors from rich text editors (e.g. style="color: rgb(131, 166, 0)")
+  or color attributes take strict priority over default theme colors (like theme.colors.primary).
+*/
+[class*="prose"] [style*="color"] *:not([style*="color"]):not([color]),
+[class*="prose"] [color] *:not([style*="color"]):not([color]) {
+  color: inherit !important;
+}
+
 
