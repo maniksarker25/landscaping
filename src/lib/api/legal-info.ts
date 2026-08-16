@@ -10,7 +10,6 @@ export interface LegalInfoData {
   instagramLink?: string;
   linkedinLink?: string;
   jurisdiction?: string;
-  officialWebsite?: string;
   registeredAddress?: string;
   siteName?: string;
   tagline?: string;
@@ -35,7 +34,6 @@ export const fallbackLegalInfo: LegalInfoData = {
   instagramLink: "",
   jurisdiction: "Provident fugiat ex",
   linkedinLink: "",
-  officialWebsite: "https://www.rugyki.ca",
   registeredAddress: "Itaque enim pariatur",
   siteName: "Quentin Flynn",
   tagline: "Sit dolore consequat",

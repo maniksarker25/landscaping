@@ -4,7 +4,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { Container } from "@/components/common/container";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { buildMetadata, buildBreadcrumbJsonLd } from "@/lib/seo";
-import { privacyPolicyHtml } from "@/data/legal-policies";
+import { fetchPrivacyPolicyData } from "@/lib/api/privacy-policy";
 
 export const metadata: Metadata = buildMetadata({
   title: "Privacy Policy",
@@ -13,11 +13,13 @@ export const metadata: Metadata = buildMetadata({
   path: "/privacy",
 });
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "/" },
     { name: "Privacy Policy", path: "/privacy" },
   ]);
+
+  const contentHtml = await fetchPrivacyPolicyData();
 
   return (
     <>
@@ -42,7 +44,7 @@ export default function PrivacyPolicyPage() {
           <article
             className="prose-legal mx-auto max-w-4xl rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-10"
             // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: privacyPolicyHtml }}
+            dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
         </Container>
       </section>
