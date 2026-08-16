@@ -4,7 +4,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { Container } from "@/components/common/container";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { buildMetadata, buildBreadcrumbJsonLd } from "@/lib/seo";
-import { termsOfServiceHtml } from "@/data/legal-policies";
+import { fetchTermsConditionsData } from "@/lib/api/terms-conditions";
 
 export const metadata: Metadata = buildMetadata({
   title: "Terms of Service",
@@ -13,12 +13,14 @@ export const metadata: Metadata = buildMetadata({
   path: "/terms",
 });
 
-export default function TermsOfServicePage() {
+export default async function TermsOfServicePage() {
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([
     { name: "Home", path: "/" },
     { name: "Terms of Service", path: "/terms" },
   ]);
 
+  const contentHtml = await fetchTermsConditionsData();
+  console.log(contentHtml);
   return (
     <>
       <script
@@ -42,7 +44,7 @@ export default function TermsOfServicePage() {
           <article
             className="prose-legal mx-auto max-w-4xl rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-10"
             // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: termsOfServiceHtml }}
+            dangerouslySetInnerHTML={{ __html: contentHtml }}
           />
         </Container>
       </section>

@@ -11,25 +11,24 @@ export async function Footer() {
   const legalRes = await fetchLegalInfo();
   const legalInfo = legalRes.data;
 
-  const companyName = legalInfo.companyName || siteConfig.name;
-  const address = legalInfo.registeredAddress || siteConfig.address;
-  const phone = legalInfo.contactPhone || siteConfig.phone;
-  const email = legalInfo.contactEmail || siteConfig.email;
-  const website = legalInfo.officialWebsite || "https://www.sari-landscaping.ae";
-  const tagline = legalInfo.tagline || siteConfig.description;
+  const companyName = legalInfo?.companyName || siteConfig.name;
+  const address = legalInfo?.registeredAddress || siteConfig.address;
+  const phone = legalInfo?.contactPhone || siteConfig.phone;
+  const email = legalInfo?.contactEmail || siteConfig.email;
+  const tagline = legalInfo?.tagline || siteConfig.description;
 
   const socialLinks = [
     {
       label: "Instagram",
-      href: legalInfo.instagramLink || siteConfig.socials.find((s) => s.label === "Instagram")?.href,
+      href: legalInfo?.instagramLink || siteConfig.socials.find((s) => s.label === "Instagram")?.href,
     },
     {
       label: "LinkedIn",
-      href: legalInfo.linkedinLink || siteConfig.socials.find((s) => s.label === "LinkedIn")?.href,
+      href: legalInfo?.linkedinLink || siteConfig.socials.find((s) => s.label === "LinkedIn")?.href,
     },
     {
       label: "Facebook",
-      href: legalInfo.facebookLink || siteConfig.socials.find((s) => s.label === "Facebook")?.href,
+      href: legalInfo?.facebookLink || siteConfig.socials.find((s) => s.label === "Facebook")?.href,
     },
   ].filter((s): s is { label: string; href: string } => Boolean(s.href));
 
@@ -110,19 +109,6 @@ export async function Footer() {
                   {email}
                 </a>
               </li>
-              {website && (
-                <li className="flex items-center gap-2.5 min-w-0 break-all">
-                  <Globe className="h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                  <a
-                    href={website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary-foreground transition-colors"
-                  >
-                    {website.replace(/^https?:\/\//, "")}
-                  </a>
-                </li>
-              )}
             </ul>
           </div>
 
