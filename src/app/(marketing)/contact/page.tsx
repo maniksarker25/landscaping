@@ -20,10 +20,9 @@ export default async function ContactPage() {
   const legalRes = await fetchLegalInfo();
   const legalInfo = legalRes.data;
 
-  const phone = legalInfo.contactPhone || siteConfig.phone;
-  const email = legalInfo.contactEmail || siteConfig.email;
-  const address = legalInfo.registeredAddress || siteConfig.address;
-  const website = legalInfo.officialWebsite || "https://www.sari-landscaping.ae";
+  const phone = legalInfo?.contactPhone || siteConfig.phone;
+  const email = legalInfo?.contactEmail || siteConfig.email;
+  const address = legalInfo?.registeredAddress || siteConfig.address;
 
   const infoItems = [
     {
@@ -43,12 +42,6 @@ export default async function ContactPage() {
       label: "Studio & Registered Address",
       value: address,
       href: undefined,
-    },
-    {
-      icon: Globe,
-      label: "Official Website",
-      value: website,
-      href: website,
     },
     {
       icon: Clock,
@@ -82,7 +75,10 @@ export default async function ContactPage() {
                 const content = (
                   <>
                     <span className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform group-hover:scale-105">
-                      <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+                      <Icon
+                        className="h-4 w-4 sm:h-5 sm:w-5"
+                        aria-hidden="true"
+                      />
                     </span>
                     <span className="min-w-0 flex-1 break-words">
                       <span className="block text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -95,12 +91,21 @@ export default async function ContactPage() {
                   </>
                 );
                 return (
-                  <li key={item.label} className="flex items-start gap-3.5 sm:gap-4 min-w-0 w-full">
+                  <li
+                    key={item.label}
+                    className="flex items-start gap-3.5 sm:gap-4 min-w-0 w-full"
+                  >
                     {item.href ? (
                       <a
                         href={item.href}
-                        target={item.href.startsWith("http") ? "_blank" : undefined}
-                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        target={
+                          item.href.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          item.href.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
                         className="flex items-start gap-3.5 sm:gap-4 min-w-0 w-full hover:text-primary transition-colors group"
                       >
                         {content}
