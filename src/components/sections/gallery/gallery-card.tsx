@@ -75,16 +75,19 @@ export const GalleryCard = React.memo(function GalleryCard({
       </div>
 
       {/* Title Box - Clicking navigates to /services/item?.slug */}
-      <Link
+      {/* <Link
         href={targetSlug}
-        onClick={handleLinkClick}
+        // onClick={handleLinkClick}
+        className="py-4 px-4 flex text-center bg-card z-10 transition-colors group-hover:bg-muted/40 items-center justify-center border-t border-border/40 hover:text-primary cursor-pointer"
+      > */}
+      <div
         className="py-4 px-4 flex text-center bg-card z-10 transition-colors group-hover:bg-muted/40 items-center justify-center border-t border-border/40 hover:text-primary cursor-pointer"
       >
         <span className="text-xs font-bold tracking-[0.15em] uppercase text-foreground group-hover:text-primary transition-colors line-clamp-1 flex items-center justify-center gap-1.5">
           {item?.imageAlt || item?.location || "Luxury Project"}
-          <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+          {/* <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" /> */}
         </span>
-      </Link>
+      </div>
     </motion.div>
   );
 });
