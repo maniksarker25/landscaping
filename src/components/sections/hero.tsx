@@ -84,7 +84,7 @@ export function Hero() {
             </div>
           ))
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-primary/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/10 to-primary/08" />
       </div>
       <Container className="relative flex min-h-[calc(100vh_-_15vh)] flex-col justify-end pt-12 pb-16 md:pt-28 md:pb-24">
         <motion.div
@@ -118,8 +118,11 @@ export function Hero() {
             variants={staggerItem}
             className="mt-9 flex flex-wrap items-center gap-4"
           >
-            <Button asChild size="sm" variant="accent">
-              <Link href="/contact" className="text-xs md:text-base">
+            <Button asChild size="sm">
+              <Link
+                href="/contact"
+                className="text-xs md:text-base bg-primary!"
+              >
                 Request a Quote
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
