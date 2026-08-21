@@ -153,15 +153,19 @@ export function Navbar() {
         )}
       >
         <Container className="flex h-full items-center justify-between">
-          {/* <Image src={IMAGE.logo} width={600} height={450} alt="" className="w-24" /> */}
           <Link
             href="/"
-            className="flex items-end justify-end gap-2 font-display text-xl tracking-tight text-primary"
+            className="flex items-center gap-2 transition-opacity hover:opacity-90"
+            aria-label={siteConfig.name}
           >
-            <div className="flex items-end justify-end">
-              <h1>DFL</h1>
-              <h1 className="text-[10px] mb-1">LLC</h1>
-            </div>
+            <Image
+              src={IMAGE.logo}
+              alt={siteConfig.name}
+              width={160}
+              height={50}
+              className="h-14 w-auto object-contain"
+              priority
+            />
           </Link>
 
           <NavigationMenu className="hidden lg:flex" delayDuration={100}>
