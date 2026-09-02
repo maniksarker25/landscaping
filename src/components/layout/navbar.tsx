@@ -21,7 +21,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
+import { cn, toTelHref, toWhatsAppHref } from "@/lib/utils";
+import type { LegalInfoData } from "@/lib/api/legal-info";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { IMAGE } from "../../../public/images/index.image";
@@ -44,6 +45,7 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = React.useState(false);
   const [apiServices, setApiServices] = React.useState<ServiceData[]>([]);
+  const [legalInfo, setLegalInfo] = React.useState<LegalInfoData | null>(null);
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -64,6 +66,23 @@ export function Navbar() {
         console.error("Failed to fetch API services for navbar:", err),
       );
   }, []);
+
+  React.useEffect(() => {
+    fetch("/api/legal-info/get")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data) {
+          setLegalInfo(json.data);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch legal info for navbar:", err),
+      );
+  }, []);
+
+  const contactPhone = legalInfo?.contactPhone || siteConfig.phone;
+  const contactEmail = legalInfo?.contactEmail || siteConfig.email;
+  const whatsAppUrl = toWhatsAppHref(contactPhone);
 
   const navItems = React.useMemo(() => {
     return siteConfig.nav.map((item) => {
@@ -107,21 +126,21 @@ export function Navbar() {
         <Container className="flex items-center justify-between">
           <div className="flex items-center gap-4 sm:gap-6">
             <a
-              href={`mailto:${siteConfig.email}`}
+              href={`mailto:${contactEmail}`}
               className="flex items-center gap-2 transition-colors hover:text-white"
             >
               <Mail className="h-3.5 w-3.5" aria-hidden="true" />
-              <span className="hidden sm:inline">{siteConfig.email}</span>
+              <span className="hidden sm:inline">{contactEmail}</span>
             </a>
             <a
-              href={`tel:${siteConfig.phone.replace(/\s+/g, "")}`}
+              href={toTelHref(contactPhone)}
               className="flex items-center gap-2 transition-colors hover:text-white"
             >
               <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-              <span className="hidden sm:inline">{siteConfig.phone}</span>
+              <span className="hidden sm:inline">{contactPhone}</span>
             </a>
             <a
-              href="https://api.whatsapp.com/send?phone=111111"
+              href={whatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 transition-colors hover:text-green-400"
@@ -133,14 +152,6 @@ export function Navbar() {
               <span className="hidden sm:inline">WhatsApp</span>
             </a>
           </div>
-          {/* <div>
-            <Link
-              href="/contact"
-              className="inline-flex h-7 items-center justify-center rounded bg-accent px-3 text-[11px] font-semibold text-accent-foreground transition-all hover:bg-accent/90 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Get a Quote
-            </Link>
-          </div> */}
         </Container>
       </div>
 

@@ -1,11 +1,31 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { getMapEmbedUrl } from "@/lib/utils";
+import type { LegalInfoData } from "@/lib/api/legal-info";
 import { Map } from "lucide-react";
-import { useState } from "react";
+
 export function LocationMap() {
   const [isInteractive, setIsInteractive] = useState(false);
+  const [legalInfo, setLegalInfo] = useState<LegalInfoData | null>(null);
+
+  useEffect(() => {
+    fetch("/api/legal-info/get")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data) {
+          setLegalInfo(json.data);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch legal info for location map:", err),
+      );
+  }, []);
+
+  const address = legalInfo?.registeredAddress || siteConfig.address;
+  const mapEmbedUrl = getMapEmbedUrl(address);
 
   return (
     <section
@@ -15,17 +35,18 @@ export function LocationMap() {
       {/* Map iframe */}
       <div className="absolute inset-0 w-full h-full">
         <iframe
-          src={`https://maps.google.com/maps?q=${encodeURIComponent(siteConfig.address)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+          src={mapEmbedUrl}
           width="100%"
           height="100%"
           style={{ border: 0 }}
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          title="Location Map"
         />
       </div>
 
-      {/* Overlay gradient - optional but keeps it looking nice */}
+      {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/5 to-transparent pointer-events-none" />
 
       {/* Interaction Overlay */}
@@ -34,7 +55,7 @@ export function LocationMap() {
           className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer transition-colors bg-transparent"
           onClick={() => setIsInteractive(true)}
         >
-          <Button className="shadow-xl backdrop-blur-md  text-black bg-background/90 hover:bg-background pointer-events-none transition-transform group-hover:-translate-y-1">
+          <Button className="shadow-xl backdrop-blur-md text-black bg-background/90 hover:bg-background pointer-events-none transition-transform group-hover:-translate-y-1">
             <Map className="w-4 h-4 mr-2" />
             Click to interact
           </Button>
