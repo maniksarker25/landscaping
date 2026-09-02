@@ -9,6 +9,7 @@ export interface LegalInfoData {
   facebookLink?: string;
   instagramLink?: string;
   linkedinLink?: string;
+  officialWebsite?: string;
   jurisdiction?: string;
   registeredAddress?: string;
   siteName?: string;
@@ -25,18 +26,19 @@ export interface LegalInfoApiResponse {
 
 export const fallbackLegalInfo: LegalInfoData = {
   _id: "6a7f544ff0ffb1f4e7441b42",
-  businessType: "Et totam commodi in",
-  companyName: "Cooper and Valentine Traders",
-  contactEmail: "rifavyfo@mailinator.com",
-  contactPhone: "+1 (242) 692-4517",
+  businessType: "Landscaping & Pool Construction",
+  companyName: "Sari Landscaping & Swimming Pools",
+  contactEmail: "info@sarilandscaping.ae",
+  contactPhone: "+971 52 999 0092",
   createdAt: "2026-08-14T17:45:50.844Z",
-  facebookLink: "",
-  instagramLink: "",
-  jurisdiction: "Provident fugiat ex",
-  linkedinLink: "",
-  registeredAddress: "Itaque enim pariatur",
-  siteName: "Quentin Flynn",
-  tagline: "Sit dolore consequat",
+  facebookLink: "https://facebook.com",
+  instagramLink: "https://instagram.com",
+  linkedinLink: "https://linkedin.com",
+  officialWebsite: "https://sarilandscaping.ae",
+  jurisdiction: "Dubai, UAE",
+  registeredAddress: "Al Quoz Industrial Area 3, Dubai, UAE",
+  siteName: "Sari Landscaping",
+  tagline: "Premier Swimming Pool Construction & Luxury Landscaping in Dubai",
   updatedAt: "2026-08-14T17:45:50.844Z",
 };
 

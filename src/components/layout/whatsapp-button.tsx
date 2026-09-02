@@ -1,7 +1,29 @@
+"use client";
+
+import * as React from "react";
 import Link from "next/link";
+import { siteConfig } from "@/config/site";
+import { toWhatsAppHref } from "@/lib/utils";
+import type { LegalInfoData } from "@/lib/api/legal-info";
 
 export function WhatsAppButton() {
-  const whatsappUrl = `https://wa.me/8801751956231`; 
+  const [legalInfo, setLegalInfo] = React.useState<LegalInfoData | null>(null);
+
+  React.useEffect(() => {
+    fetch("/api/legal-info/get")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.data) {
+          setLegalInfo(json.data);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch legal info for WhatsApp button:", err),
+      );
+  }, []);
+
+  const phone = legalInfo?.contactPhone || siteConfig.phone;
+  const whatsappUrl = toWhatsAppHref(phone);
 
   return (
     <Link
