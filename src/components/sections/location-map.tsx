@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { getMapEmbedUrl } from "@/lib/utils";
 import type { LegalInfoData } from "@/lib/api/legal-info";
+import { fetchLegalInfo } from "@/lib/api/legal-info";
 import { Map } from "lucide-react";
 
 export function LocationMap() {
@@ -12,8 +13,7 @@ export function LocationMap() {
   const [legalInfo, setLegalInfo] = useState<LegalInfoData | null>(null);
 
   useEffect(() => {
-    fetch("/api/legal-info/get")
-      .then((res) => res.json())
+    fetchLegalInfo()
       .then((json) => {
         if (json.data) {
           setLegalInfo(json.data);

@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { baseUrl } from "@/lib/helper";
+import { fetchServicesData } from "@/lib/api/services";
 
 export function ContactForm() {
   const [status, setStatus] = React.useState<
@@ -45,8 +46,7 @@ export function ContactForm() {
   });
 
   React.useEffect(() => {
-    fetch("/api/service/get-all")
-      .then((res) => res.json())
+    fetchServicesData()
       .then((json) => {
         if (json.data && Array.isArray(json.data) && json.data.length > 0) {
           const titles = json.data
@@ -55,7 +55,7 @@ export function ContactForm() {
                 item.title || item.name,
             )
             .filter(
-              (t: string): t is string => Boolean(t) && typeof t === "string",
+              (t: string | undefined): t is string => Boolean(t) && typeof t === "string",
             );
           setServiceOptions(titles);
         }

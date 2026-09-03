@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn, toTelHref, toWhatsAppHref } from "@/lib/utils";
 import type { LegalInfoData } from "@/lib/api/legal-info";
+import { fetchLegalInfo } from "@/lib/api/legal-info";
+import { fetchServicesData } from "@/lib/api/services";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { IMAGE } from "../../../public/images/index.image";
@@ -55,8 +57,7 @@ export function Navbar() {
   }, []);
 
   React.useEffect(() => {
-    fetch("/api/service/get-all")
-      .then((res) => res.json())
+    fetchServicesData()
       .then((json) => {
         if (json.data && Array.isArray(json.data) && json.data.length > 0) {
           setApiServices(json.data);
@@ -68,8 +69,7 @@ export function Navbar() {
   }, []);
 
   React.useEffect(() => {
-    fetch("/api/legal-info/get")
-      .then((res) => res.json())
+    fetchLegalInfo()
       .then((json) => {
         if (json.data) {
           setLegalInfo(json.data);

@@ -5,13 +5,13 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { toWhatsAppHref } from "@/lib/utils";
 import type { LegalInfoData } from "@/lib/api/legal-info";
+import { fetchLegalInfo } from "@/lib/api/legal-info";
 
 export function WhatsAppButton() {
   const [legalInfo, setLegalInfo] = React.useState<LegalInfoData | null>(null);
 
   React.useEffect(() => {
-    fetch("/api/legal-info/get")
-      .then((res) => res.json())
+    fetchLegalInfo()
       .then((json) => {
         if (json.data) {
           setLegalInfo(json.data);

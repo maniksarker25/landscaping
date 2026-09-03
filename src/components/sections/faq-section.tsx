@@ -12,6 +12,7 @@ import {
 import type { FaqItem } from "@/types";
 import type { FaqApiItem } from "@/types/faq";
 import { convertFaqApiItemToFaqItem } from "@/data/faqs";
+import { fetchFaqData } from "@/lib/api/faqs";
 
 interface FaqSectionProps {
   limit?: number;
@@ -27,8 +28,7 @@ export function FaqSection({
   const [dataList, setDataList] = React.useState<FaqItem[]>(initialFaqs || []);
 
   React.useEffect(() => {
-    fetch("/api/manage/get-faq")
-      .then((res) => res.json())
+    fetchFaqData()
       .then((json) => {
         if (json.data && Array.isArray(json.data) && json.data.length > 0) {
           const mapped = json.data.map((item: FaqApiItem) =>

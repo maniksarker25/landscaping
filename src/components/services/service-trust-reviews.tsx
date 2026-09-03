@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Star, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import type { GoogleReviewsData } from "@/types/service";
 import type { TestimonialItem } from "@/types/testimonial";
+import { convertTestimonialItemToTestimonial } from "@/data/testimonials";
+import { fetchTestimonialsData } from "@/lib/api/testimonials";
 import { cn } from "@/lib/utils";
 
 interface ServiceTrustReviewsProps {
@@ -27,8 +29,7 @@ export function ServiceTrustReviews({
     React.useState<TestimonialItem[]>(initialTestimonials);
 
   React.useEffect(() => {
-    fetch("/api/testimonial/get-all")
-      .then((res) => res.json())
+    fetchTestimonialsData()
       .then((json) => {
         if (json.data && Array.isArray(json.data) && json.data.length > 0) {
           setApiTestimonials(json.data);

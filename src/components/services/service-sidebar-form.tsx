@@ -24,6 +24,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { fetchServicesData } from "@/lib/api/services";
+import { baseUrl } from "@/lib/helper";
 
 interface ServiceSidebarFormProps {
   currentServiceTitle?: string;
@@ -41,13 +43,12 @@ export function ServiceSidebarForm({
   const [serviceOptions, setServiceOptions] = React.useState<string[]>([]);
 
   React.useEffect(() => {
-    fetch("/api/service/get-all")
-      .then((res) => res.json())
+    fetchServicesData()
       .then((json) => {
         if (json.data && Array.isArray(json.data) && json.data.length > 0) {
           const titles = json.data
             .map((item: { title?: string; name?: string }) => item.title || item.name)
-            .filter((t: string): t is string => Boolean(t) && typeof t === "string");
+            .filter((t: string | undefined): t is string => Boolean(t) && typeof t === "string");
           if (titles.length > 0) {
             setServiceOptions(titles);
           }
@@ -83,7 +84,7 @@ export function ServiceSidebarForm({
   async function onSubmit(values: ContactFormValues) {
     setStatus("submitting");
     try {
-      const res = await fetch("/contact/create", {
+      const res = await fetch(`${baseUrl}/contact/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
