@@ -5,6 +5,7 @@ import { MapPin, Phone, Mail, MessageSquare } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn, toTelHref, toWhatsAppHref, getMapEmbedUrl } from "@/lib/utils";
 import type { LegalInfoData } from "@/lib/api/legal-info";
+import { fetchLegalInfo } from "@/lib/api/legal-info";
 
 interface ServiceBottomContactProps {
   className?: string;
@@ -14,8 +15,7 @@ export function ServiceBottomContact({ className }: ServiceBottomContactProps) {
   const [legalInfo, setLegalInfo] = React.useState<LegalInfoData | null>(null);
 
   React.useEffect(() => {
-    fetch("/api/legal-info/get")
-      .then((res) => res.json())
+    fetchLegalInfo()
       .then((json) => {
         if (json.data) {
           setLegalInfo(json.data);

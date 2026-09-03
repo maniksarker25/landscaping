@@ -15,6 +15,8 @@ import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 import type { ServiceData } from "@/types/service";
 import type { Testimonial } from "@/types";
 import type { LightboxItem } from "@/components/common/lightbox-modal";
+import { fetchGalleryData } from "@/lib/api/gallery";
+import { fetchServicesData } from "@/lib/api/services";
 
 // Dynamic Imports for Component-based Code Splitting
 const LightboxModal = dynamic(
@@ -77,16 +79,15 @@ export function Gallery({
 
   useEffect(() => {
     let isMounted = true;
-    fetch("/api/service/get-all")
-      .then((res) => res.json())
-      .then((json) => {
+    fetchServicesData()
+      .then((data) => {
         if (
           isMounted &&
-          json?.data &&
-          Array.isArray(json.data) &&
-          json.data.length > 0
+          data?.data &&
+          Array.isArray(data.data) &&
+          data.data.length > 0
         ) {
-          setApiServices(json.data);
+          setApiServices(data.data);
         }
       })
       .catch((err) =>
@@ -191,27 +192,21 @@ export function Gallery({
   const fetchFilteredGallery = useCallback(async (cat: string) => {
     setLoading(true);
     try {
-      const params = new URLSearchParams();
-      params.append("limit", "50");
-      if (cat !== "all") {
-        params.append("category", cat);
-      }
-
-      const res = await fetch(`/api/gallery/get-all?${params.toString()}`);
-      if (res.ok) {
-        const json = await res.json();
-        if (json?.data && Array.isArray(json.data) && json.data.length > 0) {
-          setItems(json.data);
-          setAllItems((prev) => {
-            if (!prev || prev.length === 0) return json.data;
-            const existingIds = new Set(prev.map((i) => i?._id));
-            const newItems = json.data.filter(
-              (i: GalleryItem) => i?._id && !existingIds.has(i._id),
-            );
-            return newItems.length > 0 ? [...prev, ...newItems] : prev;
-          });
-          if (json?.meta) setMeta(json.meta);
-        }
+      const json = await fetchGalleryData({
+        limit: 50,
+        category: cat !== "all" ? cat : undefined,
+      });
+      if (json?.data && Array.isArray(json.data) && json.data.length > 0) {
+        setItems(json.data);
+        setAllItems((prev) => {
+          if (!prev || prev.length === 0) return json.data;
+          const existingIds = new Set(prev.map((i) => i?._id));
+          const newItems = json.data.filter(
+            (i: GalleryItem) => i?._id && !existingIds.has(i._id),
+          );
+          return newItems.length > 0 ? [...prev, ...newItems] : prev;
+        });
+        if (json?.meta) setMeta(json.meta);
       }
     } catch (err) {
       console.error("Failed to refetch gallery category items:", err);

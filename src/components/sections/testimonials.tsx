@@ -10,6 +10,7 @@ import { TestimonialCard } from "@/components/cards/testimonial-card";
 import type { Testimonial } from "@/types";
 import type { TestimonialItem } from "@/types/testimonial";
 import { convertTestimonialItemToTestimonial } from "@/data/testimonials";
+import { fetchTestimonialsData } from "@/lib/api/testimonials";
 
 interface TestimonialsProps {
   initialTestimonials?: Testimonial[];
@@ -35,8 +36,7 @@ export function Testimonials({ initialTestimonials }: TestimonialsProps) {
   );
 
   React.useEffect(() => {
-    fetch("/api/testimonial/get-all")
-      .then((res) => res.json())
+    fetchTestimonialsData()
       .then((json) => {
         if (json.data && Array.isArray(json.data) && json.data.length > 0) {
           const mapped = json.data.map((item: TestimonialItem) =>
