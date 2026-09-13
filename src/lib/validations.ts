@@ -2,7 +2,13 @@ import { z } from "zod";
 
 export const contactFormSchema = z.object({
   name: z.string().trim().min(2, "Enter your full name."),
-  email: z.string().trim().email("Enter a valid email address."),
+  email: z
+    .string()
+    .trim()
+    .optional()
+    .refine((val) => !val || z.string().email().safeParse(val).success, {
+      message: "Enter a valid email address.",
+    }),
   phone: z
     .string()
     .trim()
@@ -13,10 +19,7 @@ export const contactFormSchema = z.object({
     .string()
     .trim()
     .min(1, "Select a service of interest."),
-  message: z
-    .string()
-    .trim()
-    .min(5, "Tell us a little more about your project."),
+  message: z.string().trim().optional(),
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -24,12 +27,18 @@ export type ContactFormValues = z.infer<typeof contactFormSchema>;
 export const contactPayloadSchema = z
   .object({
     name: z.string().trim().min(2, "Full name must be at least 2 characters."),
-    email: z.string().trim().email("Please enter a valid email address."),
+    email: z
+      .string()
+      .trim()
+      .optional()
+      .refine((val) => !val || z.string().email().safeParse(val).success, {
+        message: "Please enter a valid email address.",
+      }),
     phone: z.string().trim().optional().or(z.literal("")),
     interestedCategory: z.string().trim().optional(),
     interestedService: z.string().trim().optional(),
     service: z.string().trim().optional(),
-    message: z.string().trim().min(1, "Please enter a message."),
+    message: z.string().trim().optional(),
   })
   .transform((data) => {
     const interestedService =
@@ -37,11 +46,11 @@ export const contactPayloadSchema = z
     const interestedCategory = data.interestedCategory || interestedService;
     return {
       name: data.name,
-      email: data.email,
+      email: data.email || "",
       phone: data.phone || "",
       interestedCategory,
       interestedService,
-      message: data.message,
+      message: data.message || "",
     };
   });
 
