@@ -28,20 +28,7 @@ import { fetchServicesData } from "@/lib/api/services";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { IMAGE } from "../../../public/images/index.image";
-
-function WhatsAppIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={props.className}
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 001.37 5.054L2 22l5.077-1.331a9.92 9.92 0 004.93 1.302h.005c5.505 0 9.988-4.478 9.99-9.985A9.97 9.97 0 0012.012 2zm5.795 13.973c-.237.667-1.378 1.29-1.895 1.357-.47.062-.97.108-2.748-.627-2.274-.939-3.713-3.267-3.827-3.418-.113-.15-.92-1.222-.92-2.332 0-1.11.577-1.656.782-1.875.204-.22.454-.275.606-.275.152 0 .303.001.436.007.136.007.319-.052.5-.052.186 0 .637.07.967.863.33.793.896 2.183.975 2.342.079.16.133.345.027.558-.106.213-.16.347-.318.53-.159.184-.334.409-.477.548-.159.155-.326.323-.139.643.187.32.83 1.356 1.782 2.203.953.847 1.758 1.11 2.06 1.258.303.149.48.127.66-.08.18-.206.776-.902.986-1.21.21-.308.42-.257.708-.149.29.108 1.838.867 2.152 1.023.315.156.524.232.602.366.079.133.079.77-.158 1.437z" />
-    </svg>
-  );
-}
+import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -129,27 +116,34 @@ export function Navbar() {
               href={`mailto:${contactEmail}`}
               className="flex items-center gap-2 transition-colors hover:text-white"
             >
-              <Mail className="h-3.5 w-3.5" aria-hidden="true" />
-              <span className="hidden sm:inline">{contactEmail}</span>
+              <IconWrapper icon={Mail}>
+                <span className="hidden sm:inline text-white text-lg">
+                  {contactEmail}
+                </span>
+              </IconWrapper>
             </a>
             <a
               href={toTelHref(contactPhone)}
               className="flex items-center gap-2 transition-colors hover:text-white"
             >
-              <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-              <span className="hidden sm:inline">{contactPhone}</span>
+              <IconWrapper icon={Phone}>
+                <span className="hidden sm:inline text-white text-lg">
+                  {contactPhone}
+                </span>
+              </IconWrapper>
             </a>
             <a
               href={whatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 transition-colors hover:text-green-400"
+              className="flex items-center gap-1.5 transition-all hover:opacity-90 group"
+              aria-label="Chat on WhatsApp"
             >
-              <WhatsAppIcon
-                className="h-3.5 w-3.5 fill-current"
-                aria-hidden="true"
-              />
-              <span className="hidden sm:inline">WhatsApp</span>
+              <IconWrapper icon={WhatsAppIcon}>
+                <span className="inline text-lg font-semibold text-white transition-colors">
+                  WhatsApp
+                </span>
+              </IconWrapper>
             </a>
           </div>
         </Container>
@@ -288,3 +282,18 @@ export function Navbar() {
     </div>
   );
 }
+
+const IconWrapper = ({
+  children,
+  icon: Icon,
+}: {
+  children: React.ReactNode;
+  icon: React.ComponentType<{ className?: string }>;
+}) => {
+  return (
+    <div className="flex items-center gap-2 px-3 py-1 bg-[#135797] rounded-full">
+      <Icon className="h-6 w-6 text-white" aria-hidden="true" />
+      {children}
+    </div>
+  );
+};
