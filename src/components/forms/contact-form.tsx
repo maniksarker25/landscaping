@@ -83,11 +83,11 @@ export function ContactForm() {
         },
         body: JSON.stringify({
           name: values?.name.trim(),
-          email: values?.email.trim(),
+          email: values?.email ? values.email.trim() : "",
           phone: values?.phone?.trim() || "",
           interestedService: values?.interestedService,
           interestedCategory: values?.interestedService,
-          message: values?.message.trim(),
+          message: values?.message ? values.message.trim() : "",
         }),
       });
 
@@ -163,7 +163,7 @@ export function ContactForm() {
           </Label>
           <Input
             id="name"
-            placeholder="John Doe"
+            placeholder="Enter your name"
             disabled={isLoading}
             className="h-10 sm:h-11 text-sm bg-background"
             {...register("name")}
@@ -178,12 +178,12 @@ export function ContactForm() {
         {/* Email Field */}
         <div className="space-y-1.5 min-w-0">
           <Label htmlFor="email" className="text-xs sm:text-sm font-semibold">
-            Email address <span className="text-destructive">*</span>
+            Email address <span className="text-muted-foreground font-normal text-xs">(optional)</span>
           </Label>
           <Input
             id="email"
             type="email"
-            placeholder="john@example.com"
+            placeholder="Enter your email"
             disabled={isLoading}
             className="h-10 sm:h-11 text-sm bg-background"
             {...register("email")}
@@ -205,7 +205,7 @@ export function ContactForm() {
           <Input
             id="phone"
             type="tel"
-            placeholder="+1234567890"
+            placeholder="Enter your phone"
             disabled={isLoading}
             className="h-10 sm:h-11 text-sm bg-background"
             {...register("phone")}
@@ -272,12 +272,12 @@ export function ContactForm() {
       {/* Message Field */}
       <div className="space-y-1.5 min-w-0">
         <Label htmlFor="message" className="text-xs sm:text-sm font-semibold">
-          Message <span className="text-destructive">*</span>
+          Message <span className="text-muted-foreground font-normal text-xs">(optional)</span>
         </Label>
         <Textarea
           id="message"
           rows={4}
-          placeholder="Tell us about your project requirements, location, or ask for a quote..."
+          placeholder="Enter your message"
           disabled={isLoading}
           className="text-sm bg-background resize-none"
           {...register("message")}
