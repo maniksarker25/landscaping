@@ -98,7 +98,7 @@ export async function Footer() {
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-white transition-colors hover:bg-primary hover:text-white"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5597CF] text-white transition-colors hover:bg-primary border hover:border-[#5597CF] hover:text-white"
                   >
                     <Icon className="h-4.5 w-4.5" aria-hidden="true" />
                   </a>
@@ -212,7 +212,7 @@ export async function Footer() {
         </div>
 
         {/* Footer Bottom Line & Copyright */}
-        <div className="border-t border-neutral-800 pt-6 text-center text-xs text-neutral-400 font-medium">
+        <div className="border-t border-white pt-6 text-center text-xs text-neutral-400 font-medium">
           <p>
             © {new Date().getFullYear()} {companyName}. All Rights Reserved.
           </p>

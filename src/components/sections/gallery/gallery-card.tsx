@@ -12,12 +12,14 @@ export interface GalleryCardProps {
   index: number;
   targetSlug: string;
   onSelectImage: (index: number) => void;
+  isShowText?: boolean;
 }
 
 export const GalleryCard = React.memo(function GalleryCard({
   item,
   index,
   targetSlug,
+  isShowText,
   onSelectImage,
 }: GalleryCardProps) {
   const handleClickImage = React.useCallback(() => {
@@ -54,12 +56,12 @@ export const GalleryCard = React.memo(function GalleryCard({
 
         {/* Category Badge Tag on Image */}
         <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
-          {item?.category && (
+          {item?.category && isShowText && (
             <span className="inline-block rounded-full bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white shadow">
               {item.category.replace("-", " ")}
             </span>
           )}
-          {item?.location && (
+          {item?.location && isShowText && (
             <span className="inline-block rounded-full bg-primary/80 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold tracking-wider text-white shadow">
               {item.location}
             </span>
@@ -80,14 +82,14 @@ export const GalleryCard = React.memo(function GalleryCard({
         // onClick={handleLinkClick}
         className="py-4 px-4 flex text-center bg-card z-10 transition-colors group-hover:bg-muted/40 items-center justify-center border-t border-border/40 hover:text-primary cursor-pointer"
       > */}
-      <div
-        className="py-4 px-4 flex text-center bg-card z-10 transition-colors group-hover:bg-muted/40 items-center justify-center border-t border-border/40 hover:text-primary cursor-pointer"
-      >
-        <span className="text-xs font-bold tracking-[0.15em] uppercase text-foreground group-hover:text-primary transition-colors line-clamp-1 flex items-center justify-center gap-1.5">
-          {item?.imageAlt || item?.location || "Luxury Project"}
-          {/* <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" /> */}
-        </span>
-      </div>
+      {isShowText && (
+        <div className="py-4 px-4 flex text-center bg-card z-10 transition-colors group-hover:bg-muted/40 items-center justify-center border-t border-border/40 hover:text-primary cursor-pointer">
+          <span className="text-xs font-bold tracking-[0.15em] uppercase text-foreground group-hover:text-primary transition-colors line-clamp-1 flex items-center justify-center gap-1.5">
+            {item?.imageAlt || item?.location || "Luxury Project"}
+            {/* <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" /> */}
+          </span>
+        </div>
+      )}
     </motion.div>
   );
 });

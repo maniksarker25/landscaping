@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 
 import { PageHero } from "@/components/sections/page-hero";
 import { GallerySkeleton } from "@/components/sections/gallery/gallery-skeleton";
@@ -17,6 +17,8 @@ import type { Testimonial } from "@/types";
 import type { LightboxItem } from "@/components/common/lightbox-modal";
 import { fetchGalleryData } from "@/lib/api/gallery";
 import { fetchServicesData } from "@/lib/api/services";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 // Dynamic Imports for Component-based Code Splitting
 const LightboxModal = dynamic(
@@ -317,19 +319,33 @@ export function Gallery({
               </div>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <AnimatePresence mode="popLayout">
-                {filteredItems.map((item, index) => (
-                  <GalleryCard
-                    key={item?._id}
-                    item={item}
-                    index={index}
-                    targetSlug={getTargetSlug(item)}
-                    onSelectImage={handleSelectImageCard}
-                  />
-                ))}
+                {filteredItems
+                  ?.slice(0, 12)
+                  .map((item, index) => (
+                    <GalleryCard
+                      key={item?._id}
+                      item={item}
+                      index={index}
+                      targetSlug={getTargetSlug(item)}
+                      onSelectImage={handleSelectImageCard}
+                      isShowText={pathname === "/projects"}
+                    />
+                  ))}
               </AnimatePresence>
             </div>
+
+            {pathname !== "/projects" && filteredItems.length > 12 && (
+              <div className="flex items-center justify-center py-4 gap-2 text-primary text-sm font-medium">
+                <Button asChild size="sm" className="bg-primary">
+                  <Link href="/projects">
+                    <ArrowRight className="h-4 w-4" />
+                    <span>View All Projects</span>
+                  </Link>
+                </Button>
+              </div>
+            )}
           </>
         )}
 
