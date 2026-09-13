@@ -53,14 +53,14 @@ export function AboutIntro() {
             >
               <motion.div variants={staggerItem}>
                 <h2 className="text-xl sm:text-2xl lg:text-4xl font-display font-bold text-foreground leading-tight tracking-tight">
-                  Searching For Swimming Pool And Landscaping Companies In
-                  Dubai, UAE?
+                  Searching for a trusted swimming pool and landscaping company
+                  in Dubai, UAE?
                 </h2>
               </motion.div>
 
               <motion.div variants={staggerItem} className="mt-6">
-                <h3 className="text-lg font-semibold text-secondary uppercase tracking-wide">
-                  Welcome to {siteConfig.name}
+                <h3 className="text-lg font-semibold text-primary uppercase tracking-wide">
+                  Welcome to Dream Floor Landscaping LLC.
                 </h3>
               </motion.div>
 
@@ -69,17 +69,12 @@ export function AboutIntro() {
                 className="mt-6 space-y-6 text-muted-foreground leading-relaxed"
               >
                 <p>
-                  Dream Floor Landscaping designs and builds exceptional outdoor
-                  spaces for villas and residential communities across Dubai.
-                  From custom swimming pools and landscaping to pergolas, BBQ
-                  areas, irrigation systems, natural stone, and outdoor tiling,
-                  we deliver complete outdoor solutions with quality
-                  craftsmanship and attention to every detail.
-                </p>
-                <p>
-                  With over 16 years of industry experience, we deliver complete
-                  outdoor solutions for villas and residential communities
-                  across Dubai.
+                  Dream Floor specializes in swimming pool construction, pool
+                  maintenance, landscaping, outdoor living solutions, irrigation
+                  systems, pergolas, gazebos, BBQ areas, water features, and
+                  complete garden transformations. We deliver high-quality
+                  outdoor solutions designed to enhance residential properties
+                  across Dubai
                 </p>
               </motion.div>
 
@@ -98,7 +93,7 @@ export function AboutIntro() {
                 ].map((feature) => (
                   <div key={feature} className="flex items-center gap-3">
                     <div className="flex-shrink-0 h-8 w-8 rounded-full bg-secondary/10 flex items-center justify-center">
-                      <CheckCircle2 className="h-5 w-5 text-secondary" />
+                      <CheckCircle2 className="h-5 w-5 text-primary" />
                     </div>
                     <span className="font-medium text-foreground">
                       {feature}
