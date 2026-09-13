@@ -23,7 +23,7 @@ export function Hero() {
   const slideCount = heroSlides.length;
 
   const videoUrl = VIDEOS.hero || "";
-  const showVideo = Boolean(videoUrl) && !videoError;
+  const showVideo = false;
 
   React.useEffect(() => {
     if (showVideo || paused || prefersReducedMotion || slideCount <= 1) return;

@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { MapPin, Phone, Mail, MessageSquare } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn, toTelHref, toWhatsAppHref, getMapEmbedUrl } from "@/lib/utils";
 import type { LegalInfoData } from "@/lib/api/legal-info";
 import { fetchLegalInfo } from "@/lib/api/legal-info";
+import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 
 interface ServiceBottomContactProps {
   className?: string;
@@ -91,8 +92,8 @@ export function ServiceBottomContact({ className }: ServiceBottomContactProps) {
           </div>
 
           <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 transition-all hover:border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-900">
-            <div className="h-10 w-10 shrink-0 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
-              <MessageSquare className="h-5 w-5" />
+            <div className="h-10 w-10 shrink-0 rounded-lg bg-[#25D366] text-white flex items-center justify-center shadow-xs">
+              <WhatsAppIcon size={22} className="text-white" />
             </div>
             <div>
               <h4 className="text-sm font-bold text-emerald-950 dark:text-emerald-300">WhatsApp Chat</h4>
