@@ -4,21 +4,30 @@ export interface HeroSlide {
   id: string;
   src: string;
   alt: string;
+  title?: string;
+  subtitle?: string;
 }
+
 export const heroSlides: HeroSlide[] = [
   {
-    id: "resort-pool",
+    id: "hero-1",
     src: IMAGE.hero1,
-    alt: "We’re one of the best pool maintenance companies in Dubai -Licensed, Insured & Reliable",
+    alt: "Top Rated Swimming Pool & Landscape Design in Dubai - Dream Floor Landscaping LLC",
+    title: "TOP RATED GARDEN, LANDSCAPING & LAWN CARE SERVICES IN DUBAI",
+    subtitle: "SWIMMING POOL CONSTRUCTION & MAINTENANCE",
   },
   {
-    id: "villa-garden",
+    id: "hero-2",
     src: IMAGE.hero2,
-    alt: "We’re one of the best pool maintenance companies in Dubai -Licensed, Insured & Reliable",
+    alt: "Custom Pool Maintenance and Garden Transformations in Dubai",
+    title: "EXPERT OUTDOOR LIVING & COMPLETE GARDEN TRANSFORMATIONS",
+    subtitle: "PERGOLAS, WATER FEATURES & IRRIGATION SYSTEMS",
   },
   {
-    id: "poolside-lounge",
+    id: "hero-3",
     src: IMAGE.hero3,
-    alt: "Professional Pool Maintenance Company in Dubai - Licensed, Insured & Reliable",
+    alt: "Licensed & Insured Pool Construction & Maintenance Company in Dubai",
+    title: "PREMIUM POOL CONSTRUCTION & OUTDOOR LIVING SOLUTIONS",
+    subtitle: "LICENSED, INSURED & RELIABLE LANDSCAPING SPECIALISTS",
   },
 ];
