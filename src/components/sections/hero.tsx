@@ -33,7 +33,7 @@ export function Hero() {
   const bgY = useTransform(
     scrollYProgress,
     [0, 1],
-    prefersReducedMotion ? ["0%", "0%"] : ["0%", "10%"]
+    prefersReducedMotion ? ["0%", "0%"] : ["0%", "10%"],
   );
 
   React.useEffect(() => {
@@ -62,7 +62,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-primary text-primary-foreground min-h-[calc(100vh_-_10vh)] flex flex-col justify-between"
+      className="relative overflow-hidden bg-primary text-primary-foreground min-h-[calc(100vh_-_30vh)] flex flex-col justify-between"
     >
       {/* Background Image Carousel with Lightweight GPU-Accelerated Parallax */}
       <motion.div
@@ -108,33 +108,34 @@ export function Hero() {
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="max-w-5xl bg-white/50 backdrop-blur-sm p-4 relative border-2 border-primary"
+          className="max-w-5xl bg-white/50 backdrop-blur-sm p-4 relative border border-primary"
         >
           <div className="w-4 h-4 bg-primary absolute -right-2 -top-2"></div>
           <div className="w-4 h-4 bg-primary absolute -left-2 -top-2"></div>
           <div className="w-4 h-4 bg-primary absolute -right-2 -bottom-2"></div>
           <div className="w-4 h-4 bg-primary absolute -left-2 -bottom-2"></div>
           {/* Main Top Eyebrow Heading */}
-          <motion.div variants={staggerItem} className="mb-4">
+          {/* <motion.div variants={staggerItem} className="mb-4">
             <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide text-black">
               TOP RATED GARDEN, LANDSCAPING & LAWN CARE SERVICES IN DUBAI
             </span>
-          </motion.div>
+          </motion.div> */}
 
           {/* Second Heading (H1) */}
           <motion.h1
             variants={staggerItem}
             className="font-display text-3xl font-extrabold leading-[1.1] sm:text-4xl lg:text-5xl text-black tracking-tight drop-shadow-sm"
           >
-            SWIMMING POOL CONSTRUCTION &amp; MAINTENANCE
+            TOP RATED GARDEN, LANDSCAPING & LAWN CARE SERVICES IN DUBAI
           </motion.h1>
 
           {/* Subtext Paragraph */}
-          <motion.p
+          <motion.h1
             variants={staggerItem}
-            className="mt-6 max-w-3xl text-sm sm:text-base lg:text-lg leading-relaxed text-black font-normal"
+            className="font-display text-3xl mt-4 font-extrabold leading-[1.1]  lg:text-3xl text-black/85 tracking-tight drop-shadow-sm"
           >
-            Searching for a trusted swimming pool and landscaping company in
+            SWIMMING POOL CONSTRUCTION &amp; MAINTENANCE
+            {/* Searching for a trusted swimming pool and landscaping company in
             Dubai, UAE? Welcome to{" "}
             <strong className="font-semibold text-black">
               Dream Floor Landscaping LLC
@@ -143,8 +144,8 @@ export function Hero() {
             maintenance, landscaping, outdoor living solutions, irrigation
             systems, pergolas, gazebos, BBQ areas, water features, and complete
             garden transformations. We deliver high-quality outdoor solutions
-            designed to enhance residential properties across Dubai.
-          </motion.p>
+            designed to enhance residential properties across Dubai. */}
+          </motion.h1>
 
           {/* CTA Action Buttons */}
           <motion.div
@@ -154,7 +155,7 @@ export function Hero() {
             <Button
               asChild
               size="lg"
-              className="bg-[#1662a9] text-white font-bold hover:bg-secondary/90 shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm uppercase tracking-wider px-6 sm:px-8 py-3 h-auto"
+              className="bg-[#1662a9] rounded-none text-white font-bold shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm uppercase tracking-wider px-6 sm:px-8 py-3 h-auto"
             >
               <Link href="/contact" className="flex items-center gap-2">
                 GET A FREE QUOTE
@@ -166,7 +167,7 @@ export function Hero() {
               asChild
               size="lg"
               variant="outline"
-              className="border-black/30 text-black bg-white/10 hover:bg-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold uppercase tracking-wider px-6 py-3 h-auto"
+              className="rounded-none border-black/30 text-black bg-white/10 hover:bg-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold uppercase tracking-wider px-6 py-3 h-auto"
             >
               <Link href="/projects">View Our Work</Link>
             </Button>
