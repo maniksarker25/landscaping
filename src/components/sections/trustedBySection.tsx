@@ -1,99 +1,116 @@
 "use client";
 
 import Image from "next/image";
-import { staggerItem } from "@/lib/animations";
+import Marquee from "react-fast-marquee";
 import { Container } from "../common/container";
 import { motion } from "framer-motion";
 
-function TrustedBySection() {
+interface Brand {
+  name: string;
+  logo: string;
+  width: number;
+  height: number;
+  className: string;
+}
+
+// Exactly ordered as in the design: Invest Group, Jumeirah, Damac Hills, Emaar, Nakheel
+const BRANDS: Brand[] = [
+  {
+    name: "Invest Group Overseas",
+    logo: "/images/trust-brand/invest_group.png",
+    width: 260,
+    height: 220,
+    className: "h-14 sm:h-16 lg:h-18",
+  },
+  {
+    name: "Jumeirah",
+    logo: "/images/trust-brand/jumeirah-logo.webp",
+    width: 260,
+    height: 90,
+    className: "h-9 sm:h-11 lg:h-12",
+  },
+  {
+    name: "Damac Hills",
+    logo: "/images/trust-brand/damac-hills.png",
+    width: 260,
+    height: 80,
+    className: "h-8 sm:h-10 lg:h-11",
+  },
+  {
+    name: "Emaar",
+    logo: "/images/trust-brand/emaap.jpg",
+    width: 260,
+    height: 80,
+    className: "h-9 sm:h-10 lg:h-12",
+  },
+  {
+    name: "Nakheel",
+    logo: "/images/trust-brand/nakheel.webp",
+    width: 260,
+    height: 220,
+    className: "h-14 sm:h-16 lg:h-18",
+  },
+];
+
+export function TrustedBySection() {
   return (
-    <>
-      <section className="py-12 bg-background relative overflow-hidden">
-        <Container>
-          {/* Section Title */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
-          >
-            <motion.h2
-              variants={staggerItem}
-              className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight uppercase"
+    <section className="py-14 sm:py-20 bg-white relative overflow-hidden">
+      <Container>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1f242e] tracking-tight">
+            Trusted By
+          </h2>
+          <p className="mt-2.5 text-sm sm:text-base text-gray-500 font-normal leading-relaxed">
+            Our prestigious clients who believes in our high standards of
+            services.
+          </p>
+        </motion.div>
+      </Container>
+
+      {/* Marquee Slider */}
+      <div className="relative w-full overflow-hidden">
+        {/* Soft edge fades */}
+        <div
+          className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-32 z-10 bg-gradient-to-r from-white to-transparent"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-32 z-10 bg-gradient-to-l from-white to-transparent"
+          aria-hidden="true"
+        />
+
+        <Marquee
+          speed={35}
+          pauseOnHover={false}
+          pauseOnClick={false}
+          autoFill={true}
+          className="flex items-center py-2 select-none"
+        >
+          {BRANDS.map((brand, index) => (
+            <div
+              key={`${brand.name}-${index}`}
+              className="mx-8 sm:mx-12 md:mx-16 lg:mx-20 flex items-center justify-center flex-shrink-0 cursor-pointer"
+              title={brand.name}
             >
-              Trusted By
-            </motion.h2>
-            <motion.p
-              variants={staggerItem}
-              className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed"
-            >
-              Our prestigious clients who believes in our high standards of services.
-            </motion.p>
-            <motion.div
-              variants={staggerItem}
-              className="w-16 h-1 bg-primary mx-auto mt-4"
-            />
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-16 w-max mx-auto">
-            {/* Cell 1: Emaar */}
-            <div className="hover:bg-slate-50 flex items-center justify-center h-24 sm:h-28 w-44 sm:w-64 border border-slate-200 border-t-0 border-l-0 p-2 sm:p-3">
               <Image
-                src="/images/trust-brand/emaap.jpg"
-                alt="Emaar Properties"
-                width={220}
-                height={80}
-                className="max-h-20 sm:max-h-24 w-auto object-contain"
+                src={brand.logo}
+                alt={brand.name}
+                width={brand.width}
+                height={brand.height}
+                className={`${brand.className} w-auto object-contain transition-transform duration-300 hover:scale-105`}
               />
             </div>
-
-            {/* Cell 2: Damac */}
-            <div className="hover:bg-slate-50 flex items-center justify-center h-24 sm:h-28 w-44 sm:w-64 border border-slate-200 border-t-0 border-x-0 md:border-r p-2 sm:p-3">
-              <Image
-                src="/images/trust-brand/damac-hills.png"
-                alt="Damac Hills"
-                width={220}
-                height={80}
-                className="max-h-20 sm:max-h-24 w-auto object-contain"
-              />
-            </div>
-
-            {/* Cell 3: Nakheel */}
-            <div className="hover:bg-slate-50 flex items-center justify-center h-24 sm:h-28 w-44 sm:w-64 border border-slate-200 border-t-0 border-x-0 md:border-r p-2 sm:p-3">
-              <Image
-                src="/images/trust-brand/nakheel.webp"
-                alt="Nakheel"
-                width={220}
-                height={80}
-                className="max-h-20 sm:max-h-24 w-auto object-contain"
-              />
-            </div>
-
-            {/* Cell 4: Jumeirah */}
-            <div className="hover:bg-slate-50 flex items-center justify-center h-24 sm:h-28 w-44 sm:w-64 border border-slate-200 border-t-0 border-x-0 lg:border-r p-2 sm:p-3">
-              <Image
-                src="/images/trust-brand/jumeirah-logo.webp"
-                alt="Jumeirah Golf Estates"
-                width={220}
-                height={80}
-                className="max-h-20 sm:max-h-24 w-auto object-contain"
-              />
-            </div>
-
-            {/* Cell 5: Dubai Holding */}
-            <div className="hover:bg-slate-50 flex items-center justify-center h-24 sm:h-28 w-44 sm:w-64 border border-slate-200 border-t-0 xl:border-r-0 p-2 sm:p-3">
-              <Image
-                src="/images/trust-brand/invest_group.png"
-                alt="Dubai Holding"
-                width={220}
-                height={80}
-                className="max-h-20 sm:max-h-24 w-auto object-contain"
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
-    </>
+          ))}
+        </Marquee>
+      </div>
+    </section>
   );
 }
 

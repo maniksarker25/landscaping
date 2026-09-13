@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Waves, ArrowRight, Mail, Phone } from "lucide-react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 import {
   siteConfig,
   buildNavChildrenFromServices,
@@ -109,41 +109,83 @@ export function Navbar() {
       )}
     >
       {/* Top Header / Utility Bar */}
-      <div className="w-full bg-primary text-primary-foreground/90 py-2.5 text-xs font-medium relative z-[51]">
+      <div className="w-full bg-primary text-primary-foreground py-2 sm:py-2.5 text-xs font-medium relative z-[51]">
         <Container className="flex items-center justify-between">
-          <div className="flex items-center gap-4 sm:gap-6">
-            <a
-              href={`mailto:${contactEmail}`}
-              className="flex items-center gap-2 transition-colors hover:text-white"
-            >
-              <IconWrapper icon={Mail}>
-                <span className="hidden sm:inline text-white text-lg">
-                  {contactEmail}
-                </span>
-              </IconWrapper>
-            </a>
+          {/* Left: 3 Circular Icon Buttons (Phone, Mail, WhatsApp) */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
             <a
               href={toTelHref(contactPhone)}
-              className="flex items-center gap-2 transition-colors hover:text-white"
+              className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/20 hover:bg-black/35 text-white transition-all shadow-xs"
+              aria-label="Call Us"
             >
-              <IconWrapper icon={Phone}>
-                <span className="hidden sm:inline text-white text-lg">
-                  {contactPhone}
-                </span>
-              </IconWrapper>
+              <Phone className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+            </a>
+            <a
+              href={`mailto:${contactEmail}`}
+              className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/20 hover:bg-black/35 text-white transition-all shadow-xs"
+              aria-label="Send Email"
+            >
+              <Mail className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
             </a>
             <a
               href={whatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 transition-all hover:opacity-90 group"
+              className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/20 hover:bg-black/35 text-white transition-all shadow-xs"
               aria-label="Chat on WhatsApp"
             >
-              <IconWrapper icon={WhatsAppIcon}>
-                <span className="inline text-lg font-semibold text-white transition-colors">
-                  WhatsApp
+              <WhatsAppIcon className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-white" />
+            </a>
+          </div>
+
+          {/* Right: GET A QUOTE (All Screens) + CALL US NOW & LETSCHAT (Desktop) */}
+          <div className="flex items-center gap-3 sm:gap-5 lg:gap-6">
+            {/* GET A QUOTE Button */}
+            <Link
+              href="/contact"
+              className="bg-black hover:bg-neutral-900 text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-wider px-3.5 sm:px-4 py-1.5 sm:py-2 rounded flex items-center gap-1.5 shadow-sm transition-all whitespace-nowrap"
+            >
+              <span>GET A QUOTE</span>
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
+
+            {/* CALL US NOW Block (Desktop) */}
+            <a
+              href={toTelHref(contactPhone)}
+              className="hidden md:flex items-center gap-2 sm:gap-2.5 transition-opacity hover:opacity-90 group"
+            >
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/20 group-hover:bg-black/35 text-white transition-all">
+                <Phone className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 leading-none">
+                  CALL US NOW
                 </span>
-              </IconWrapper>
+                <span className="text-xs sm:text-sm font-extrabold text-white leading-tight mt-0.5 whitespace-nowrap">
+                  {contactPhone}
+                </span>
+              </div>
+            </a>
+
+            {/* LETSCHAT Block (Desktop) */}
+            <a
+              href={whatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-2 sm:gap-2.5 transition-opacity hover:opacity-90 group"
+              aria-label="Chat on WhatsApp"
+            >
+              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/20 group-hover:bg-black/35 text-white transition-all">
+                <WhatsAppIcon className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-white" />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 leading-none">
+                  LETSCHAT
+                </span>
+                <span className="text-xs sm:text-sm font-extrabold text-white leading-tight mt-0.5 whitespace-nowrap">
+                  {contactPhone}
+                </span>
+              </div>
             </a>
           </div>
         </Container>
@@ -282,18 +324,3 @@ export function Navbar() {
     </div>
   );
 }
-
-const IconWrapper = ({
-  children,
-  icon: Icon,
-}: {
-  children: React.ReactNode;
-  icon: React.ComponentType<{ className?: string }>;
-}) => {
-  return (
-    <div className="flex items-center gap-2 px-3 py-1 bg-[#135797] rounded-full">
-      <Icon className="h-6 w-6 text-white" aria-hidden="true" />
-      {children}
-    </div>
-  );
-};

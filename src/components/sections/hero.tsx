@@ -106,12 +106,12 @@ export function Hero() {
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="max-w-5xl bg-white/50 backdrop-blur-sm p-4 relative border border-primary"
+          className="max-w-5xl bg-white/50 backdrop-blur-sm p-4 relative border-b-8 border-primary"
         >
-          <div className="w-4 h-4 bg-primary absolute -right-2 -top-2"></div>
+          {/* <div className="w-4 h-4 bg-primary absolute -right-2 -top-2"></div>
           <div className="w-4 h-4 bg-primary absolute -left-2 -top-2"></div>
           <div className="w-4 h-4 bg-primary absolute -right-2 -bottom-2"></div>
-          <div className="w-4 h-4 bg-primary absolute -left-2 -bottom-2"></div>
+          <div className="w-4 h-4 bg-primary absolute -left-2 -bottom-2"></div> */}
           {/* Main Top Eyebrow Heading */}
           {/* <motion.div variants={staggerItem} className="mb-4">
             <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide text-black">
@@ -128,9 +128,9 @@ export function Hero() {
           </motion.h1>
 
           {/* Subtext Paragraph */}
-          <motion.h1
+          <motion.p
             variants={staggerItem}
-            className="font-display text-3xl mt-4 font-extrabold leading-[1.1]  lg:text-3xl text-black/85 tracking-tight drop-shadow-sm"
+            className="font-display text-sm mt-4 font-extrabold leading-[1.1]  text-black/85 tracking-tight drop-shadow-sm"
           >
             SWIMMING POOL CONSTRUCTION &amp; MAINTENANCE
             {/* Searching for a trusted swimming pool and landscaping company in
@@ -143,7 +143,7 @@ export function Hero() {
             systems, pergolas, gazebos, BBQ areas, water features, and complete
             garden transformations. We deliver high-quality outdoor solutions
             designed to enhance residential properties across Dubai. */}
-          </motion.h1>
+          </motion.p>
 
           {/* CTA Action Buttons */}
           <motion.div

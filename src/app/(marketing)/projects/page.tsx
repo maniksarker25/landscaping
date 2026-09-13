@@ -23,5 +23,3 @@ export default async function ProjectsPage() {
     />
   );
 }
-
-export { Gallery };
