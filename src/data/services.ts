@@ -40,8 +40,7 @@ export function convertServiceDataToService(item: ServiceData): Service {
     featuresSection?.content?.features?.map((f) => f.title) || [];
 
   const processSection = item.sections?.find(
-    (s) =>
-      s.blockType === "technical_specs" || s.blockType === "faq_accordion",
+    (s) => s.blockType === "technical_specs" || s.blockType === "faq_accordion",
   );
   const processSteps =
     processSection?.content?.accordionItems?.map((a) => ({

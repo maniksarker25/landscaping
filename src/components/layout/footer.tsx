@@ -1,161 +1,221 @@
 import Link from "next/link";
-import { Waves, Phone, Mail, MapPin, Globe, Instagram, Linkedin, Facebook } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Instagram,
+  Linkedin,
+  Facebook,
+  Twitter,
+  MessageCircle,
+} from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/common/container";
-import { Separator } from "@/components/ui/separator";
 import { toTelHref } from "@/lib/utils";
-import { NewsletterForm } from "@/components/forms/newsletter-form";
 import { fetchLegalInfo } from "@/lib/api/legal-info";
 
 export async function Footer() {
   const legalRes = await fetchLegalInfo();
   const legalInfo = legalRes.data;
 
-  const companyName = legalInfo?.companyName || siteConfig.name;
-  const address = legalInfo?.registeredAddress || siteConfig.address;
-  const phone = legalInfo?.contactPhone || siteConfig.phone;
-  const email = legalInfo?.contactEmail || siteConfig.email;
-  const tagline = legalInfo?.tagline || siteConfig.description;
+  const companyName = legalInfo?.companyName || "Dream Floor Landscaping LLC";
+  const address =
+    legalInfo?.registeredAddress ||
+    siteConfig.address ||
+    "Al Quoz 3, Dubai - UAE";
+  const phone =
+    legalInfo?.contactPhone || siteConfig.phone || "+971 4 000 0000";
+  const email =
+    legalInfo?.contactEmail || siteConfig.email || "info@dreamfloor.ae";
 
   const socialLinks = [
     {
+      label: "Facebook",
+      href:
+        legalInfo?.facebookLink ||
+        siteConfig.socials.find((s) => s.label === "Facebook")?.href ||
+        "#",
+      icon: Facebook,
+    },
+    {
       label: "Instagram",
-      href: legalInfo?.instagramLink || siteConfig.socials.find((s) => s.label === "Instagram")?.href,
+      href:
+        legalInfo?.instagramLink ||
+        siteConfig.socials.find((s) => s.label === "Instagram")?.href ||
+        "#",
+      icon: Instagram,
     },
     {
       label: "LinkedIn",
-      href: legalInfo?.linkedinLink || siteConfig.socials.find((s) => s.label === "LinkedIn")?.href,
+      href:
+        legalInfo?.linkedinLink ||
+        siteConfig.socials.find((s) => s.label === "LinkedIn")?.href ||
+        "#",
+      icon: Linkedin,
     },
     {
-      label: "Facebook",
-      href: legalInfo?.facebookLink || siteConfig.socials.find((s) => s.label === "Facebook")?.href,
+      label: "Twitter",
+      href: "#",
+      icon: Twitter,
     },
-  ].filter((s): s is { label: string; href: string } => Boolean(s.href));
+  ];
+
+  const quickLinks = [
+    { label: "Home", href: "/" },
+    { label: "Swimming Pools", href: "/pools" },
+    { label: "Landscaping & Outdoor Living", href: "/landscaping" },
+    { label: "Our Projects", href: "/projects" },
+    { label: "Contact Us", href: "/contact" },
+  ];
+
+  const serviceLinks = [
+    { label: "Swimming Pool Construction & Maintenance", href: "/pools" },
+    { label: "Landscaping Services", href: "/landscaping" },
+  ];
 
   return (
-    <footer className="relative bg-primary text-primary-foreground">
-      {/* Wave Transition Top Divider */}
-      <div className="w-full overflow-hidden leading-none pointer-events-none">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 125"
-          preserveAspectRatio="none"
-          className="w-full h-12 sm:h-16 md:h-24 lg:h-28 block fill-background"
-          aria-hidden="true"
-        >
-          <path
-            d="M 0 125 L 0.0 62.5 L 15.0 60.0 L 30.0 57.6 L 45.0 55.2 L 60.0 53.1 L 75.0 51.2 L 90.0 49.6 L 105.0 48.2 L 120.0 47.3 L 135.0 46.7 L 150.0 46.5 L 165.0 46.7 L 180.0 47.3 L 195.0 48.2 L 210.0 49.6 L 225.0 51.2 L 240.0 53.1 L 255.0 55.2 L 270.0 57.6 L 285.0 60.0 L 300.0 62.5 L 315.0 65.0 L 330.0 67.4 L 345.0 69.8 L 360.0 71.9 L 375.0 73.8 L 390.0 75.4 L 405.0 76.8 L 420.0 77.7 L 435.0 78.3 L 450.0 78.5 L 465.0 78.3 L 480.0 77.7 L 495.0 76.8 L 510.0 75.4 L 525.0 73.8 L 540.0 71.9 L 555.0 69.8 L 570.0 67.4 L 585.0 65.0 L 600.0 62.5 L 615.0 60.0 L 630.0 57.6 L 645.0 55.2 L 660.0 53.1 L 675.0 51.2 L 690.0 49.6 L 705.0 48.2 L 720.0 47.3 L 735.0 46.7 L 750.0 46.5 L 765.0 46.7 L 780.0 47.3 L 795.0 48.2 L 810.0 49.6 L 825.0 51.2 L 840.0 53.1 L 855.0 55.2 L 870.0 57.6 L 885.0 60.0 L 900.0 62.5 L 915.0 65.0 L 930.0 67.4 L 945.0 69.8 L 960.0 71.9 L 975.0 73.8 L 990.0 75.4 L 1005.0 76.8 L 1020.0 77.7 L 1035.0 78.3 L 1050.0 78.5 L 1065.0 78.3 L 1080.0 77.7 L 1095.0 76.8 L 1110.0 75.4 L 1125.0 73.8 L 1140.0 71.9 L 1155.0 69.8 L 1170.0 67.4 L 1185.0 65.0 L 1200.0 62.5 L 1200 125 Z"
-            transform="scale(1,-1) translate(0,-125)"
-          />
-        </svg>
-      </div>
-      <Container className="py-12 sm:py-16">
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1.1fr_1.2fr]">
-          {/* Brand Info */}
-          <div className="min-w-0">
-            <Link href="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
-              <Waves className="h-6 w-6 text-secondary shrink-0" aria-hidden="true" />
-              <span className="truncate">{companyName}</span>
-            </Link>
-            <p className="mt-4 max-w-sm text-xs sm:text-sm leading-relaxed text-primary-foreground/75 break-words">
-              {tagline}
+    <footer className="bg-primary text-white pt-16 pb-6 border-t border-neutral-900">
+      <Container className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 pb-4 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 pb-14">
+          {/* Column 1: ABOUT US */}
+          <div className="space-y-5">
+            <h3 className="font-display text-lg font-extrabold uppercase tracking-wider text-white">
+              ABOUT US
+            </h3>
+            <p className="text-sm text-neutral-300 leading-relaxed max-w-sm">
+              {companyName} offers landscaping &amp; swimming pool construction
+              services in Dubai. Our expert landscape designers can help you to
+              build the ideal design for your commercial or residential units.
             </p>
-            {socialLinks.length > 0 && (
-              <div className="mt-6 flex gap-3">
-                {socialLinks.map((social) => {
-                  const Icon =
-                    social.label === "Instagram"
-                      ? Instagram
-                      : social.label === "LinkedIn"
-                      ? Linkedin
-                      : Facebook;
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      aria-label={social.label}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-foreground/10 transition-colors hover:bg-primary-foreground/20"
-                    >
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                    </a>
-                  );
-                })}
-              </div>
-            )}
+            {/* Social Media Links */}
+            <div className="pt-2 flex items-center gap-3">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-white transition-colors hover:bg-primary hover:text-white"
+                  >
+                    <Icon className="h-4.5 w-4.5" aria-hidden="true" />
+                  </a>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Navigation Links */}
-          <nav aria-label="Footer navigation" className="min-w-0">
-            <h3 className="font-display text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-secondary">
-              Explore
+          {/* Column 2: QUICK LINKS */}
+          <div className="space-y-5">
+            <h3 className="font-display text-lg font-extrabold uppercase tracking-wider text-white">
+              QUICK LINKS
             </h3>
-            <ul className="mt-4 space-y-3 text-xs sm:text-sm text-primary-foreground/75">
-              {siteConfig.nav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="transition-colors hover:text-primary-foreground">
-                    {item.label}
+            <ul className="space-y-3 text-sm text-neutral-300">
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="group inline-flex items-center gap-2 transition-colors hover:text-white font-medium"
+                  >
+                    <span className="text-white font-bold transition-transform group-hover:translate-x-1">
+                      ➔
+                    </span>
+                    <span>{link.label}</span>
                   </Link>
                 </li>
               ))}
             </ul>
-          </nav>
+          </div>
 
-          {/* Dynamic Legal Contact Info */}
-          <div className="min-w-0">
-            <h3 className="font-display text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-secondary">
-              Contact Us
+          {/* Column 3: SERVICES */}
+          <div className="space-y-5">
+            <h3 className="font-display text-lg font-extrabold uppercase tracking-wider text-white">
+              SERVICES
             </h3>
-            <ul className="mt-4 space-y-3 text-xs sm:text-sm text-primary-foreground/75 min-w-0">
-              <li className="flex items-start gap-2.5 min-w-0 break-words">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                <span className="min-w-0 flex-1">{address}</span>
-              </li>
-              <li className="flex items-center gap-2.5 min-w-0 break-all">
-                <Phone className="h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                <a href={toTelHref(phone)} className="hover:text-primary-foreground transition-colors">
-                  {phone}
-                </a>
-              </li>
-              <li className="flex items-center gap-2.5 min-w-0 break-all">
-                <Mail className="h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                <a href={`mailto:${email}`} className="hover:text-primary-foreground transition-colors">
-                  {email}
-                </a>
-              </li>
+            <ul className="space-y-3 text-sm text-neutral-300">
+              {serviceLinks.map((service) => (
+                <li key={service.label}>
+                  <Link
+                    href={service.href}
+                    className="group inline-flex items-center gap-2 transition-colors hover:text-white font-medium"
+                  >
+                    <span className="text-white font-bold transition-transform group-hover:translate-x-1">
+                      ➔
+                    </span>
+                    <span>{service.label}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Newsletter Subscription */}
-          <div className="min-w-0">
-            <h3 className="font-display text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-secondary">
-              Stay Updated
+          {/* Column 4: CONTACT */}
+          <div className="space-y-5">
+            <h3 className="font-display text-lg font-extrabold uppercase tracking-wider text-white">
+              CONTACT
             </h3>
-            <p className="mt-4 text-xs sm:text-sm leading-relaxed text-primary-foreground/75">
-              Occasional notes on finished projects and seasonal care tips. No spam.
-            </p>
-            <div className="mt-4">
-              <NewsletterForm />
-            </div>
+            <ul className="space-y-4 text-sm text-neutral-300">
+              <li>
+                <a
+                  href={toTelHref(phone)}
+                  className="flex items-center gap-3 transition-colors hover:text-white group"
+                >
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                    <Phone className="h-4 w-4" />
+                  </div>
+                  <span className="font-semibold text-white/90">{phone}</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://wa.me/971551889009"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 transition-colors hover:text-white group"
+                >
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                    <MessageCircle className="h-4 w-4" />
+                  </div>
+                  <span className="font-semibold text-white/90">
+                    WhatsApp Us
+                  </span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href={`mailto:${email}`}
+                  className="flex items-center gap-3 transition-colors hover:text-white group"
+                >
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                    <Mail className="h-4 w-4" />
+                  </div>
+                  <span className="font-semibold text-white/90 break-all">
+                    {email}
+                  </span>
+                </a>
+              </li>
+
+              <li>
+                <div className="flex items-start gap-3 text-neutral-300">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 mt-0.5">
+                    <MapPin className="h-4 w-4" />
+                  </div>
+                  <span className="font-medium leading-relaxed">{address}</span>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <Separator className="my-8 sm:my-10 bg-primary-foreground/10" />
-
-        {/* Footer Bottom Legal Notice */}
-        <div className="flex flex-col items-center justify-between gap-4 text-xs text-primary-foreground/60 sm:flex-row text-center sm:text-left">
+        {/* Footer Bottom Line & Copyright */}
+        <div className="border-t border-neutral-800 pt-6 text-center text-xs text-neutral-400 font-medium">
           <p>
-            &copy; {new Date().getFullYear()} {companyName}. All rights reserved.
+            © {new Date().getFullYear()} {companyName}. All Rights Reserved.
           </p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-primary-foreground transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-primary-foreground transition-colors">
-              Terms of Service
-            </Link>
-          </div>
         </div>
       </Container>
     </footer>
