@@ -27,7 +27,6 @@ export function ServiceDynamicRenderer({
   initialTestimonials,
   className,
 }: ServiceDynamicRendererProps) {
-
   if (!sections || sections.length === 0) return null;
 
   const reviewsData = googleReviews || defaultGoogleReviews;
@@ -202,7 +201,6 @@ export function ServiceDynamicRenderer({
                 initialTestimonials={initialTestimonials}
               />
             );
-
 
           default:
             return null;
