@@ -30,7 +30,11 @@ export function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const bgY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? ["0%", "0%"] : ["0%", "10%"]
+  );
 
   React.useEffect(() => {
     if (paused || prefersReducedMotion || slideCount <= 1) return;
@@ -60,10 +64,10 @@ export function Hero() {
       ref={sectionRef}
       className="relative overflow-hidden bg-primary text-primary-foreground min-h-[calc(100vh_-_10vh)] flex flex-col justify-between"
     >
-      {/* Background Image Carousel with Smooth Parallax & Ken Burns Zoom */}
+      {/* Background Image Carousel with Lightweight GPU-Accelerated Parallax */}
       <motion.div
         style={{ y: bgY }}
-        className="absolute inset-0 z-0 h-[115%]"
+        className="absolute inset-0 z-0 h-[112%] transform-gpu will-change-transform pointer-events-none"
         role="region"
         aria-roledescription="carousel"
         aria-label="Featured pool and landscape projects"
