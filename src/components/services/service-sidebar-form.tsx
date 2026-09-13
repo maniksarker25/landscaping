@@ -156,7 +156,7 @@ export function ServiceSidebarForm({
             </Label>
             <Input
               id="sidebar-name"
-              placeholder="e.g. John Smith"
+              placeholder="Enter your name"
               className="h-10 text-sm bg-background/50 focus:bg-background"
               {...register("name")}
             />
@@ -174,7 +174,7 @@ export function ServiceSidebarForm({
             <Input
               id="sidebar-phone"
               type="tel"
-              placeholder="+971 52 999 0092"
+              placeholder="Enter your phone"
               className="h-10 text-sm bg-background/50 focus:bg-background"
               {...register("phone")}
             />
@@ -187,12 +187,12 @@ export function ServiceSidebarForm({
 
           <div className="space-y-1.5">
             <Label htmlFor="sidebar-email" className="text-xs font-semibold">
-              Email Address <span className="text-destructive">*</span>
+              Email Address <span className="text-muted-foreground font-normal text-xs">(Optional)</span>
             </Label>
             <Input
               id="sidebar-email"
               type="email"
-              placeholder="john@example.com"
+              placeholder="Enter your email"
               className="h-10 text-sm bg-background/50 focus:bg-background"
               {...register("email")}
             />
@@ -240,7 +240,7 @@ export function ServiceSidebarForm({
             <Textarea
               id="sidebar-message"
               rows={3}
-              placeholder="Specify requirements, location in Dubai, or custom features..."
+              placeholder="Enter your message"
               className="text-sm bg-background/50 focus:bg-background resize-none"
               {...register("message")}
             />
