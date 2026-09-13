@@ -11,7 +11,6 @@ import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
-import { VIDEOS } from "../../../public/images/index.image";
 
 const SLIDE_DURATION = 5000; // ms each slide stays on screen
 
@@ -19,21 +18,19 @@ export function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const [active, setActive] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
-  const [videoError, setVideoError] = React.useState(false);
   const slideCount = heroSlides.length;
 
-  const videoUrl = VIDEOS.hero || "";
   const showVideo = false;
 
   React.useEffect(() => {
-    if (showVideo || paused || prefersReducedMotion || slideCount <= 1) return;
+    if (paused || prefersReducedMotion || slideCount <= 1) return;
 
     const id = window.setInterval(() => {
       setActive((current) => (current + 1) % slideCount);
     }, SLIDE_DURATION);
 
     return () => window.clearInterval(id);
-  }, [active, paused, prefersReducedMotion, slideCount, showVideo]);
+  }, [active, paused, prefersReducedMotion, slideCount]);
 
   React.useEffect(() => {
     const onVisibilityChange = () => setPaused(document.hidden);
@@ -53,37 +50,25 @@ export function Hero() {
         aria-roledescription="carousel"
         aria-label="Featured pool and landscape projects"
       >
-        {showVideo ? (
-          <video
-            src={videoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-            onError={() => setVideoError(true)}
-            className="absolute inset-0 h-full w-full object-cover opacity-90"
-          />
-        ) : (
-          heroSlides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={cn(
-                "absolute inset-0 transition-all duration-[2s] ease-out",
-                index === active ? "opacity-90" : "opacity-0",
-              )}
-              aria-hidden={index !== active}
-            >
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                priority={index === 0}
-                className="object-cover"
-                sizes="100vw"
-              />
-            </div>
-          ))
-        )}
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={cn(
+              "absolute inset-0 transition-all duration-[2s] ease-out",
+              index === active ? "opacity-90" : "opacity-0",
+            )}
+            aria-hidden={index !== active}
+          >
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              priority={index === 0}
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+        ))}
         <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/10 to-primary/08" />
       </div>
       <Container className="relative flex min-h-[calc(100vh_-_15vh)] flex-col justify-end pt-12 pb-16 md:pt-28 md:pb-24">
