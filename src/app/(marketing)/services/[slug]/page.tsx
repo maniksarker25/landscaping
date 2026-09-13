@@ -11,7 +11,7 @@ import {
   getAllServiceSlugsAsync,
 } from "@/data/services-data";
 import { fetchTestimonialsData } from "@/lib/api/testimonials";
-
+import { fetchGalleryData } from "@/lib/api/gallery";
 
 interface ServicePageProps {
   params: Promise<{
@@ -24,7 +24,9 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
   const service = await getServiceDetailBySlugAsync(slug);
 
@@ -36,29 +38,30 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   }
 
   return {
-    title: `${service.seo?.metaTitle || service.title} | Poolscape Dubai`,
-    description: service.seo?.metaDescription || "",
-    keywords: service.seo?.keywords || [],
+    title: `${service?.seo?.metaTitle || service?.title} | Poolscape Dubai`,
+    description: service?.seo?.metaDescription || "",
+    keywords: service?.seo?.keywords || [],
     openGraph: {
-      title: service.seo?.metaTitle || service.title,
-      description: service.seo?.metaDescription || "",
-      images: [{ url: service.heroImage || service.featuredImage || "" }],
+      title: service?.seo?.metaTitle || service?.title,
+      description: service?.seo?.metaDescription || "",
+      images: [{ url: service?.heroImage || service?.featuredImage || "" }],
     },
   };
 }
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const [service, testimonialsRes] = await Promise.all([
+  const [service, testimonialsRes, galleryRes] = await Promise.all([
     getServiceDetailBySlugAsync(slug),
     fetchTestimonialsData(),
+    fetchGalleryData({ limit: 60 }),
   ]);
 
   if (!service) {
     notFound();
   }
 
-  const heroSection = service.sections.find(
+  const heroSection = service?.sections.find(
     (s) => s.blockType === "hero_section" || s.type === "hero_section",
   );
   const heroData = heroSection?.content?.hero;
@@ -67,10 +70,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     <main className="min-h-screen bg-background">
       {/* Dynamic Header Hero Banner */}
       <ServiceDetailHero
-        title={heroData?.headline || service.title}
-        subtitle={heroData?.subheadline || service.subtitle}
-        heroImage={heroData?.bgImage || service.featuredImage}
-        badge={service.badge}
+        title={heroData?.headline || service?.title}
+        subtitle={heroData?.subheadline || service?.subtitle}
+        heroImage={heroData?.bgImage || service?.featuredImage}
+        badge={service?.badge}
       />
 
       {/* Main Content Layout with 2-Column Responsive Split */}
@@ -79,16 +82,17 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           {/* Main Left Column (Dynamic Data-Driven Content) */}
           <div className="lg:col-span-8 space-y-8">
             <ServiceDynamicRenderer
-              sections={service.sections}
-              googleReviews={service.googleReviews}
+              serviceCategory={service?.category}
+              sections={service?.sections}
+              googleReviews={service?.googleReviews}
               initialTestimonials={testimonialsRes.data || []}
+              initialGalleryItems={galleryRes?.data || []}
             />
           </div>
 
-
           {/* Right Column (Sticky Quick Consultation Form) */}
           <div className="lg:col-span-4 w-full lg:sticky lg:top-24 h-fit">
-            <ServiceSidebarForm currentServiceTitle={service.title} />
+            <ServiceSidebarForm currentServiceTitle={service?.title} />
           </div>
         </div>
 

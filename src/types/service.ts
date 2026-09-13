@@ -15,7 +15,9 @@ export type ServiceSectionType =
   | "gallery_grid"
   | "cta_banner"
   | "technical_specs"
-  | "contact_form";
+  | "contact_form"
+  | "recent-projects"
+  | "recent_projects";
 
 export interface PoolGalleryImage {
   src: string;

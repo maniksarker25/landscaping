@@ -322,7 +322,7 @@ export function Gallery({
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <AnimatePresence mode="popLayout">
                 {filteredItems
-                  ?.slice(0, 12)
+                  ?.slice(0, pathname !== "/projects" ? 12 : undefined)
                   .map((item, index) => (
                     <GalleryCard
                       key={item?._id}

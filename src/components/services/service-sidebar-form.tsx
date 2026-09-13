@@ -113,9 +113,6 @@ export function ServiceSidebarForm({
     >
       {/* Header */}
       <div className="space-y-1.5 border-b border-border/80 pb-4 text-center sm:text-left">
-        <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-900">
-          <ShieldCheck className="h-3.5 w-3.5" /> Fast Free Quote
-        </div>
         <h3 className="font-display text-xl font-bold tracking-tight text-primary">
           Get Free Consultation
         </h3>
@@ -272,16 +269,6 @@ export function ServiceSidebarForm({
               </>
             )}
           </Button>
-
-          <div className="pt-2 border-t border-border/60 text-center">
-            <a
-              href={`tel:${siteConfig.phone.replace(/\s+/g, "")}`}
-              className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline"
-            >
-              <PhoneCall className="h-3.5 w-3.5" /> Direct Call:{" "}
-              {siteConfig.phone}
-            </a>
-          </div>
         </form>
       )}
     </div>
