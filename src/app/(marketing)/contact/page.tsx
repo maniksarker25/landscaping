@@ -68,20 +68,6 @@ export default async function ContactPage() {
           },
         ]
       : []),
-    {
-      icon: MapPin,
-      label: "Studio & Registered Address",
-      value: address,
-      href: undefined,
-      accentColor: "bg-primary/10 text-primary",
-    },
-    {
-      icon: Clock,
-      label: "Working Hours",
-      value: "Sat–Thu, 9:00 AM – 6:00 PM",
-      href: undefined,
-      accentColor: "bg-primary/10 text-primary",
-    },
   ];
 
   return (
@@ -152,55 +138,6 @@ export default async function ContactPage() {
                 );
               })}
             </ul>
-
-            {/* Corporate / Legal Overview Card */}
-            {legalInfo && (
-              <div className="rounded-xl border border-border bg-card p-5 sm:p-6 space-y-3.5 text-xs shadow-sm">
-                <h3 className="font-display text-sm font-bold text-foreground flex items-center gap-2">
-                  <Building2 className="h-4 w-4 text-primary" /> Corporate &
-                  Legal Information
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-muted-foreground">
-                  {legalInfo.companyName && (
-                    <div>
-                      <span className="font-semibold text-foreground">
-                        Company Name:
-                      </span>{" "}
-                      {legalInfo.companyName}
-                    </div>
-                  )}
-                  {legalInfo.businessType && (
-                    <div>
-                      <span className="font-semibold text-foreground">
-                        Business Type:
-                      </span>{" "}
-                      {legalInfo.businessType}
-                    </div>
-                  )}
-                  {legalInfo.jurisdiction && (
-                    <div>
-                      <span className="font-semibold text-foreground">
-                        Jurisdiction:
-                      </span>{" "}
-                      {legalInfo.jurisdiction}
-                    </div>
-                  )}
-                  {legalInfo.siteName && (
-                    <div>
-                      <span className="font-semibold text-foreground">
-                        Site Name:
-                      </span>{" "}
-                      {legalInfo.siteName}
-                    </div>
-                  )}
-                </div>
-                {legalInfo.tagline && (
-                  <p className="text-xs italic text-muted-foreground border-t border-border/60 pt-2.5">
-                    &ldquo;{legalInfo.tagline}&rdquo;
-                  </p>
-                )}
-              </div>
-            )}
           </div>
 
           {/* Right Column: Contact Form Card */}

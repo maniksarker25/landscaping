@@ -1,8 +1,5 @@
 import type { ServiceData } from "@/types/service";
-import {
-  getServiceBySlugFromApi,
-  fetchServicesData,
-} from "@/lib/api/services";
+import { getServiceBySlugFromApi, fetchServicesData } from "@/lib/api/services";
 
 export const defaultGoogleReviews = {
   averageRating: 5.0,
@@ -21,9 +18,7 @@ export async function getServiceDetailBySlugAsync(
   return getServiceBySlugFromApi(slug);
 }
 
-export function getServiceDetailBySlug(
-  slug: string,
-): ServiceData | undefined {
+export function getServiceDetailBySlug(slug: string): ServiceData | undefined {
   if (!slug) return undefined;
   return undefined;
 }
