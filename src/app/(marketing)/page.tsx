@@ -27,6 +27,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      <AboutIntro />
       <OurServicesSection />
       <div className="block md:hidden">
         <Gallery />
