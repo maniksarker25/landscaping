@@ -105,7 +105,7 @@ export function ServiceGalleryGrid({
                 className="object-cover"
               />
               {/* Overlay with High Readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white">
+              {/* <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white">
                 <div className="space-y-1.5">
                   <span className="inline-flex items-center gap-1 rounded-full bg-primary/95 px-3 py-1 text-[10px] font-bold tracking-wider uppercase text-white">
                     <ZoomIn className="h-3 w-3" /> View Design
@@ -119,7 +119,7 @@ export function ServiceGalleryGrid({
                     </p>
                   )}
                 </div>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
@@ -237,7 +237,7 @@ export function ServiceGalleryGrid({
             </div>
 
             {/* Footer Bar */}
-            <div className="p-4 bg-background text-foreground flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-border">
+            {/* <div className="p-4 bg-background text-foreground flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-border">
               <div>
                 <p className="text-sm font-bold text-primary">
                   {currentImage.alt}
@@ -253,7 +253,7 @@ export function ServiceGalleryGrid({
                   Photo {selectedIndex! + 1} of {images.length}
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       )}

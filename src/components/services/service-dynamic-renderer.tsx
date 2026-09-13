@@ -6,6 +6,7 @@ import { ServiceRichText } from "./service-rich-text";
 import { ServiceGalleryGrid } from "./service-gallery-grid";
 import { ServiceCtaBanner } from "./service-cta-banner";
 import { ServiceTrustReviews } from "./service-trust-reviews";
+import { ServiceRecentProjects } from "./service-recent-projects";
 import { cn } from "@/lib/utils";
 import { ServiceFeaturesGrid } from "./service-features-grid";
 import { ServiceFaqAccordion } from "./service-faq-accordion";
@@ -13,12 +14,15 @@ import { ServiceDropUsALine } from "./service-drop-us-a-line";
 import { defaultGoogleReviews } from "@/data/services-data";
 
 import type { TestimonialItem } from "@/types/testimonial";
+import type { GalleryItem } from "@/types/gallery";
 
 interface ServiceDynamicRendererProps {
   sections: PoolDetailSection[];
   googleReviews?: GoogleReviewsData;
   initialTestimonials?: TestimonialItem[];
   className?: string;
+  serviceCategory?: string;
+  initialGalleryItems?: GalleryItem[];
 }
 
 export function ServiceDynamicRenderer({
@@ -26,6 +30,8 @@ export function ServiceDynamicRenderer({
   googleReviews,
   initialTestimonials,
   className,
+  serviceCategory,
+  initialGalleryItems,
 }: ServiceDynamicRendererProps) {
   if (!sections || sections.length === 0) return null;
 
@@ -33,10 +39,43 @@ export function ServiceDynamicRenderer({
   const hasReviews = sections.some(
     (s) => s.blockType === "trust-reviews" || s.type === "trust-reviews",
   );
+
+  const hasRecentProjects = sections.some(
+    (s) =>
+      s.blockType === "recent-projects" ||
+      s.type === "recent-projects" ||
+      s.blockType === "recent_projects" ||
+      s.type === "recent_projects",
+  );
+
+  const baseSections = [...sections];
+
+  // Insert "Our Recent Projects" into the middle of the sections
+  if (!hasRecentProjects) {
+    const featuresIndex = baseSections.findIndex(
+      (s) =>
+        s.blockType === "features_grid" ||
+        s.type === "features_grid" ||
+        s.blockType === "features-list" ||
+        s.type === "features-list",
+    );
+
+    const insertIndex =
+      featuresIndex !== -1
+        ? featuresIndex + 1
+        : Math.max(1, Math.floor(baseSections.length / 2));
+
+    baseSections.splice(insertIndex, 0, {
+      id: "recent-projects-virtual",
+      type: "recent-projects",
+      title: "Our Recent Projects",
+    });
+  }
+
   const finalSections = hasReviews
-    ? sections
+    ? baseSections
     : [
-        ...sections,
+        ...baseSections,
         {
           id: "trust-reviews-virtual",
           type: "trust-reviews" as const,
@@ -190,6 +229,16 @@ export function ServiceDynamicRenderer({
                   </div>
                 )}
               </div>
+            );
+
+          case "recent_projects":
+          case "recent-projects":
+            return (
+              <ServiceRecentProjects
+                key={key}
+                serviceCategory={serviceCategory}
+                initialItems={initialGalleryItems}
+              />
             );
 
           case "trust-reviews":

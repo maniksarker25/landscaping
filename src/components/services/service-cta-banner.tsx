@@ -15,11 +15,11 @@ export function ServiceCtaBanner({ cta, className }: ServiceCtaBannerProps) {
   return (
     <div
       className={cn(
-        "my-8 rounded-xl bg-gradient-to-r from-emerald-100 via-emerald-50 to-teal-100 p-6 sm:p-8 text-center border border-emerald-300/80 shadow-sm transition-all hover:shadow-md",
+        "my-8 bg-primary/10 p-5 rounded-lg text-center",
         className
       )}
     >
-      <h3 className="font-display text-xl sm:text-2xl font-bold text-emerald-950 tracking-tight">
+      <h3 className="font-display text-xl sm:text-2xl font-bold text-primary tracking-tight">
         {cta.headline}
       </h3>
       {cta.subline && (

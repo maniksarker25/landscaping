@@ -92,7 +92,7 @@ export function ServiceBottomContact({ className }: ServiceBottomContactProps) {
           </div>
 
           <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 transition-all hover:border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-900">
-            <div className="h-10 w-10 shrink-0 rounded-lg bg-[#25D366] text-white flex items-center justify-center shadow-xs">
+            <div className="h-10 w-10 shrink-0 rounded-lg  text-white flex items-center justify-center shadow-xs">
               <WhatsAppIcon size={22} className="text-white" />
             </div>
             <div>
