@@ -12,7 +12,7 @@ export function ServicesOverview() {
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <SectionTitle
-            eyebrow="What We Do"
+            eyebrow="What We Dos"
             title="Full-scope outdoor construction, under one studio"
             description="From first excavation to final planting, every discipline sits in-house so nothing gets lost between contractors."
           />

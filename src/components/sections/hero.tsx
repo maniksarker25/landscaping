@@ -77,14 +77,12 @@ export function Hero() {
           return (
             <motion.div
               key={slide.id}
-              initial={{ opacity: 0, scale: 1 }}
+              initial={{ opacity: 0 }}
               animate={{
                 opacity: isActive ? 1 : 0,
-                scale: isActive ? 1.08 : 1.02,
               }}
               transition={{
                 opacity: { duration: 1.5, ease: "easeInOut" },
-                scale: { duration: SLIDE_DURATION / 1000 + 1, ease: "easeOut" },
               }}
               className="absolute inset-0 h-full w-full pointer-events-none"
               aria-hidden={!isActive}
