@@ -54,7 +54,7 @@ const BRANDS: Brand[] = [
 
 export function TrustedBySection() {
   return (
-    <section className="py-14 sm:py-20 bg-white relative overflow-hidden">
+    <section className="py-14 sm:py-20 relative overflow-hidden">
       <Container>
         {/* Section Header */}
         <motion.div
