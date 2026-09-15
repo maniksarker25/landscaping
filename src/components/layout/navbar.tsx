@@ -166,10 +166,10 @@ export function Navbar() {
 
           {/* Right: GET A QUOTE (All Screens) + CALL US NOW & LETSCHAT (Desktop) */}
           <div className="flex items-center gap-3 sm:gap-5 lg:gap-6">
-            {/* GET A QUOTE Button */}
+            {/* GET A QUOTE Button (Mobile Only) */}
             <Link
               href="/contact"
-              className="bg-black hover:bg-neutral-900 text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-wider px-3.5 sm:px-4 py-2.5   sm:py-2 rounded flex items-center gap-1.5 shadow-sm transition-all whitespace-nowrap"
+              className="lg:hidden bg-black hover:bg-neutral-900 text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-wider px-3.5 sm:px-4 py-2.5 sm:py-2 rounded flex items-center gap-1.5 shadow-sm transition-all whitespace-nowrap"
             >
               <span>GET A QUOTE</span>
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
