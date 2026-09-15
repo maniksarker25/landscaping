@@ -175,23 +175,7 @@ export function Navbar() {
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
 
-            {/* CALL US NOW Block (Desktop) */}
-            <a
-              href={toTelHref(contactPhone)}
-              className="hidden md:flex items-center gap-2 sm:gap-2.5 transition-opacity hover:opacity-90 group"
-            >
-              <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/20 group-hover:bg-black/35 text-white transition-all">
-                <Phone className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 leading-none">
-                  CALL US NOW
-                </span>
-                <span className="text-xs sm:text-sm font-extrabold text-white leading-tight mt-0.5 whitespace-nowrap">
-                  {contactPhone}
-                </span>
-              </div>
-            </a>
+
 
             {/* LETSCHAT Block (Desktop) */}
             <a

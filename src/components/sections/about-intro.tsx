@@ -30,8 +30,8 @@ export function AboutIntro() {
             >
               <div className="relative aspect-[4/3] sm:aspect-[4/5] lg:aspect-square w-full rounded-xl overflow-hidden shadow-lg">
                 <Image
-                  src="https://i.pinimg.com/1200x/8a/ac/70/8aac706bc4423fb4173526652e3e4258.jpg"
-                  alt="Luxurious swimming pool design in Dubai"
+                  src="/images/about-intro-pool.jpg"
+                  alt="Luxury swimming pool design in Dubai"
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover hover:scale-105 transition-transform duration-1000"
