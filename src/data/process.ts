@@ -5,7 +5,7 @@ export const processSteps: ProcessStep[] = [
     step: "01",
     title: "Consultation & Site Visit",
     description:
-      "We walk the site with you to understand constraints, sun path, and how you want to use the space.",
+      "We visit your property to assess the space, discuss your requirements, and understand your vision for the project.",
   },
   {
     step: "02",

@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/common/container";
-import { toTelHref } from "@/lib/utils";
+import { toTelHref, toWhatsAppHref } from "@/lib/utils";
 import { fetchLegalInfo } from "@/lib/api/legal-info";
 
 export async function Footer() {
@@ -85,7 +85,7 @@ export async function Footer() {
             <p className="text-sm text-neutral-300 leading-relaxed max-w-sm">
               {companyName} offers landscaping &amp; swimming pool construction
               services in Dubai. Our expert landscape designers can help you to
-              build the ideal design for your commercial or residential units.
+              build the ideal design for your commercial or residential property.
             </p>
             {/* Social Media Links */}
             <div className="pt-2 flex items-center gap-3">
@@ -171,7 +171,7 @@ export async function Footer() {
 
               <li>
                 <a
-                  href="https://wa.me/971551889009"
+                  href={toWhatsAppHref(phone)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 transition-colors hover:text-white group"

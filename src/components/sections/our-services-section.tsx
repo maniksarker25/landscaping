@@ -29,7 +29,7 @@ export function OurServicesSection() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-background relative overflow-hidden">
+    <section className="py-6 sm:py-16 bg-background relative overflow-hidden">
       <Container>
         {/* Section Title & Description */}
         <motion.div

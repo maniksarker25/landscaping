@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { heroSlides } from "@/data/hero-slides";
 import { toWhatsAppHref } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
+import type { LegalInfoData } from "@/lib/api/legal-info";
+import { fetchLegalInfo } from "@/lib/api/legal-info";
 import {
   AnimatePresence,
   motion,
@@ -17,14 +19,27 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
-const SLIDE_DURATION = 3000; // ms per slide
+const SLIDE_DURATION = 6000; // ms per slide
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const [active, setActive] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
+  const [legalInfo, setLegalInfo] = React.useState<LegalInfoData | null>(null);
   const slideCount = heroSlides.length;
   const currentSlide = heroSlides[active] ?? heroSlides[0];
+
+  React.useEffect(() => {
+    fetchLegalInfo()
+      .then((json) => {
+        if (json.data) {
+          setLegalInfo(json.data);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch legal info for hero:", err),
+      );
+  }, []);
 
   const sectionRef = React.useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -57,7 +72,8 @@ export function Hero() {
   const goTo = (index: number) =>
     setActive(((index % slideCount) + slideCount) % slideCount);
 
-  const whatsappUrl = toWhatsAppHref(siteConfig.phone);
+  const phone = legalInfo?.contactPhone || siteConfig.phone;
+  const whatsappUrl = toWhatsAppHref(phone);
 
   if (!currentSlide) return null;
 
@@ -111,39 +127,42 @@ export function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide.id}
-              initial={{ opacity: 0, x: -60 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 60 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1.0] }}
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.98 }}
+              transition={{
+                duration: 0.9,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="max-w-2xl bg-white/70 p-6 sm:p-8 md:p-10 border-b-[10px] border-primary"
             >
               {/* Dynamic slide title */}
               <motion.h1
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.15, ease: "easeOut" }}
+                transition={{ duration: 0.75, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
                 className="font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-4xl text-black tracking-tight"
               >
                 {currentSlide.title ??
-                  "TOP RATED GARDEN, LANDSCAPING & LAWN CARE SERVICES IN DUBAI"}
+                  "Swimming Pools, Landscaping & Outdoor Living"}
               </motion.h1>
 
               {/* Dynamic slide subtitle */}
               <motion.p
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
+                transition={{ duration: 0.7, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-3 text-sm sm:text-base font-semibold text-black/75 leading-relaxed"
               >
                 {currentSlide.subtitle ??
-                  "SWIMMING POOL CONSTRUCTION & MAINTENANCE"}
+                  "Transforming outdoor spaces with expertly designed pools, landscapes, and outdoor features."}
               </motion.p>
 
               {/* CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
+                transition={{ duration: 0.7, delay: 0.58, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-6 flex flex-wrap items-center gap-3"
               >
                 <Button

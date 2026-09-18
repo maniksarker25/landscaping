@@ -26,7 +26,7 @@ export default async function HomePage() {
       <OurServicesSection />
       <Gallery />
       {/* <ServicesOverview /> */}
-      <WhyChooseUs />
+      {/* <WhyChooseUs /> */}
       <TrustedBySection />
       {/* <Process /> */}
       <Testimonials initialTestimonials={initialTestimonials} />
