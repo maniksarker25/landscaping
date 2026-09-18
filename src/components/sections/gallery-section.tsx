@@ -295,7 +295,7 @@ export function Gallery({
         <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center font-display tracking-tight text-primary">
           {pathname === "/projects"
             ? "Our Recent Projects"
-            : "Some of Our Recent Projects"}
+            : "Our Recent Projects"}
         </h1>
 
         {/* Filter Controls (Desktop Buttons & Mobile Trigger) */}
