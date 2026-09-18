@@ -116,7 +116,7 @@ export const siteConfig: SiteConfig = {
   description:
     "Bespoke swimming pool construction and landscaping, designed and built end to end.",
   url: "https://dreamfloor.ae",
-  phone: "+971 4 000 0000",
+  phone: "+971 506648085",
   email: "info@dreamfloor.ae",
   address: "Al Quoz Industrial Area 3, Dubai, UAE",
   get nav() {

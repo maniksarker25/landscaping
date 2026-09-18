@@ -12,22 +12,26 @@ export const heroSlides: HeroSlide[] = [
   {
     id: "hero-1",
     src: IMAGE.hero1,
-    alt: "Top Rated Swimming Pool & Landscape Design in Dubai - Dream Floor Landscaping LLC",
-    title: "TOP RATED GARDEN, LANDSCAPING & LAWN CARE SERVICES IN DUBAI",
-    subtitle: "SWIMMING POOL CONSTRUCTION & MAINTENANCE",
+    alt: "Swimming Pools, Landscaping & Outdoor Living - Dream Floor Landscaping LLC",
+    title: "Swimming Pools, Landscaping & Outdoor Living",
+    subtitle:
+      "Transforming outdoor spaces with expertly designed pools, landscapes, and outdoor features.",
   },
   {
     id: "hero-2",
     src: IMAGE.hero2,
-    alt: "Custom Pool Maintenance and Garden Transformations in Dubai",
-    title: "EXPERT OUTDOOR LIVING & COMPLETE GARDEN TRANSFORMATIONS",
-    subtitle: "PERGOLAS, WATER FEATURES & IRRIGATION SYSTEMS",
+    alt: "Landscape Design & Garden Care - Dream Floor Landscaping LLC",
+    title: "Landscape Design & Garden Care",
+    subtitle:
+      "Creating and maintaining vibrant landscapes with professional garden care, irrigation, and outdoor enhancements.",
   },
   {
     id: "hero-3",
     src: IMAGE.hero3,
-    alt: "Licensed & Insured Pool Construction & Maintenance Company in Dubai",
-    title: "PREMIUM POOL CONSTRUCTION & OUTDOOR LIVING SOLUTIONS",
-    subtitle: "LICENSED, INSURED & RELIABLE LANDSCAPING SPECIALISTS",
+    alt: "Swimming Pool Construction & Maintenance - Dream Floor Landscaping LLC",
+    title: "Swimming Pool Construction & Maintenance",
+    subtitle:
+      "From custom pool construction to professional maintenance, we deliver quality solutions built to the highest standards.",
   },
 ];
+
