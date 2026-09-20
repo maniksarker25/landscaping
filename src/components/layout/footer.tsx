@@ -69,9 +69,21 @@ export async function Footer() {
   ];
 
   const serviceLinks = [
-    { label: "Swimming Pool Construction & Maintenance", href: "/pools" },
-    { label: "Landscaping Services", href: "/landscaping" },
+    { label: "Landscaping", href: "#" },
+    { label: "Swimming Pool", href: "#" },
+    { label: "Pergola", href: "#" },
+    { label: "Gazebo", href: "#" },
+    { label: "Gardening", href: "#" },
+    { label: "Irrigation", href: "#" },
+    { label: "Water Features", href: "#" },
+    { label: "Outdoor Lighting", href: "#" },
+    { label: "Hardscape (Paving & Pathways)", href: "#" },
+    { label: "Outdoor Renovation", href: "#" },
   ];
+
+
+
+
 
   return (
     <footer className="bg-primary text-white pt-16 pb-6 border-t border-neutral-900">
@@ -137,15 +149,15 @@ export async function Footer() {
             <ul className="space-y-3 text-sm text-neutral-300">
               {serviceLinks.map((service) => (
                 <li key={service.label}>
-                  <Link
-                    href={service.href}
+                  <p
+                    // href={service.href}
                     className="group inline-flex items-center gap-2 transition-colors hover:text-white font-medium"
                   >
                     <span className="text-white font-bold transition-transform group-hover:translate-x-1">
                       ➔
                     </span>
                     <span>{service.label}</span>
-                  </Link>
+                  </p>
                 </li>
               ))}
             </ul>
