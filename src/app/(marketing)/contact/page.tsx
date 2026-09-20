@@ -23,6 +23,7 @@ export const metadata: Metadata = buildMetadata({
     "Get in touch to arrange a site visit and a fixed-scope quote for your swimming pool or landscaping project.",
   path: "/contact",
 });
+import contactBg from "@/app/../../public/images/contact-bg.webp"
 
 export default async function ContactPage() {
   const legalRes = await fetchLegalInfo();
@@ -59,26 +60,21 @@ export default async function ContactPage() {
     },
     ...(legalInfo?.officialWebsite
       ? [
-          {
-            icon: Globe,
-            label: "Official Website",
-            value: legalInfo.officialWebsite,
-            href: legalInfo.officialWebsite,
-            accentColor: "bg-primary/10 text-primary",
-          },
-        ]
+        {
+          icon: Globe,
+          label: "Official Website",
+          value: legalInfo.officialWebsite,
+          href: legalInfo.officialWebsite,
+          accentColor: "bg-primary/10 text-primary",
+        },
+      ]
       : []),
   ];
 
   return (
     <>
-      <Breadcrumb
-        items={[
-          { name: "Home", href: "/" },
-          { name: "Contact", href: "/contact" },
-        ]}
-      />
       <PageHero
+        image={contactBg}
         eyebrow="Contact Us"
         title="Let’s Bring Your Outdoor Vision to Life"
         description="Tell us about your project and our team will arrange a site visit and consultation."

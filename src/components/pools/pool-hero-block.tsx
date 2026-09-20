@@ -56,7 +56,7 @@ export function PoolHeroBlock({ hero, className }: PoolHeroBlockProps) {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">
-              <a href="tel:+971529990092">
+              <a href="tel:+971506648085">
                 <Phone className="mr-2 h-4 w-4" /> Call Specialist
               </a>
             </Button>

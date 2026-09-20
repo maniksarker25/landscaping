@@ -1,29 +1,18 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
+import { FaWhatsapp } from "react-icons/fa";
 
 export interface WhatsAppIconProps {
   className?: string;
   size?: number;
-  alt?: string;
   style?: React.CSSProperties;
 }
 
 export function WhatsAppIcon({
-  className,
-  size = 24,
-  alt = "WhatsApp",
+  className = "h-5 w-5 sm:h-5.5 sm:w-5.5",
+  size,
   style,
 }: WhatsAppIconProps) {
-  return (
-    <Image
-      src="/images/whatsapp.svg"
-      alt={alt}
-      width={size}
-      height={size}
-      className={className}
-      style={{ width: size, height: size, ...style }}
-    />
-  );
+  return <FaWhatsapp className={className} size={size} style={style} />;
 }

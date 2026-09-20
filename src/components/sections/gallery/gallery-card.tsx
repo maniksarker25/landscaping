@@ -48,7 +48,7 @@ export const GalleryCard = React.memo(function GalleryCard({
           src={item?.image ?? ""}
           alt={item?.imageAlt || item?.location || "Project Image"}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
           quality={75}
           priority={index < 2}
           className="object-cover transition-transform duration-500 ease-out transform-gpu group-hover:scale-105"

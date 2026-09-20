@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/common/container";
-import { toTelHref } from "@/lib/utils";
+import { toTelHref, toWhatsAppHref } from "@/lib/utils";
 import { fetchLegalInfo } from "@/lib/api/legal-info";
 
 export async function Footer() {
@@ -69,9 +69,21 @@ export async function Footer() {
   ];
 
   const serviceLinks = [
-    { label: "Swimming Pool Construction & Maintenance", href: "/pools" },
-    { label: "Landscaping Services", href: "/landscaping" },
+    { label: "Landscaping", href: "#" },
+    { label: "Swimming Pool", href: "#" },
+    { label: "Pergola", href: "#" },
+    { label: "Gazebo", href: "#" },
+    { label: "Gardening", href: "#" },
+    { label: "Irrigation", href: "#" },
+    { label: "Water Features", href: "#" },
+    { label: "Outdoor Lighting", href: "#" },
+    { label: "Hardscape (Paving & Pathways)", href: "#" },
+    { label: "Outdoor Renovation", href: "#" },
   ];
+
+
+
+
 
   return (
     <footer className="bg-primary text-white pt-16 pb-6 border-t border-neutral-900">
@@ -85,7 +97,7 @@ export async function Footer() {
             <p className="text-sm text-neutral-300 leading-relaxed max-w-sm">
               {companyName} offers landscaping &amp; swimming pool construction
               services in Dubai. Our expert landscape designers can help you to
-              build the ideal design for your commercial or residential units.
+              build the ideal design for your commercial or residential property.
             </p>
             {/* Social Media Links */}
             <div className="pt-2 flex items-center gap-3">
@@ -137,15 +149,15 @@ export async function Footer() {
             <ul className="space-y-3 text-sm text-neutral-300">
               {serviceLinks.map((service) => (
                 <li key={service.label}>
-                  <Link
-                    href={service.href}
+                  <p
+                    // href={service.href}
                     className="group inline-flex items-center gap-2 transition-colors hover:text-white font-medium"
                   >
                     <span className="text-white font-bold transition-transform group-hover:translate-x-1">
                       ➔
                     </span>
                     <span>{service.label}</span>
-                  </Link>
+                  </p>
                 </li>
               ))}
             </ul>
@@ -171,7 +183,7 @@ export async function Footer() {
 
               <li>
                 <a
-                  href="https://wa.me/971551889009"
+                  href={toWhatsAppHref(phone)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 transition-colors hover:text-white group"

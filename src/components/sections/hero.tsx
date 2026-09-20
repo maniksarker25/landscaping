@@ -3,16 +3,18 @@
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
 import { heroSlides } from "@/data/hero-slides";
-import { stats } from "@/data/stats";
-import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
-import { cn } from "@/lib/utils";
+import { toWhatsAppHref } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
+import type { LegalInfoData } from "@/lib/api/legal-info";
+import { fetchLegalInfo } from "@/lib/api/legal-info";
 import {
+  AnimatePresence,
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
@@ -23,7 +25,21 @@ export function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const [active, setActive] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
+  const [legalInfo, setLegalInfo] = React.useState<LegalInfoData | null>(null);
   const slideCount = heroSlides.length;
+  const currentSlide = heroSlides[active] ?? heroSlides[0];
+
+  React.useEffect(() => {
+    fetchLegalInfo()
+      .then((json) => {
+        if (json.data) {
+          setLegalInfo(json.data);
+        }
+      })
+      .catch((err) =>
+        console.error("Failed to fetch legal info for hero:", err),
+      );
+  }, []);
 
   const sectionRef = React.useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -56,126 +72,125 @@ export function Hero() {
   const goTo = (index: number) =>
     setActive(((index % slideCount) + slideCount) % slideCount);
 
-  const prevSlide = () => goTo(active - 1);
-  const nextSlide = () => goTo(active + 1);
+  const phone = legalInfo?.contactPhone || siteConfig.phone;
+  const whatsappUrl = toWhatsAppHref(phone);
+
+  if (!currentSlide) return null;
 
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-primary text-primary-foreground min-h-[calc(100vh_-_30vh)] flex flex-col justify-between"
+      className="relative overflow-hidden bg-primary text-primary-foreground flex flex-col"
     >
-      {/* Background Image Carousel with Lightweight GPU-Accelerated Parallax */}
-      <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0 z-0 h-[112%] transform-gpu will-change-transform pointer-events-none"
-        role="region"
-        aria-roledescription="carousel"
-        aria-label="Featured pool and landscape projects"
-      >
-        {heroSlides.map((slide, index) => {
-          const isActive = index === active;
-          return (
-            <motion.div
-              key={slide.id}
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: isActive ? 1 : 0,
-              }}
-              transition={{
-                opacity: { duration: 1.5, ease: "easeInOut" },
-              }}
-              className="absolute inset-0 h-full w-full pointer-events-none"
-              aria-hidden={!isActive}
-            >
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                priority={index === 0}
-                className="object-cover object-center"
-                sizes="100vw"
-              />
-            </motion.div>
-          );
-        })}
-      </motion.div>
-
-      {/* Hero Content Container */}
-      <Container className="relative z-10 flex-1 flex flex-col justify-center pt-16 pb-12 md:pt-24 md:pb-16">
+      {/* ── Hero Slide Area ── */}
+      <div className="relative min-h-[55vh] sm:min-h-[70vh] md:min-h-[60vh] flex flex-col justify-center">
+        {/* Background Image Carousel with Parallax */}
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="max-w-5xl bg-white/50 backdrop-blur-sm p-4 relative border-b-8 border-primary"
+          style={{ y: bgY }}
+          className="absolute inset-0 z-0 h-[112%] transform-gpu will-change-transform pointer-events-none overflow-hidden"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Featured pool and landscape projects"
         >
-          {/* <div className="w-4 h-4 bg-primary absolute -right-2 -top-2"></div>
-          <div className="w-4 h-4 bg-primary absolute -left-2 -top-2"></div>
-          <div className="w-4 h-4 bg-primary absolute -right-2 -bottom-2"></div>
-          <div className="w-4 h-4 bg-primary absolute -left-2 -bottom-2"></div> */}
-          {/* Main Top Eyebrow Heading */}
-          {/* <motion.div variants={staggerItem} className="mb-4">
-            <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide text-black">
-              TOP RATED GARDEN, LANDSCAPING & LAWN CARE SERVICES IN DUBAI
-            </span>
-          </motion.div> */}
-
-          {/* Second Heading (H1) */}
-          <motion.h1
-            variants={staggerItem}
-            className="font-display text-3xl font-extrabold leading-[1.1] sm:text-4xl lg:text-5xl text-black tracking-tight drop-shadow-sm"
-          >
-            TOP RATED GARDEN, LANDSCAPING & LAWN CARE SERVICES IN DUBAI
-          </motion.h1>
-
-          {/* Subtext Paragraph */}
-          <motion.p
-            variants={staggerItem}
-            className="font-display text-sm mt-4 font-extrabold leading-[1.1]  text-black/85 tracking-tight drop-shadow-sm"
-          >
-            SWIMMING POOL CONSTRUCTION &amp; MAINTENANCE
-            {/* Searching for a trusted swimming pool and landscaping company in
-            Dubai, UAE? Welcome to{" "}
-            <strong className="font-semibold text-black">
-              Dream Floor Landscaping LLC
-            </strong>
-            . Dream Floor specializes in swimming pool construction, pool
-            maintenance, landscaping, outdoor living solutions, irrigation
-            systems, pergolas, gazebos, BBQ areas, water features, and complete
-            garden transformations. We deliver high-quality outdoor solutions
-            designed to enhance residential properties across Dubai. */}
-          </motion.p>
-
-          {/* CTA Action Buttons */}
-          <motion.div
-            variants={staggerItem}
-            className="mt-8 flex flex-wrap items-center gap-4"
-          >
-            <Button
-              asChild
-              size="lg"
-              className="bg-[#1662a9] rounded-none text-white font-bold shadow-lg hover:shadow-xl transition-all text-xs sm:text-sm uppercase tracking-wider px-6 sm:px-8 py-3 h-auto"
-            >
-              <Link href="/contact" className="flex items-center gap-2">
-                GET A FREE QUOTE
-                <ArrowRight className="h-4.5 w-4.5" aria-hidden="true" />
-              </Link>
-            </Button>
-
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="rounded-none border-black/30 text-black bg-white/10 hover:bg-white/20 backdrop-blur-md text-xs sm:text-sm font-semibold uppercase tracking-wider px-6 py-3 h-auto"
-            >
-              <Link href="/projects">View Our Work</Link>
-            </Button>
-          </motion.div>
+          {heroSlides.map((slide, index) => {
+            const isActive = index === active;
+            return (
+              <motion.div
+                key={slide.id}
+                initial={{ opacity: 0, scale: 1 }}
+                animate={{
+                  opacity: isActive ? 1 : 0,
+                  scale: isActive ? 1.08 : 1,
+                }}
+                transition={{
+                  opacity: { duration: 1.2, ease: "easeInOut" },
+                  scale: { duration: SLIDE_DURATION / 1000 + 0.5, ease: "easeOut" },
+                }}
+                className="absolute inset-0 h-full w-full pointer-events-none transform-gpu"
+                aria-hidden={!isActive}
+              >
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  priority={index === 0}
+                  className="object-cover object-center"
+                  sizes="100vw"
+                />
+              </motion.div>
+            );
+          })}
         </motion.div>
 
-        {/* Interactive Slider Navigation & Indicators */}
-        {/* {slideCount > 1 && (
-          <div className="mt-10 flex items-center justify-between gap-4 max-w-4xl">
-            <div className="flex items-center gap-2.5 flex-1 max-w-xs">
+        {/* Hero Content – left-aligned card with horizontal slide effect */}
+        <Container className="relative z-10 flex flex-col justify-center py-12 md:py-20">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide.id}
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.98 }}
+              transition={{
+                duration: 0.9,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="max-w-2xl bg-white/70 p-6 sm:p-8 md:p-10 border-b-[10px] border-primary"
+            >
+              {/* Dynamic slide title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-4xl text-black tracking-tight"
+              >
+                {currentSlide.title ??
+                  "Swimming Pools, Landscaping & Outdoor Living"}
+              </motion.h1>
+
+              {/* Dynamic slide subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-3 text-sm sm:text-base font-semibold text-black/75 leading-relaxed"
+              >
+                {currentSlide.subtitle ??
+                  "Transforming outdoor spaces with expertly designed pools, landscapes, and outdoor features."}
+              </motion.p>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.58, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-6 flex flex-wrap items-center gap-3"
+              >
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-primary rounded-none text-white font-bold shadow-lg hover:bg-primary/90 hover:shadow-xl transition-all text-xs sm:text-sm uppercase tracking-wider px-6 sm:px-8 py-3 h-auto"
+                >
+                  <Link href="/contact" className="flex items-center gap-2">
+                    GET A FREE QUOTE
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="rounded-none border-black/30 text-black bg-white/10 hover:bg-white/30 backdrop-blur-sm text-xs sm:text-sm font-semibold uppercase tracking-wider px-6 py-3 h-auto"
+                >
+                  <Link href="/projects">View Our Work</Link>
+                </Button>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Slide Dot Indicators – centered at the bottom of the image */}
+          {slideCount > 1 && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2">
               {heroSlides.map((slide, index) => (
                 <button
                   key={slide.id}
@@ -183,80 +198,45 @@ export function Hero() {
                   onClick={() => goTo(index)}
                   aria-label={`Show slide ${index + 1} of ${slideCount}`}
                   aria-current={index === active}
-                  className="group relative h-2 flex-1 overflow-hidden rounded-full bg-primary-foreground/25 transition-all hover:bg-primary-foreground/40"
-                >
-                  {index === active && (
-                    <motion.span
-                      key={active}
-                      className="absolute inset-y-0 left-0 rounded-full bg-secondary"
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      transition={{
-                        duration:
-                          paused || prefersReducedMotion
-                            ? 0
-                            : SLIDE_DURATION / 1000,
-                        ease: "linear",
-                      }}
-                    />
-                  )}
-                </button>
+                  className={`transition-all duration-300 rounded-full ${index === active
+                    ? "w-8 h-2 bg-white"
+                    : "w-2 h-2 bg-white/50 hover:bg-white/75"
+                    }`}
+                />
               ))}
             </div>
+          )}
+        </Container>
+      </div>
 
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={prevSlide}
-                aria-label="Previous slide"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/25 hover:scale-105 active:scale-95"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={nextSlide}
-                aria-label="Next slide"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/25 hover:scale-105 active:scale-95"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-        )} */}
+      {/* ── WhatsApp CTA Bar ── */}
+      <div className="relative z-10 bg-primary">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4 py-5 sm:py-6 text-white text-center">
+          <p className="font-bold text-base sm:text-lg leading-snug">
+            Are You Looking for a Swimming Pool and Landscaping Contractor?
+          </p>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 whitespace-nowrap bg-white text-gray-900 font-semibold text-sm px-5 py-2.5 rounded-sm hover:bg-gray-100 transition-colors shadow"
+          >
+            WhatsApp Us
+          </a>
+        </div>
 
-        {/* Stats Strip */}
-        {/* <motion.dl
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="mt-8 grid grid-cols-2 hidden sm:grid sm:grid-cols-4 gap-4 border rounded-xl bg-white/10 border-primary-foreground/15 p-4 sm:p-5 backdrop-blur-md"
-        >
-          {stats.map((stat) => (
-            <div key={stat.id}>
-              <dt className="text-xs uppercase tracking-wider font-semibold text-primary-foreground/70">
-                {stat.label}
-              </dt>
-              <dd className="mt-1 font-display text-2xl sm:text-3xl font-extrabold text-secondary">
-                {stat.value}
-                {stat.suffix}
-              </dd>
-            </div>
-          ))}
-        </motion.dl> */}
-      </Container>
-
-      {/* Curved SVG Bottom Divider */}
-      <div className="relative z-10 w-full overflow-hidden leading-none -mb-px pointer-events-none">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 125"
-          preserveAspectRatio="none"
-          className="w-full h-10 sm:h-14 md:h-20 lg:h-24 block fill-background"
-          aria-hidden="true"
-        >
-          <path d="M 0 125 L 0.0 62.5 L 15.0 60.0 L 30.0 57.6 L 45.0 55.2 L 60.0 53.1 L 75.0 51.2 L 90.0 49.6 L 105.0 48.2 L 120.0 47.3 L 135.0 46.7 L 150.0 46.5 L 165.0 46.7 L 180.0 47.3 L 195.0 48.2 L 210.0 49.6 L 225.0 51.2 L 240.0 53.1 L 255.0 55.2 L 270.0 57.6 L 285.0 60.0 L 300.0 62.5 L 315.0 65.0 L 330.0 67.4 L 345.0 69.8 L 360.0 71.9 L 375.0 73.8 L 390.0 75.4 L 405.0 76.8 L 420.0 77.7 L 435.0 78.3 L 450.0 78.5 L 465.0 78.3 L 480.0 77.7 L 495.0 76.8 L 510.0 75.4 L 525.0 73.8 L 540.0 71.9 L 555.0 69.8 L 570.0 67.4 L 585.0 65.0 L 600.0 62.5 L 615.0 60.0 L 630.0 57.6 L 645.0 55.2 L 660.0 53.1 L 675.0 51.2 L 690.0 49.6 L 705.0 48.2 L 720.0 47.3 L 735.0 46.7 L 750.0 46.5 L 765.0 46.7 L 780.0 47.3 L 795.0 48.2 L 810.0 49.6 L 825.0 51.2 L 840.0 53.1 L 855.0 55.2 L 870.0 57.6 L 885.0 60.0 L 900.0 62.5 L 915.0 65.0 L 930.0 67.4 L 945.0 69.8 L 960.0 71.9 L 975.0 73.8 L 990.0 75.4 L 1005.0 76.8 L 1020.0 77.7 L 1035.0 78.3 L 1050.0 78.5 L 1065.0 78.3 L 1080.0 77.7 L 1095.0 76.8 L 1110.0 75.4 L 1125.0 73.8 L 1140.0 71.9 L 1155.0 69.8 L 1170.0 67.4 L 1185.0 65.0 L 1200.0 62.5 L 1200 125 Z" />
-        </svg>
+        {/* Wavy white bottom divider */}
+        <div className="relative w-full overflow-hidden leading-none -mb-px pointer-events-none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 80"
+            preserveAspectRatio="none"
+            className="w-full h-10 sm:h-14 md:h-16 block fill-background"
+            aria-hidden="true"
+          >
+            <path d="M0,40 C150,80 350,0 600,40 C850,80 1050,0 1200,40 L1200,80 L0,80 Z" />
+          </svg>
+        </div>
       </div>
     </section>
   );

@@ -10,7 +10,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { GallerySkeleton } from "@/components/sections/gallery/gallery-skeleton";
 import { GalleryCard } from "@/components/sections/gallery/gallery-card";
 import { GalleryFilterButtons } from "@/components/sections/gallery/gallery-filter-buttons";
-
+import hero2Bg from "@/../../public/images/hero1-bg.png"
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 import type { ServiceData } from "@/types/service";
 import type { Testimonial } from "@/types";
@@ -284,6 +284,7 @@ export function Gallery({
     <div className="w-full">
       {pathname === "/projects" && (
         <PageHero
+          image={hero2Bg}
           eyebrow="Projects"
           title="Our Recent Completed Projects"
           description="A showcase of our luxury swimming pools, landscaping, and outdoor living transformations in Dubai."
@@ -294,7 +295,7 @@ export function Gallery({
         <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center font-display tracking-tight text-primary">
           {pathname === "/projects"
             ? "Our Recent Projects"
-            : "Some of Our Recent Projects"}
+            : "Our Recent Projects"}
         </h1>
 
         {/* Filter Controls (Desktop Buttons & Mobile Trigger) */}
@@ -319,7 +320,7 @@ export function Gallery({
               </div>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               <AnimatePresence mode="popLayout">
                 {filteredItems
                   ?.slice(0, pathname !== "/projects" ? 12 : undefined)
