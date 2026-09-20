@@ -17,16 +17,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { baseUrl } from "@/lib/helper";
-import { fetchServicesData } from "@/lib/api/services";
+
+const SERVICE_OPTIONS = [
+  "Landscaping",
+  "Swimming Pool",
+  "Pergola",
+  "Gazebo",
+  "Gardening",
+  "Irrigation",
+  "Water Features",
+  "Outdoor Lighting",
+  "Hardscape (Paving & Pathways)",
+  "Outdoor Renovation",
+];
 
 export function ContactForm() {
   const [status, setStatus] = React.useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-  const [serviceOptions, setServiceOptions] = React.useState<string[]>([]);
-  const [isLoadingServices, setIsLoadingServices] =
-    React.useState<boolean>(true);
 
   const {
     register,
@@ -44,29 +53,6 @@ export function ContactForm() {
       message: "",
     },
   });
-
-  React.useEffect(() => {
-    fetchServicesData()
-      .then((json) => {
-        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
-          const titles = json.data
-            .map(
-              (item: { title?: string; name?: string }) =>
-                item.title || item.name,
-            )
-            .filter(
-              (t: string | undefined): t is string => Boolean(t) && typeof t === "string",
-            );
-          setServiceOptions(titles);
-        }
-      })
-      .catch((err) =>
-        console.error("Failed to fetch API services for contact form:", err),
-      )
-      .finally(() => {
-        setIsLoadingServices(false);
-      });
-  }, []);
 
   const isLoading = status === "submitting" || isSubmitting;
 
@@ -232,23 +218,17 @@ export function ContactForm() {
               <Select
                 value={field.value}
                 onValueChange={field.onChange}
-                disabled={isLoading || isLoadingServices}
+                disabled={isLoading}
               >
                 <SelectTrigger
                   id="interestedService"
                   aria-label="Service of interest"
                   className="h-10 sm:h-11 text-sm bg-background"
                 >
-                  <SelectValue
-                    placeholder={
-                      isLoadingServices
-                        ? "Loading services..."
-                        : "Select a service"
-                    }
-                  />
+                  <SelectValue placeholder="Select a service" />
                 </SelectTrigger>
                 <SelectContent className="max-h-60 overflow-y-auto">
-                  {serviceOptions.map((opt) => (
+                  {SERVICE_OPTIONS.map((opt) => (
                     <SelectItem
                       key={opt}
                       value={opt}
