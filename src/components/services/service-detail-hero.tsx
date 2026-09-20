@@ -23,34 +23,25 @@ export function ServiceDetailHero({
   className,
 }: ServiceDetailHeroProps) {
   return (
-    <div className={cn("relative w-full overflow-hidden bg-primary text-primary-foreground min-h-[340px] sm:min-h-[420px] flex items-center justify-center", className)}>
+    <div
+      className={cn(
+        "relative w-full overflow-hidden text-primary-foreground min-h-[340px] sm:min-h-[420px] flex items-center justify-center",
+        className,
+      )}
+    >
       {/* Background Image with Overlay */}
       <Image
         src={heroImage}
         alt={title}
         fill
         priority
-        className="object-cover opacity-25 scale-105 transition-transform duration-1000"
+        className="object-cover transition-transform duration-1000"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/20 to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-primary/50 to-primary" />
+      <div className="absolute inset-0 bg-black/60" />
 
       {/* Hero Content */}
-      <Container className="relative z-10 py-12 sm:py-16 text-center space-y-4 max-w-4xl mx-auto">
+      <Container className="relative z-10 py-12 sm:py-16 align-left space-y-4 container mx-auto">
         {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" className="inline-flex items-center justify-center gap-2 rounded-full bg-background/10 backdrop-blur-md px-4 py-1.5 text-xs text-primary-foreground/90 border border-primary-foreground/15 mb-2">
-          <Link href="/" className="hover:text-white transition-colors">
-            Home
-          </Link>
-          <ChevronRight className="h-3 w-3 text-primary-foreground/50" />
-          <Link href="/services" className="hover:text-white transition-colors">
-            Services
-          </Link>
-          <ChevronRight className="h-3 w-3 text-primary-foreground/50" />
-          <span className="text-white font-medium truncate max-w-[180px] sm:max-w-none">
-            {title}
-          </span>
-        </nav>
 
         {badge && (
           <div className="flex justify-center">
@@ -69,6 +60,22 @@ export function ServiceDetailHero({
             {subtitle}
           </p>
         )}
+        <nav
+          aria-label="Breadcrumb"
+          className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-1.5 text-xs text-primary-foreground/90 mb-2"
+        >
+          <Link href="/" className="hover:text-white transition-colors underline">
+            Home
+          </Link>
+          <ChevronRight className="h-3 w-3 text-primary-foreground/50" />
+          <Link href="/services" className="hover:text-white transition-colors">
+            Services
+          </Link>
+          <ChevronRight className="h-3 w-3 text-primary-foreground/50" />
+          <span className="text-white font-medium truncate max-w-[180px] sm:max-w-none">
+            {title}
+          </span>
+        </nav>
       </Container>
     </div>
   );
