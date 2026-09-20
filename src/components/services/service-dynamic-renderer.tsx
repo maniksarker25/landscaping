@@ -176,8 +176,8 @@ export function ServiceDynamicRenderer({
               ctaConfig = {
                 headline: c.title,
                 subline: c.description,
-                phoneNumber: c.phoneNumber || "+971529990092",
-                phoneDisplay: c.phoneNumber || "+971 52 999 0092",
+                phoneNumber: c.phoneNumber || "+971506648085",
+                phoneDisplay: c.phoneNumber || "+971 506648085",
                 buttonText: c.buttonText,
                 buttonHref: c.buttonLink || "/contact",
               };

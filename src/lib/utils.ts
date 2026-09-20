@@ -51,7 +51,7 @@ export function formatDate(date: string | Date): string {
  * 3. Pre-formatted embed URLs (containing google.com/maps/embed or output=embed)
  */
 export function getMapEmbedUrl(addressInput?: string): string {
-  const defaultAddress = "MamaBella Ristorante - Best Italian Restaurant in Dubai";
+  const defaultAddress = "Dream Floor Landscaping LLC - Dubai, UAE";
   const rawInput = (addressInput || "").trim();
   const address = rawInput || defaultAddress;
 

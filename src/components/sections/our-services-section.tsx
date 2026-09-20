@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { motion } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/lib/animations";
@@ -11,53 +10,53 @@ export function OurServicesSection() {
   const serviceCards = [
     {
       id: "swimming-pool",
-      title: "SWIMMING POOL",
+      title: "Swimming Pool",
       description:
-        "Experience premium swimming pool solutions designed to complement your lifestyle and property. We specialize in custom swimming pool construction, including Overflow Pools, Infinity Pools, and Skimmer Pools, tailored to your vision and requirements.",
+        "Experience what true luxury feels with our bespoke swimming pool construction services. We specialize in Overflow Swimming Pools, Infinity Swimming Pools, and Skimmer Swimming Pools, ensuring each design is tailored to your specific requirements.",
       href: "/pools",
       image: "/images/hero2-bg.png",
       alt: "Custom Swimming Pool Construction in Dubai",
-      badge: "Pool Construction & Maintenance",
     },
     {
       id: "landscaping",
-      title: "LANDSCAPING & OUTDOOR LIVING",
+      title: "Landscaping & Outdoor Living",
       description:
         "Transform your outdoor space into a beautiful paradise with our landscaping and outdoor living services. From gardens, pergolas, and gazebos to complete outdoor transformations, we bring creativity, quality, and attention to detail to every project.",
       href: "/landscaping",
       image: "/images/hero1-bg.png",
       alt: "Landscaping & Outdoor Living Design in Dubai",
-      badge: "Garden & Landscape Design",
     },
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-background relative overflow-hidden">
+    <section className="py-6 sm:py-16 bg-background relative overflow-hidden">
       <Container>
-        {/* Section Title */}
+        {/* Section Title & Description */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={staggerContainer}
-          className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+          className="max-w-4xl mx-auto mb-12 sm:mb-16 text-left lg:text-center"
         >
           <motion.span
             variants={staggerItem}
-            className="text-xs sm:text-sm font-bold uppercase tracking-widest text-primary mb-3 block"
+            className="text-base sm:text-lg font-bold text-primary mb-2 block"
           >
-            What We Do
+            Our Services
           </motion.span>
           <motion.h2
             variants={staggerItem}
-            className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary tracking-tight uppercase"
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight mb-6"
           >
-            Our Services
+            What Exactly We Do?
           </motion.h2>
-          <motion.div
+          <motion.p
             variants={staggerItem}
-            className="w-16 h-1 bg-primary mx-auto mt-4"
-          />
+            className="text-base sm:text-lg leading-relaxed text-muted-foreground font-normal"
+          >
+            As one of the leading landscaping and swimming pool companies in Dubai, we offer a complete range of outdoor solutions to enhance the beauty and functionality of your property. From stunning swimming pools and lush gardens to elegant pergolas and outdoor living spaces, our team is committed to delivering high-quality workmanship and customized solutions. Whether you are looking to create a peaceful outdoor retreat or a stylish entertainment area, we have the expertise to bring your vision to life. Explore our services below and discover how we can transform your outdoor space.
+          </motion.p>
         </motion.div>
 
         {/* 2-Column Service Cards Grid */}
@@ -72,7 +71,7 @@ export function OurServicesSection() {
             <motion.div key={card.id} variants={staggerItem}>
               <Link
                 href={card.href}
-                className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-border/70 bg-card  transition-all duration-300"
+                className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/50 bg-white shadow-md hover:shadow-xl transition-all duration-300"
               >
                 {/* Image Container */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
@@ -80,32 +79,19 @@ export function OurServicesSection() {
                     src={card.image}
                     alt={card.alt}
                     fill
-                    className="object-cover object-center"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-
-                  {/* Badge */}
-                  <span className="absolute top-4 left-4 z-10 rounded-full bg-primary/90 backdrop-blur-md px-3.5 py-1 text-xs font-semibold text-primary-foreground tracking-wider uppercase">
-                    {card.badge}
-                  </span>
                 </div>
 
                 {/* Content Container */}
-                <div className="flex flex-col flex-1 p-6 sm:p-8 justify-between bg-card">
-                  <div>
-                    <h3 className="font-display text-xl sm:text-2xl font-extrabold uppercase text-foreground group-hover:text-primary transition-colors duration-300">
-                      {card.title}
-                    </h3>
-                    <p className="mt-4 text-sm sm:text-base leading-relaxed text-muted-foreground font-normal">
-                      {card.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-8 flex items-center gap-2 font-bold text-sm uppercase tracking-wider text-primary">
-                    <span>Explore Service</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
+                <div className="flex flex-col flex-1 p-6 sm:p-8 bg-white">
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-black tracking-tight group-hover:text-primary transition-colors duration-300">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-sm sm:text-base leading-relaxed text-black/75 font-normal">
+                    {card.description}
+                  </p>
                 </div>
               </Link>
             </motion.div>
