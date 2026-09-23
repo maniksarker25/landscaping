@@ -81,16 +81,16 @@ export function MobileMenu({ items }: MobileMenuProps) {
                           </AccordionTrigger>
                           <AccordionContent>
                             <ul className="flex flex-col gap-1">
-                              {item?.children.map((child) => (
-                                <li key={child.href}>
-                                  <Link
-                                    href={child.href}
-                                    className="block rounded-md px-2 py-2 text-sm text-foreground/70 transition-colors hover:bg-muted hover:text-accent"
-                                  >
-                                    {child.label}
-                                  </Link>
-                                </li>
-                              ))}
+                                {item?.children.map((child) => (
+                                  <li key={child.href}>
+                                    <Link
+                                      href={child.href}
+                                      className="block rounded-md px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-foreground/85 transition-colors hover:bg-primary hover:text-white"
+                                    >
+                                      {child.label}
+                                    </Link>
+                                  </li>
+                                ))}
                             </ul>
                             <Link
                               href={item?.href}

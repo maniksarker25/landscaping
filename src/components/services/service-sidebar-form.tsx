@@ -1,28 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  CheckCircle2,
-  Loader2,
-  Send,
-  ShieldCheck,
-  PhoneCall,
-} from "lucide-react";
-import { contactFormSchema, type ContactFormValues } from "@/lib/validations";
-import { siteConfig } from "@/config/site";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Loader2, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fetchServicesData } from "@/lib/api/services";
 import { baseUrl } from "@/lib/helper";
@@ -32,243 +11,422 @@ interface ServiceSidebarFormProps {
   className?: string;
 }
 
+const DEFAULT_SERVICES = [
+  "Landscaping",
+  "Swimming Pool Construction",
+  "Swimming Pool Maintenance",
+  "Pergola & Gazebo",
+  "Garden & Lawn Care",
+  "Outdoor Living & Kitchen",
+  "Water Features",
+  "Artificial Grass & Turf",
+  "Irrigation Systems",
+  "Hardscaping & Paving",
+];
+
 export function ServiceSidebarForm({
   currentServiceTitle,
   className,
 }: ServiceSidebarFormProps) {
+  const [formData, setFormData] = React.useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "Landscaping",
+    address: "",
+    message: "",
+  });
+
+  const [isRobotChecked, setIsRobotChecked] = React.useState(false);
+  const [errors, setErrors] = React.useState<{ [key: string]: string }>({});
   const [status, setStatus] = React.useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const [servicesList, setServicesList] = React.useState<string[]>(DEFAULT_SERVICES);
 
-  const [serviceOptions, setServiceOptions] = React.useState<string[]>([]);
-
+  // Fetch dynamic service options if available from API
   React.useEffect(() => {
     fetchServicesData()
       .then((json) => {
         if (json.data && Array.isArray(json.data) && json.data.length > 0) {
           const titles = json.data
-            .map((item: { title?: string; name?: string }) => item.title || item.name)
-            .filter((t: string | undefined): t is string => Boolean(t) && typeof t === "string");
+            .map(
+              (item: { title?: string; name?: string }) =>
+                item.title || item.name
+            )
+            .filter(
+              (t: string | undefined): t is string =>
+                Boolean(t) && typeof t === "string"
+            );
+
           if (titles.length > 0) {
-            setServiceOptions(titles);
+            // Keep "Landscaping" at the top if present, otherwise merge unique
+            const combined = Array.from(
+              new Set(["Landscaping", ...titles, ...DEFAULT_SERVICES])
+            );
+            setServicesList(combined);
           }
         }
       })
-      .catch((err) =>
-        console.error("Failed to fetch API services for sidebar form:", err),
-      );
+      .catch((err) => {
+        console.error("Failed to fetch API services for sidebar form:", err);
+      });
   }, []);
 
-  const defaultService =
-    serviceOptions.find((p) =>
-      currentServiceTitle?.toLowerCase().includes(p.toLowerCase()),
-    ) || serviceOptions[0] || "Infinity Swimming Pool";
+  // Pre-select service if matched with currentServiceTitle
+  React.useEffect(() => {
+    if (currentServiceTitle) {
+      const match = servicesList.find((s) =>
+        s.toLowerCase().includes(currentServiceTitle.toLowerCase()) ||
+        currentServiceTitle.toLowerCase().includes(s.toLowerCase())
+      );
+      if (match) {
+        setFormData((prev) => ({ ...prev, service: match }));
+      }
+    }
+  }, [currentServiceTitle, servicesList]);
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      interestedService: defaultService,
-      message: "",
-    },
-  });
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
+  };
 
-  async function onSubmit(values: ContactFormValues) {
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Please enter your name";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Please enter your email";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Please enter your phone number";
+    } else if (formData.phone.trim().length < 6) {
+      newErrors.phone = "Please enter a valid phone number";
+    }
+
+    if (!isRobotChecked) {
+      newErrors.recaptcha = "Please verify that you are not a robot";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+
     setStatus("submitting");
+    setErrorMessage(null);
+
     try {
+      const messageBody = formData.address
+        ? `Address: ${formData.address.trim()}\n\n${formData.message.trim()}`
+        : formData.message.trim();
+
       const res = await fetch(`${baseUrl}/contact/create`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
-          name: values.name,
-          email: values.email,
-          phone: values.phone || "",
-          interestedService: values.interestedService,
-          interestedCategory: values.interestedService,
-          message: values.message,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          address: formData.address.trim(),
+          interestedService: formData.service,
+          interestedCategory: formData.service,
+          message: messageBody,
         }),
       });
-      if (!res.ok) throw new Error("Submission failed");
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(
+          data?.error || data?.message || "Failed to submit request"
+        );
+      }
+
       setStatus("success");
-      reset();
-    } catch {
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "Landscaping",
+        address: "",
+        message: "",
+      });
+      setIsRobotChecked(false);
+    } catch (err: unknown) {
+      console.error("Sidebar form submit error:", err);
       setStatus("error");
+      setErrorMessage(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again."
+      );
     }
-  }
+  };
 
   return (
     <div
       className={cn(
-        "rounded-2xl border border-gray-300 bg-card p-6 backdrop-blur-sm sticky top-24 z-20 space-y-5 transition-all",
-        className,
+        "bg-[#fafafa] border border-[#e5e5e5] shadow-[0_3px_14px_rgba(0,0,0,0.05)] rounded-[4px] p-6 sm:p-7 sticky top-24 z-20 transition-all font-sans",
+        className
       )}
     >
-      {/* Header */}
-      <div className="space-y-1.5 border-b border-border/80 pb-4 text-center sm:text-left">
-        <h3 className="font-display text-xl font-bold tracking-tight text-primary">
-          Get Free Consultation
-        </h3>
-        <p className="text-xs text-muted-foreground">
-          Fill out the form below & our landscape and pool experts will respond
-          within 24 hours.
-        </p>
-      </div>
+      {/* Title */}
+      <h2 className="text-[#729d00] font-bold text-2xl sm:text-[26px] tracking-tight leading-tight">
+        Get Free Estimation
+      </h2>
+
+      {/* Subtitle */}
+      <p className="text-sm text-[#4b5563] mt-2 mb-5">
+        Fields marked with an * are required
+      </p>
 
       {status === "success" ? (
-        <div
-          role="status"
-          className="flex flex-col items-center gap-3 rounded-xl border border-emerald-300 bg-emerald-50/80 p-6 text-center animate-in fade-in"
-        >
-          <CheckCircle2 className="h-10 w-10 text-emerald-600" />
-          <h4 className="font-display text-lg font-bold text-emerald-950">
-            Consultation Requested!
-          </h4>
-          <p className="text-xs text-emerald-800 leading-relaxed">
-            Thank you! Our senior engineer will contact you shortly to schedule
-            your free site visit and 3D design session.
+        <div className="flex flex-col items-center gap-3 rounded-[3px] border border-[#729d00]/40 bg-[#729d00]/10 p-6 text-center animate-in fade-in">
+          <CheckCircle2 className="h-10 w-10 text-[#729d00]" />
+          <h3 className="font-bold text-lg text-[#222222]">
+            Estimation Request Sent!
+          </h3>
+          <p className="text-xs text-[#555555] leading-relaxed">
+            Thank you for reaching out. Our team will review your requirements
+            and contact you shortly with a free quotation.
           </p>
-          <Button
-            variant="outline"
-            size="sm"
+          <button
+            type="button"
             onClick={() => setStatus("idle")}
-            className="mt-2 text-xs border-emerald-300"
+            className="mt-2 bg-[#729d00] hover:bg-[#648c00] text-white text-xs font-semibold px-4 py-2 rounded-[3px] transition-colors"
           >
             Submit Another Request
-          </Button>
+          </button>
         </div>
       ) : (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-          className="space-y-4"
-        >
-          <div className="space-y-1.5">
-            <Label htmlFor="sidebar-name" className="text-xs font-semibold">
-              Full Name <span className="text-destructive">*</span>
-            </Label>
-            <Input
-              id="sidebar-name"
-              placeholder="Enter your name"
-              className="h-10 text-sm bg-background/50 focus:bg-background"
-              {...register("name")}
-            />
-            {errors.name && (
-              <p className="text-[11px] text-destructive">
-                {errors.name.message}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-1.5">
-            <Label htmlFor="sidebar-phone" className="text-xs font-semibold">
-              Phone Number <span className="text-destructive">*</span>
-            </Label>
-            <Input
-              id="sidebar-phone"
-              type="tel"
-              placeholder="Enter your phone"
-              className="h-10 text-sm bg-background/50 focus:bg-background"
-              {...register("phone")}
-            />
-            {errors.phone && (
-              <p className="text-[11px] text-destructive">
-                {errors.phone.message}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-1.5">
-            <Label htmlFor="sidebar-email" className="text-xs font-semibold">
-              Email Address <span className="text-muted-foreground font-normal text-xs">(Optional)</span>
-            </Label>
-            <Input
-              id="sidebar-email"
-              type="email"
-              placeholder="Enter your email"
-              className="h-10 text-sm bg-background/50 focus:bg-background"
-              {...register("email")}
-            />
-            {errors.email && (
-              <p className="text-[11px] text-destructive">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-1.5">
-            <Label
-              htmlFor="sidebar-serviceType"
-              className="text-xs font-semibold"
-            >
-              Select Service Type
-            </Label>
-            <Controller
-              control={control}
-              name="interestedService"
-              render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger
-                    id="sidebar-serviceType"
-                    className="h-10 text-sm bg-background/50"
-                  >
-                    <SelectValue placeholder="Select Service" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {serviceOptions.map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+        <form onSubmit={handleSubmit} noValidate className="space-y-3.5">
+          {/* Your Name */}
+          <div>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name(required)"
+              className={cn(
+                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
+                errors.name ? "border-red-500" : "border-[#dedede]"
               )}
             />
+            {errors.name && (
+              <p className="text-xs text-red-500 mt-1">{errors.name}</p>
+            )}
           </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="sidebar-message" className="text-xs font-semibold">
-              Message (Optional)
-            </Label>
-            <Textarea
-              id="sidebar-message"
-              rows={3}
-              placeholder="Enter your message"
-              className="text-sm bg-background/50 focus:bg-background resize-none"
-              {...register("message")}
+          {/* Email */}
+          <div>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email(required)"
+              className={cn(
+                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
+                errors.email ? "border-red-500" : "border-[#dedede]"
+              )}
+            />
+            {errors.email && (
+              <p className="text-xs text-red-500 mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Phone */}
+          <div>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Phone(required)"
+              className={cn(
+                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
+                errors.phone ? "border-red-500" : "border-[#dedede]"
+              )}
+            />
+            {errors.phone && (
+              <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
+            )}
+          </div>
+
+          {/* Service Dropdown */}
+          <div className="relative">
+            <select
+              name="service"
+              value={formData.service}
+              onChange={handleChange}
+              className="w-full h-[45px] px-3.5 pr-10 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors appearance-none cursor-pointer"
+            >
+              {servicesList.map((serviceName) => (
+                <option key={serviceName} value={serviceName}>
+                  {serviceName}
+                </option>
+              ))}
+            </select>
+            {/* Solid black triangle arrow icon matching reference image */}
+            <div className="pointer-events-none absolute inset-y-0 right-3.5 flex items-center">
+              <svg
+                className="w-3 h-3 fill-black text-black"
+                viewBox="0 0 24 24"
+              >
+                <polygon points="6,9 12,16 18,9" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Address */}
+          <div>
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Address"
+              className="w-full h-[45px] px-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors"
             />
           </div>
 
-          {status === "error" && (
-            <p className="text-xs text-destructive">
-              Something went wrong. Please try again or call us directly.
+          {/* Message */}
+          <div>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows={4}
+              placeholder="Message"
+              className="w-full min-h-[110px] p-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors resize-y"
+            />
+          </div>
+
+          {/* reCAPTCHA Widget */}
+          <div>
+            <div
+              className={cn(
+                "h-[74px] border bg-[#f9f9f9] rounded-[3px] px-3.5 flex items-center justify-between transition-colors select-none",
+                errors.recaptcha ? "border-red-400" : "border-[#d3d3d3]"
+              )}
+            >
+              <div
+                className="flex items-center gap-3 cursor-pointer select-none"
+                onClick={() => {
+                  setIsRobotChecked(!isRobotChecked);
+                  if (errors.recaptcha) {
+                    setErrors((prev) => {
+                      const next = { ...prev };
+                      delete next.recaptcha;
+                      return next;
+                    });
+                  }
+                }}
+              >
+                <div
+                  className={cn(
+                    "w-[26px] h-[26px] rounded-[2px] border-2 bg-white flex items-center justify-center transition-all",
+                    isRobotChecked
+                      ? "border-[#0f9d58] bg-[#0f9d58]"
+                      : "border-[#c1c1c1] hover:border-[#999999]"
+                  )}
+                >
+                  {isRobotChecked && (
+                    <svg
+                      className="w-4 h-4 text-white stroke-[3]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
+                </div>
+                <span className="text-sm font-normal text-[#222222]">
+                  I'm not a robot
+                </span>
+              </div>
+
+              {/* reCAPTCHA Brand Badge */}
+              <div className="flex flex-col items-center justify-center pl-2 select-none">
+                <svg
+                  className="w-8 h-8"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M24 6C15.2 6 7.9 12.4 6.4 20.8L12.2 22.3C13.2 16.5 18.1 12 24 12C28.2 12 31.9 14.3 33.9 17.7L28 22H42V8L37.1 12.9C34 8.7 29.3 6 24 6Z"
+                    fill="#1C65E3"
+                  />
+                  <path
+                    d="M41.6 27.2L35.8 25.7C34.8 31.5 29.9 36 24 36C19.8 36 16.1 33.7 14.1 30.3L20 26H6V40L10.9 35.1C14 39.3 18.7 42 24 42C32.8 42 40.1 35.6 41.6 27.2Z"
+                    fill="#9AA0A6"
+                  />
+                </svg>
+                <span className="text-[9px] text-[#555555] font-sans tracking-tight mt-0.5">
+                  reCAPTCHA
+                </span>
+              </div>
+            </div>
+            {errors.recaptcha && (
+              <p className="text-xs text-red-500 mt-1">{errors.recaptcha}</p>
+            )}
+          </div>
+
+          {/* Submission error message */}
+          {status === "error" && errorMessage && (
+            <p className="text-xs text-red-600 bg-red-50 p-2 rounded-[2px] border border-red-200">
+              {errorMessage}
             </p>
           )}
 
-          <Button
-            type="submit"
-            size="lg"
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-transform active:scale-[0.98]"
-            disabled={status === "submitting"}
-          >
-            {status === "submitting" ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending
-                Request...
-              </>
-            ) : (
-              <>
-                <Send className="mr-2 h-4 w-4" /> Request Free Quote
-              </>
-            )}
-          </Button>
+          {/* Submit Button (Left Aligned) */}
+          <div className="pt-1">
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="bg-[#729d00] hover:bg-[#648c00] active:bg-[#577a00] text-white font-bold text-[13px] tracking-wider uppercase px-7 py-3 rounded-[3px] transition-colors shadow-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+            >
+              {status === "submitting" ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  SUBMITTING...
+                </span>
+              ) : (
+                "SUBMIT NOW"
+              )}
+            </button>
+          </div>
         </form>
       )}
     </div>

@@ -13,11 +13,15 @@ export const metadata: Metadata = {
     "Explore our luxury swimming pool construction services in Dubai. Infinity pools, overflow pools, skimmer pools, pool maintenance, and water features.",
 };
 
+import { fallbackServices } from "@/data/services-data";
+
 export default async function PoolsOverviewPage() {
   const response = await fetchServicesData();
-  const poolsList = (response.data || []).filter(
+  const apiPools = (response.data || []).filter(
     (item) => item.category?.toLowerCase().trim() === "pools",
   );
+  const poolsList = apiPools.length > 0 ? apiPools : fallbackServices.filter(s => s.category === "Pools");
+
 
   return (
     <main className="min-h-screen bg-background">

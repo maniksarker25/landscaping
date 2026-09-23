@@ -2,8 +2,6 @@ import Link from "next/link";
 import { Waves, ArrowLeft } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
 
 export default function NotFound() {
   return (
