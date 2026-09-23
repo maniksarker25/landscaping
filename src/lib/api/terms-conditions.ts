@@ -65,6 +65,7 @@ export async function fetchTermsConditionsData(): Promise<string> {
         "Content-Type": "application/json",
       },
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(2000),
     });
 
     if (!res.ok) {
@@ -75,11 +76,7 @@ export async function fetchTermsConditionsData(): Promise<string> {
 
     const result: TermsConditionsApiResponse = await res.json();
     return extractHtmlContent(result?.data, termsOfServiceHtml);
-  } catch (error) {
-    console.warn(
-      "Could not fetch terms conditions from backend, using fallback data:",
-      error
-    );
+  } catch {
     return termsOfServiceHtml;
   }
 }

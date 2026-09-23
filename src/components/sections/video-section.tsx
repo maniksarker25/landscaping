@@ -16,6 +16,10 @@ export interface VideoSectionProps {
 }
 
 export function VideoSection({ title, videos, className }: VideoSectionProps) {
+  if (!videos || videos.length === 0) {
+    return null;
+  }
+
   const normalizedVideos: VideoItem[] = videos.map((v, idx) => {
     if (typeof v === "string") {
       return { src: v, title: `Video ${idx + 1}` };

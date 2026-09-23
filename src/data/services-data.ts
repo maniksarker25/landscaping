@@ -55,8 +55,7 @@ export const fallbackServices: ServiceData[] = [
     title: "Swimming Pool Construction",
     slug: "swimming-pool-construction",
     aliases: [
-      "overflow-swimming-pool-construction-dubai-uae",
-      "overflow-swimming-pool",
+      "swimming-pool-construction-dubai-uae",
     ],
     category: "Pools",
     isPublished: true,
@@ -137,6 +136,7 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Skimmer Swimming Pool",
     slug: "skimmer-swimming-pool",
+    aliases: ["skimmer-swimming-pool-construction-dubai-uae"],
     category: "Pools",
     isPublished: true,
     featuredImage:
@@ -199,6 +199,7 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Overflow Swimming Pool",
     slug: "overflow-swimming-pool",
+    aliases: ["overflow-swimming-pool-construction-dubai-uae"],
     category: "Pools",
     isPublished: true,
     featuredImage:
@@ -261,6 +262,7 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Infinity Swimming Pool",
     slug: "infinity-swimming-pool",
+    aliases: ["infinity-swimming-pool-construction-dubai-uae"],
     category: "Pools",
     isPublished: true,
     featuredImage:
@@ -323,6 +325,7 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Swimming Pool Maintenance",
     slug: "swimming-pool-maintenance",
+    aliases: ["swimming-pool-maintenance-services-dubai-uae"],
     category: "Pools",
     isPublished: true,
     featuredImage:
@@ -385,6 +388,7 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Water Features",
     slug: "water-features",
+    aliases: ["water-features-dubai"],
     category: "Pools",
     isPublished: true,
     featuredImage:
@@ -447,6 +451,7 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Water Fountains",
     slug: "water-fountains",
+    aliases: ["water-fountains-dubai"],
     category: "Pools",
     isPublished: true,
     featuredImage:
@@ -1046,7 +1051,10 @@ export function getServiceDetailBySlug(slug: string): ServiceData | undefined {
 
 export async function getAllServiceSlugsAsync(): Promise<string[]> {
   const slugsSet = new Set<string>();
-  fallbackServices.forEach((s) => slugsSet.add(s.slug));
+  fallbackServices.forEach((s) => {
+    slugsSet.add(s.slug);
+    s.aliases?.forEach((a) => slugsSet.add(a));
+  });
 
   try {
     const apiRes = await fetchServicesData();

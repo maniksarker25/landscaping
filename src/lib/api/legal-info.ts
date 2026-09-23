@@ -55,6 +55,7 @@ export async function fetchLegalInfo(): Promise<LegalInfoApiResponse> {
         "Content-Type": "application/json",
       },
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(2500),
     });
 
     if (!res.ok) {
@@ -63,8 +64,7 @@ export async function fetchLegalInfo(): Promise<LegalInfoApiResponse> {
 
     const data: LegalInfoApiResponse = await res.json();
     return data;
-  } catch (error) {
-    console.warn("Could not fetch legal info from backend, using fallback data:", error);
+  } catch {
     return {
       success: true,
       message: "Legal info retrieved successfully",

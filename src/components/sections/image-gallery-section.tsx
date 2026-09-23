@@ -75,6 +75,10 @@ export function ImageGallerySection({
 }: ImageGallerySectionProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
+  if (!images || images.length === 0) {
+    return null;
+  }
+
   const normalizedImages: GalleryImage[] = images.map((item, idx) => {
     if (typeof item === "string") {
       return { url: item, alt: `Gallery image ${idx + 1}` };
