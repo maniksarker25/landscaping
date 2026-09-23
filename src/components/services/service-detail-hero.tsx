@@ -19,7 +19,6 @@ export function ServiceDetailHero({
   title,
   subtitle,
   heroImage = "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2000&auto=format&fit=crop",
-  badge,
   className,
 }: ServiceDetailHeroProps) {
   return (
@@ -42,29 +41,23 @@ export function ServiceDetailHero({
       {/* Hero Content */}
       <Container className="relative z-10 py-12 sm:py-16 align-left space-y-4 container mx-auto">
         {/* Breadcrumb Navigation */}
-
-        {badge && (
-          <div className="flex justify-center">
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-200 border border-emerald-400/30">
-              <Sparkles className="h-3.5 w-3.5" /> {badge}
-            </span>
-          </div>
-        )}
-
         <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
           {title}
         </h1>
 
         {subtitle && (
-          <p className="text-sm sm:text-base md:text-lg text-primary-foreground/80 max-w-2xl mx-auto font-sans leading-relaxed">
+          <p className="text-sm sm:text-base  md:text-lg text-primary-foreground/80  font-sans leading-relaxed">
             {subtitle}
           </p>
         )}
         <nav
           aria-label="Breadcrumb"
-          className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-1.5 text-xs text-primary-foreground/90 mb-2"
+          className="inline-flex items-center justify-center gap-2 rounded-full text-xs text-primary-foreground/90 mb-2"
         >
-          <Link href="/" className="hover:text-white transition-colors underline">
+          <Link
+            href="/"
+            className="hover:text-white transition-colors underline"
+          >
             Home
           </Link>
           <ChevronRight className="h-3 w-3 text-primary-foreground/50" />

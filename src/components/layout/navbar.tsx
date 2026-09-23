@@ -3,28 +3,13 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Mail, MessageCircle, Phone } from "lucide-react";
-import {
-  siteConfig,
-  buildNavChildrenFromServices,
-  type NavItem,
-} from "@/config/site";
-import type { ServiceData } from "@/types/service";
-
+import { ArrowRight, ChevronDown, Mail, Phone } from "lucide-react";
+import { siteConfig, type NavItem } from "@/config/site";
 import { Container } from "@/components/common/container";
 import { MobileMenu } from "@/components/layout/mobile-menu";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import { cn, toTelHref, toWhatsAppHref } from "@/lib/utils";
 import type { LegalInfoData } from "@/lib/api/legal-info";
 import { fetchLegalInfo } from "@/lib/api/legal-info";
-import { fetchServicesData } from "@/lib/api/services";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { IMAGE } from "../../../public/images/index.image";
@@ -34,8 +19,9 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = React.useState(false);
   const [showTopBar, setShowTopBar] = React.useState(true);
-  const [apiServices, setApiServices] = React.useState<ServiceData[]>([]);
   const [legalInfo, setLegalInfo] = React.useState<LegalInfoData | null>(null);
+  const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
+
   React.useEffect(() => {
     let ticking = false;
 
@@ -63,18 +49,6 @@ export function Navbar() {
   }, []);
 
   React.useEffect(() => {
-    fetchServicesData()
-      .then((json) => {
-        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
-          setApiServices(json.data);
-        }
-      })
-      .catch((err) =>
-        console.error("Failed to fetch API services for navbar:", err),
-      );
-  }, []);
-
-  React.useEffect(() => {
     fetchLegalInfo()
       .then((json) => {
         if (json.data) {
@@ -90,28 +64,7 @@ export function Navbar() {
   const contactEmail = legalInfo?.contactEmail || siteConfig.email;
   const whatsAppUrl = toWhatsAppHref(contactPhone);
 
-  const navItems = React.useMemo(() => {
-    return siteConfig.nav.map((item) => {
-      if (item?.label === "Pools") {
-        const children = buildNavChildrenFromServices(apiServices, "Pools");
-        return {
-          ...item,
-          children: children.length > 0 ? children : item?.children,
-        };
-      }
-      if (item?.label === "Landscaping") {
-        const children = buildNavChildrenFromServices(
-          apiServices,
-          "Landscaping",
-        );
-        return {
-          ...item,
-          children: children.length > 0 ? children : item?.children,
-        };
-      }
-      return item;
-    });
-  }, [apiServices]);
+  const navItems = siteConfig.nav;
 
   const isItemActive = (item: NavItem) =>
     item?.href === "/"
@@ -130,10 +83,10 @@ export function Navbar() {
       {/* Top Header / Utility Bar */}
       <div
         className={cn(
-          "w-full bg-primary text-primary-foreground h-48! text-xs font-medium relative z-[51] transition-all duration-300 ease-in-out overflow-hidden",
+          "w-full bg-primary text-primary-foreground text-xs font-medium relative z-[51] transition-all duration-300 ease-in-out overflow-hidden",
           showTopBar
-            ? "max-h-24 opacity-100 py-4 sm:py-3.5"
-            : "max-h-0 opacity-0 py-0 pointer-events-none"
+            ? "max-h-24 opacity-100 py-3.5 sm:py-3.5"
+            : "max-h-0 opacity-0 py-0 pointer-events-none",
         )}
       >
         <Container className="flex items-center justify-between">
@@ -169,13 +122,11 @@ export function Navbar() {
             {/* GET A QUOTE Button (Mobile Only) */}
             <Link
               href="/contact"
-              className="lg:hidden bg-black hover:bg-neutral-900 text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-wider px-3.5 sm:px-4 py-2.5 sm:py-2 rounded flex items-center gap-1.5 shadow-sm transition-all whitespace-nowrap"
+              className="lg:hidden bg-black hover:bg-neutral-900 text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-wider px-3.5 sm:px-4 py-2 sm:py-2 rounded flex items-center gap-1.5 shadow-sm transition-all whitespace-nowrap"
             >
               <span>GET A QUOTE</span>
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
-
-
 
             {/* LETSCHAT Block (Desktop) */}
             <a
@@ -201,9 +152,10 @@ export function Navbar() {
         </Container>
       </div>
 
+      {/* Main Header / Navigation Bar */}
       <header
         className={cn(
-          "h-[100px] sm:h-[100px] w-full transition-colors duration-300 py-1.5",
+          "h-[90px] sm:h-[100px] w-full transition-colors duration-300 py-1.5",
           scrolled
             ? "bg-background/95 backdrop-blur-sm"
             : "bg-background/70 backdrop-blur-sm",
@@ -212,7 +164,7 @@ export function Navbar() {
         <Container className="flex h-full items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-2 transition-opacity hover:opacity-90 py-1 mt-1"
+            className="flex items-center gap-2 transition-opacity hover:opacity-90 py-1 mt-1 shrink-0"
             aria-label={siteConfig.name}
           >
             <Image
@@ -220,92 +172,114 @@ export function Navbar() {
               alt={siteConfig.name}
               width={280}
               height={90}
-              className="h-[92px] w-auto object-contain"
+              className="h-[80px] sm:h-[92px] w-auto object-contain"
               priority
             />
           </Link>
 
-          <NavigationMenu className="hidden lg:flex" delayDuration={100}>
-            <NavigationMenuList>
-              {navItems.map((item) => {
-                const isActive = isItemActive(item);
+          {/* Desktop Navigation */}
+          <nav
+            className="hidden lg:flex items-center gap-6 xl:gap-8 h-full"
+            aria-label="Main Navigation"
+          >
+            {navItems.map((item) => {
+              const isActive = isItemActive(item);
+              const isMenuOpen = activeDropdown === item.href;
 
-                if (item?.children?.length) {
-                  return (
-                    <NavigationMenuItem key={item?.href}>
-                      <NavigationMenuTrigger
-                        className={cn("text-sm font-normal", isActive && "text-primary")}
-                      >
-                        {item?.label}
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul
-                          className={cn(
-                            "grid gap-2 p-4",
-                            item?.children?.length === 1
-                              ? "w-[360px] lg:w-[400px] grid-cols-1"
-                              : "min-w-[600px] lg:w-[720px] grid-cols-2",
-                          )}
-                        >
-                          {item?.children.map((child) => {
-                            const Icon = child.icon;
+              if (item?.children?.length) {
+                return (
+                  <div
+                    key={item.href}
+                    className="relative group h-full flex items-center"
+                    onMouseEnter={() => setActiveDropdown(item.href)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "inline-flex items-center gap-1.5 text-xs xl:text-sm font-bold uppercase tracking-wider transition-colors duration-150 py-7 select-none",
+                        isActive || isMenuOpen
+                          ? "text-primary"
+                          : "text-foreground/85 group-hover:text-primary",
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown
+                        className={cn(
+                          "h-3.5 w-3.5 transition-transform duration-200",
+                          isMenuOpen ? "rotate-180" : "group-hover:rotate-180",
+                        )}
+                        aria-hidden="true"
+                      />
+                    </Link>
+
+                    {/* Dropdown Menu directly aligned under trigger */}
+                    <div
+                      className={cn(
+                        "absolute left-0 top-[calc(100%-12px)] pt-2 transition-all duration-150 z-50",
+                        isMenuOpen
+                          ? "opacity-100 visible pointer-events-auto"
+                          : "opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto",
+                      )}
+                    >
+                      <div className="w-[330px] bg-white shadow-2xl border border-neutral-100 rounded-sm overflow-hidden py-0">
+                        <ul className="flex flex-col">
+                          {item.children.map((child) => {
+                            const isChildActive = pathname === child.href;
                             return (
-                              <li key={child.href}>
-                                <NavigationMenuLink asChild>
-                                  <Link
-                                    href={child.href}
-                                    className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-muted focus:bg-muted focus:outline-none"
-                                  >
-                                    {Icon && (
-                                      <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
-                                        <Icon
-                                          className="h-5 w-5"
-                                          aria-hidden="true"
-                                        />
-                                      </span>
-                                    )}
-                                    <span className="flex flex-col gap-0.5">
-                                      <span className="text-xs lg:text-sm line-clamp-1 font-normal text-primary group-hover:text-accent transition-colors">
-                                        {child.label}
-                                      </span>
-                                    </span>
-                                  </Link>
-                                </NavigationMenuLink>
+                              <li key={child.href} className="w-full">
+                                <Link
+                                  href={child.href}
+                                  onClick={() => setActiveDropdown(null)}
+                                  className={cn(
+                                    "block w-full px-6 py-3.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider transition-colors duration-150 leading-snug",
+                                    isChildActive
+                                      ? "bg-primary text-white"
+                                      : "text-neutral-900 bg-white hover:bg-primary hover:text-white",
+                                  )}
+                                >
+                                  {child.label}
+                                </Link>
                               </li>
                             );
                           })}
                         </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                  );
-                }
-
-                return (
-                  <NavigationMenuItem key={item?.href}>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href={item?.href}
-                        aria-current={isActive ? "page" : undefined}
-                        className={cn(
-                          "inline-flex items-center text-sm font-normal tracking-wide transition-colors hover:text-accent",
-                          isActive ? "text-primary" : "text-foreground/80",
-                        )}
-                      >
-                        {item?.label}
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
+                      </div>
+                    </div>
+                  </div>
                 );
-              })}
-            </NavigationMenuList>
-          </NavigationMenu>
+              }
 
-          <div className="hidden lg:block">
-            <Button asChild size="lg" className="text-base font-bold px-6 py-2.5">
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "inline-flex items-center text-xs xl:text-sm font-bold uppercase tracking-wider transition-colors duration-150 py-7",
+                    isActive
+                      ? "text-primary"
+                      : "text-foreground/85 hover:text-primary",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Desktop CTA Button */}
+          <div className="hidden lg:block shrink-0">
+            <Button
+              asChild
+              size="lg"
+              className="text-sm xl:text-base font-bold px-6 py-2.5"
+            >
               <Link href="/contact">Request a Quote</Link>
             </Button>
           </div>
 
+          {/* Mobile Hamburger Menu */}
           <MobileMenu items={navItems} />
         </Container>
       </header>

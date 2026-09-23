@@ -58,14 +58,113 @@ export function getServiceIconBySlug(slug: string): LucideIcon {
   return Waves;
 }
 
+export const poolsNavItems: NavChild[] = [
+  {
+    label: "Swimming Pool Construction",
+    href: "/services/swimming-pool-construction",
+    description: "Turnkey luxury swimming pool design and construction in Dubai.",
+    icon: Waves,
+  },
+  {
+    label: "Skimmer Swimming Pool",
+    href: "/services/skimmer-swimming-pool",
+    description: "Classic and durable skimmer swimming pools tailored to your space.",
+    icon: CircleDot,
+  },
+  {
+    label: "Overflow Swimming Pool",
+    href: "/services/overflow-swimming-pool",
+    description: "Sleek perimeter overflow pools with mirror-like water surface.",
+    icon: Droplets,
+  },
+  {
+    label: "Infinity Swimming Pool",
+    href: "/services/infinity-swimming-pool",
+    description: "Vanishing-edge infinity pools with breathtaking panoramic views.",
+    icon: InfinityIcon,
+  },
+  {
+    label: "Swimming Pool Maintenance",
+    href: "/services/swimming-pool-maintenance",
+    description: "Professional cleaning, chemical balancing, and equipment care.",
+    icon: Wrench,
+  },
+  {
+    label: "Water Features",
+    href: "/services/water-features",
+    description: "Custom water walls, cascades, sheer descents, and deck jets.",
+    icon: Sparkles,
+  },
+  {
+    label: "Water Fountains",
+    href: "/services/water-fountains",
+    description: "Architectural decorative fountains for luxury outdoor spaces.",
+    icon: GlassWater,
+  },
+];
+
+export const landscapingNavItems: NavChild[] = [
+  {
+    label: "Villa Landscaping",
+    href: "/services/villa-landscaping",
+    description: "Comprehensive luxury villa garden design, hardscaping & planting.",
+    icon: Trees,
+  },
+  {
+    label: "Residential Landscaping",
+    href: "/services/residential-landscaping",
+    description: "Bespoke outdoor environments for private residences.",
+    icon: Building2,
+  },
+  {
+    label: "Commercial Landscaping",
+    href: "/services/commercial-landscaping",
+    description: "Large-scale landscape architecture for commercial properties.",
+    icon: Building2,
+  },
+  {
+    label: "Garden Maintenance",
+    href: "/services/garden-maintenance",
+    description: "Year-round garden, lawn, and tree health maintenance services.",
+    icon: Sprout,
+  },
+  {
+    label: "Irrigation System",
+    href: "/services/irrigation-system",
+    description: "Smart automated drip and sprinkler irrigation solutions.",
+    icon: Droplet,
+  },
+  {
+    label: "Pergola & Gazebo",
+    href: "/services/pergola-gazebo",
+    description: "Custom wooden, aluminum, and louvered shade structures.",
+    icon: Home,
+  },
+  {
+    label: "Lawn Care",
+    href: "/services/lawn-care",
+    description: "Natural grass turf installation, fertilization, and synthetic lawns.",
+    icon: Sprout,
+  },
+  {
+    label: "Landscape Lighting Services",
+    href: "/services/landscape-lighting-services",
+    description: "Architectural low-voltage outdoor and pathway LED illumination.",
+    icon: Lightbulb,
+  },
+];
+
 /**
- * Dynamic API category items based on title & slug from response schema.
+ * Static category items based on title & slug.
  */
 export function getDynamicNavChildrenByCategory(
   category: "Pools" | "Landscaping",
 ): NavChild[] {
   if (category === "Pools") {
-    return [];
+    return poolsNavItems;
+  }
+  if (category === "Landscaping") {
+    return landscapingNavItems;
   }
   return [];
 }
@@ -125,15 +224,15 @@ export const siteConfig: SiteConfig = {
       {
         label: "Pools",
         href: "/pools",
-        children: getDynamicNavChildrenByCategory("Pools"),
+        children: poolsNavItems,
       },
       {
         label: "Landscaping",
         href: "/landscaping",
-        children: getDynamicNavChildrenByCategory("Landscaping"),
+        children: landscapingNavItems,
       },
-
       { label: "Project", href: "/projects" },
+      { label: "Blog", href: "/blog" },
       { label: "Contact Us", href: "/contact" },
     ];
   },

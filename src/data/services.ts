@@ -90,12 +90,19 @@ export function convertServiceDataToService(item: ServiceData): Service {
   };
 }
 
+import { fallbackServices } from "./services-data";
+
 export async function getServicesAsync(): Promise<Service[]> {
-  const res = await fetchServicesData();
-  if (res.data && Array.isArray(res.data)) {
-    return res.data.map(convertServiceDataToService);
+  try {
+    const res = await fetchServicesData();
+    if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+      return res.data.map(convertServiceDataToService);
+    }
+  } catch {
+    // ignore API failure
   }
-  return [];
+  return fallbackServices.map(convertServiceDataToService);
 }
 
-export const services: Service[] = [];
+export const services: Service[] = fallbackServices.map(convertServiceDataToService);
+

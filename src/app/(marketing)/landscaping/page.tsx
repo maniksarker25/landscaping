@@ -13,11 +13,18 @@ export const metadata: Metadata = {
     "Explore our luxury landscaping and garden design services in Dubai. Softscaping, hardscaping, pergolas, gazebos, garden lighting, and smart irrigation.",
 };
 
+import { fallbackServices } from "@/data/services-data";
+
 export default async function LandscapingOverviewPage() {
   const response = await fetchServicesData();
-  const landscapingList = (response.data || []).filter(
+  const apiLandscaping = (response.data || []).filter(
     (item) => item.category?.toLowerCase().trim() === "landscaping",
   );
+  const landscapingList =
+    apiLandscaping.length > 0
+      ? apiLandscaping
+      : fallbackServices.filter((s) => s.category === "Landscaping");
+
 
   return (
     <main className="min-h-screen bg-background">
