@@ -65,6 +65,7 @@ export async function fetchPrivacyPolicyData(): Promise<string> {
         "Content-Type": "application/json",
       },
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(2000),
     });
 
     if (!res.ok) {
@@ -75,11 +76,7 @@ export async function fetchPrivacyPolicyData(): Promise<string> {
 
     const result: PrivacyPolicyApiResponse = await res.json();
     return extractHtmlContent(result?.data, privacyPolicyHtml);
-  } catch (error) {
-    console.warn(
-      "Could not fetch privacy policy from backend, using fallback data:",
-      error
-    );
+  } catch {
     return privacyPolicyHtml;
   }
 }

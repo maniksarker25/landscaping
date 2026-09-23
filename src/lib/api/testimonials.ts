@@ -15,6 +15,7 @@ export async function fetchTestimonialsData(): Promise<TestimonialApiResponse> {
         "Content-Type": "application/json",
       },
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(2500),
     });
 
     if (!res.ok) {
@@ -26,7 +27,6 @@ export async function fetchTestimonialsData(): Promise<TestimonialApiResponse> {
     const data: TestimonialApiResponse = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching testimonials data:", error);
     return {
       success: false,
       message:

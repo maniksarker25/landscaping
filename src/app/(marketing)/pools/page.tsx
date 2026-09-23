@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowRight, Waves } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
-import { fetchServicesData } from "@/lib/api/services";
+import { POOLS_STATIC_DATA } from "@/data/pools-static-data";
 
 export const metadata: Metadata = {
   title: "Swimming Pool Construction & Services in Dubai | Poolscape",
@@ -13,15 +13,8 @@ export const metadata: Metadata = {
     "Explore our luxury swimming pool construction services in Dubai. Infinity pools, overflow pools, skimmer pools, pool maintenance, and water features.",
 };
 
-import { fallbackServices } from "@/data/services-data";
-
-export default async function PoolsOverviewPage() {
-  const response = await fetchServicesData();
-  const apiPools = (response.data || []).filter(
-    (item) => item.category?.toLowerCase().trim() === "pools",
-  );
-  const poolsList = apiPools.length > 0 ? apiPools : fallbackServices.filter(s => s.category === "Pools");
-
+export default function PoolsOverviewPage() {
+  const poolsList = Object.values(POOLS_STATIC_DATA);
 
   return (
     <main className="min-h-screen bg-background">
@@ -83,60 +76,64 @@ export default async function PoolsOverviewPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {poolsList.map((pool) => (
-              <div
-                key={pool.slug || pool._id}
-                className="group flex  flex-col justify-between rounded-2xl bg-card border border-border/80 shadow-md overflow-hidden transition-all "
-              >
-                <div>
-                  <div className="relative h-56 w-full overflow-hidden bg-muted">
-                    <Image
-                      src={pool.heroImage || pool.featuredImage || ""}
-                      alt={pool.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover "
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    {pool.badge && (
+            {poolsList.map((pool) => {
+              const displayImage =
+                pool.gallery1?.[0]?.url ||
+                pool.heroImage ||
+                "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-8.webp";
+              const snippet =
+                pool.intro?.description?.[0] ||
+                pool.intro?.subHeader ||
+                "Luxury pool construction and landscaping in Dubai.";
+
+              return (
+                <div
+                  key={pool.slug}
+                  className="group flex flex-col justify-between rounded-2xl bg-card border border-border/80 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+                >
+                  <div>
+                    <div className="relative h-56 w-full overflow-hidden bg-muted">
+                      <Image
+                        src={displayImage}
+                        alt={pool.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       <span className="absolute top-4 left-4 rounded-full bg-emerald-600/90 backdrop-blur-sm px-3 py-1 text-[11px] font-bold text-white shadow">
-                        {pool.badge}
+                        Luxury Pool
                       </span>
-                    )}
-                  </div>
+                    </div>
 
-                  <div className="p-6 space-y-3">
-                    <h3 className="font-display text-xl font-bold text-primary group-hover:text-emerald-700 transition-colors">
-                      {pool.title}
-                    </h3>
-                    {pool?.subtitle && (
-                      <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed line-clamp-3">
-                        {pool?.subtitle ||
-                          pool.sections?.[0]?.content?.richTextHtml
-                            ?.replace(/<[^>]*>/g, "")
-                            .substring(0, 150) + "..."}
+                    <div className="p-6 space-y-3">
+                      <h3 className="font-display text-xl font-bold text-primary group-hover:text-emerald-700 transition-colors">
+                        {pool.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed line-clamp-3">
+                        {snippet}
                       </p>
-                    )}
+                    </div>
+                  </div>
+
+                  <div className="p-6 pt-0 border-t border-border/40 flex items-center justify-between">
+                    <span className="text-xs font-semibold text-muted-foreground truncate max-w-[150px]">
+                      {pool.intro?.subHeader || pool.title}
+                    </span>
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="ghost"
+                      className="text-primary font-bold hover:text-emerald-700 hover:bg-emerald-50"
+                    >
+                      <Link href={`/services/${pool.slug}`}>
+                        Explore Details <ArrowRight className="ml-1.5 h-4 w-4" />
+                      </Link>
+                    </Button>
                   </div>
                 </div>
-
-                <div className="p-6 pt-0 border-t border-border/40 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-muted-foreground">
-                    {pool?.subtitle || "No description available"}
-                  </span>
-                  <Button
-                    asChild
-                    size="sm"
-                    variant="ghost"
-                    className="text-primary font-bold hover:text-emerald-700 hover:bg-emerald-50"
-                  >
-                    <Link href={`/services/${pool.slug}`}>
-                      Explore Details <ArrowRight className="ml-1.5 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </Container>

@@ -372,7 +372,7 @@ export function ServiceSidebarForm({
                   )}
                 </div>
                 <span className="text-sm font-normal text-[#222222]">
-                  I'm not a robot
+                  I&apos;m not a robot
                 </span>
               </div>
 

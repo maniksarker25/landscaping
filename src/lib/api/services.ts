@@ -27,6 +27,7 @@ export async function fetchServicesData(): Promise<ServicesApiResponse> {
         "Content-Type": "application/json",
       },
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(2500),
     });
 
     if (!res.ok) {
@@ -36,7 +37,7 @@ export async function fetchServicesData(): Promise<ServicesApiResponse> {
     const data: ServicesApiResponse = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching services data:", error);
+    // Graceful fallback to static services
     return {
       success: false,
       message: error instanceof Error ? error.message : "Failed to load services",

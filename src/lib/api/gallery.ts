@@ -35,6 +35,7 @@ export async function fetchGalleryData(
         "Content-Type": "application/json",
       },
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(2500),
     });
 
     if (!res.ok) {
@@ -44,7 +45,6 @@ export async function fetchGalleryData(
     const data: GalleryApiResponse = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching gallery data:", error);
     return {
       success: false,
       message:
