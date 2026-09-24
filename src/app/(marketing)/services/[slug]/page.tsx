@@ -15,6 +15,10 @@ import {
   getPoolStaticDataBySlug,
   getAllStaticPoolSlugs,
 } from "@/data/pools-static-data";
+import {
+  getLandscapingStaticDataBySlug,
+  getAllStaticLandscapingSlugs,
+} from "@/data/landscaping-static-data";
 import { fetchTestimonialsData } from "@/lib/api/testimonials";
 import { fetchGalleryData } from "@/lib/api/gallery";
 
@@ -27,7 +31,10 @@ interface ServicePageProps {
 export async function generateStaticParams() {
   const serviceSlugs = await getAllServiceSlugsAsync();
   const poolSlugs = getAllStaticPoolSlugs();
-  const allSlugs = Array.from(new Set([...serviceSlugs, ...poolSlugs]));
+  const landscapingSlugs = getAllStaticLandscapingSlugs();
+  const allSlugs = Array.from(
+    new Set([...serviceSlugs, ...poolSlugs, ...landscapingSlugs]),
+  );
   return allSlugs.map((slug) => ({ slug }));
 }
 
@@ -45,6 +52,19 @@ export async function generateMetadata({
         title: poolStatic.metaTitle || poolStatic.title,
         description: poolStatic.metaDescription,
         images: [{ url: poolStatic.heroImage || poolStatic.ogImage }],
+      },
+    };
+  }
+
+  const landscapingStatic = getLandscapingStaticDataBySlug(slug);
+  if (landscapingStatic) {
+    return {
+      title: `${landscapingStatic.metaTitle || landscapingStatic.title} | Four Seasons Landscaping Dubai`,
+      description: landscapingStatic.metaDescription,
+      openGraph: {
+        title: landscapingStatic.metaTitle || landscapingStatic.title,
+        description: landscapingStatic.metaDescription,
+        images: [{ url: landscapingStatic.heroImage || landscapingStatic.ogImage }],
       },
     };
   }
@@ -80,7 +100,21 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     return <PoolStaticDetailView data={poolStatic} />;
   }
 
-  // 2. Fallback for non-pool services (e.g. landscaping services)
+  // 2. Check if this route matches one of the static landscaping pages
+  const landscapingStatic = getLandscapingStaticDataBySlug(slug);
+
+  if (landscapingStatic) {
+    return (
+      <PoolStaticDetailView
+        data={landscapingStatic}
+        typesTitle={
+          landscapingStatic.typesTitle || "Types of Landscaping in Dubai"
+        }
+      />
+    );
+  }
+
+  // 3. Fallback for other dynamic/fallback services
   const [service, testimonialsRes, galleryRes] = await Promise.all([
     getServiceDetailBySlugAsync(slug),
     fetchTestimonialsData(),

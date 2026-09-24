@@ -18,10 +18,12 @@ import type {
   PoolTextSection,
   CtaBannerData,
 } from "@/data/pools-static-data";
+import type { LandscapingStaticDetail } from "@/data/landscaping-static-data";
 
 export interface PoolStaticDetailViewProps {
-  /** The full pool static data object (optional if passing section props directly) */
-  data?: Partial<PoolStaticDetail>;
+  /** The full pool or landscaping static data object (optional if passing section props directly) */
+  data?: Partial<PoolStaticDetail | LandscapingStaticDetail>;
+  typesTitle?: string;
 
   /** Optional custom data overrides for individual sections */
   hero?: {
@@ -60,6 +62,7 @@ export interface PoolStaticDetailViewProps {
 
 export function PoolStaticDetailView({
   data,
+  typesTitle,
   hero,
   intro,
   poolTypes,
@@ -101,6 +104,13 @@ export function PoolStaticDetailView({
     data?.title ||
     "Swimming Pool Construction";
 
+  const effectiveTypesTitle =
+    typesTitle ||
+    data?.typesTitle ||
+    (data?.category?.toLowerCase() === "landscaping"
+      ? "Types of Landscaping in Dubai"
+      : "Types of Pool Construction in Dubai");
+
   return (
     <main className="min-h-screen bg-background font-sans">
       {/* 1. Header Hero Banner */}
@@ -135,12 +145,12 @@ export function PoolStaticDetailView({
               />
             )}
 
-            {/* Section 3: Pool Types Grid */}
+            {/* Section 3: Pool / Landscaping Types Grid */}
             {showPoolTypes &&
               effectivePoolTypes &&
               effectivePoolTypes.length > 0 && (
                 <PoolTypesSection
-                  title="Types of Pool Construction in Dubai"
+                  title={effectiveTypesTitle}
                   items={effectivePoolTypes}
                 />
               )}

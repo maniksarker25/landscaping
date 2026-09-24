@@ -516,20 +516,21 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Villa Landscaping",
     slug: "villa-landscaping",
+    aliases: ["villa-landscaping-dubai-uae"],
     category: "Landscaping",
     isPublished: true,
     featuredImage:
-      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1600&auto=format&fit=crop",
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
     heroImage:
-      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1600&auto=format&fit=crop",
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
     subtitle:
       "Complete luxury villa landscaping design and turnkey execution across Dubai.",
     badge: "Turnkey Landscape",
     googleReviews: defaultGoogleReviews,
     seo: {
-      metaTitle: "Villa Landscaping Dubai | Dream Floor Landscaping",
+      metaTitle: "Villa Landscaping Dubai | Luxury Villa Landscape Design Company",
       metaDescription:
-        "Turnkey luxury villa garden landscaping, hardscape paving, and planting in Dubai.",
+        "Top Villa Landscaping company in Dubai. Transform your villa with custom outdoor spaces.",
     },
     sections: [
       {
@@ -540,7 +541,7 @@ export const fallbackServices: ServiceData[] = [
             subheadline:
               "Turnkey luxury landscaping design and construction for private villas across Dubai.",
             bgImage:
-              "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1600&auto=format&fit=crop",
+              "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
             ctaText: "Book Site Visit",
             ctaLink: "/contact",
           },
@@ -578,20 +579,21 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Residential Landscaping",
     slug: "residential-landscaping",
+    aliases: ["residential-landscaping-company"],
     category: "Landscaping",
     isPublished: true,
     featuredImage:
-      "https://images.unsplash.com/photo-1558904541-efa8c4a08931?q=80&w=1600&auto=format&fit=crop",
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-5-1.jpg",
     heroImage:
-      "https://images.unsplash.com/photo-1558904541-efa8c4a08931?q=80&w=1600&auto=format&fit=crop",
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-5-1.jpg",
     subtitle:
       "Bespoke outdoor environments for townhouses and residential properties in Dubai.",
     badge: "Residential Design",
     googleReviews: defaultGoogleReviews,
     seo: {
-      metaTitle: "Residential Landscaping Dubai | Dream Floor Landscaping",
+      metaTitle: "Residential Landscaping Company in Dubai, UAE",
       metaDescription:
-        "Tailored residential landscape design, planting, and garden renovations in Dubai.",
+        "Leading residential landscaping company in Dubai, UAE, offering premium garden design and maintenance services.",
     },
     sections: [
       {
@@ -602,7 +604,7 @@ export const fallbackServices: ServiceData[] = [
             subheadline:
               "Bespoke garden transformations for private homes, townhouses, and villas in Dubai.",
             bgImage:
-              "https://images.unsplash.com/photo-1558904541-efa8c4a08931?q=80&w=1600&auto=format&fit=crop",
+              "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-5-1.jpg",
             ctaText: "Request Consultation",
             ctaLink: "/contact",
           },
@@ -640,20 +642,21 @@ export const fallbackServices: ServiceData[] = [
   {
     title: "Commercial Landscaping",
     slug: "commercial-landscaping",
+    aliases: ["commercial-landscaping-company"],
     category: "Landscaping",
     isPublished: true,
     featuredImage:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop",
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping.jpg",
     heroImage:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop",
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping.jpg",
     subtitle:
       "Large-scale landscape architecture and grounds development for commercial developments.",
     badge: "Commercial Scale",
     googleReviews: defaultGoogleReviews,
     seo: {
-      metaTitle: "Commercial Landscaping Dubai | Dream Floor Landscaping",
+      metaTitle: "Commercial Landscaping Company in Dubai, UAE",
       metaDescription:
-        "Landscape planning and construction for resorts, office parks, and commercial developments in UAE.",
+        "Top commercial landscaping company in Dubai, UAE, providing expert garden design, maintenance, and outdoor solutions.",
     },
     sections: [
       {
@@ -664,7 +667,7 @@ export const fallbackServices: ServiceData[] = [
             subheadline:
               "Large-scale landscape engineering and master development for commercial properties across UAE.",
             bgImage:
-              "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop",
+              "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping.jpg",
             ctaText: "Submit RFP",
             ctaLink: "/contact",
           },
@@ -700,20 +703,21 @@ export const fallbackServices: ServiceData[] = [
     ],
   },
   {
-    title: "Garden Maintenance",
-    slug: "garden-maintenance",
+    title: "Gardening Services",
+    slug: "gardening-services",
+    aliases: ["gardening-services-dubai", "garden-maintenance"],
     category: "Landscaping",
     isPublished: true,
     featuredImage:
-      "https://images.unsplash.com/photo-1592417817098-8f3d6910985b?q=80&w=1600&auto=format&fit=crop",
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Garden-Maintenance-Four-Seasons-Pool-Gardens-Landscaping-2.jpg",
     heroImage:
-      "https://images.unsplash.com/photo-1592417817098-8f3d6910985b?q=80&w=1600&auto=format&fit=crop",
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Garden-Maintenance-Four-Seasons-Pool-Gardens-Landscaping-2.jpg",
     subtitle:
       "Comprehensive garden care, lawn mowing, pruning, and seasonal plant nourishment.",
     badge: "Garden Care",
     googleReviews: defaultGoogleReviews,
     seo: {
-      metaTitle: "Garden Maintenance Dubai | Dream Floor Landscaping",
+      metaTitle: "Garden Maintenance Services Dubai | Best Gardening Services",
       metaDescription:
         "Professional villa garden maintenance packages in Dubai: pruning, lawn mowing, and fertilizer.",
     },

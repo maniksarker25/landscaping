@@ -53,6 +53,7 @@ export interface PoolStaticDetail {
   ctaBanner: CtaBannerData;
   gallery1: GalleryImage[];
   poolTypes?: PoolTypeItem[];
+  typesTitle?: string;
   videos: VideoItem[];
   recentWorkGallery: GalleryImage[];
   sections: PoolTextSection[];
