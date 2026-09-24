@@ -113,44 +113,20 @@ export const landscapingNavItems: NavChild[] = [
   {
     label: "Residential Landscaping",
     href: "/services/residential-landscaping",
-    description: "Bespoke outdoor environments for private residences.",
+    description: "Bespoke outdoor environments for private residences and townhouses.",
     icon: Building2,
   },
   {
     label: "Commercial Landscaping",
     href: "/services/commercial-landscaping",
-    description: "Large-scale landscape architecture for commercial properties.",
+    description: "Large-scale landscape architecture for commercial properties and resorts.",
     icon: Building2,
   },
   {
-    label: "Garden Maintenance",
-    href: "/services/garden-maintenance",
-    description: "Year-round garden, lawn, and tree health maintenance services.",
+    label: "Gardening Services",
+    href: "/services/gardening-services",
+    description: "Professional garden maintenance, irrigation, and horticultural care.",
     icon: Sprout,
-  },
-  {
-    label: "Irrigation System",
-    href: "/services/irrigation-system",
-    description: "Smart automated drip and sprinkler irrigation solutions.",
-    icon: Droplet,
-  },
-  {
-    label: "Pergola & Gazebo",
-    href: "/services/pergola-gazebo",
-    description: "Custom wooden, aluminum, and louvered shade structures.",
-    icon: Home,
-  },
-  {
-    label: "Lawn Care",
-    href: "/services/lawn-care",
-    description: "Natural grass turf installation, fertilization, and synthetic lawns.",
-    icon: Sprout,
-  },
-  {
-    label: "Landscape Lighting Services",
-    href: "/services/landscape-lighting-services",
-    description: "Architectural low-voltage outdoor and pathway LED illumination.",
-    icon: Lightbulb,
   },
 ];
 
