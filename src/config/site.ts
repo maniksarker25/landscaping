@@ -218,7 +218,6 @@ export const siteConfig: SiteConfig = {
         children: landscapingNavItems,
       },
       { label: "Project", href: "/projects" },
-      { label: "Blog", href: "/blog" },
       { label: "Contact Us", href: "/contact" },
     ];
   },
