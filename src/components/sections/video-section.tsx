@@ -30,7 +30,7 @@ export function VideoSection({ title, videos, className }: VideoSectionProps) {
   return (
     <div className={cn("space-y-4 font-sans", className)}>
       {title && (
-        <h2 className="text-2xl lg:text-[28px] font-bold text-[#729d00] leading-tight tracking-tight">
+        <h2 className="text-2xl lg:text-[28px] font-bold text-[#5597CF] leading-tight tracking-tight">
           {title}
         </h2>
       )}
@@ -40,7 +40,7 @@ export function VideoSection({ title, videos, className }: VideoSectionProps) {
           "grid gap-4",
           normalizedVideos.length > 1
             ? "grid-cols-1 sm:grid-cols-2"
-            : "grid-cols-1 max-w-2xl"
+            : "grid-cols-1 max-w-2xl",
         )}
       >
         {normalizedVideos.map((video, idx) => (

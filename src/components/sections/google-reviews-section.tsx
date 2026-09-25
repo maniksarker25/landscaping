@@ -83,7 +83,9 @@ export function GoogleReviewsSection({
 
   // Show 2 items per view on desktop, 1 on mobile
   const prevSlide = () => {
-    setStartIndex((prev) => (prev === 0 ? Math.max(0, reviews.length - 2) : prev - 1));
+    setStartIndex((prev) =>
+      prev === 0 ? Math.max(0, reviews.length - 2) : prev - 1,
+    );
   };
 
   const nextSlide = () => {
@@ -169,7 +171,7 @@ export function GoogleReviewsSection({
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-[#729d00]/15 text-[#729d00] font-bold text-xs flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-[#5597CF]/15 text-[#5597CF] font-bold text-xs flex items-center justify-center">
                     {rev.name.charAt(0)}
                   </div>
                   <div>

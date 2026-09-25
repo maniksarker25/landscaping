@@ -60,7 +60,7 @@ function GalleryItem({
       {/* Overlay with zoom icon */}
       <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
         <span className="p-2 rounded-full bg-white/80 text-gray-800 shadow-sm transform scale-90 group-hover:scale-100 transition-transform duration-300">
-          <ZoomIn className="w-5 h-5 text-[#729d00]" />
+          <ZoomIn className="w-5 h-5 text-[#5597CF]" />
         </span>
       </div>
     </div>
@@ -129,7 +129,7 @@ export function ImageGallerySection({
   return (
     <div className={cn("space-y-4 font-sans", className)}>
       {title && (
-        <h2 className="text-2xl lg:text-[28px] font-bold text-[#729d00] leading-tight tracking-tight">
+        <h2 className="text-2xl lg:text-[28px] font-bold text-[#5597CF] leading-tight tracking-tight">
           {title}
         </h2>
       )}
@@ -156,7 +156,7 @@ export function ImageGallerySection({
           {/* Close button */}
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 z-50 text-white hover:text-[#729d00] p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            className="absolute top-4 right-4 z-50 text-white hover:text-[#5597CF] p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Close lightbox"
           >
             <X className="w-6 h-6" />
@@ -168,7 +168,7 @@ export function ImageGallerySection({
               e.stopPropagation();
               prevImage();
             }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:text-[#729d00] p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:text-[#5597CF] p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Previous image"
           >
             <ChevronLeft className="w-7 h-7" />
@@ -180,7 +180,7 @@ export function ImageGallerySection({
               e.stopPropagation();
               nextImage();
             }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:text-[#729d00] p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:text-[#5597CF] p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Next image"
           >
             <ChevronRight className="w-7 h-7" />
