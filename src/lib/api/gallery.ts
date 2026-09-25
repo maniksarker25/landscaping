@@ -1,5 +1,6 @@
 import { baseUrl } from "@/lib/helper";
 import type { GetGalleryQueryParams, GalleryApiResponse } from "@/types/gallery";
+import { defaultGalleryItems } from "@/data/default-gallery-items";
 
 /**
  * Fetch gallery items with support for query filters.
@@ -8,6 +9,29 @@ import type { GetGalleryQueryParams, GalleryApiResponse } from "@/types/gallery"
 export async function fetchGalleryData(
   queryParams?: GetGalleryQueryParams,
 ): Promise<GalleryApiResponse> {
+  const filterDefaultItems = () => {
+    let items = [...defaultGalleryItems];
+    if (queryParams?.category && queryParams.category !== "all") {
+      const targetCat = queryParams.category.toLowerCase().trim();
+      items = items.filter(
+        (i) => i.category.toLowerCase().trim() === targetCat,
+      );
+    }
+    const limit = queryParams?.limit || 50;
+    const paged = items.slice(0, limit);
+    return {
+      success: true,
+      message: "Loaded projects",
+      meta: {
+        page: queryParams?.page || 1,
+        limit,
+        total: items.length,
+        totalPage: Math.ceil(items.length / limit),
+      },
+      data: paged,
+    };
+  };
+
   try {
     const params = new URLSearchParams();
 
@@ -35,7 +59,7 @@ export async function fetchGalleryData(
         "Content-Type": "application/json",
       },
       next: { revalidate: 60 },
-      signal: AbortSignal.timeout(2500),
+      signal: AbortSignal.timeout(2000),
     });
 
     if (!res.ok) {
@@ -43,19 +67,12 @@ export async function fetchGalleryData(
     }
 
     const data: GalleryApiResponse = await res.json();
-    return data;
-  } catch (error) {
-    return {
-      success: false,
-      message:
-        error instanceof Error ? error.message : "Failed to load gallery items",
-      meta: {
-        page: queryParams?.page || 1,
-        limit: queryParams?.limit || 10,
-        total: 0,
-        totalPage: 0,
-      },
-      data: [],
-    };
+    if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+      return data;
+    }
+    return filterDefaultItems();
+  } catch {
+    return filterDefaultItems();
   }
 }
+

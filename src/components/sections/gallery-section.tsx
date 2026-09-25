@@ -11,6 +11,7 @@ import { GallerySkeleton } from "@/components/sections/gallery/gallery-skeleton"
 import { GalleryCard } from "@/components/sections/gallery/gallery-card";
 import { GalleryFilterButtons } from "@/components/sections/gallery/gallery-filter-buttons";
 import hero2Bg from "@/../../public/images/hero1-bg.png"
+import { defaultGalleryItems } from "@/data/default-gallery-items";
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 import type { ServiceData } from "@/types/service";
 import type { Testimonial } from "@/types";
@@ -57,16 +58,17 @@ export function Gallery({
   initialData,
   initialTestimonials,
 }: GalleryProps) {
-  // Synchronous initial state from SSR props
+  // Synchronous initial state from SSR props with instant fallback
   const [allItems, setAllItems] = useState<GalleryItem[]>(() => {
     if (initialData && initialData.length > 0) return initialData;
-    return [];
+    return defaultGalleryItems;
   });
 
   const [items, setItems] = useState<GalleryItem[]>(() => {
     if (initialData && initialData.length > 0) return initialData;
-    return [];
+    return defaultGalleryItems;
   });
+
 
   const [loading, setLoading] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
@@ -281,19 +283,21 @@ export function Gallery({
     <div className="w-full">
       {pathname === "/projects" && (
         <PageHero
-          image={hero2Bg}
-          eyebrow="Projects"
+          image="https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_8657-scaled.jpg"
           title="Our Recent Completed Projects"
-          description="A showcase of our luxury swimming pools, landscaping, and outdoor living transformations in Dubai."
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Our Projects" },
+          ]}
         />
       )}
 
-      <div className="max-w-7xl mx-auto px-4 py-8 animate-fade-in">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center font-display tracking-tight text-primary">
-          {pathname === "/projects"
-            ? "Our Recent Projects"
-            : "Our Recent Projects"}
-        </h1>
+      <div className="max-w-7xl mx-auto px-4 py-10 sm:py-14 animate-fade-in">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground font-display tracking-tight">
+            Our Landscaping &amp; Swimming Pool Projects
+          </h2>
+        </div>
 
         {/* Filter Controls (Desktop Buttons & Mobile Trigger) */}
         <GalleryFilterButtons
@@ -317,7 +321,7 @@ export function Gallery({
               </div>
             )}
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5">
               <AnimatePresence mode="popLayout">
                 {filteredItems
                   ?.slice(0, pathname !== "/projects" ? 12 : undefined)
@@ -386,7 +390,11 @@ export function Gallery({
       />
 
       {pathname === "/projects" && (
-        <Testimonials initialTestimonials={initialTestimonials} />
+        <Testimonials
+          initialTestimonials={initialTestimonials}
+          eyebrow="Testimonials"
+          title="Words From Our Customers"
+        />
       )}
 
       {pathname === "/projects" && <QuoteMapSection />}

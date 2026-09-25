@@ -65,7 +65,7 @@ export function QuoteMapSection({
       name: "",
       email: "",
       phone: "",
-      service: "Gazebo",
+      service: "Landscaping",
       address: "",
       message: "",
       recaptcha: false,
@@ -98,15 +98,16 @@ export function QuoteMapSection({
   }
 
   const serviceOptions = [
-    "Gazebo & Pergola",
-    "Swimming Pool Construction",
-    "Infinity Swimming Pool",
-    "Overflow Swimming Pool",
-    "Skimmer Swimming Pool",
-    "Pool Maintenance",
-    "Landscape Design & Lighting",
-    "Water Features & Fountains",
+    "Landscaping",
+    "Swimming Pool",
+    "Pergola",
+    "Gazebo",
+    "Gardening",
+    "Water Features",
+    "Irrigation",
+    "Carpentry",
   ];
+
 
   return (
     <section
