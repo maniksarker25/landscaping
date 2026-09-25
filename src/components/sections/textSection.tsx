@@ -21,7 +21,7 @@ export function TextSection({
   description,
   bulletPoints,
   className,
-  headerColor = "text-[#5597CF]",
+  headerColor = "text-[#729d00]",
 }: TextSectionProps) {
   return (
     <div className={cn("space-y-3.5 text-[#333333] font-sans", className)}>

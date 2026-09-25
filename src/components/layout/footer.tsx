@@ -85,9 +85,9 @@ export async function Footer() {
   ];
 
   return (
-    <footer className="bg-primary text-white pt-16 pb-6 border-t border-neutral-900">
+    <footer className="bg-black text-white pt-16 pb-6 border-t border-neutral-900">
       <Container className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 pb-4 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 pb-14">
+        <div className="grid grid-cols-1 pb-4 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12">
           {/* Column 1: ABOUT US */}
           <div className="space-y-5">
             <h3 className="font-display text-lg font-extrabold uppercase tracking-wider text-white">
@@ -110,7 +110,7 @@ export async function Footer() {
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5597CF] text-white transition-colors hover:bg-primary border hover:border-[#5597CF] hover:text-white"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[#729d00] text-white transition-colors hover:bg-primary border hover:border-[#729d00] hover:text-white"
                   >
                     <Icon className="h-4.5 w-4.5" aria-hidden="true" />
                   </a>
@@ -174,7 +174,7 @@ export async function Footer() {
                   href={toTelHref(phone)}
                   className="flex items-center gap-3 transition-colors hover:text-white group"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white group-hover:bg-white group-hover:text-white transition-colors">
                     <Phone className="h-4 w-4" />
                   </div>
                   <span className="font-semibold text-white/90">{phone}</span>
@@ -188,7 +188,7 @@ export async function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 transition-colors hover:text-white group"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white group-hover:bg-white group-hover:text-white transition-colors">
                     <MessageCircle className="h-4 w-4" />
                   </div>
                   <span className="font-semibold text-white/90">
@@ -202,7 +202,7 @@ export async function Footer() {
                   href={`mailto:${email}`}
                   className="flex items-center gap-3 transition-colors hover:text-white group"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white group-hover:bg-white group-hover:text-white transition-colors">
                     <Mail className="h-4 w-4" />
                   </div>
                   <span className="font-semibold text-white/90 break-all">
@@ -213,7 +213,7 @@ export async function Footer() {
 
               <li>
                 <div className="flex items-start gap-3 text-neutral-300">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 mt-0.5">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white mt-0.5">
                     <MapPin className="h-4 w-4" />
                   </div>
                   <span className="font-medium leading-relaxed">{address}</span>
