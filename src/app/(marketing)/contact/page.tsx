@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/common/breadcrumb";
 import { Container } from "@/components/common/container";
 import { ContactForm } from "@/components/forms/contact-form";
 import { PageHero } from "@/components/sections/page-hero";
@@ -6,14 +5,7 @@ import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo";
 import { toTelHref, toWhatsAppHref, getMapEmbedUrl } from "@/lib/utils";
 import { fetchLegalInfo } from "@/lib/api/legal-info";
-import {
-  Clock,
-  Mail,
-  MapPin,
-  Phone,
-  Globe,
-  Building2,
-} from "lucide-react";
+import { Mail, Phone, Globe } from "lucide-react";
 import type { Metadata } from "next";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 

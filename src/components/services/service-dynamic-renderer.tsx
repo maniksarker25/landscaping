@@ -10,7 +10,6 @@ import { ServiceRecentProjects } from "./service-recent-projects";
 import { cn } from "@/lib/utils";
 import { ServiceFeaturesGrid } from "./service-features-grid";
 import { ServiceFaqAccordion } from "./service-faq-accordion";
-import { ServiceDropUsALine } from "./service-drop-us-a-line";
 import { defaultGoogleReviews } from "@/data/services-data";
 
 import type { TestimonialItem } from "@/types/testimonial";

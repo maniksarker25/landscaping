@@ -4,12 +4,10 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ZoomIn,
   X,
   ChevronLeft,
   ChevronRight,
   ArrowRight,
-  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fetchGalleryData } from "@/lib/api/gallery";

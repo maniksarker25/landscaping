@@ -3,7 +3,6 @@ import { OurServicesSection } from "@/components/sections/our-services-section";
 import { AboutIntro } from "@/components/sections/about-intro";
 import { LocationMap } from "@/components/sections/location-map";
 import { Testimonials } from "@/components/sections/testimonials";
-import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { siteConfig } from "@/config/site";
 import { buildMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
