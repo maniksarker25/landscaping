@@ -23,7 +23,7 @@ export function PoolTypesSection({
   description,
   items,
   className,
-  headerColor = "text-[#729d00]",
+  headerColor = "text-[#5597CF]",
 }: PoolTypesSectionProps) {
   if (!items || items.length === 0) {
     return null;
@@ -37,7 +37,7 @@ export function PoolTypesSection({
             <h2
               className={cn(
                 "text-2xl lg:text-[28px] font-bold leading-tight tracking-tight",
-                headerColor
+                headerColor,
               )}
             >
               {title}

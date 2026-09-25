@@ -37,7 +37,7 @@ export function ContactMapSection({
         {/* Left Column: Contact details */}
         <div className="lg:col-span-4 flex flex-col justify-center space-y-4">
           <div>
-            <span className="text-xs uppercase font-bold tracking-widest text-[#729d00] block mb-1">
+            <span className="text-xs uppercase font-bold tracking-widest text-[#5597CF] block mb-1">
               {categoryTitle}
             </span>
             <h2 className="text-3xl lg:text-[34px] font-bold text-[#1a1a1a] tracking-tight leading-none mb-1">
@@ -51,7 +51,7 @@ export function ContactMapSection({
           <div className="space-y-3 pt-2 text-sm text-[#444444]">
             {contact.address && (
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-[#729d00] flex-shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-[#5597CF] flex-shrink-0 mt-0.5" />
                 <span className="leading-snug">{contact.address}</span>
               </div>
             )}
@@ -59,10 +59,10 @@ export function ContactMapSection({
             {contact.phones &&
               contact.phones.map((phone, idx) => (
                 <div key={idx} className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-[#729d00] flex-shrink-0" />
+                  <Phone className="w-4 h-4 text-[#5597CF] flex-shrink-0" />
                   <a
                     href={`tel:${phone.replace(/[^0-9+]/g, "")}`}
-                    className="hover:text-[#729d00] transition-colors font-medium"
+                    className="hover:text-[#5597CF] transition-colors font-medium"
                   >
                     {phone}
                   </a>
@@ -71,10 +71,10 @@ export function ContactMapSection({
 
             {contact.email && (
               <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[#729d00] flex-shrink-0" />
+                <Mail className="w-4 h-4 text-[#5597CF] flex-shrink-0" />
                 <a
                   href={`mailto:${contact.email}`}
-                  className="hover:text-[#729d00] transition-colors"
+                  className="hover:text-[#5597CF] transition-colors"
                 >
                   {contact.email}
                 </a>

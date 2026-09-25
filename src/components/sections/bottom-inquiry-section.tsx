@@ -36,7 +36,7 @@ export function BottomInquirySection({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -114,7 +114,7 @@ export function BottomInquirySection({
       setErrorMessage(
         err instanceof Error
           ? err.message
-          : "Something went wrong. Please try again."
+          : "Something went wrong. Please try again.",
       );
     }
   };
@@ -145,8 +145,8 @@ export function BottomInquirySection({
           </div>
 
           {status === "success" ? (
-            <div className="flex flex-col items-center gap-3 rounded-[3px] border border-[#729d00]/40 bg-[#729d00]/10 p-6 text-center animate-in fade-in">
-              <CheckCircle2 className="h-10 w-10 text-[#729d00]" />
+            <div className="flex flex-col items-center gap-3 rounded-[3px] border border-[#5597CF]/40 bg-[#5597CF]/10 p-6 text-center animate-in fade-in">
+              <CheckCircle2 className="h-10 w-10 text-[#5597CF]" />
               <h3 className="font-bold text-lg text-[#222222]">
                 Thank you for contacting us!
               </h3>
@@ -157,7 +157,7 @@ export function BottomInquirySection({
               <button
                 type="button"
                 onClick={() => setStatus("idle")}
-                className="mt-2 bg-[#729d00] hover:bg-[#648c00] text-white text-xs font-semibold px-4 py-2 rounded-[3px] transition-colors"
+                className="mt-2 bg-[#5597CF] hover:bg-[#5597CF] text-white text-xs font-semibold px-4 py-2 rounded-[3px] transition-colors"
               >
                 Send Another Message
               </button>
@@ -173,8 +173,8 @@ export function BottomInquirySection({
                   onChange={handleChange}
                   placeholder="Your Name(required)"
                   className={cn(
-                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
-                    errors.name ? "border-red-500" : "border-[#dedede]"
+                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors",
+                    errors.name ? "border-red-500" : "border-[#dedede]",
                   )}
                 />
                 {errors.name && (
@@ -191,8 +191,8 @@ export function BottomInquirySection({
                   onChange={handleChange}
                   placeholder="Email(required)"
                   className={cn(
-                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
-                    errors.email ? "border-red-500" : "border-[#dedede]"
+                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors",
+                    errors.email ? "border-red-500" : "border-[#dedede]",
                   )}
                 />
                 {errors.email && (
@@ -209,8 +209,8 @@ export function BottomInquirySection({
                   onChange={handleChange}
                   placeholder="Phone(required)"
                   className={cn(
-                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
-                    errors.phone ? "border-red-500" : "border-[#dedede]"
+                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors",
+                    errors.phone ? "border-red-500" : "border-[#dedede]",
                   )}
                 />
                 {errors.phone && (
@@ -226,7 +226,7 @@ export function BottomInquirySection({
                   onChange={handleChange}
                   rows={4}
                   placeholder="Message"
-                  className="w-full min-h-[110px] p-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors resize-y"
+                  className="w-full min-h-[110px] p-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors resize-y"
                 />
               </div>
 
@@ -235,7 +235,7 @@ export function BottomInquirySection({
                 <div
                   className={cn(
                     "h-[74px] border bg-[#f9f9f9] rounded-[3px] px-3.5 flex items-center justify-between transition-colors select-none",
-                    errors.recaptcha ? "border-red-400" : "border-[#d3d3d3]"
+                    errors.recaptcha ? "border-red-400" : "border-[#d3d3d3]",
                   )}
                 >
                   <div
@@ -256,7 +256,7 @@ export function BottomInquirySection({
                         "w-[26px] h-[26px] rounded-[2px] border-2 bg-white flex items-center justify-center transition-all",
                         isRobotChecked
                           ? "border-[#0f9d58] bg-[#0f9d58]"
-                          : "border-[#c1c1c1] hover:border-[#999999]"
+                          : "border-[#c1c1c1] hover:border-[#999999]",
                       )}
                     >
                       {isRobotChecked && (
@@ -301,7 +301,9 @@ export function BottomInquirySection({
                   </div>
                 </div>
                 {errors.recaptcha && (
-                  <p className="text-xs text-red-500 mt-1">{errors.recaptcha}</p>
+                  <p className="text-xs text-red-500 mt-1">
+                    {errors.recaptcha}
+                  </p>
                 )}
               </div>
 
@@ -317,7 +319,7 @@ export function BottomInquirySection({
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="bg-[#729d00] hover:bg-[#648c00] active:bg-[#577a00] text-white font-bold text-[13px] tracking-wider uppercase px-7 py-3 rounded-[3px] transition-colors shadow-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="bg-[#5597CF] hover:bg-[#5597CF] active:bg-[#5597CF] text-white font-bold text-[13px] tracking-wider uppercase px-7 py-3 rounded-[3px] transition-colors shadow-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   {status === "submitting" ? (
                     <span className="flex items-center gap-2">

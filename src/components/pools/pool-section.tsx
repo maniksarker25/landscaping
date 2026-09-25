@@ -63,7 +63,7 @@ export interface PoolSectionProps {
   /** Custom extra styling */
   className?: string;
 
-  /** Header color class (e.g. text-[#729d00]) */
+  /** Header color class (e.g. text-[#5597CF]) */
   headerColor?: string;
 
   /** Service title for sidebar form / inquiry */

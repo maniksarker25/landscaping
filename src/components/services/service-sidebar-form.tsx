@@ -43,7 +43,8 @@ export function ServiceSidebarForm({
     "idle" | "submitting" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-  const [servicesList, setServicesList] = React.useState<string[]>(DEFAULT_SERVICES);
+  const [servicesList, setServicesList] =
+    React.useState<string[]>(DEFAULT_SERVICES);
 
   // Fetch dynamic service options if available from API
   React.useEffect(() => {
@@ -53,17 +54,17 @@ export function ServiceSidebarForm({
           const titles = json.data
             .map(
               (item: { title?: string; name?: string }) =>
-                item.title || item.name
+                item.title || item.name,
             )
             .filter(
               (t: string | undefined): t is string =>
-                Boolean(t) && typeof t === "string"
+                Boolean(t) && typeof t === "string",
             );
 
           if (titles.length > 0) {
             // Keep "Landscaping" at the top if present, otherwise merge unique
             const combined = Array.from(
-              new Set(["Landscaping", ...titles, ...DEFAULT_SERVICES])
+              new Set(["Landscaping", ...titles, ...DEFAULT_SERVICES]),
             );
             setServicesList(combined);
           }
@@ -77,9 +78,10 @@ export function ServiceSidebarForm({
   // Pre-select service if matched with currentServiceTitle
   React.useEffect(() => {
     if (currentServiceTitle) {
-      const match = servicesList.find((s) =>
-        s.toLowerCase().includes(currentServiceTitle.toLowerCase()) ||
-        currentServiceTitle.toLowerCase().includes(s.toLowerCase())
+      const match = servicesList.find(
+        (s) =>
+          s.toLowerCase().includes(currentServiceTitle.toLowerCase()) ||
+          currentServiceTitle.toLowerCase().includes(s.toLowerCase()),
       );
       if (match) {
         setFormData((prev) => ({ ...prev, service: match }));
@@ -90,7 +92,7 @@ export function ServiceSidebarForm({
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -162,7 +164,7 @@ export function ServiceSidebarForm({
       if (!res.ok) {
         const data = await res.json().catch(() => null);
         throw new Error(
-          data?.error || data?.message || "Failed to submit request"
+          data?.error || data?.message || "Failed to submit request",
         );
       }
 
@@ -182,7 +184,7 @@ export function ServiceSidebarForm({
       setErrorMessage(
         err instanceof Error
           ? err.message
-          : "Something went wrong. Please try again."
+          : "Something went wrong. Please try again.",
       );
     }
   };
@@ -191,11 +193,11 @@ export function ServiceSidebarForm({
     <div
       className={cn(
         "bg-[#fafafa] border border-[#e5e5e5] shadow-[0_3px_14px_rgba(0,0,0,0.05)] rounded-[4px] p-6 sm:p-7 sticky top-24 z-20 transition-all font-sans",
-        className
+        className,
       )}
     >
       {/* Title */}
-      <h2 className="text-[#729d00] font-bold text-2xl sm:text-[26px] tracking-tight leading-tight">
+      <h2 className="text-[#5597CF] font-bold text-2xl sm:text-[26px] tracking-tight leading-tight">
         Get Free Estimation
       </h2>
 
@@ -205,8 +207,8 @@ export function ServiceSidebarForm({
       </p>
 
       {status === "success" ? (
-        <div className="flex flex-col items-center gap-3 rounded-[3px] border border-[#729d00]/40 bg-[#729d00]/10 p-6 text-center animate-in fade-in">
-          <CheckCircle2 className="h-10 w-10 text-[#729d00]" />
+        <div className="flex flex-col items-center gap-3 rounded-[3px] border border-[#5597CF]/40 bg-[#5597CF]/10 p-6 text-center animate-in fade-in">
+          <CheckCircle2 className="h-10 w-10 text-[#5597CF]" />
           <h3 className="font-bold text-lg text-[#222222]">
             Estimation Request Sent!
           </h3>
@@ -217,7 +219,7 @@ export function ServiceSidebarForm({
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="mt-2 bg-[#729d00] hover:bg-[#648c00] text-white text-xs font-semibold px-4 py-2 rounded-[3px] transition-colors"
+            className="mt-2 bg-[#5597CF] hover:bg-[#5597CF] text-white text-xs font-semibold px-4 py-2 rounded-[3px] transition-colors"
           >
             Submit Another Request
           </button>
@@ -233,8 +235,8 @@ export function ServiceSidebarForm({
               onChange={handleChange}
               placeholder="Your Name(required)"
               className={cn(
-                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
-                errors.name ? "border-red-500" : "border-[#dedede]"
+                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors",
+                errors.name ? "border-red-500" : "border-[#dedede]",
               )}
             />
             {errors.name && (
@@ -251,8 +253,8 @@ export function ServiceSidebarForm({
               onChange={handleChange}
               placeholder="Email(required)"
               className={cn(
-                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
-                errors.email ? "border-red-500" : "border-[#dedede]"
+                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors",
+                errors.email ? "border-red-500" : "border-[#dedede]",
               )}
             />
             {errors.email && (
@@ -269,8 +271,8 @@ export function ServiceSidebarForm({
               onChange={handleChange}
               placeholder="Phone(required)"
               className={cn(
-                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
-                errors.phone ? "border-red-500" : "border-[#dedede]"
+                "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors",
+                errors.phone ? "border-red-500" : "border-[#dedede]",
               )}
             />
             {errors.phone && (
@@ -284,7 +286,7 @@ export function ServiceSidebarForm({
               name="service"
               value={formData.service}
               onChange={handleChange}
-              className="w-full h-[45px] px-3.5 pr-10 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors appearance-none cursor-pointer"
+              className="w-full h-[45px] px-3.5 pr-10 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors appearance-none cursor-pointer"
             >
               {servicesList.map((serviceName) => (
                 <option key={serviceName} value={serviceName}>
@@ -311,7 +313,7 @@ export function ServiceSidebarForm({
               value={formData.address}
               onChange={handleChange}
               placeholder="Address"
-              className="w-full h-[45px] px-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors"
+              className="w-full h-[45px] px-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors"
             />
           </div>
 
@@ -323,7 +325,7 @@ export function ServiceSidebarForm({
               onChange={handleChange}
               rows={4}
               placeholder="Message"
-              className="w-full min-h-[110px] p-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors resize-y"
+              className="w-full min-h-[110px] p-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#5597CF] focus:ring-0 focus:outline-none transition-colors resize-y"
             />
           </div>
 
@@ -332,7 +334,7 @@ export function ServiceSidebarForm({
             <div
               className={cn(
                 "h-[74px] border bg-[#f9f9f9] rounded-[3px] px-3.5 flex items-center justify-between transition-colors select-none",
-                errors.recaptcha ? "border-red-400" : "border-[#d3d3d3]"
+                errors.recaptcha ? "border-red-400" : "border-[#d3d3d3]",
               )}
             >
               <div
@@ -353,7 +355,7 @@ export function ServiceSidebarForm({
                     "w-[26px] h-[26px] rounded-[2px] border-2 bg-white flex items-center justify-center transition-all",
                     isRobotChecked
                       ? "border-[#0f9d58] bg-[#0f9d58]"
-                      : "border-[#c1c1c1] hover:border-[#999999]"
+                      : "border-[#c1c1c1] hover:border-[#999999]",
                   )}
                 >
                   {isRobotChecked && (
@@ -415,7 +417,7 @@ export function ServiceSidebarForm({
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="bg-[#729d00] hover:bg-[#648c00] active:bg-[#577a00] text-white font-bold text-[13px] tracking-wider uppercase px-7 py-3 rounded-[3px] transition-colors shadow-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+              className="bg-[#5597CF] hover:bg-[#5597CF] active:bg-[#5597CF] text-white font-bold text-[13px] tracking-wider uppercase px-7 py-3 rounded-[3px] transition-colors shadow-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
             >
               {status === "submitting" ? (
                 <span className="flex items-center gap-2">
