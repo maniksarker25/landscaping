@@ -66,10 +66,14 @@ export function Navbar() {
 
   const navItems = siteConfig.nav;
 
-  const isItemActive = (item: NavItem) =>
-    item?.href === "/"
-      ? pathname === "/"
-      : Boolean(pathname?.startsWith(item?.href));
+  const isItemActive = (item: NavItem) => {
+    if (item?.href === "/") return pathname === "/";
+    if (pathname === item?.href || pathname?.startsWith(item?.href)) return true;
+    if (item?.children?.some((child) => pathname === child.href || pathname?.startsWith(child.href))) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <div

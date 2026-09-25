@@ -62,31 +62,36 @@ export const poolsNavItems: NavChild[] = [
   {
     label: "Swimming Pool Construction",
     href: "/services/swimming-pool-construction",
-    description: "Turnkey luxury swimming pool design and construction in Dubai.",
+    description:
+      "Turnkey luxury swimming pool design and construction in Dubai.",
     icon: Waves,
   },
   {
     label: "Skimmer Swimming Pool",
     href: "/services/skimmer-swimming-pool",
-    description: "Classic and durable skimmer swimming pools tailored to your space.",
+    description:
+      "Classic and durable skimmer swimming pools tailored to your space.",
     icon: CircleDot,
   },
   {
     label: "Overflow Swimming Pool",
     href: "/services/overflow-swimming-pool",
-    description: "Sleek perimeter overflow pools with mirror-like water surface.",
+    description:
+      "Sleek perimeter overflow pools with mirror-like water surface.",
     icon: Droplets,
   },
   {
     label: "Infinity Swimming Pool",
     href: "/services/infinity-swimming-pool",
-    description: "Vanishing-edge infinity pools with breathtaking panoramic views.",
+    description:
+      "Vanishing-edge infinity pools with breathtaking panoramic views.",
     icon: InfinityIcon,
   },
   {
     label: "Swimming Pool Maintenance",
     href: "/services/swimming-pool-maintenance",
-    description: "Professional cleaning, chemical balancing, and equipment care.",
+    description:
+      "Professional cleaning, chemical balancing, and equipment care.",
     icon: Wrench,
   },
   {
@@ -98,7 +103,8 @@ export const poolsNavItems: NavChild[] = [
   {
     label: "Water Fountains",
     href: "/services/water-fountains",
-    description: "Architectural decorative fountains for luxury outdoor spaces.",
+    description:
+      "Architectural decorative fountains for luxury outdoor spaces.",
     icon: GlassWater,
   },
 ];
@@ -107,25 +113,29 @@ export const landscapingNavItems: NavChild[] = [
   {
     label: "Villa Landscaping",
     href: "/services/villa-landscaping",
-    description: "Comprehensive luxury villa garden design, hardscaping & planting.",
+    description:
+      "Comprehensive luxury villa garden design, hardscaping & planting.",
     icon: Trees,
   },
   {
     label: "Residential Landscaping",
     href: "/services/residential-landscaping",
-    description: "Bespoke outdoor environments for private residences and townhouses.",
+    description:
+      "Bespoke outdoor environments for private residences and townhouses.",
     icon: Building2,
   },
   {
     label: "Commercial Landscaping",
     href: "/services/commercial-landscaping",
-    description: "Large-scale landscape architecture for commercial properties and resorts.",
+    description:
+      "Large-scale landscape architecture for commercial properties and resorts.",
     icon: Building2,
   },
   {
     label: "Gardening Services",
     href: "/services/gardening-services",
-    description: "Professional garden maintenance, irrigation, and horticultural care.",
+    description:
+      "Professional garden maintenance, irrigation, and horticultural care.",
     icon: Sprout,
   },
 ];
@@ -199,12 +209,12 @@ export const siteConfig: SiteConfig = {
       { label: "Home", href: "/" },
       {
         label: "Pools",
-        href: "/pools",
+        href: "/services/swimming-pool-construction",
         children: poolsNavItems,
       },
       {
         label: "Landscaping",
-        href: "/landscaping",
+        href: "/services/villa-landscaping",
         children: landscapingNavItems,
       },
       { label: "Project", href: "/projects" },

@@ -67,7 +67,15 @@ export function MobileMenu({ items }: MobileMenuProps) {
                 const isActive =
                   item?.href === "/"
                     ? pathname === "/"
-                    : Boolean(pathname?.startsWith(item?.href));
+                    : Boolean(
+                        pathname === item?.href ||
+                        pathname?.startsWith(item?.href) ||
+                        item?.children?.some(
+                          (child) =>
+                            pathname === child.href ||
+                            pathname?.startsWith(child.href),
+                        ),
+                      );
 
                 if (item?.children?.length) {
                   return (
