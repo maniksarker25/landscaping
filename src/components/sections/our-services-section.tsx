@@ -13,7 +13,7 @@ export function OurServicesSection() {
       title: "Swimming Pool",
       description:
         "Experience what true luxury feels with our bespoke swimming pool construction services. We specialize in Overflow Swimming Pools, Infinity Swimming Pools, and Skimmer Swimming Pools, ensuring each design is tailored to your specific requirements.",
-      href: "/pools",
+      href: "/services/swimming-pool-construction",
       image: "/images/hero2-bg.png",
       alt: "Custom Swimming Pool Construction in Dubai",
     },
@@ -22,7 +22,7 @@ export function OurServicesSection() {
       title: "Landscaping & Outdoor Living",
       description:
         "Transform your outdoor space into a beautiful paradise with our landscaping and outdoor living services. From gardens, pergolas, and gazebos to complete outdoor transformations, we bring creativity, quality, and attention to detail to every project.",
-      href: "/landscaping",
+      href: "/services/villa-landscaping",
       image: "/images/hero1-bg.png",
       alt: "Landscaping & Outdoor Living Design in Dubai",
     },

@@ -62,8 +62,11 @@ export async function Footer() {
 
   const quickLinks = [
     { label: "Home", href: "/" },
-    { label: "Swimming Pools", href: "/pools" },
-    { label: "Landscaping & Outdoor Living", href: "/landscaping" },
+    { label: "Swimming Pools", href: "/services/swimming-pool-construction" },
+    {
+      label: "Landscaping & Outdoor Living",
+      href: "/services/villa-landscaping",
+    },
     { label: "Our Projects", href: "/projects" },
     { label: "Contact Us", href: "/contact" },
   ];
@@ -81,10 +84,6 @@ export async function Footer() {
     { label: "Outdoor Renovation", href: "#" },
   ];
 
-
-
-
-
   return (
     <footer className="bg-primary text-white pt-16 pb-6 border-t border-neutral-900">
       <Container className="max-w-7xl mx-auto">
@@ -97,7 +96,8 @@ export async function Footer() {
             <p className="text-sm text-neutral-300 leading-relaxed max-w-sm">
               {companyName} offers landscaping &amp; swimming pool construction
               services in Dubai. Our expert landscape designers can help you to
-              build the ideal design for your commercial or residential property.
+              build the ideal design for your commercial or residential
+              property.
             </p>
             {/* Social Media Links */}
             <div className="pt-2 flex items-center gap-3">
