@@ -2,15 +2,14 @@
 
 import * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ZoomIn, ArrowRight } from "lucide-react";
+import { ZoomIn } from "lucide-react";
 import type { GalleryItem } from "@/types/gallery";
 
 export interface GalleryCardProps {
   item: GalleryItem;
   index: number;
-  targetSlug: string;
+  targetSlug?: string;
   onSelectImage: (index: number) => void;
   isShowText?: boolean;
 }
@@ -18,17 +17,11 @@ export interface GalleryCardProps {
 export const GalleryCard = React.memo(function GalleryCard({
   item,
   index,
-  targetSlug,
-  isShowText,
   onSelectImage,
 }: GalleryCardProps) {
   const handleClickImage = React.useCallback(() => {
     onSelectImage(index);
   }, [onSelectImage, index]);
-
-  const handleLinkClick = React.useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-  }, []);
 
   return (
     <motion.div

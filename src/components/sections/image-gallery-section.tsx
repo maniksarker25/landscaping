@@ -75,11 +75,7 @@ export function ImageGallerySection({
 }: ImageGallerySectionProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  if (!images || images.length === 0) {
-    return null;
-  }
-
-  const normalizedImages: GalleryImage[] = images.map((item, idx) => {
+  const normalizedImages: GalleryImage[] = (images || []).map((item, idx) => {
     if (typeof item === "string") {
       return { url: item, alt: `Gallery image ${idx + 1}` };
     }
@@ -93,30 +89,35 @@ export function ImageGallerySection({
   const openLightbox = (index: number) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
 
-  const prevImage = () => {
-    if (lightboxIndex !== null) {
-      setLightboxIndex(
-        (lightboxIndex - 1 + normalizedImages.length) % normalizedImages.length,
-      );
-    }
-  };
+  const prevImage = React.useCallback(() => {
+    setLightboxIndex((prev) =>
+      prev !== null
+        ? (prev - 1 + normalizedImages.length) % normalizedImages.length
+        : null,
+    );
+  }, [normalizedImages.length]);
 
-  const nextImage = () => {
-    if (lightboxIndex !== null) {
-      setLightboxIndex((lightboxIndex + 1) % normalizedImages.length);
-    }
-  };
+  const nextImage = React.useCallback(() => {
+    setLightboxIndex((prev) =>
+      prev !== null ? (prev + 1) % normalizedImages.length : null,
+    );
+  }, [normalizedImages.length]);
 
   React.useEffect(() => {
+    if (lightboxIndex === null) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (lightboxIndex === null) return;
       if (e.key === "Escape") closeLightbox();
       if (e.key === "ArrowLeft") prevImage();
       if (e.key === "ArrowRight") nextImage();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex]);
+  }, [lightboxIndex, prevImage, nextImage]);
+
+  if (!images || images.length === 0) {
+    return null;
+  }
 
   const gridColsClass =
     columns === 4

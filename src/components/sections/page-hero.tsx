@@ -9,7 +9,7 @@ interface PageHeroProps {
   image?: StaticImageData;
 }
 
-export function PageHero({ image, eyebrow, title, description }: PageHeroProps) {
+export function PageHero({ image, title, description }: PageHeroProps) {
   const bgStyle = image?.src
     ? {
       backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.45)), url(${image.src})`,

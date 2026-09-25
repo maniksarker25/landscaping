@@ -14,7 +14,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";

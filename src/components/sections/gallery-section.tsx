@@ -55,7 +55,6 @@ export interface GalleryProps {
 
 export function Gallery({
   initialData,
-  initialMeta,
   initialTestimonials,
 }: GalleryProps) {
   // Synchronous initial state from SSR props
@@ -69,7 +68,6 @@ export function Gallery({
     return [];
   });
 
-  const [_meta, setMeta] = useState<GalleryMeta | undefined>(initialMeta);
   const [loading, setLoading] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
@@ -208,7 +206,6 @@ export function Gallery({
           );
           return newItems.length > 0 ? [...prev, ...newItems] : prev;
         });
-        if (json?.meta) setMeta(json.meta);
       }
     } catch (err) {
       console.error("Failed to refetch gallery category items:", err);

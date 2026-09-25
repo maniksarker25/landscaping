@@ -10,7 +10,6 @@ import {
   Palette,
   Trees,
   Sprout,
-  Flower2,
   Lightbulb,
 } from "lucide-react";
 import type { PoolFeatureItem } from "@/types/service";

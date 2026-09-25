@@ -42,6 +42,7 @@ export interface PoolSectionProps {
    * The data to pass to the section.
    * Accepts arrays or objects matching the section's expected data shape.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
 
   /** Optional heading or title override */
