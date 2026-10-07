@@ -129,7 +129,7 @@ export function ImageGallerySection({
   return (
     <div className={cn("space-y-4 font-sans", className)}>
       {title && (
-        <h2 className="text-2xl lg:text-[28px] font-bold text-[#729d00] leading-tight tracking-tight">
+        <h2 className="text-2xl lg:text-[28px] font-bold text-primary leading-tight tracking-tight">
           {title}
         </h2>
       )}

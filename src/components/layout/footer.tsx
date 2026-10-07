@@ -18,15 +18,10 @@ export async function Footer() {
   const legalRes = await fetchLegalInfo();
   const legalInfo = legalRes.data;
 
-  const companyName = legalInfo?.companyName || "Dream Floor Landscaping LLC";
-  const address =
-    legalInfo?.registeredAddress ||
-    siteConfig.address ||
-    "Al Quoz 3, Dubai - UAE";
-  const phone =
-    legalInfo?.contactPhone || siteConfig.phone || "+971 4 000 0000";
-  const email =
-    legalInfo?.contactEmail || siteConfig.email || "info@dreamfloor.ae";
+  const companyName = "Dream Floor Landscaping LLC";
+  const address = "Al Quoz 3, Dubai - UAE";
+  const phone = "+971 4 000 0000";
+  const email = "info@dreamfloor.ae";
 
   const socialLinks = [
     {
@@ -110,7 +105,7 @@ export async function Footer() {
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[#729d00] text-white transition-colors hover:bg-primary border hover:border-[#729d00] hover:text-white"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white transition-colors"
                   >
                     <Icon className="h-4.5 w-4.5" aria-hidden="true" />
                   </a>
@@ -172,9 +167,9 @@ export async function Footer() {
               <li>
                 <a
                   href={toTelHref(phone)}
-                  className="flex items-center gap-3 transition-colors hover:text-white group"
+                  className="flex items-center gap-3 transition-colors hover:text-white"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white group-hover:bg-white group-hover:text-white transition-colors">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors">
                     <Phone className="h-4 w-4" />
                   </div>
                   <span className="font-semibold text-white/90">{phone}</span>
@@ -188,7 +183,7 @@ export async function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 transition-colors hover:text-white group"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white group-hover:bg-white group-hover:text-white transition-colors">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors">
                     <MessageCircle className="h-4 w-4" />
                   </div>
                   <span className="font-semibold text-white/90">
@@ -202,7 +197,7 @@ export async function Footer() {
                   href={`mailto:${email}`}
                   className="flex items-center gap-3 transition-colors hover:text-white group"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white group-hover:bg-white group-hover:text-white transition-colors">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-colors">
                     <Mail className="h-4 w-4" />
                   </div>
                   <span className="font-semibold text-white/90 break-all">

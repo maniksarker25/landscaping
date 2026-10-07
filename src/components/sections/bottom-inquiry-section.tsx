@@ -319,7 +319,7 @@ export function BottomInquirySection({
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="bg-[#729d00] hover:bg-[#729d00] active:bg-[#729d00] text-white font-bold text-[13px] tracking-wider uppercase px-7 py-3 rounded-[3px] transition-colors shadow-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="bg-primary hover:bg-primary active:bg-primary text-white font-bold text-[13px] tracking-wider uppercase px-7 py-3 rounded-[3px] transition-colors shadow-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   {status === "submitting" ? (
                     <span className="flex items-center gap-2">

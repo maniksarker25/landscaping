@@ -18,7 +18,7 @@ export const DEFAULT_GOOGLE_REVIEWS: ReviewItem[] = [
     id: "rev-1",
     name: "Nidhi Aggarwal",
     rating: 5,
-    text: "We had a good experience with Four Seasons. We employed three different contractor teams to make our house and must say that Four Seasons was the most efficient and professional of all three. Timely work finished and in good quality. We are happy.",
+    text: "We had a good experience with Dream Floor Landscaping. We employed three different contractor teams to make our house and must say that Dream Floor Landscaping was the most efficient and professional of all three. Timely work finished and in good quality. We are happy.",
   },
   {
     id: "rev-2",
@@ -60,7 +60,7 @@ export const DEFAULT_GOOGLE_REVIEWS: ReviewItem[] = [
     id: "rev-8",
     name: "Lilian K",
     rating: 5,
-    text: "I recently had Four Seasons build a swimming pool and landscaping for my property in Arabian Ranches. The team was professional, detail oriented and completed the project ahead of schedule and at a good price.",
+    text: "I recently had Dream Floor Landscaping build a swimming pool and landscaping for my property in Arabian Ranches. The team was professional, detail oriented and completed the project ahead of schedule and at a good price.",
   },
   {
     id: "rev-9",

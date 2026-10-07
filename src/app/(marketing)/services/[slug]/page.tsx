@@ -46,7 +46,7 @@ export async function generateMetadata({
 
   if (poolStatic) {
     return {
-      title: `${poolStatic.metaTitle || poolStatic.title} | Four Seasons Landscaping Dubai`,
+      title: `${poolStatic.metaTitle || poolStatic.title} | Dream Floor Landscaping Landscaping Dubai`,
       description: poolStatic.metaDescription,
       openGraph: {
         title: poolStatic.metaTitle || poolStatic.title,
@@ -59,12 +59,14 @@ export async function generateMetadata({
   const landscapingStatic = getLandscapingStaticDataBySlug(slug);
   if (landscapingStatic) {
     return {
-      title: `${landscapingStatic.metaTitle || landscapingStatic.title} | Four Seasons Landscaping Dubai`,
+      title: `${landscapingStatic.metaTitle || landscapingStatic.title} | Dream Floor Landscaping Landscaping Dubai`,
       description: landscapingStatic.metaDescription,
       openGraph: {
         title: landscapingStatic.metaTitle || landscapingStatic.title,
         description: landscapingStatic.metaDescription,
-        images: [{ url: landscapingStatic.heroImage || landscapingStatic.ogImage }],
+        images: [
+          { url: landscapingStatic.heroImage || landscapingStatic.ogImage },
+        ],
       },
     };
   }
@@ -79,7 +81,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${service?.seo?.metaTitle || service?.title} | Four Seasons Landscaping Dubai`,
+    title: `${service?.seo?.metaTitle || service?.title} | Dream Floor Landscaping Landscaping Dubai`,
     description: service?.seo?.metaDescription || "",
     keywords: service?.seo?.keywords || [],
     openGraph: {
