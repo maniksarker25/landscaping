@@ -20,7 +20,7 @@ export async function Footer() {
 
   const companyName = "Dream Floor Landscaping LLC";
   const address = "Al Quoz 3, Dubai - UAE";
-  const phone = "+971 4 000 0000";
+  const phone = "+971 50 664 8085";
   const email = "info@dreamfloor.ae";
 
   const socialLinks = [
@@ -68,15 +68,7 @@ export async function Footer() {
 
   const serviceLinks = [
     { label: "Landscaping", href: "#" },
-    { label: "Swimming Pool", href: "#" },
-    { label: "Pergola", href: "#" },
-    { label: "Gazebo", href: "#" },
-    { label: "Gardening", href: "#" },
-    { label: "Irrigation", href: "#" },
-    { label: "Water Features", href: "#" },
-    { label: "Outdoor Lighting", href: "#" },
-    { label: "Hardscape (Paving & Pathways)", href: "#" },
-    { label: "Outdoor Renovation", href: "#" },
+    { label: "Swimming Pool", href: "#" }
   ];
 
   return (

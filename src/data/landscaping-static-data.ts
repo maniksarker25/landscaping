@@ -90,7 +90,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
       ctaBanner: {
         title: "Looking for Villa Landscape Contractors in Dubai?",
         phoneText: "Call us today at",
-        phoneNumber: "+971 551889002",
+        phoneNumber: "+971 50 664 8085",
       },
       gallery1: [
         {
@@ -469,7 +469,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
       ctaBanner: {
         title: "Looking for Residential Landscape Contractors in Dubai?",
         phoneText: "Call us today at",
-        phoneNumber: "+971 551889002",
+        phoneNumber: "+971 50 664 8085",
       },
       gallery1: [
         {
@@ -820,7 +820,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
       ctaBanner: {
         title: "Looking for Commercial Landscape Contractors in Dubai?",
         phoneText: "Call us today at",
-        phoneNumber: "+971 551889002",
+        phoneNumber: "+971 50 664 8085",
       },
       gallery1: [
         {
@@ -1228,7 +1228,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
       ctaBanner: {
         title: "Looking for Garden Maintenance Services in Dubai?",
         phoneText: "Call us today at",
-        phoneNumber: "+971 551889002",
+        phoneNumber: "+971 50 664 8085",
       },
       gallery1: [
         {
@@ -1530,7 +1530,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
         },
         {
           mainHeader:
-            "If you're a busy individual seeking a reliable team to maintain your garden landscape, you've come to the right place. Call us today at  +971 551889002",
+            "If you're a busy individual seeking a reliable team to maintain your garden landscape, you've come to the right place. Call us today at  +971 50 664 8085",
           paragraphs: [
             "Ready to experience the best garden maintenance services in Dubai? Contact Dream Floor Landscaping Pool &amp; Gardens Landscaping LLC today to schedule a consultation. Let us help you create and maintain a garden that enhances the beauty of your property and brings joy to your outdoor living experience.",
           ],

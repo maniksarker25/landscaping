@@ -26,7 +26,7 @@ export const GalleryCard = React.memo(function GalleryCard({
   return (
     <motion.div
       key={item?._id}
-      className="group relative rounded-lg overflow-hidden flex flex-col bg-card shadow-sm border border-border/70 hover:border-[#71a600]/60 transition-all duration-300 transform-gpu cursor-pointer"
+      className="group relative rounded-lg overflow-hidden flex flex-col bg-card shadow-sm border border-border/70 hover:border-primary/60 transition-all duration-300 transform-gpu cursor-pointer"
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.98 }}
@@ -47,7 +47,7 @@ export const GalleryCard = React.memo(function GalleryCard({
 
         {/* Visual Premium Hover Overlay matching poolsgardensuae */}
         <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-3 text-center">
-          <div className="h-10 w-10 rounded-full bg-white/90 text-[#71a600] flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform mb-2">
+          <div className="h-10 w-10 rounded-full bg-white/90 text-primary flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform mb-2">
             <ZoomIn className="h-5 w-5" />
           </div>
           <span className="text-white text-xs font-semibold drop-shadow-md line-clamp-1 max-w-[90%]">
@@ -58,4 +58,3 @@ export const GalleryCard = React.memo(function GalleryCard({
     </motion.div>
   );
 });
-
