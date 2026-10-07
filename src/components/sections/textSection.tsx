@@ -21,10 +21,10 @@ export function TextSection({
   description,
   bulletPoints,
   className,
-  headerColor = "text-[#729d00]",
+  headerColor = "text-primary",
 }: TextSectionProps) {
   return (
-    <div className={cn("space-y-3.5 text-[#333333] font-sans", className)}>
+    <div className={cn("space-y-3.5 text-primary font-sans", className)}>
       {mainHeader && (
         <h2
           className={cn(

@@ -4,7 +4,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-01",
     location: "Emirates Hills, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_8657-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_8657-scaled.jpg",
     imageAlt: "Luxury Swimming Pool & Garden Landscaping",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -14,7 +15,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-02",
     location: "Palm Jumeirah, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_1561-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_1561-scaled.jpg",
     imageAlt: "Overflow Swimming Pool Construction",
     category: "pools",
     slug: "overflow-swimming-pool-construction",
@@ -24,7 +26,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-03",
     location: "Al Barari, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_1704-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_1704-scaled.jpg",
     imageAlt: "Villa Landscaping & Private Oasis Pool",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -34,7 +37,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-04",
     location: "Arabian Ranches, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/AB409052-8981-4097-8368-3987819B3320.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/AB409052-8981-4097-8368-3987819B3320.jpg",
     imageAlt: "Luxury Villa Garden & Lawn Design",
     category: "landscaping",
     slug: "residential-landscaping-company",
@@ -44,7 +48,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-05",
     location: "Dubai Hills Estate",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/c2874303-aa34-4c75-82d4-80eec97fd795.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/c2874303-aa34-4c75-82d4-80eec97fd795.jpg",
     imageAlt: "Modern Infinity Pool with Sun Shelf",
     category: "pools",
     slug: "infinity-swimming-pool-construction",
@@ -54,7 +59,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-06",
     location: "Jumeirah Golf Estates, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_0244-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_0244-scaled.jpg",
     imageAlt: "Contemporary Swimming Pool Construction",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -64,7 +70,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-07",
     location: "Tilal Al Ghaf, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/fc3f6ae0-0f5a-4b23-a337-75294aba6cd3.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/fc3f6ae0-0f5a-4b23-a337-75294aba6cd3.jpg",
     imageAlt: "Residential Pool & Modern Decking",
     category: "pools",
     slug: "skimmer-swimming-pool-construction",
@@ -74,7 +81,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-08",
     location: "Mudon, Rahat Villa, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_1034-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_1034-scaled.jpg",
     imageAlt: "Custom Swimming Pool & Outdoor Majlis",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -84,7 +92,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-09",
     location: "Jumeirah Islands, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_2226.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_2226.jpg",
     imageAlt: "Architectural Landscaping & Water Features",
     category: "landscaping",
     slug: "water-features-dubai",
@@ -94,7 +103,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-10",
     location: "Arabian Ranches II, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_2259-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_2259-scaled.jpg",
     imageAlt: "Villa Landscaping with Custom Wooden Pergola",
     category: "outdoor-living",
     slug: "pergola-gazebo-services-dubai",
@@ -104,7 +114,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-11",
     location: "The Villa, Dubai Land",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_2395.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_2395.jpg",
     imageAlt: "Custom Wooden Pergola & Outdoor Dining Gazebo",
     category: "outdoor-living",
     slug: "pergola-gazebo-services-dubai",
@@ -114,7 +125,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-12",
     location: "Meadows, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_2837-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_2837-scaled.jpg",
     imageAlt: "Garden Maintenance, Turf & Mature Trees",
     category: "landscaping",
     slug: "gardening-services-dubai",
@@ -124,7 +136,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-13",
     location: "Al Barsha, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_3280-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_3280-scaled.jpg",
     imageAlt: "Modern Swimming Pool Lighting & Night Ambience",
     category: "pools",
     slug: "landscape-lighting-services-dubai",
@@ -134,7 +147,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-14",
     location: "Emirates Hills, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_3522-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_3522-scaled.jpg",
     imageAlt: "Luxury Villa Landscape Architecture & Greenery",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -144,7 +158,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-15",
     location: "Dubai Hills, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_3525-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_3525-scaled.jpg",
     imageAlt: "Backyard Resort Transformation & Pool Deck",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -154,7 +169,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-16",
     location: "Palm Jumeirah Villa, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_4724-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_4724-scaled.jpg",
     imageAlt: "Custom Swimming Pool Design with Coping",
     category: "pools",
     slug: "overflow-swimming-pool-construction",
@@ -164,7 +180,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-17",
     location: "Jumeirah Park, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_4735-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_4735-scaled.jpg",
     imageAlt: "Infinity Edge Swimming Pool & Stepping Stones",
     category: "pools",
     slug: "infinity-swimming-pool-construction",
@@ -174,7 +191,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-18",
     location: "Dubai Hills Estate",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_9147-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_9147-scaled.jpg",
     imageAlt: "Illuminated Luxury Swimming Pool at Dusk",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -184,7 +202,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-19",
     location: "Nad Al Sheba, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_20251226_1923112_Original-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_20251226_1923112_Original-scaled.jpg",
     imageAlt: "Integrated Landscaping & Outdoor Living Area",
     category: "outdoor-living",
     slug: "barbecue-setup-services",
@@ -194,7 +213,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-20",
     location: "Mudon, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-2.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-2.jpg",
     imageAlt: "Geometric Family Swimming Pool & Stone Pavers",
     category: "pools",
     slug: "skimmer-swimming-pool-construction",
@@ -204,7 +224,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-21",
     location: "Arabian Ranches, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-8-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-8-scaled.jpg",
     imageAlt: "Sunken Seating Fire Pit & Surrounding Swimming Pool",
     category: "outdoor-living",
     slug: "villa-landscaping-dubai",
@@ -214,7 +235,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-22",
     location: "Tilal Al Ghaf, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-9-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-9-scaled.jpg",
     imageAlt: "Complete Backyard Pool & Manicured Lawn",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -224,7 +246,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-23",
     location: "Al Barari, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-10-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-10-scaled.jpg",
     imageAlt: "Tropical Palm Planting & Modern Landscape Hardscape",
     category: "landscaping",
     slug: "residential-landscaping-company",
@@ -234,7 +257,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-24",
     location: "Victory Heights, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-4-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-4-scaled.jpg",
     imageAlt: "Villa Garden Makeover with Pergola & Turf",
     category: "outdoor-living",
     slug: "pergola-gazebo-services-dubai",
@@ -244,7 +268,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-25",
     location: "Jumeirah Golf Estates, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-3-scaled.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-3-scaled.jpg",
     imageAlt: "Swimming Pool Coping, Ceramic Tiling & Filtration",
     category: "pools",
     slug: "swimming-pool-maintenance-services-dubai",
@@ -254,7 +279,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-26",
     location: "Business Bay, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping-4.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping-4.jpg",
     imageAlt: "Commercial Landscaping & Courtyard Greenery",
     category: "landscaping",
     slug: "commercial-landscaping-company",
@@ -264,7 +290,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-27",
     location: "DIFC, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping-3.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping-3.jpg",
     imageAlt: "Commercial Outdoor Planters & Shrubbery",
     category: "landscaping",
     slug: "commercial-landscaping-company",
@@ -274,7 +301,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-28",
     location: "Downtown Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping-2.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Commerical-Landscaping-Four-Seasons-Pool-Gardens-Landscaping-2.jpg",
     imageAlt: "Commercial Landscape Architecture & Walkways",
     category: "landscaping",
     slug: "commercial-landscaping-company",
@@ -284,7 +312,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-29",
     location: "Jumeirah Village Circle, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-3.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-3.jpg",
     imageAlt: "Residential Landscaping Contractor Dubai",
     category: "landscaping",
     slug: "residential-landscaping-company",
@@ -294,7 +323,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-30",
     location: "Springs, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping.jpg",
     imageAlt: "Residential Garden Path & Green Hedge Landscaping",
     category: "landscaping",
     slug: "residential-landscaping-company",
@@ -304,7 +334,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-31",
     location: "Arabian Ranches, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-6-1.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-6-1.jpg",
     imageAlt: "Residential Villa Landscape Architecture",
     category: "landscaping",
     slug: "residential-landscaping-company",
@@ -314,7 +345,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-32",
     location: "Al Barari, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-7-1.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Residential-Landscaping-Contractor-Four-Seasons-Pool-Gardens-Landscaping-7-1.jpg",
     imageAlt: "Garden Maintenance Services & Pruning",
     category: "landscaping",
     slug: "gardening-services-dubai",
@@ -324,8 +356,9 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-33",
     location: "Dubai Marina, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Four-Seasons-Garden-Maintenance-Services.jpg",
-    imageAlt: "Four Seasons Professional Garden Maintenance",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Four-Seasons-Garden-Maintenance-Services.jpg",
+    imageAlt: "Dream Floor Landscaping Professional Garden Maintenance",
     category: "landscaping",
     slug: "gardening-services-dubai",
     createdAt: "2024-07-20T10:00:00.000Z",
@@ -334,7 +367,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-34",
     location: "Emirates Hills, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Four-Seasons-Irrigation-Services-Dubai.jpeg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Four-Seasons-Irrigation-Services-Dubai.jpeg",
     imageAlt: "Automated Smart Irrigation System Installation",
     category: "landscaping",
     slug: "irrigation-services-dubai",
@@ -344,7 +378,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-35",
     location: "Jumeirah Islands, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Four-Seasons-Irrigation-Services-Dubai-3.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Four-Seasons-Irrigation-Services-Dubai-3.jpg",
     imageAlt: "Subsurface Drip Irrigation & Spray Heads",
     category: "landscaping",
     slug: "irrigation-services-dubai",
@@ -354,7 +389,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-36",
     location: "Palm Jumeirah, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Four-Seasons-Irrigation-Services-Dubai-2.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Four-Seasons-Irrigation-Services-Dubai-2.jpg",
     imageAlt: "Lawn & Garden Sprinkler System Dubai",
     category: "landscaping",
     slug: "irrigation-services-dubai",
@@ -364,7 +400,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-37",
     location: "Dubai Hills Estate",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
     imageAlt: "Turnkey Landscaping Services in Dubai",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -374,7 +411,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-38",
     location: "Nad Al Sheba, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Luxurious-Landscape.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Luxurious-Landscape.jpg",
     imageAlt: "Luxurious Landscape Design Dubai",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -384,7 +422,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-39",
     location: "Meydan, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Spacious-Landscape.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Spacious-Landscape.jpg",
     imageAlt: "Spacious Landscape & Outdoor Dining Zone",
     category: "landscaping",
     slug: "residential-landscaping-company",
@@ -394,7 +433,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-40",
     location: "Al Barsha, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Roman-Style-Landscape.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Roman-Style-Landscape.jpg",
     imageAlt: "Classical Roman Style Villa Landscape",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -404,7 +444,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-41",
     location: "Jumeirah, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/English-Style-Landscape.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/English-Style-Landscape.jpg",
     imageAlt: "English Style Landscape Architecture",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -414,7 +455,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-42",
     location: "Dubai Hills Estate",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Contemporary-Landscape.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Contemporary-Landscape.jpg",
     imageAlt: "Contemporary Minimalist Villa Landscape",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -424,7 +466,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-43",
     location: "Tilal Al Ghaf, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-for-New-Property-in-Dubai.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-for-New-Property-in-Dubai.jpg",
     imageAlt: "Landscaping for New Property in Dubai",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -434,7 +477,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-44",
     location: "Palm Jumeirah, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Swimming-Pool-Construction-Cost-in-Dubai.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Swimming-Pool-Construction-Cost-in-Dubai.jpg",
     imageAlt: "Swimming Pool Construction in Dubai",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -444,7 +488,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-45",
     location: "Meadows, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Skimmer-Swimming-Pool-Construction-in-Dubai-2.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/06/Skimmer-Swimming-Pool-Construction-in-Dubai-2.jpg",
     imageAlt: "Skimmer Swimming Pool Construction Dubai",
     category: "pools",
     slug: "skimmer-swimming-pool-construction",
@@ -454,7 +499,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-46",
     location: "Arabian Ranches, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/swimming-pool-and-landscaping-companies-in-dubai-2-1.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/swimming-pool-and-landscaping-companies-in-dubai-2-1.jpg",
     imageAlt: "Swimming Pool & Landscaping Companies Dubai",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -464,7 +510,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-47",
     location: "Jumeirah Golf Estates, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Dubais-Premier-Landscaping-Company.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/07/Dubais-Premier-Landscaping-Company.jpg",
     imageAlt: "Dubai's Premier Landscaping Company Project",
     category: "landscaping",
     slug: "villa-landscaping-dubai",
@@ -474,7 +521,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-48",
     location: "Emirates Hills, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-and-landscaping-companies-in-dubai.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-and-landscaping-companies-in-dubai.jpg",
     imageAlt: "Swimming Pool and Landscaping Project",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
@@ -484,7 +532,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-49",
     location: "Al Barari, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Top-Swimming-Pool-Design-Trends-in-Dubai-for-2024.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/06/Top-Swimming-Pool-Design-Trends-in-Dubai-for-2024.jpg",
     imageAlt: "Top Swimming Pool Design Trends Dubai",
     category: "pools",
     slug: "infinity-swimming-pool-construction",
@@ -494,7 +543,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-50",
     location: "Tilal Al Ghaf, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Infinity-Swimming-Pool-Construction-4.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/06/Infinity-Swimming-Pool-Construction-4.jpg",
     imageAlt: "Infinity Swimming Pool Construction Dubai",
     category: "pools",
     slug: "infinity-swimming-pool-construction",
@@ -504,7 +554,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-51",
     location: "Palm Jumeirah, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Infinity-Swimming-Pool-Construction-5.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/06/Infinity-Swimming-Pool-Construction-5.jpg",
     imageAlt: "Luxury Infinity Swimming Pool on the Palm",
     category: "pools",
     slug: "infinity-swimming-pool-construction",
@@ -514,7 +565,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-52",
     location: "Mudon, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai-2.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai-2.jpg",
     imageAlt: "Overflow Swimming Pool Construction in Dubai",
     category: "pools",
     slug: "overflow-swimming-pool-construction",
@@ -524,7 +576,8 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-53",
     location: "Damac Hills, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai-3.jpg",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai-3.jpg",
     imageAlt: "Modern Overflow Pool with Perimeter Grating",
     category: "pools",
     slug: "overflow-swimming-pool-construction",
@@ -534,8 +587,9 @@ export const defaultGalleryItems: GalleryItem[] = [
   {
     _id: "fs-proj-54",
     location: "Arabian Ranches, Dubai",
-    image: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-66-scaled.jpg",
-    imageAlt: "Four Seasons Pool & Gardens Landscaping Work",
+    image:
+      "https://poolsgardensuae.com/wp-content/uploads/2024/08/Four-Seasons-Pool-Gardens-Landscapings-Recent-Work-66-scaled.jpg",
+    imageAlt: "Dream Floor Landscaping Pool & Gardens Landscaping Work",
     category: "pools",
     slug: "swimming-pool-construction-dubai",
     createdAt: "2024-08-01T10:00:00.000Z",

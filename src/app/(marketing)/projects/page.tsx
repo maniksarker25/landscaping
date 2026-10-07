@@ -7,7 +7,7 @@ import { getTestimonialsAsync } from "@/data/testimonials";
 export const metadata: Metadata = buildMetadata({
   title: "Our Recent Completed Projects - Landscaping & Swimming Pool",
   description:
-    "Explore our completed luxury swimming pools, villa landscaping, and outdoor living transformations in Dubai by Four Seasons Pool & Gardens Landscaping.",
+    "Explore our completed luxury swimming pools, villa landscaping, and outdoor living transformations in Dubai by Dream Floor Landscaping Pool & Gardens Landscaping.",
   path: "/projects",
 });
 
@@ -23,4 +23,3 @@ export default async function ProjectsPage() {
     />
   );
 }
-

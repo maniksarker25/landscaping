@@ -174,7 +174,7 @@ export default function LandscapingOverviewPage() {
             <span className="text-xs font-bold uppercase tracking-wider text-primary">
               Our Portfolio
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-foreground">
+            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-primary">
               Get Inspired By Our Recent Work
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">

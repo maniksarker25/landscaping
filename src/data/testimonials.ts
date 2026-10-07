@@ -33,7 +33,7 @@ export const defaultTestimonials: Testimonial[] = [
     name: "Vinodanad Jha",
     role: "Mudon, Rahat Villa, Dubai",
     quote:
-      "Excellent and professional team of Four Seasons Pools and garden landscaping. Very happy with their work done at our house, Mudon, Rahat Villa. Quality work done and on time, on budget.",
+      "Excellent and professional team of Dream Floor Landscaping Pools and garden landscaping. Very happy with their work done at our house, Mudon, Rahat Villa. Quality work done and on time, on budget.",
     rating: 5,
     avatar:
       "https://poolsgardensuae.com/wp-content/uploads/2022/05/unnamed-1.png",
@@ -53,7 +53,7 @@ export const defaultTestimonials: Testimonial[] = [
     name: "Lilian K",
     role: "Arabian Ranches, Dubai",
     quote:
-      "I recently had Four Seasons Pool Landscaping build a swimming pool and landscaping for my property in Arabian Ranches. After researching many companies I chose Four Seasons and I’m so glad I did, the team was professional, detail oriented and completed the project ahead of schedule and at a good price. Quality of work was really up to my expectations. Highly recommend.",
+      "I recently had Dream Floor Landscaping Pool Landscaping build a swimming pool and landscaping for my property in Arabian Ranches. After researching many companies I chose Dream Floor Landscaping and I’m so glad I did, the team was professional, detail oriented and completed the project ahead of schedule and at a good price. Quality of work was really up to my expectations. Highly recommend.",
     rating: 5,
     avatar:
       "https://poolsgardensuae.com/wp-content/uploads/2026/07/unnamed-2.png",
@@ -73,7 +73,7 @@ export const defaultTestimonials: Testimonial[] = [
     name: "Wajdi Elhakim",
     role: "Villa Owner, Dubai",
     quote:
-      "We had the best experience ever with Four Seasons pool and landscaping llc - the full team from Abid, Asad and the workers. Very professional work, nice finish - and most important the timeline was kept exactly as they promised. Fair pricing - quality and price goes hand in hand. All approvals, documentation, Tarkhees, Nakheel - all was done to perfection. We got the dream garden and house we wanted.",
+      "We had the best experience ever with Dream Floor Landscaping pool and landscaping llc - the full team from Abid, Asad and the workers. Very professional work, nice finish - and most important the timeline was kept exactly as they promised. Fair pricing - quality and price goes hand in hand. All approvals, documentation, Tarkhees, Nakheel - all was done to perfection. We got the dream garden and house we wanted.",
     rating: 5,
     avatar:
       "https://poolsgardensuae.com/wp-content/uploads/2026/07/unnamed-5.png",
@@ -83,7 +83,7 @@ export const defaultTestimonials: Testimonial[] = [
     name: "Melanie Riddle",
     role: "Dubai, UAE",
     quote:
-      "Four Seasons made my dream back garden! Four Seasons experience was completely seamless, smooth, delivered BEFORE target date, the team is kind, helpful - just amazing actually! The best experience I have had with contractors - they restored my faith in Dubai Contractors. Muhammed is amazing and I just can't recommend them enough!",
+      "Dream Floor Landscaping made my dream back garden! Dream Floor Landscaping experience was completely seamless, smooth, delivered BEFORE target date, the team is kind, helpful - just amazing actually! The best experience I have had with contractors - they restored my faith in Dubai Contractors. Muhammed is amazing and I just can't recommend them enough!",
     rating: 5,
     avatar:
       "https://poolsgardensuae.com/wp-content/uploads/2026/07/unnamed-6.png",
@@ -103,4 +103,3 @@ export async function getTestimonialsAsync(): Promise<Testimonial[]> {
 }
 
 export const testimonials: Testimonial[] = defaultTestimonials;
-
