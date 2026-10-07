@@ -10,7 +10,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { GallerySkeleton } from "@/components/sections/gallery/gallery-skeleton";
 import { GalleryCard } from "@/components/sections/gallery/gallery-card";
 import { GalleryFilterButtons } from "@/components/sections/gallery/gallery-filter-buttons";
-import hero2Bg from "@/../../public/images/hero1-bg.png"
+import hero2Bg from "@/../../public/images/hero1-bg.png";
 import { defaultGalleryItems } from "@/data/default-gallery-items";
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 import type { ServiceData } from "@/types/service";
@@ -54,10 +54,7 @@ export interface GalleryProps {
   initialTestimonials?: Testimonial[];
 }
 
-export function Gallery({
-  initialData,
-  initialTestimonials,
-}: GalleryProps) {
+export function Gallery({ initialData, initialTestimonials }: GalleryProps) {
   // Synchronous initial state from SSR props with instant fallback
   const [allItems, setAllItems] = useState<GalleryItem[]>(() => {
     if (initialData && initialData.length > 0) return initialData;
@@ -68,7 +65,6 @@ export function Gallery({
     if (initialData && initialData.length > 0) return initialData;
     return defaultGalleryItems;
   });
-
 
   const [loading, setLoading] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
@@ -295,7 +291,7 @@ export function Gallery({
       <div className="max-w-7xl mx-auto px-4 py-10 sm:py-14 animate-fade-in">
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground font-display tracking-tight">
-            Our Landscaping &amp; Swimming Pool Projects
+            Our Recent Completed Projects
           </h2>
         </div>
 
