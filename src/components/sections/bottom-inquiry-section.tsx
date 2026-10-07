@@ -145,8 +145,8 @@ export function BottomInquirySection({
           </div>
 
           {status === "success" ? (
-            <div className="flex flex-col items-center gap-3 rounded-[3px] border border-[#729d00]/40 bg-[#729d00]/10 p-6 text-center animate-in fade-in">
-              <CheckCircle2 className="h-10 w-10 text-[#729d00]" />
+            <div className="flex flex-col items-center gap-3 rounded-[3px] border border-primary/40 bg-primary/10 p-6 text-center animate-in fade-in">
+              <CheckCircle2 className="h-10 w-10 text-primary" />
               <h3 className="font-bold text-lg text-[#222222]">
                 Thank you for contacting us!
               </h3>
@@ -157,7 +157,7 @@ export function BottomInquirySection({
               <button
                 type="button"
                 onClick={() => setStatus("idle")}
-                className="mt-2 bg-[#729d00] hover:bg-[#729d00] text-white text-xs font-semibold px-4 py-2 rounded-[3px] transition-colors"
+                className="mt-2 bg-primary hover:bg-primary text-white text-xs font-semibold px-4 py-2 rounded-[3px] transition-colors"
               >
                 Send Another Message
               </button>
@@ -173,7 +173,7 @@ export function BottomInquirySection({
                   onChange={handleChange}
                   placeholder="Your Name(required)"
                   className={cn(
-                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
+                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-primary focus:ring-0 focus:outline-none transition-colors",
                     errors.name ? "border-red-500" : "border-[#dedede]",
                   )}
                 />
@@ -191,7 +191,7 @@ export function BottomInquirySection({
                   onChange={handleChange}
                   placeholder="Email(required)"
                   className={cn(
-                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
+                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-primary focus:ring-0 focus:outline-none transition-colors",
                     errors.email ? "border-red-500" : "border-[#dedede]",
                   )}
                 />
@@ -209,7 +209,7 @@ export function BottomInquirySection({
                   onChange={handleChange}
                   placeholder="Phone(required)"
                   className={cn(
-                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors",
+                    "w-full h-[45px] px-3.5 bg-white border rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-primary focus:ring-0 focus:outline-none transition-colors",
                     errors.phone ? "border-red-500" : "border-[#dedede]",
                   )}
                 />
@@ -226,7 +226,7 @@ export function BottomInquirySection({
                   onChange={handleChange}
                   rows={4}
                   placeholder="Message"
-                  className="w-full min-h-[110px] p-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-[#729d00] focus:ring-0 focus:outline-none transition-colors resize-y"
+                  className="w-full min-h-[110px] p-3.5 bg-white border border-[#dedede] rounded-[2px] text-sm text-[#333333] placeholder:text-[#767676] focus:border-primary focus:ring-0 focus:outline-none transition-colors resize-y"
                 />
               </div>
 

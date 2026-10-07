@@ -94,17 +94,13 @@ export function Testimonials({
     <section className="py-16 sm:py-24 bg-muted/20 border-t border-border/50">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <SectionTitle
-            eyebrow={eyebrow}
-            title={title}
-            align={align}
-          />
+          <SectionTitle eyebrow={eyebrow} title={title} align={align} />
           <div className="hidden gap-2 sm:flex">
             <button
               type="button"
               onClick={scrollPrev}
               aria-label="Previous testimonial"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background transition-colors hover:bg-[#71a600] hover:text-white hover:border-[#71a600]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background transition-colors hover:bg-primary hover:text-white hover:border-primary"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -112,7 +108,7 @@ export function Testimonials({
               type="button"
               onClick={scrollNext}
               aria-label="Next testimonial"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background transition-colors hover:bg-[#71a600] hover:text-white hover:border-[#71a600]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background transition-colors hover:bg-primary hover:text-white hover:border-primary"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
@@ -142,7 +138,7 @@ export function Testimonials({
               onClick={() => scrollTo(idx)}
               className={`h-2 transition-all duration-300 rounded-full ${
                 selectedIndex === idx
-                  ? "w-8 bg-[#71a600]"
+                  ? "w-8 bg-primary"
                   : "w-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
               }`}
             />
@@ -152,4 +148,3 @@ export function Testimonials({
     </section>
   );
 }
-

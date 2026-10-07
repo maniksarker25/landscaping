@@ -42,7 +42,7 @@ export function PageHero({
           <span
             className={cn(
               "mb-2 block text-xs font-bold uppercase tracking-[0.2em]",
-              imageUrl ? "text-[#71a600]" : "text-primary",
+              imageUrl ? "text-primary" : "text-primary",
             )}
           >
             {eyebrow}
@@ -60,7 +60,10 @@ export function PageHero({
             {breadcrumbs.map((crumb, idx) => {
               const isLast = idx === breadcrumbs.length - 1;
               return (
-                <span key={crumb.label} className="inline-flex items-center gap-2">
+                <span
+                  key={crumb.label}
+                  className="inline-flex items-center gap-2"
+                >
                   {idx > 0 && <span className="text-white/60">»</span>}
                   {crumb.href && !isLast ? (
                     <Link
@@ -70,7 +73,9 @@ export function PageHero({
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span className="text-white font-semibold">{crumb.label}</span>
+                    <span className="text-white font-semibold">
+                      {crumb.label}
+                    </span>
                   )}
                 </span>
               );
@@ -92,4 +97,3 @@ export function PageHero({
     </section>
   );
 }
-

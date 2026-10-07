@@ -21,10 +21,9 @@ export default async function ContactPage() {
   const legalRes = await fetchLegalInfo();
   const legalInfo = legalRes.data;
 
-  const phone = legalInfo?.contactPhone || siteConfig.phone;
-  const email = legalInfo?.contactEmail || siteConfig.email;
-  const address = legalInfo?.registeredAddress || siteConfig.address;
-  const whatsappUrl = toWhatsAppHref(phone);
+  const phone = "+971 50 664 8085";
+  const email = "info@dreamfloor.ae";
+  const address = "Al Quoz 3, Dubai - UAE";
   const mapEmbedUrl = getMapEmbedUrl(address);
 
   const infoItems = [
@@ -39,7 +38,6 @@ export default async function ContactPage() {
       icon: WhatsAppIcon,
       label: "WhatsApp Support",
       value: `Chat on WhatsApp (${phone})`,
-      href: whatsappUrl,
       accentColor:
         "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400",
     },
@@ -50,17 +48,6 @@ export default async function ContactPage() {
       href: `mailto:${email}`,
       accentColor: "bg-primary/10 text-primary",
     },
-    ...(legalInfo?.officialWebsite
-      ? [
-        {
-          icon: Globe,
-          label: "Official Website",
-          value: legalInfo.officialWebsite,
-          href: legalInfo.officialWebsite,
-          accentColor: "bg-primary/10 text-primary",
-        },
-      ]
-      : []),
   ];
 
   return (

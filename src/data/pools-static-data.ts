@@ -86,7 +86,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     ctaBanner: {
       title: "Looking for Swimming Pool Contractors in Dubai?",
       phoneText: "Call us today at",
-      phoneNumber: "+971 551889002",
+      phoneNumber: "+971 50 664 8085",
     },
     gallery1: [
       {
@@ -335,7 +335,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     ctaBanner: {
       title: "Looking for Swimming Pool Contractors in Dubai?",
       phoneText: "Call us today at",
-      phoneNumber: "+971 551889002",
+      phoneNumber: "+971 50 664 8085",
     },
     gallery1: [
       {
@@ -529,7 +529,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     ctaBanner: {
       title: "Looking for Swimming Pool Contractors in Dubai?",
       phoneText: "Call us today at",
-      phoneNumber: "+971 551889002",
+      phoneNumber: "+971 50 664 8085",
     },
     gallery1: [
       {
@@ -765,7 +765,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     ctaBanner: {
       title: "Looking for Infinity Pool Contractors in Dubai?",
       phoneText: "Call us today at",
-      phoneNumber: "+971 551889002",
+      phoneNumber: "+971 50 664 8085",
     },
     gallery1: [
       {
@@ -990,7 +990,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     ctaBanner: {
       title: "Looking for Swimming Pool Maintenance in Dubai?",
       phoneText: "Call us today at",
-      phoneNumber: "+971 551889002",
+      phoneNumber: "+971 50 664 8085",
     },
     gallery1: [
       {
@@ -1203,7 +1203,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     ctaBanner: {
       title: "Looking for Water Features Contractor in Dubai?",
       phoneText: "Call us today at",
-      phoneNumber: "+971 551889002",
+      phoneNumber: "+971 50 664 8085",
     },
     gallery1: [
       {
@@ -1483,7 +1483,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     ctaBanner: {
       title: "Looking for Water Fountains Contractor in Dubai?",
       phoneText: "Call us today at",
-      phoneNumber: "+971 551889002",
+      phoneNumber: "+971 50 664 8085",
     },
     gallery1: [
       {
