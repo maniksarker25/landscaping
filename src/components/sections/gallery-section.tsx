@@ -4,14 +4,12 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, FolderKanban } from "lucide-react";
 
 import { PageHero } from "@/components/sections/page-hero";
 import { GallerySkeleton } from "@/components/sections/gallery/gallery-skeleton";
 import { GalleryCard } from "@/components/sections/gallery/gallery-card";
 import { GalleryFilterButtons } from "@/components/sections/gallery/gallery-filter-buttons";
-import hero2Bg from "@/../../public/images/hero1-bg.png";
-import { defaultGalleryItems } from "@/data/default-gallery-items";
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 import type { ServiceData } from "@/types/service";
 import type { Testimonial } from "@/types";
@@ -54,17 +52,20 @@ export interface GalleryProps {
   initialTestimonials?: Testimonial[];
 }
 
-export function Gallery({ initialData, initialTestimonials }: GalleryProps) {
-  // Synchronous initial state from SSR props with instant fallback
-  const [allItems, setAllItems] = useState<GalleryItem[]>(() => {
-    if (initialData && initialData.length > 0) return initialData;
-    return defaultGalleryItems;
-  });
+export function Gallery({
+  initialData,
+  initialTestimonials,
+}: GalleryProps) {
+  // Dynamic state solely from database / API
+  const [allItems, setAllItems] = useState<GalleryItem[]>(initialData || []);
+  const [items, setItems] = useState<GalleryItem[]>(initialData || []);
 
-  const [items, setItems] = useState<GalleryItem[]>(() => {
-    if (initialData && initialData.length > 0) return initialData;
-    return defaultGalleryItems;
-  });
+  useEffect(() => {
+    if (initialData) {
+      setAllItems(initialData);
+      setItems(initialData);
+    }
+  }, [initialData]);
 
   const [loading, setLoading] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
@@ -213,7 +214,7 @@ export function Gallery({ initialData, initialTestimonials }: GalleryProps) {
   }, []);
 
   useEffect(() => {
-    if (!initialData || initialData.length === 0) {
+    if (!initialData) {
       fetchFilteredGallery("all");
     }
   }, [initialData, fetchFilteredGallery]);
@@ -263,7 +264,7 @@ export function Gallery({ initialData, initialTestimonials }: GalleryProps) {
       title:
         item?.imageAlt ||
         `${item?.location ?? ""} ${item?.category ?? ""}`.trim(),
-      imageUrl: item?.image,
+      imageUrl: item?.image || "/images/about-intro-pool.jpg",
       category: item?.category,
     }));
   }, [filteredItems]);
@@ -308,7 +309,7 @@ export function Gallery({ initialData, initialTestimonials }: GalleryProps) {
         {/* Dynamic Loading Skeletons vs Grid Gallery */}
         {loading && items.length === 0 ? (
           <GallerySkeleton />
-        ) : (
+        ) : filteredItems.length > 0 ? (
           <>
             {loading && (
               <div className="flex items-center justify-center py-4 gap-2 text-primary text-sm font-medium">
@@ -345,25 +346,30 @@ export function Gallery({ initialData, initialTestimonials }: GalleryProps) {
               </div>
             )}
           </>
-        )}
-
-        {filteredItems.length === 0 && !loading && (
-          <div className="text-center py-20 bg-muted/20 rounded-2xl border border-dashed border-border mt-4">
-            <div className="text-5xl mb-3">🔍</div>
-            <h3 className="text-lg font-bold text-primary mb-1">
-              No projects found in this category
-            </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground mb-4">
-              Try selecting &quot;All Projects&quot; to view our complete
-              portfolio.
-            </p>
-            <button
-              onClick={() => handleCategorySelect("all")}
-              className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors"
-            >
-              Show All Projects
-            </button>
-          </div>
+        ) : (
+          !loading && (
+            <div className="text-center py-16 sm:py-24 bg-muted/20 rounded-2xl border border-dashed border-border mt-4 px-4 max-w-xl mx-auto">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+                <FolderKanban className="w-7 h-7" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1.5 font-display">
+                There are no recent projects to display
+              </h3>
+              <p className="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+                {activeCategory !== "all"
+                  ? `No projects have been added under the "${activeCategoryLabel}" category yet.`
+                  : "Our latest project showcases will appear here once added from the dashboard."}
+              </p>
+              {activeCategory !== "all" && allItems.length > 0 && (
+                <button
+                  onClick={() => handleCategorySelect("all")}
+                  className="mt-4 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-all shadow-xs"
+                >
+                  View All Projects
+                </button>
+              )}
+            </div>
+          )
         )}
 
         {/* Lightbox Component Dynamically Loaded */}
