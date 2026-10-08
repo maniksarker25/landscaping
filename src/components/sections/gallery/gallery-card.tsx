@@ -36,7 +36,7 @@ export const GalleryCard = React.memo(function GalleryCard({
       {/* Image Area - Clicking opens Lightbox Modal */}
       <div className="relative w-full aspect-[3/2] overflow-hidden bg-muted">
         <Image
-          src={item?.image ?? ""}
+          src={item?.image || "/images/about-intro-pool.jpg"}
           alt={item?.imageAlt || item?.location || "Project Image"}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
