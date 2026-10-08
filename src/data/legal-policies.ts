@@ -82,7 +82,7 @@ export const privacyPolicyHtml = `
       <p class="font-semibold text-foreground mb-1">Poolscape & Sari Landscaping LLC</p>
       <p class="text-muted-foreground text-sm">Al Quoz Industrial Area 3, Dubai, UAE</p>
       <p class="text-muted-foreground text-sm">Email: <a href="mailto:info@dreamfloor.ae">info@dreamfloor.ae</a></p>
-      <p class="text-muted-foreground text-sm">Phone: +971 4 000 0000</p>
+      <p class="text-muted-foreground text-sm">Phone: +971 506648085</p>
     </div>
   </section>
 </div>
@@ -183,7 +183,7 @@ export const termsOfServiceHtml = `
       <p class="text-muted-foreground text-sm">Legal & Contracts Department</p>
       <p class="text-muted-foreground text-sm">Al Quoz Industrial Area 3, Dubai, UAE</p>
       <p class="text-muted-foreground text-sm">Email: <a href="mailto:info@dreamfloor.ae">info@dreamfloor.ae</a></p>
-      <p class="text-muted-foreground text-sm">Phone: +971 4 000 0000</p>
+      <p class="text-muted-foreground text-sm">Phone: +971 506648085</p>
     </div>
   </section>
 </div>
