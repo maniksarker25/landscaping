@@ -35,6 +35,12 @@ export function Testimonials({
     return defaultTestimonials;
   });
 
+  React.useEffect(() => {
+    if (initialTestimonials && initialTestimonials.length > 0) {
+      setDataList(initialTestimonials);
+    }
+  }, [initialTestimonials]);
+
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
