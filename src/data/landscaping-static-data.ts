@@ -168,16 +168,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
             "https://poolsgardensuae.com/wp-content/uploads/2024/07/Chinese-Style-Landscape.jpg",
         },
       ],
-      videos: [
-        {
-          src: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Landscaping-Video-Four-Seasons-Pool-Gardens-Landscaping-1.mp4",
-          title: "Villa Landscaping in Dubai",
-        },
-        {
-          src: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Landscaping-Video-Four-Seasons-Pool-Gardens-Landscaping-2.mp4",
-          title: "Villa Landscaping in Dubai",
-        },
-      ],
+      videos: [],
       recentWorkGallery: [
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
@@ -186,10 +177,6 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Gardening-Services.jpg",
           alt: "Gardening Services",
-        },
-        {
-          url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai.jpg",
-          alt: "Overflow Swimming Pool Construction in Dubai",
         },
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Water-Features-Dubai.jpg",
@@ -547,16 +534,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
             "https://poolsgardensuae.com/wp-content/uploads/2024/07/Chinese-Style-Landscape.jpg",
         },
       ],
-      videos: [
-        {
-          src: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Landscaping-Video-Four-Seasons-Pool-Gardens-Landscaping-1.mp4",
-          title: "Residential Landscaping in Dubai",
-        },
-        {
-          src: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Landscaping-Video-Four-Seasons-Pool-Gardens-Landscaping-2.mp4",
-          title: "Residential Landscaping in Dubai",
-        },
-      ],
+      videos: [],
       recentWorkGallery: [
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
@@ -565,10 +543,6 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Gardening-Services.jpg",
           alt: "Gardening Services",
-        },
-        {
-          url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai.jpg",
-          alt: "Overflow Swimming Pool Construction in Dubai",
         },
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Water-Features-Dubai.jpg",
@@ -840,16 +814,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
           alt: "Commerical Landscaping - Dream Floor Landscaping Pool &amp; Gardens Landscaping (4)",
         },
       ],
-      videos: [
-        {
-          src: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Landscaping-Video-Four-Seasons-Pool-Gardens-Landscaping-1.mp4",
-          title: "Commercial Landscaping in Dubai",
-        },
-        {
-          src: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Landscaping-Video-Four-Seasons-Pool-Gardens-Landscaping-2.mp4",
-          title: "Commercial Landscaping in Dubai",
-        },
-      ],
+      videos: [],
       recentWorkGallery: [
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
@@ -858,10 +823,6 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Gardening-Services.jpg",
           alt: "Gardening Services",
-        },
-        {
-          url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai.jpg",
-          alt: "Overflow Swimming Pool Construction in Dubai",
         },
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Water-Features-Dubai.jpg",
@@ -1248,12 +1209,7 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
           alt: "Garden Maintenance - Dream Floor Landscaping Pool &amp; Gardens Landscaping (4)",
         },
       ],
-      videos: [
-        {
-          src: "https://poolsgardensuae.com/wp-content/uploads/2024/08/Landscaping-Video-Four-Seasons-Pool-Gardens-Landscaping-1.mp4",
-          title: "Gardening Services in Dubai",
-        },
-      ],
+      videos: [],
       recentWorkGallery: [
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Landscaping-Services-in-Dubai.jpg",
@@ -1262,10 +1218,6 @@ export const LANDSCAPING_STATIC_DATA: Record<string, LandscapingStaticDetail> =
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/07/Gardening-Services.jpg",
           alt: "Gardening Services",
-        },
-        {
-          url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai.jpg",
-          alt: "Overflow Swimming Pool Construction in Dubai",
         },
         {
           url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Water-Features-Dubai.jpg",

@@ -2,36 +2,26 @@
 
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { ArrowRight, Loader2, FolderKanban } from "lucide-react";
+import { ArrowRight, Waves, Trees } from "lucide-react";
+import Link from "next/link";
 
 import { PageHero } from "@/components/sections/page-hero";
-import { GallerySkeleton } from "@/components/sections/gallery/gallery-skeleton";
 import { GalleryCard } from "@/components/sections/gallery/gallery-card";
-import { GalleryFilterButtons } from "@/components/sections/gallery/gallery-filter-buttons";
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
-import type { ServiceData } from "@/types/service";
 import type { Testimonial } from "@/types";
 import type { LightboxItem } from "@/components/common/lightbox-modal";
-import { fetchGalleryData } from "@/lib/api/gallery";
-import { fetchServicesData } from "@/lib/api/services";
+import { POOLS_STATIC_DATA } from "@/data/pools-static-data";
+import { LANDSCAPING_STATIC_DATA } from "@/data/landscaping-static-data";
 import { Button } from "../ui/button";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 // Dynamic Imports for Component-based Code Splitting
 const LightboxModal = dynamic(
   () =>
     import("@/components/common/lightbox-modal").then(
       (mod) => mod.LightboxModal,
-    ),
-  { ssr: false },
-);
-
-const GalleryMobileModal = dynamic(
-  () =>
-    import("@/components/sections/gallery/gallery-mobile-modal").then(
-      (mod) => mod.GalleryMobileModal,
     ),
   { ssr: false },
 );
@@ -46,195 +36,104 @@ const QuoteMapSection = dynamic(() =>
   ),
 );
 
+export type GalleryTab = "pools" | "landscaping";
+
 export interface GalleryProps {
   initialData?: GalleryItem[];
   initialMeta?: GalleryMeta;
   initialTestimonials?: Testimonial[];
+  defaultTab?: GalleryTab;
 }
 
 export function Gallery({
-  initialData,
   initialTestimonials,
+  defaultTab = "pools",
 }: GalleryProps) {
-  // Dynamic state solely from database / API
-  const [allItems, setAllItems] = useState<GalleryItem[]>(initialData || []);
-  const [items, setItems] = useState<GalleryItem[]>(initialData || []);
-
-  useEffect(() => {
-    if (initialData) {
-      setAllItems(initialData);
-      setItems(initialData);
-    }
-  }, [initialData]);
-
-  const [loading, setLoading] = useState(false);
+  const pathname = usePathname();
+  const [activeTab, setActiveTab] = useState<GalleryTab>(defaultTab);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
   );
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [apiServices, setApiServices] = useState<ServiceData[]>([]);
-  const pathname = usePathname();
 
-  useEffect(() => {
-    let isMounted = true;
-    fetchServicesData()
-      .then((data) => {
-        if (
-          isMounted &&
-          data?.data &&
-          Array.isArray(data.data) &&
-          data.data.length > 0
-        ) {
-          setApiServices(data.data);
+  // Extract unique recentWorkGallery items from POOLS_STATIC_DATA
+  const poolsItems: GalleryItem[] = useMemo(() => {
+    const seen = new Set<string>();
+    const items: GalleryItem[] = [];
+
+    Object.values(POOLS_STATIC_DATA).forEach((service) => {
+      (service.recentWorkGallery || []).forEach((img) => {
+        if (img?.url && !seen.has(img.url)) {
+          seen.add(img.url);
+          items.push({
+            _id: `pool-${items.length}-${encodeURIComponent(img.url.slice(-25))}`,
+            location: "Dubai, UAE",
+            image: img.url,
+            imageAlt: img.alt || "Luxury Swimming Pool Project Dubai",
+            category: "Pools",
+            slug: `/services/${service.slug || "swimming-pool-construction"}`,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          });
         }
-      })
-      .catch((err) =>
-        console.error(
-          "Failed to fetch services for gallery slug matching:",
-          err,
-        ),
-      );
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  // O(1) map lookup for category -> service slug
-  const serviceCategoryMap = useMemo(() => {
-    const map = new Map<string, string>();
-    apiServices?.forEach((s) => {
-      if (s?.category && s?.slug && s?.isPublished !== false) {
-        map.set(s.category.toLowerCase().trim(), s.slug);
-      }
-    });
-    return map;
-  }, [apiServices]);
-
-  const getTargetSlug = useCallback(
-    (item?: GalleryItem) => {
-      if (!item) return "/services";
-      const rawSlug = item?.slug;
-      if (rawSlug) {
-        return rawSlug.startsWith("/") ? rawSlug : `/services/${rawSlug}`;
-      }
-
-      const itemCat = (item?.category ?? "").toLowerCase().trim();
-      if (serviceCategoryMap.has(itemCat)) {
-        return `/services/${serviceCategoryMap.get(itemCat)}`;
-      }
-
-      if (itemCat === "pools" || itemCat.includes("pool")) {
-        return "/services/the-premier-overflow-swimming-pool-contractor";
-      }
-      if (
-        itemCat === "landscaping" ||
-        itemCat.includes("landscape") ||
-        itemCat.includes("living")
-      ) {
-        return "/services/tempora-labore-nemo";
-      }
-
-      return apiServices?.[0]?.slug
-        ? `/services/${apiServices[0].slug}`
-        : "/services/the-premier-overflow-swimming-pool-contractor";
-    },
-    [apiServices, serviceCategoryMap],
-  );
-
-  // Dynamic list of available categories computed from master items list
-  const categories = useMemo(() => {
-    const unique = new Set<string>();
-    allItems?.forEach((item) => {
-      if (item?.category) unique.add(item.category.trim());
-    });
-
-    const categoryList: { label: string; value: string }[] = [
-      { label: "All Projects", value: "all" },
-    ];
-
-    unique.forEach((cat) => {
-      const lower = cat.toLowerCase();
-      let label = cat;
-      if (lower === "pools") label = "Swimming Pools";
-      else if (lower === "landscaping") label = "Landscaping";
-      else if (lower === "outdoor living" || lower === "outdoor-living")
-        label = "Outdoor Living";
-
-      categoryList.push({ label, value: cat });
-    });
-
-    return categoryList;
-  }, [allItems]);
-
-  // O(1) category item count map
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: allItems?.length ?? 0 };
-    allItems?.forEach((i) => {
-      if (i?.category) {
-        const catKey = i.category.toLowerCase().trim();
-        counts[catKey] = (counts[catKey] ?? 0) + 1;
-      }
-    });
-    return counts;
-  }, [allItems]);
-
-  const getItemCount = useCallback(
-    (catValue: string) => {
-      if (catValue === "all") return categoryCounts.all ?? 0;
-      return categoryCounts[catValue.toLowerCase().trim()] ?? 0;
-    },
-    [categoryCounts],
-  );
-
-  // Asynchronous background refetching synced smoothly with synchronous UI activeCategory tab
-  const fetchFilteredGallery = useCallback(async (cat: string) => {
-    setLoading(true);
-    try {
-      const json = await fetchGalleryData({
-        limit: 50,
-        category: cat !== "all" ? cat : undefined,
       });
-      if (json?.data && Array.isArray(json.data) && json.data.length > 0) {
-        setItems(json.data);
-        setAllItems((prev) => {
-          if (!prev || prev.length === 0) return json.data;
-          const existingIds = new Set(prev.map((i) => i?._id));
-          const newItems = json.data.filter(
-            (i: GalleryItem) => i?._id && !existingIds.has(i._id),
-          );
-          return newItems.length > 0 ? [...prev, ...newItems] : prev;
-        });
-      }
-    } catch (err) {
-      console.error("Failed to refetch gallery category items:", err);
-    } finally {
-      setLoading(false);
-    }
+    });
+
+    return items;
   }, []);
 
-  useEffect(() => {
-    if (!initialData) {
-      fetchFilteredGallery("all");
-    }
-  }, [initialData, fetchFilteredGallery]);
+  // Extract unique recentWorkGallery items from LANDSCAPING_STATIC_DATA
+  const landscapingItems: GalleryItem[] = useMemo(() => {
+    const seen = new Set<string>();
+    const items: GalleryItem[] = [];
 
-  // Synchronous client tab selection with background async refetching
-  const handleCategorySelect = useCallback(
-    (catValue: string) => {
-      setActiveCategory(catValue);
-      setSelectedImageIndex(null);
-      fetchFilteredGallery(catValue);
-    },
-    [fetchFilteredGallery],
-  );
+    Object.values(LANDSCAPING_STATIC_DATA).forEach((service) => {
+      (service.recentWorkGallery || []).forEach((img) => {
+        if (img?.url && !seen.has(img.url)) {
+          seen.add(img.url);
+          items.push({
+            _id: `landscaping-${items.length}-${encodeURIComponent(img.url.slice(-25))}`,
+            location: "Dubai, UAE",
+            image: img.url,
+            imageAlt: img.alt || "Luxury Villa Landscaping Dubai",
+            category: "Landscaping",
+            slug: `/services/${service.slug || "villa-landscaping"}`,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          });
+        }
+      });
+    });
 
-  const handleOpenMobileFilter = useCallback(() => {
-    setIsMobileFilterOpen(true);
+    return items;
   }, []);
 
-  const handleCloseMobileFilter = useCallback(() => {
-    setIsMobileFilterOpen(false);
+  // Current active list
+  const activeItems = useMemo(() => {
+    return activeTab === "pools" ? poolsItems : landscapingItems;
+  }, [activeTab, poolsItems, landscapingItems]);
+
+  const isProjectsPage = pathname === "/projects";
+
+  // Sliced items for homepage (limit 12) vs full list on /projects
+  const displayItems = useMemo(() => {
+    if (isProjectsPage) return activeItems;
+    return activeItems.slice(0, 12);
+  }, [isProjectsPage, activeItems]);
+
+  // Lightbox items mapping directly to the visible items
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    return displayItems.map((item) => ({
+      id: item._id,
+      title: item.imageAlt || item.location,
+      imageUrl: item.image,
+      category: item.category,
+      slug: item.slug,
+    }));
+  }, [displayItems]);
+
+  const handleTabChange = useCallback((tab: GalleryTab) => {
+    setActiveTab(tab);
+    setSelectedImageIndex(null);
   }, []);
 
   const handleCloseLightbox = useCallback(() => {
@@ -249,36 +148,9 @@ export function Gallery({
     setSelectedImageIndex(index);
   }, []);
 
-  // Filter items synchronously for instant UI updates
-  const filteredItems = useMemo(() => {
-    if (activeCategory === "all") return items;
-    return items.filter(
-      (item) => item?.category?.toLowerCase() === activeCategory.toLowerCase(),
-    );
-  }, [items, activeCategory]);
-
-  // Map GalleryItems to LightboxItem structure for LightboxModal
-  const lightboxItems: LightboxItem[] = useMemo(() => {
-    return (filteredItems ?? []).map((item) => ({
-      id: item?._id,
-      title:
-        item?.imageAlt ||
-        `${item?.location ?? ""} ${item?.category ?? ""}`.trim(),
-      imageUrl: item?.image || "/images/about-intro-pool.jpg",
-      category: item?.category,
-    }));
-  }, [filteredItems]);
-
-  const activeCategoryLabel = useMemo(() => {
-    return (
-      categories.find((c) => c?.value === activeCategory)?.label ??
-      "All Projects"
-    );
-  }, [categories, activeCategory]);
-
   return (
     <div className="w-full">
-      {pathname === "/projects" && (
+      {isProjectsPage && (
         <PageHero
           image="https://poolsgardensuae.com/wp-content/uploads/2026/07/IMG_8657-scaled.jpg"
           title="Our Recent Completed Projects"
@@ -290,87 +162,99 @@ export function Gallery({
       )}
 
       <div className="max-w-7xl mx-auto px-4 py-10 sm:py-14 animate-fade-in">
-        <div className="text-center mb-6 sm:mb-8">
+        {/* Section Header */}
+        <div className="text-center mb-8 max-w-2xl mx-auto space-y-2.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-primary">
+            Our Portfolio
+          </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground font-display tracking-tight">
             Our Recent Completed Projects
           </h2>
+          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+            Browse our hand-crafted swimming pools and luxury villa landscaping projects completed across Dubai.
+          </p>
         </div>
 
-        {/* Filter Controls (Desktop Buttons & Mobile Trigger) */}
-        <GalleryFilterButtons
-          categories={categories}
-          activeCategory={activeCategory}
-          activeCategoryLabel={activeCategoryLabel}
-          getItemCount={getItemCount}
-          onSelectCategory={handleCategorySelect}
-          onOpenMobileFilter={handleOpenMobileFilter}
-        />
-
-        {/* Dynamic Loading Skeletons vs Grid Gallery */}
-        {loading && items.length === 0 ? (
-          <GallerySkeleton />
-        ) : filteredItems.length > 0 ? (
-          <>
-            {loading && (
-              <div className="flex items-center justify-center py-4 gap-2 text-primary text-sm font-medium">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                <span>Updating projects...</span>
-              </div>
-            )}
-
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5">
-              <AnimatePresence mode="popLayout">
-                {filteredItems
-                  ?.slice(0, pathname !== "/projects" ? 12 : undefined)
-                  .map((item, index) => (
-                    <GalleryCard
-                      key={item?._id}
-                      item={item}
-                      index={index}
-                      targetSlug={getTargetSlug(item)}
-                      onSelectImage={handleSelectImageCard}
-                      isShowText={pathname === "/projects"}
-                    />
-                  ))}
-              </AnimatePresence>
-            </div>
-
-            {pathname !== "/projects" && filteredItems.length > 12 && (
-              <div className="flex items-center justify-center py-4 gap-2 text-primary text-sm font-medium">
-                <Button asChild size="sm" className="bg-primary">
-                  <Link href="/projects">
-                    <ArrowRight className="h-4 w-4" />
-                    <span>View All Projects</span>
-                  </Link>
-                </Button>
-              </div>
-            )}
-          </>
-        ) : (
-          !loading && (
-            <div className="text-center py-16 sm:py-24 bg-muted/20 rounded-2xl border border-dashed border-border mt-4 px-4 max-w-xl mx-auto">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
-                <FolderKanban className="w-7 h-7" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1.5 font-display">
-                There are no recent projects to display
-              </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
-                {activeCategory !== "all"
-                  ? `No projects have been added under the "${activeCategoryLabel}" category yet.`
-                  : "Our latest project showcases will appear here once added from the dashboard."}
-              </p>
-              {activeCategory !== "all" && allItems.length > 0 && (
-                <button
-                  onClick={() => handleCategorySelect("all")}
-                  className="mt-4 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-all shadow-xs"
-                >
-                  View All Projects
-                </button>
+        {/* Two Tabs: Swimming Pools & Landscaping */}
+        <div className="flex items-center justify-center mb-8 sm:mb-10">
+          <div
+            role="tablist"
+            aria-label="Gallery Categories"
+            className="inline-flex p-1.5 rounded-full bg-muted/80 backdrop-blur-sm border border-border shadow-xs max-w-md w-full sm:w-auto"
+          >
+            <button
+              type="button"
+              role="tab"
+              id="tab-pools"
+              aria-selected={activeTab === "pools"}
+              aria-controls="gallery-panel-pools"
+              onClick={() => handleTabChange("pools")}
+              className={cn(
+                "flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm",
+                activeTab === "pools"
+                  ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
+                  : "text-muted-foreground hover:text-foreground hover:bg-background/60",
               )}
+            >
+              <span>Swimming Pools</span>
+            </button>
+
+            <button
+              type="button"
+              role="tab"
+              id="tab-landscaping"
+              aria-selected={activeTab === "landscaping"}
+              aria-controls="gallery-panel-landscaping"
+              onClick={() => handleTabChange("landscaping")}
+              className={cn(
+                "flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm",
+                activeTab === "landscaping"
+                  ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
+                  : "text-muted-foreground hover:text-foreground hover:bg-background/60",
+              )}
+            >
+              <span>Landscaping</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Gallery Grid */}
+        <div
+          id={`gallery-panel-${activeTab}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${activeTab}`}
+        >
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5">
+            <AnimatePresence mode="popLayout">
+              {displayItems.map((item, index) => (
+                <GalleryCard
+                  key={item._id}
+                  item={item}
+                  index={index}
+                  targetSlug={item.slug}
+                  onSelectImage={handleSelectImageCard}
+                  isShowText={isProjectsPage}
+                />
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {/* Homepage CTA to view all projects */}
+          {!isProjectsPage && activeItems.length > 12 && (
+            <div className="flex items-center justify-center pt-8 sm:pt-10">
+              <Button
+                asChild
+                size="default"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 shadow-md rounded-full"
+              >
+                <Link href="/projects" className="flex items-center gap-2">
+                  <span>Explore All Projects</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
             </div>
-          )
-        )}
+          )}
+        </div>
 
         {/* Lightbox Component Dynamically Loaded */}
         <LightboxModal
@@ -381,17 +265,7 @@ export function Gallery({
         />
       </div>
 
-      {/* Mobile Category Filter Modal Drawer Dynamically Loaded */}
-      <GalleryMobileModal
-        isOpen={isMobileFilterOpen}
-        categories={categories}
-        activeCategory={activeCategory}
-        getItemCount={getItemCount}
-        onSelectCategory={handleCategorySelect}
-        onClose={handleCloseMobileFilter}
-      />
-
-      {pathname === "/projects" && (
+      {isProjectsPage && (
         <Testimonials
           initialTestimonials={initialTestimonials}
           eyebrow="Testimonials"
@@ -399,7 +273,7 @@ export function Gallery({
         />
       )}
 
-      {pathname === "/projects" && <QuoteMapSection />}
+      {isProjectsPage && <QuoteMapSection />}
     </div>
   );
 }

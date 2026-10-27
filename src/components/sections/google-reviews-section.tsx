@@ -18,55 +18,55 @@ export const DEFAULT_GOOGLE_REVIEWS: ReviewItem[] = [
     id: "rev-1",
     name: "Nidhi Aggarwal",
     rating: 5,
-    text: "We had a good experience with Dream Floor Landscaping. We employed three different contractor teams to make our house and must say that Dream Floor Landscaping was the most efficient and professional of all three. Timely work finished and in good quality. We are happy.",
+    text: "We had a great experience with Dream Floor Landscaping. We hired three different contractor teams to work on our house, and Dream Floor Landscaping was by far the most efficient and professional of the three. The work was completed on time and to a high standard. We are very happy with the results.",
   },
   {
     id: "rev-2",
     name: "Igor Loktev",
     rating: 5,
-    text: "Great Team, all the works completed perfectly, nice & timely communications, thanks a lot for the job done❤️🙏",
+    text: "Great team! All the work was completed perfectly, and communication was clear, friendly, and timely. Thank you so much for a job well done! ❤️🙏",
   },
   {
     id: "rev-3",
     name: "MUHAMMAD MUSHARAF ZAIDI",
     rating: 5,
-    text: "We had a very good experience with this pool contractor. The team was professional, responsive, and clear throughout the process. The work was carried out as discussed, with good attention to detail and quality finishing. They were flexible with site coordination and handled variations in a professional manner.",
+    text: "We had a great experience with this pool contractor. The team was professional, responsive, and transparent throughout the process. The work was completed as agreed, with excellent attention to detail and a high-quality finish. They were flexible with site coordination and handled any changes professionally.",
   },
   {
     id: "rev-4",
     name: "Sameer Bhat",
     rating: 5,
-    text: "Very professional and work completed to satisfaction.",
+    text: "Very professional team. The work was completed to our satisfaction, and we are pleased with the results.",
   },
   {
     id: "rev-5",
     name: "Viktoriia Loktev",
     rating: 5,
-    text: "Great experience working with this company. The team built our swimming pool, fire pit, and took care of the full landscaping. Everything was done in a short time and with excellent quality. Communication was easy and straightforward.",
+    text: "We had a great experience working with this company. The team built our swimming pool and fire pit and completed the entire landscaping project. Everything was completed quickly and to an excellent standard. Communication was easy, clear, and straightforward throughout the process.",
   },
   {
     id: "rev-6",
     name: "Conrad Lee",
     rating: 5,
-    text: "Finished the work to a good standard and timeline. Used for driveway and water tank replacement.",
+    text: "The work was completed on time and to a good standard. We hired the team to handle our driveway and replace our water tank, and we were happy with the results.",
   },
   {
     id: "rev-7",
     name: "Wajdi Elhakim",
     rating: 5,
-    text: "We had the best experience ever with the full team. Very professional work, nice finish - and most important the timeline was kept exactly as promised. Fair pricing - quality and price go hand in hand. All approvals and documentation done to perfection.",
+    text: "We had an excellent experience with the entire team. The work was highly professional, and the finishing was excellent. Most importantly, the project was completed exactly within the promised timeline. The pricing was fair, and the quality reflected the value for money. All approvals and documentation were handled flawlessly.",
   },
   {
     id: "rev-8",
     name: "Lilian K",
     rating: 5,
-    text: "I recently had Dream Floor Landscaping build a swimming pool and landscaping for my property in Arabian Ranches. The team was professional, detail oriented and completed the project ahead of schedule and at a good price.",
+    text: "I recently hired Dream Floor Landscaping to build a swimming pool and landscape my property in Arabian Ranches. The team was professional, detail-oriented, and efficient. The project was completed ahead of schedule and at a competitive price. I am very pleased with the results.",
   },
   {
     id: "rev-9",
     name: "Borja Burguillos",
     rating: 5,
-    text: "Outstanding performance. They finished the job one week earlier! Totally recommendable.",
+    text: "Outstanding service! The team completed the job a full week ahead of schedule. I highly recommend them!",
   },
 ];
 
@@ -199,11 +199,11 @@ export function GoogleReviewsSection({
               </p>
             </div>
 
-            <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-400">
+            {/* <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-400">
               <span className="flex items-center gap-1 text-[#0f9d58]">
                 <CheckCircle className="w-3 h-3" /> Posted on Google
               </span>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>

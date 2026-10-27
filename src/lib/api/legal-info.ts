@@ -28,7 +28,7 @@ export const fallbackLegalInfo: LegalInfoData = {
   _id: "6a7f544ff0ffb1f4e7441b42",
   businessType: "Landscaping & Pool Construction",
   companyName: "Sari Landscaping & Swimming Pools",
-  contactEmail: "info@sarilandscaping.ae",
+  contactEmail: "info@dreamfloor.ae",
   contactPhone: "+971 506648085",
   createdAt: "2026-08-14T17:45:50.844Z",
   facebookLink: "https://facebook.com",

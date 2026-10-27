@@ -68,7 +68,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     sidebarServiceTitle: "Swimming Pool Construction",
     metaTitle: "Swimming Pool Construction Company in Dubai | Pool Contractors",
     metaDescription:
-      "Dream Floor Landscaping Pool & Gardens Landscaping LLC, the best Swimming Pool Contractors in Dubai, offers top-quality pool designs and ranks #1 among Swimming Pool Companies in Dubai.",
+      "Dream Floor Landscaping , the best Swimming Pool Contractors in Dubai, offers top-quality pool designs and ranks #1 among Swimming Pool Companies in Dubai.",
     ogImage:
       "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-8.webp",
     heroTitle: "Searching for Top Swimming Pool Companies in Dubai?",
@@ -80,7 +80,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
       subHeader:
         "We Design, Build, and Maintain Exquisite Swimming Pools in Dubai",
       description: [
-        "Dream Floor Landscaping Pool & Gardens Landscaping LLC is proud to be recognized as the most trusted swimming pool contractors in Dubai, UAE. As a leading swimming pool construction company in Dubai, we have successfully constructed numerous customized swimming pools for clients in Dubai and its surrounding areas over the years. Our services are tailored to meet both residential and commercial needs, ensuring we deliver the highest quality in every project we undertake.",
+        "Dream Floor Landscaping is proud to be recognized as one of the most trusted swimming pool contractors in Dubai, UAE. As a leading swimming pool construction company in Dubai, we have successfully designed and built numerous customized swimming pools for clients across Dubai and the surrounding areas. Our services are tailored to meet both residential and commercial requirements, ensuring exceptional quality, attention to detail, and customer satisfaction in every project we undertake.",
       ],
     },
     ctaBanner: {
@@ -156,16 +156,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
           "https://poolsgardensuae.com/wp-content/uploads/2024/06/Lap-Pool-Design.webp",
       },
     ],
-    videos: [
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai.mp4",
-        title: "Swimming Pool Construction in Dubai",
-      },
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai1.mp4",
-        title: "Swimming Pool Construction in Dubai",
-      },
-    ],
+    videos: [],
     recentWorkGallery: [
       {
         url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-scaled.webp",
@@ -217,7 +208,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Why We’re the Leading Swimming Pool Contractors in Dubai",
         subHeader: "",
         paragraphs: [
-          "Our mission is to transform your dream swimming pool design into reality. If you’re searching for the best swimming pool companies in Dubai to handle your swimming pool project, you’ve come to the right place. Submit your inquiry now, and we’ll be more than happy to assist you. Dream Floor Landscaping Pool & Gardens Landscaping LLC is a well-known name among swimming pool companies in Dubai, a reputation we’ve built through our hard work and dedication to quality and customer satisfaction.",
+          "Our mission is to transform your dream swimming pool design into reality. If you’re searching for the best swimming pool companies in Dubai to handle your swimming pool project, you’ve come to the right place. Submit your inquiry now, and we’ll be more than happy to assist you. Dream Floor Landscaping  is a well-known name among swimming pool companies in Dubai, a reputation we’ve built through our hard work and dedication to quality and customer satisfaction.",
           "For more than a decade, we have been constructing swimming pools of all shapes and sizes across Dubai and the UAE. Our company is backed by a team of skilled, young, and energetic professionals who utilize modern technology and equipment, enabling us to set a benchmark in the swimming pool construction industry in Dubai.",
         ],
         bulletPoints: [],
@@ -226,9 +217,9 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Professional Swimming Pool Contractors in Dubai",
         subHeader: "",
         paragraphs: [
-          "Dream Floor Landscaping Pool & Gardens Landscaping LLC is proud to be the top-rated swimming pool contractors in Dubai. We offer a wide range of high-quality swimming pool services, including pool designing, construction, cleaning, and maintenance. Our commitment to safety is paramount, and we incorporate all necessary standard safety measures to ensure your swimming pool is safe and secure.",
+          "Dream Floor Landscaping  is proud to be the top-rated swimming pool contractors in Dubai. We offer a wide range of high-quality swimming pool services, including pool designing, construction, cleaning, and maintenance. Our commitment to safety is paramount, and we incorporate all necessary standard safety measures to ensure your swimming pool is safe and secure.",
           "We specialize in constructing both indoor and outdoor home pools for family recreation. Additionally, we excel in building landscaping pools that enhance the look and feel of your villa’s landscape in Dubai. A well-designed landscaping pool can instantly elevate the aesthetics of any space.",
-          "Plus, Dream Floor Landscaping Pool & Gardens Landscaping LLC designs and constructs various types of pools, including diving pools and Olympic-sized pools. Our commitment to excellence ensures we remain unmatched in the construction of swimming pools in Dubai and the UAE, making us the preferred choice for many.",
+          "Plus, Dream Floor Landscaping  designs and constructs various types of pools, including diving pools and Olympic-sized pools. Our commitment to excellence ensures we remain unmatched in the construction of swimming pools in Dubai and the UAE, making us the preferred choice for many.",
         ],
         bulletPoints: [],
       },
@@ -236,7 +227,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "The Best Swimming Pool Company in Dubai",
         subHeader: "",
         paragraphs: [
-          "Dream Floor Landscaping Pool & Gardens Landscaping LLC takes pride in being recognized as the No. 1 swimming pool company in Dubai. We place immense value on our customers and prioritize their needs. By designing and building pools that match their imagination, we have become the leading swimming pool design company in Dubai.",
+          "Dream Floor Landscaping  takes pride in being recognized as the No. 1 swimming pool company in Dubai. We place immense value on our customers and prioritize their needs. By designing and building pools that match their imagination, we have become the leading swimming pool design company in Dubai.",
           "Aside from landscape projects, our primary focus is swimming pool construction and design. A well-crafted swimming pool can significantly enhance the overall look of your house or villa and increase the property’s value.",
         ],
         bulletPoints: [],
@@ -246,7 +237,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         subHeader: "",
         paragraphs: [
           "Although many landscapers in Dubai offer swimming pool construction services, our dedication, resource optimization, innovation, and timely project delivery set us apart. Over the years, we have established unique standards that have been highly appreciated by our esteemed clients.",
-          "As a leading swimming pool builder in Dubai and the surrounding areas, Dream Floor Landscaping Pool & Gardens Landscaping LLC provides the highest level of professional swimming pool services, tailored to our clients’ specific requirements. Contact us to receive a quote for your pool project.",
+          "As a leading swimming pool builder in Dubai and the surrounding areas, Dream Floor Landscaping  provides the highest level of professional swimming pool services, tailored to our clients’ specific requirements. Contact us to receive a quote for your pool project.",
         ],
         bulletPoints: [],
       },
@@ -282,7 +273,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
           "Professional #1 Swimming Pool Company in Dubai and Across the UAE",
         subHeader: "",
         paragraphs: [
-          "Dream Floor Landscaping Pool & Gardens Landscaping LLC has been a prominent player in the Dubai swimming pool industry for over a decade. This extensive experience has allowed us to build numerous swimming pools for villas in Dubai. Our team includes top-notch designers, architects, engineers, masons, plumbers, and gardeners who ensure your dream swimming pool is built to perfection.",
+          "Dream Floor Landscaping  has been a prominent player in the Dubai swimming pool industry for over a decade. This extensive experience has allowed us to build numerous swimming pools for villas in Dubai. Our team includes top-notch designers, architects, engineers, masons, plumbers, and gardeners who ensure your dream swimming pool is built to perfection.",
         ],
         bulletPoints: [],
       },
@@ -297,12 +288,12 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
       },
       {
         mainHeader:
-          "Why Dream Floor Landscaping Pool & Gardens Landscaping LLC is the Best Swimming Pool Company in Dubai",
+          "Why Dream Floor Landscaping Is One of the Best Swimming Pool Companies in Dubai",
         subHeader: "",
         paragraphs: [
-          "All construction work at Dream Floor Landscaping Pool & Gardens Landscaping LLC is handled by certified and experienced professionals who never compromise on quality. Our team is well-versed in planning, designing, excavation, and reinforced cement concrete work, ensuring the construction meets the highest standards.",
+          "All construction work at Dream Floor Landscaping is handled by certified and experienced professionals who never compromise on quality. Our team is well-versed in planning, designing, excavation, and reinforced cement concrete work, ensuring the construction meets the highest standards.",
           "While we are based in Dubai, our services extend throughout the UAE, including major cities like Dubai, Abu Dhabi, Sharjah, and Ajman. Our extensive presence and numerous completed projects have established us as a leading swimming pool construction company in Dubai and the UAE.",
-          "If you’re considering building a swimming pool for your home or enhancing your front yard with a landscaping pool, contact Dream Floor Landscaping Pool & Gardens Landscaping LLC today!",
+          "If you’re considering building a swimming pool for your home or enhancing your front yard with a landscaping pool, contact Dream Floor Landscaping today!",
         ],
         bulletPoints: [],
       },
@@ -315,7 +306,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     category: "Pools",
     sidebarServiceTitle: "Swimming Pool Construction",
     metaTitle:
-      "Skimmer Swimming Pool Construction Services in Dubai - Dream Floor Landscaping Pool & Gardens Landscaping LLC",
+      "Skimmer Swimming Pool Construction Services in Dubai - Dream Floor Landscaping ",
     metaDescription:
       "Top-rated skimmer swimming pool contractors in Dubai, UAE. Quality construction, exceptional service. Call Dream Floor Landscaping Pool & Gardens Landscaping!",
     ogImage:
@@ -325,11 +316,10 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     heroImage:
       "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-8.webp",
     intro: {
-      mainHeader:
-        "Dream Floor Landscaping Pool & Gardens Landscaping LLC Has You Covered!",
+      mainHeader: "Dream Floor Landscaping  Has You Covered!",
       subHeader: "Leading Skimmer Pool Build and Design Services in Dubai",
       description: [
-        "At Dream Floor Landscaping Pool & Gardens Landscaping LLC, we specialize in the design and construction of skimmer swimming pools in Dubai? We utilize only the finest materials and the latest techniques to deliver perfect designs that enhance the beauty and functionality of your outdoor areas.",
+        "At Dream Floor Landscaping, we specialize in the design and construction of skimmer swimming pools in Dubai. We use high-quality materials and the latest construction techniques to create beautifully designed pools that enhance the beauty, functionality, and overall appeal of your outdoor living spaces.",
       ],
     },
     ctaBanner: {
@@ -355,16 +345,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         alt: "Skimmer Swimming Pool Dubai",
       },
     ],
-    videos: [
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai.mp4",
-        title: "Skimmer Swimming Pool in Dubai",
-      },
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai1.mp4",
-        title: "Skimmer Swimming Pool in Dubai",
-      },
-    ],
+    videos: [],
     recentWorkGallery: [
       {
         url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-scaled.webp",
@@ -446,13 +427,12 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Tailored Skimmer Pool Construction Solutions",
         subHeader: "",
         paragraphs: [
-          "Whether you envision a classic, modern, or entirely unique skimmer pool design, we can create a swimming oasis that suits your lifestyle and enhances your outdoor space. Our extensive skimmer swimming pool service in Dubai covers all facets of pool design and installation, from the initial concept through to the final detailing. Transform your backyard into a lavish retreat with our specialized skimmer pool design and construction services at Dream Floor Landscaping Pool & Gardens Landscaping LLC. Reach out to us today to begin planning your exclusive skimmer swimming pool project.",
+          "Whether you envision a classic, modern, or entirely unique skimmer pool design, we can create a swimming oasis that suits your lifestyle and enhances your outdoor space. Our extensive skimmer swimming pool service in Dubai covers all facets of pool design and installation, from the initial concept through to the final detailing. Transform your backyard into a lavish retreat with our specialized skimmer pool design and construction services at Dream Floor Landscaping . Reach out to us today to begin planning your exclusive skimmer swimming pool project.",
         ],
         bulletPoints: [],
       },
       {
-        mainHeader:
-          "Why Opt for Dream Floor Landscaping Pool & Gardens Landscaping LLC?",
+        mainHeader: "Why Opt for Dream Floor Landscaping ?",
         subHeader: "",
         paragraphs: [],
         bulletPoints: [
@@ -508,7 +488,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     category: "Pools",
     sidebarServiceTitle: "Swimming Pool Construction",
     metaTitle:
-      "Expert Overflow Swimming Pool Contractors in Dubai - Dream Floor Landscaping Pool & Gardens Landscaping LLC",
+      "Expert Overflow Swimming Pool Contractors in Dubai - Dream Floor Landscaping ",
     metaDescription:
       "Experienced overflow swimming pool contractor in Dubai, UAE. Premium construction, stunning designs. Contact Dream Floor Landscaping Pool & Gardens Landscaping today!",
     ogImage:
@@ -523,7 +503,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
       subHeader:
         "Designing, Building, and Maintaining Luxurious Overflow Swimming Pools in Dubai",
       description: [
-        "Looking for a company that specializes in installing overflow swimming pools in Dubai? Dream Floor Landscaping Pool & Gardens Landscaping LLC stands as Dubai’s most trusted name in overflow swimming pool construction. We have a rich history of creating the best swimming pools perfectly according to the needs of our clients in Dubai and beyond. Our services extend to both residential and commercial projects, ensuring excellence in every project.",
+        "Looking for a company that specializes in installing overflow swimming pools in Dubai? Dream Floor Landscaping  stands as Dubai’s most trusted name in overflow swimming pool construction. We have a rich history of creating the best swimming pools perfectly according to the needs of our clients in Dubai and beyond. Our services extend to both residential and commercial projects, ensuring excellence in every project.",
       ],
     },
     ctaBanner: {
@@ -552,10 +532,10 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai-3.jpg",
         alt: "Overflow Swimming Pool Dubai",
       },
-      {
-        url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai-4.jpg",
-        alt: "Overflow Swimming Pool Dubai",
-      },
+      // {
+      //   url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai-4.jpg",
+      //   alt: "Overflow Swimming Pool Dubai",
+      // },
       {
         url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Overflow-Swimming-Pool-Construction-in-Dubai-5.jpg",
         alt: "Overflow Swimming Pool Dubai",
@@ -565,16 +545,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         alt: "Overflow Swimming Pool Dubai",
       },
     ],
-    videos: [
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai.mp4",
-        title: "Overflow Swimming Pool in Dubai",
-      },
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai1.mp4",
-        title: "Overflow Swimming Pool in Dubai",
-      },
-    ],
+    videos: [],
     recentWorkGallery: [
       {
         url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-scaled.webp",
@@ -681,7 +652,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         subHeader: "",
         paragraphs: [
           "We mention it as a humble boast that we’re the premier overflow Swimming pool installation company in Dubai. We prioritize our clients’ visions, crafting pools that perfectly match their imagination. Our focus extends beyond landscaping to specialize in the installation and design of overflow swimming pools. A well-designed and installed pool not only enhances the beauty of your property but also significantly increases its value.",
-          "Dream Floor Landscaping Pool & Gardens Landscaping LLC has been a leading force in Dubai’s swimming pool industry for over a decade. Our extensive experience enables us to construct exceptional swimming pools for villas across Dubai. Our team, composed of top-tier designers, architects, engineers, and craftsmen, guarantees that your dream swimming pool is executed flawlessly. As the most reliable swimming pool contractors in Dubai, we are committed to building your dream pool within budget, ensuring each project is finished to the highest standards. Whether you’re looking forward to getting an infinity swimming pool, or you want other services like swimming pool maintenance, we have got you covered.",
+          "Dream Floor Landscaping  has been a leading force in Dubai’s swimming pool industry for over a decade. Our extensive experience enables us to construct exceptional swimming pools for villas across Dubai. Our team, composed of top-tier designers, architects, engineers, and craftsmen, guarantees that your dream swimming pool is executed flawlessly. As the most reliable swimming pool contractors in Dubai, we are committed to building your dream pool within budget, ensuring each project is finished to the highest standards. Whether you’re looking forward to getting an infinity swimming pool, or you want other services like swimming pool maintenance, we have got you covered.",
         ],
         bulletPoints: [],
       },
@@ -717,7 +688,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Innovative Design and Customization",
         subHeader: "",
         paragraphs: [
-          "At Dream Floor Landscaping Pool & Gardens Landscaping LLC, we believe each pool should be a unique sanctuary. Our innovative design team works closely with you to customize every aspect of your overflow swimming pool, from shape and size to features like lighting and waterfalls. Our goal is to make pools that perfectly fits your lifestyle and improves your property’s charm.",
+          "At Dream Floor Landscaping , we believe each pool should be a unique sanctuary. Our innovative design team works closely with you to customize every aspect of your overflow swimming pool, from shape and size to features like lighting and waterfalls. Our goal is to make pools that perfectly fits your lifestyle and improves your property’s charm.",
         ],
         bulletPoints: [],
       },
@@ -733,7 +704,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Aftercare and Maintenance",
         subHeader: "",
         paragraphs: [
-          "To keep your overflow swimming pool in pristine condition, we offer comprehensive aftercare and maintenance services. Our expert team provides regular check-ups, cleaning, and necessary repairs to ensure your pool remains clean, safe, and fully functional. Trust Dream Floor Landscaping Pool & Gardens Landscaping LLC for ongoing support beyond the initial installation.",
+          "To keep your overflow swimming pool in pristine condition, we offer comprehensive aftercare and maintenance services. Our expert team provides regular check-ups, cleaning, and necessary repairs to ensure your pool remains clean, safe, and fully functional. Trust Dream Floor Landscaping  for ongoing support beyond the initial installation.",
         ],
         bulletPoints: [],
       },
@@ -746,7 +717,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     category: "Pools",
     sidebarServiceTitle: "Swimming Pool Construction",
     metaTitle:
-      "Infinity Swimming Pool Construction Services in Dubai - Dream Floor Landscaping Pool & Gardens Landscaping LLC",
+      "Infinity Swimming Pool Construction Services in Dubai - Dream Floor Landscaping ",
     metaDescription:
       "Trusted infinity swimming pool contractor in Dubai, UAE. Elegant designs, superior construction. Choose Dream Floor Landscaping Pool & Gardens Landscaping!",
     ogImage:
@@ -759,7 +730,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
       mainHeader: "Your Search Ends Right Here!",
       subHeader: "We Bring Your Dream Infinity Pools to Life",
       description: [
-        "Experience the highest standards of luxury with Dream Floor Landscaping Pool & Gardens Landscaping LLC, your premier destination for bespoke infinity swimming pools in Dubai. Renowned for our expertise in integrating breathtaking water features with the unique landscapes of Dubai, we promise not only to meet but exceed your expectations with every project.",
+        "Experience the highest standards of luxury with Dream Floor Landscaping , your premier destination for bespoke infinity swimming pools in Dubai. Renowned for our expertise in integrating breathtaking water features with the unique landscapes of Dubai, we promise not only to meet but exceed your expectations with every project.",
       ],
     },
     ctaBanner: {
@@ -793,16 +764,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         alt: "Infinity Swimming Pool Dubai",
       },
     ],
-    videos: [
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai.mp4",
-        title: "Infinity Swimming Pool in Dubai",
-      },
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai1.mp4",
-        title: "Infinity Swimming Pool in Dubai",
-      },
-    ],
+    videos: [],
     recentWorkGallery: [
       {
         url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-scaled.webp",
@@ -881,7 +843,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Designing Your Dream Infinity Pool",
         subHeader: "",
         paragraphs: [
-          "Dream Floor Landscaping Pool & Gardens Landscaping LLC excels in transforming visions into stunning realities with our custom infinity pool designs. We begin with a detailed consultation to understand your preferences and the nuances of your site. Our designers use state-of-the-art 3D modeling technology to present you with a visual blueprint that aligns with your aesthetic and functional desires.",
+          "Dream Floor Landscaping  excels in transforming visions into stunning realities with our custom infinity pool designs. We begin with a detailed consultation to understand your preferences and the nuances of your site. Our designers use state-of-the-art 3D modeling technology to present you with a visual blueprint that aligns with your aesthetic and functional desires.",
         ],
         bulletPoints: [],
       },
@@ -940,7 +902,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
           "What Makes Us The Leading Infinity Swimming Pool Contractor?",
         subHeader: "Enhanced Property Value and Lifestyle",
         paragraphs: [
-          "Choosing Dream Floor Landscaping Pool & Gardens Landscaping LLC for infinity swimming pool service in Dubai guarantees a partnership with a leader in luxury pool design and construction. We pride ourselves on delivering pools that are not only architecturally stunning but also perfectly integrated with their surroundings. Our team consists of highly skilled professionals who bring years of experience and dedication to each project, ensuring that every pool is built to the highest standards of quality and innovation.",
+          "Choosing Dream Floor Landscaping  for infinity swimming pool service in Dubai guarantees a partnership with a leader in luxury pool design and construction. We pride ourselves on delivering pools that are not only architecturally stunning but also perfectly integrated with their surroundings. Our team consists of highly skilled professionals who bring years of experience and dedication to each project, ensuring that every pool is built to the highest standards of quality and innovation.",
           "By choosing us, you benefit from personalized design services, the use of premium materials, meticulous attention to detail, and competitive pricing, making us the preferred choice for clients seeking unmatched excellence in infinity pool construction. This is what makes us your best choice when you’re looking for an infinity swimming pool contractor. Also, you can contact us for either an overflow swimming pool or a water fountain.",
           "Investing in an infinity Swimming pool from us significantly enhances both the aesthetic appeal and the value of your property. Such pools are renowned for their dramatic visual impact, merging seamlessly with the horizon and giving the illusion of boundless space. This not only increases the luxury appeal of your home but also its market value, making it highly desirable in the competitive Dubai real estate market.",
           "Additionally, an infinity pool transforms your living space into a tranquil retreat, offering endless hours of relaxation and a perfect setting for entertaining guests. With a well-designed infinity pool, you elevate your lifestyle, enjoying the dual benefits of a stunning leisure space and a wise investment.",
@@ -948,7 +910,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         bulletPoints: [
           {
             title: "Customizable Design Options",
-            text: "At Dream Floor Landscaping Pool & Gardens Landscaping LLC, we understand that each client’s vision is unique, which is why we offer customizable design options for our infinity pools. Whether you prefer a sleek, modern look or a more organic shape that blends with the natural landscape, we can accommodate your preferences. Our design process includes a selection of finishes, from natural stone to innovative, eco-friendly materials, and features such as integrated waterfalls, hidden edges, or fire features that enhance the sensory experience of your pool, making it a true centerpiece of your outdoor living space.",
+            text: "At Dream Floor Landscaping , we understand that each client’s vision is unique, which is why we offer customizable design options for our infinity pools. Whether you prefer a sleek, modern look or a more organic shape that blends with the natural landscape, we can accommodate your preferences. Our design process includes a selection of finishes, from natural stone to innovative, eco-friendly materials, and features such as integrated waterfalls, hidden edges, or fire features that enhance the sensory experience of your pool, making it a true centerpiece of your outdoor living space.",
           },
         ],
       },
@@ -970,7 +932,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     category: "Pools",
     sidebarServiceTitle: "Swimming Pool Maintenance",
     metaTitle:
-      "Swimming Pool Cleaning & Maintenance Company in Dubai, UAE - Dream Floor Landscaping Pool & Gardens Landscaping LLC",
+      "Swimming Pool Cleaning & Maintenance Company in Dubai, UAE - Dream Floor Landscaping ",
     metaDescription:
       "Reliable swimming pool maintenance company in Dubai. Expert cleaning, routine upkeep, and repairs. Contact Dream Floor Landscaping Pool & Gardens Landscaping today!",
     ogImage:
@@ -984,7 +946,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
       subHeader:
         "We’re Your Best Choice For Swimming Pool Maintenance In Dubai!",
       description: [
-        "Dream Floor Landscaping Pool & Gardens Landscaping LLC is proud to be the premier choice for swimming pool maintenance in Dubai. With a dedicated team, we provide top-notch services to ensure your pool remains in pristine condition all year round. Whether you are a homeowner, a property manager, or in charge of a commercial facility, our comprehensive swimming pool maintenance solutions are tailored to meet your specific needs.",
+        "Dream Floor Landscaping  is proud to be the premier choice for swimming pool maintenance in Dubai. With a dedicated team, we provide top-notch services to ensure your pool remains in pristine condition all year round. Whether you are a homeowner, a property manager, or in charge of a commercial facility, our comprehensive swimming pool maintenance solutions are tailored to meet your specific needs.",
       ],
     },
     ctaBanner: {
@@ -1010,16 +972,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         alt: "Swimming Pool Maintenance Dubai",
       },
     ],
-    videos: [
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai.mp4",
-        title: "Swimming Pool Maintenance in Dubai",
-      },
-      {
-        src: "https://poolsgardensuae.com/wp-content/uploads/2024/06/Swimming-Pool-Construction-Services-in-Dubai1.mp4",
-        title: "Swimming Pool Maintenance in Dubai",
-      },
-    ],
+    videos: [],
     recentWorkGallery: [
       {
         url: "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-scaled.webp",
@@ -1087,7 +1040,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
           },
           {
             title: "Customer-Centric Approach:",
-            text: "At Dream Floor Landscaping Pool & Gardens Landscaping LLC, we prioritize our customers’ needs and preferences. We offer flexible maintenance schedules and customized service plans to suit your requirements.",
+            text: "At Dream Floor Landscaping , we prioritize our customers’ needs and preferences. We offer flexible maintenance schedules and customized service plans to suit your requirements.",
           },
         ],
       },
@@ -1130,7 +1083,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Customized Maintenance Plans",
         subHeader: "",
         paragraphs: [
-          "At Dream Floor Landscaping Pool & Gardens Landscaping LLC, we offer customized swimming pool maintenance plans tailored to your specific needs. Whether you need weekly, bi-weekly, or monthly maintenance, we have flexible options to fit your schedule and budget.",
+          "At Dream Floor Landscaping , we offer customized swimming pool maintenance plans tailored to your specific needs. Whether you need weekly, bi-weekly, or monthly maintenance, we have flexible options to fit your schedule and budget.",
         ],
         bulletPoints: [],
       },
@@ -1161,7 +1114,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Trusted Swimming Pool Maintenance Contractors in Dubai",
         subHeader: "",
         paragraphs: [
-          "As one of the leading swimming pool maintenance contractors in Dubai, Dream Floor Landscaping Pool & Gardens Landscaping LLC is dedicated to providing top-quality services that exceed your expectations. Our team of seasoned professionals is dedicated to providing exceptional results, guaranteeing your pool remains in perfect condition all year round.",
+          "As one of the leading swimming pool maintenance contractors in Dubai, Dream Floor Landscaping  is dedicated to providing top-quality services that exceed your expectations. Our team of seasoned professionals is dedicated to providing exceptional results, guaranteeing your pool remains in perfect condition all year round.",
         ],
         bulletPoints: [],
       },
@@ -1169,7 +1122,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Contact Us Today",
         subHeader: "",
         paragraphs: [
-          "Don’t let your pool fall into disrepair. Trust the experts at Dream Floor Landscaping Pool & Gardens Landscaping LLC for all your swimming pool maintenance needs in Dubai. Contact us today to schedule a consultation and learn more about our services. Let us help you enjoy a clean, safe, and beautiful pool that you and your family can enjoy for years to come. Plus, you can contact us for either an overflow swimming pool or a water fountain. Experience the best in swimming pool maintenance with Dream Floor Landscaping Pool & Gardens Landscaping LLC. Your pool, our passion!",
+          "Don’t let your pool fall into disrepair. Trust the experts at Dream Floor Landscaping  for all your swimming pool maintenance needs in Dubai. Contact us today to schedule a consultation and learn more about our services. Let us help you enjoy a clean, safe, and beautiful pool that you and your family can enjoy for years to come. Plus, you can contact us for either an overflow swimming pool or a water fountain. Experience the best in swimming pool maintenance with Dream Floor Landscaping . Your pool, our passion!",
         ],
         bulletPoints: [],
       },
@@ -1182,7 +1135,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     category: "Pools",
     sidebarServiceTitle: "Water Features",
     metaTitle:
-      "Premium Water Features Contractor in Dubai, UAE - Dream Floor Landscaping Pool & Gardens Landscaping LLC",
+      "Premium Water Features Contractor in Dubai, UAE - Dream Floor Landscaping ",
     metaDescription:
       "Expert water features contractor in Dubai. Stunning designs, professional installation. Choose Dream Floor Landscaping Pool & Gardens Landscaping for your dream oasis!",
     ogImage:
@@ -1192,12 +1145,11 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     heroImage:
       "https://poolsgardensuae.com/wp-content/uploads/2024/06/swimming-pool-construction-8.webp",
     intro: {
-      mainHeader:
-        "Water Features by Dream Floor Landscaping Pool & Gardens Landscaping LLC",
+      mainHeader: "Water Features by Dream Floor Landscaping ",
       subHeader:
         "Transform Your Outdoor Space with Exquisite Water Features in Dubai",
       description: [
-        "Dream Floor Landscaping Pool & Gardens Landscaping LLC is your go-to destination for creating breathtaking water features in Dubai. Our expertise ensures that your outdoor space will be transformed into a serene and captivating oasis.",
+        "Dream Floor Landscaping  is your go-to destination for creating breathtaking water features in Dubai. Our expertise ensures that your outdoor space will be transformed into a serene and captivating oasis.",
       ],
     },
     ctaBanner: {
@@ -1341,7 +1293,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Comprehensive Water Feature Services",
         subHeader: "",
         paragraphs: [
-          "From initial consultation and design to construction and maintenance, Dream Floor Landscaping Pool & Gardens Landscaping LLC offers a comprehensive range of water feature service in Dubai. Our goal is to provide a seamless and stress-free experience for our clients, ensuring that every aspect of the project is executed to perfection.",
+          "From initial consultation and design to construction and maintenance, Dream Floor Landscaping  offers a comprehensive range of water feature service in Dubai. Our goal is to provide a seamless and stress-free experience for our clients, ensuring that every aspect of the project is executed to perfection.",
           "Also, whether you need a skimmer swimming pool or other services such as water fountain installation, we can help you with all your needs.",
         ],
         bulletPoints: [],
@@ -1422,8 +1374,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         ],
       },
       {
-        mainHeader:
-          "Why Dream Floor Landscaping Pool & Gardens Landscaping LLC Stands Out",
+        mainHeader: "Why Dream Floor Landscaping  Stands Out",
         subHeader: "",
         paragraphs: [],
         bulletPoints: [
@@ -1446,12 +1397,11 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         ],
       },
       {
-        mainHeader:
-          "Get Started with Dream Floor Landscaping Pool & Gardens Landscaping LLC",
+        mainHeader: "Get Started with Dream Floor Landscaping ",
         subHeader: "",
         paragraphs: [
-          "Transform your outdoor space with the exquisite water features offered by Dream Floor Landscaping Pool & Gardens Landscaping LLC. Our comprehensive water feature services are designed to meet your needs and exceed your expectations.",
-          "Get in touch with us today to schedule a consultation and discover how we can bring your vision to life. Experience the beauty and tranquility of professionally designed water features in Dubai with Dream Floor Landscaping Pool & Gardens Landscaping LLC – your trusted water feature contractor. Plus, you can get in touch with us for either an overflow swimming pool or an infinity swimming pool.",
+          "Transform your outdoor space with the exquisite water features offered by Dream Floor Landscaping . Our comprehensive water feature services are designed to meet your needs and exceed your expectations.",
+          "Get in touch with us today to schedule a consultation and discover how we can bring your vision to life. Experience the beauty and tranquility of professionally designed water features in Dubai with Dream Floor Landscaping  – your trusted water feature contractor. Plus, you can get in touch with us for either an overflow swimming pool or an infinity swimming pool.",
         ],
         bulletPoints: [],
       },
@@ -1464,7 +1414,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
     category: "Pools",
     sidebarServiceTitle: "Water Features",
     metaTitle:
-      "Luxury Water Fountains Construction Company in Dubai, UAE - Dream Floor Landscaping Pool & Gardens Landscaping LLC",
+      "Luxury Water Fountains Construction Company in Dubai, UAE - Dream Floor Landscaping ",
     metaDescription:
       "Top water fountain contractor in Dubai, UAE. Luxurious designs, expert construction. Choose Dream Floor Landscaping Pool & Gardens Landscaping for elegance!",
     ogImage:
@@ -1477,7 +1427,7 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
       mainHeader: "Look No Further Because Your Search Ends Right Here!",
       subHeader: "Welcome to the Best Water Fountain Contractor in Dubai!",
       description: [
-        "Dream Floor Landscaping Pool & Gardens Landscaping LLC stands tall as your premier water fountain contractor in Dubai. With a passion for creating stunning pieces, we transform both indoor and outdoor spaces with our exceptional water fountain construction services. Whether you desire a serene indoor water fountain for your living room or a grand outdoor water fountain to enhance your garden, we have the expertise and creativity to bring your vision to life.",
+        "Dream Floor Landscaping  stands tall as your premier water fountain contractor in Dubai. With a passion for creating stunning pieces, we transform both indoor and outdoor spaces with our exceptional water fountain construction services. Whether you desire a serene indoor water fountain for your living room or a grand outdoor water fountain to enhance your garden, we have the expertise and creativity to bring your vision to life.",
       ],
     },
     ctaBanner: {
@@ -1667,8 +1617,8 @@ export const POOLS_STATIC_DATA: Record<string, PoolStaticDetail> = {
         mainHeader: "Contact Us Today",
         subHeader: "",
         paragraphs: [
-          "Are you ready to turn your home into a sanctuary for relaxation? Contact Dream Floor Landscaping Pool & Gardens Landscaping LLC today to schedule a consultation. Our team of experts is eager to help you create a beautiful, tranquil environment with our top-notch water fountain services.",
-          "Experience the magic of water with Dream Floor Landscaping Pool & Gardens Landscaping LLC, your trusted water fountain contractor in Dubai. Let us bring beauty and elegance to your home with our amazing indoor water fountain and outdoor water fountain designs. Discover the difference that expert craftsmanship and dedicated service can make. Contact us today and let your journey to a more beautiful space begin.",
+          "Are you ready to turn your home into a sanctuary for relaxation? Contact Dream Floor Landscaping  today to schedule a consultation. Our team of experts is eager to help you create a beautiful, tranquil environment with our top-notch water fountain services.",
+          "Experience the magic of water with Dream Floor Landscaping , your trusted water fountain contractor in Dubai. Let us bring beauty and elegance to your home with our amazing indoor water fountain and outdoor water fountain designs. Discover the difference that expert craftsmanship and dedicated service can make. Contact us today and let your journey to a more beautiful space begin.",
         ],
         bulletPoints: [],
       },

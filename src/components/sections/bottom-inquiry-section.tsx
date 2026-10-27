@@ -123,7 +123,7 @@ export function BottomInquirySection({
     <section className={cn("w-full py-12 font-sans", className)}>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Column: Featured Project Image */}
-        <div className="lg:col-span-6 relative aspect-[4/3] rounded-[4px] overflow-hidden shadow-md bg-gray-100 min-h-[350px]">
+        <div className="w-full lg:col-span-6 relative aspect-[4/3] rounded-[4px] overflow-hidden shadow-md bg-gray-100 min-h-[350px]">
           <Image
             src={imageSrc}
             alt={imageAlt}

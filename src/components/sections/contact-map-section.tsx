@@ -26,7 +26,7 @@ export function ContactMapSection({
   contact = {
     address: "301 - Building 5, Al Quoz 3, Dubai - UAE",
     phones: ["+971 50 664 8085"],
-    email: "info@poolsgardensuae.com",
+    email: "info@dreamfloor.ae",
   },
   mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14447.886022872322!2d55.2341258!3d25.1366114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6966607e0c8b%3A0xbcf2392762a4d334!2sAl%20Quoz%203%20-%20Dubai!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae",
   className,
