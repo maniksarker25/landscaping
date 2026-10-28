@@ -222,8 +222,8 @@ export const siteConfig: SiteConfig = {
     ];
   },
   socials: [
-    { label: "Instagram", href: "https://instagram.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "Facebook", href: "https://facebook.com" },
+    { label: "Instagram", href: "https://www.instagram.com/dfloorlandscaping.ae?rpxt=MXNkNXU3eGtraTU5eg%3D%3D&utm_source=qr" },
+    // { label: "LinkedIn", href: "https://linkedin.com" },
+    { label: "Facebook", href: "https://www.facebook.com/Dreamfloorland?share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1CMEgTpzuJ%2F#" },
   ],
 };
