@@ -37,7 +37,12 @@ const QuoteMapSection = dynamic(() =>
   ),
 );
 
-export type GalleryTab = "pools" | "landscaping";
+export type GalleryTab =
+  | "all"
+  | "pools"
+  | "landscaping"
+  | "outdoor-living"
+  | string;
 
 export interface GalleryProps {
   initialData?: GalleryItem[];
@@ -46,10 +51,59 @@ export interface GalleryProps {
   defaultTab?: GalleryTab;
 }
 
+const BASE_CATEGORIES: { id: string; label: string }[] = [
+  { id: "all", label: "All Projects" },
+  { id: "pools", label: "Swimming Pools" },
+  { id: "landscaping", label: "Landscaping" },
+  { id: "outdoor-living", label: "Outdoor Living" },
+];
+
+/**
+ * Checks whether an item's category matches the user-selected category tab.
+ */
+function matchesCategory(
+  itemCategory: string | undefined,
+  selectedCat: string,
+): boolean {
+  if (selectedCat === "all") return true;
+  if (!itemCategory) return false;
+
+  const cat = itemCategory.toLowerCase().trim();
+  const target = selectedCat.toLowerCase().trim();
+
+  if (target === "pools") {
+    return cat === "pools" || cat.includes("pool");
+  }
+
+  if (target === "landscaping") {
+    return (
+      cat === "landscaping" ||
+      cat.includes("landscap") ||
+      cat.includes("garden")
+    );
+  }
+
+  if (target === "outdoor-living") {
+    return (
+      cat === "outdoor-living" ||
+      cat.includes("outdoor") ||
+      cat.includes("living") ||
+      cat.includes("pergola") ||
+      cat.includes("patio")
+    );
+  }
+
+  if (target === "lighting") {
+    return cat === "lighting" || cat.includes("light");
+  }
+
+  return cat === target || cat.includes(target) || target.includes(cat);
+}
+
 export function Gallery({
   initialData = [],
   initialTestimonials,
-  defaultTab = "pools",
+  defaultTab = "all",
 }: GalleryProps) {
   const pathname = usePathname();
   const isProjectsPage = pathname === "/projects";
@@ -152,29 +206,92 @@ export function Gallery({
     return items;
   }, []);
 
-  // Filter API items by category
-  const apiPoolsItems = useMemo(() => {
-    return apiItems.filter((item) => {
-      const cat = (item.category || "").toLowerCase().trim();
-      return cat === "pools" || cat.includes("pool");
+  // Filter or slice mock items suitable for outdoor-living fallback
+  const outdoorLivingMockItems: GalleryItem[] = useMemo(() => {
+    return landscapingMockItems
+      .filter(
+        (i) =>
+          i.imageAlt.toLowerCase().includes("pergola") ||
+          i.imageAlt.toLowerCase().includes("patio") ||
+          i.imageAlt.toLowerCase().includes("outdoor") ||
+          i.imageAlt.toLowerCase().includes("living"),
+      )
+      .slice(0, 8);
+  }, [landscapingMockItems]);
+
+  // Compute category tabs dynamically with counts based on API response
+  const categoryTabs = useMemo(() => {
+    const tabs = [...BASE_CATEGORIES];
+    const existingIds = new Set(tabs.map((t) => t.id));
+
+    // Discover any additional category from the API items
+    apiItems.forEach((item) => {
+      const raw = (item.category || "").toLowerCase().trim();
+      if (raw && !existingIds.has(raw)) {
+        const isCovered =
+          raw.includes("pool") ||
+          raw.includes("landscap") ||
+          raw.includes("garden") ||
+          raw.includes("outdoor") ||
+          raw.includes("living");
+
+        if (!isCovered) {
+          existingIds.add(raw);
+          const label = raw
+            .split("-")
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" ");
+          tabs.push({ id: raw, label });
+        }
+      }
+    });
+
+    // Compute live count for each category
+    return tabs.map((tab) => {
+      const count =
+        tab.id === "all"
+          ? apiItems.length
+          : apiItems.filter((item) => matchesCategory(item.category, tab.id))
+              .length;
+      return { ...tab, count };
     });
   }, [apiItems]);
 
-  const apiLandscapingItems = useMemo(() => {
-    return apiItems.filter((item) => {
-      const cat = (item.category || "").toLowerCase().trim();
-      return cat === "landscaping" || cat.includes("landscap");
-    });
-  }, [apiItems]);
-
-  // Use API items if available; otherwise gracefully fall back to mock data
+  // Filter items strictly based on user-selected category
   const activeItems = useMemo(() => {
-    if (activeTab === "pools") {
-      return apiPoolsItems.length > 0 ? apiPoolsItems : poolsMockItems;
-    } else {
-      return apiLandscapingItems.length > 0 ? apiLandscapingItems : landscapingMockItems;
+    // 1. Filter API items based on user selected category
+    const matchingApiItems =
+      activeTab === "all"
+        ? apiItems
+        : apiItems.filter((item) => matchesCategory(item.category, activeTab));
+
+    // If API returned items matching this category, show them!
+    if (matchingApiItems.length > 0) {
+      return matchingApiItems;
     }
-  }, [activeTab, apiPoolsItems, poolsMockItems, apiLandscapingItems, landscapingMockItems]);
+
+    // 2. Otherwise gracefully fall back to mock data
+    if (activeTab === "pools") {
+      return poolsMockItems;
+    }
+    if (activeTab === "outdoor-living") {
+      return outdoorLivingMockItems.length > 0
+        ? outdoorLivingMockItems
+        : landscapingMockItems.slice(0, 6);
+    }
+    if (activeTab === "landscaping") {
+      return landscapingMockItems;
+    }
+
+    // "all" fallback when API is empty
+    return [...poolsMockItems, ...landscapingMockItems];
+  }, [
+    activeTab,
+    apiItems,
+    poolsMockItems,
+    landscapingMockItems,
+    outdoorLivingMockItems,
+  ]);
 
   // Sliced items for homepage (limit 12) vs full list on /projects
   const displayItems = useMemo(() => {
@@ -193,7 +310,7 @@ export function Gallery({
     }));
   }, [displayItems]);
 
-  const handleTabChange = useCallback((tab: GalleryTab) => {
+  const handleTabChange = useCallback((tab: string) => {
     setActiveTab(tab);
     setSelectedImageIndex(null);
   }, []);
@@ -233,50 +350,52 @@ export function Gallery({
             Our Recent Completed Projects
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-            Browse our hand-crafted swimming pools and luxury villa landscaping projects completed across Dubai.
+            Browse our hand-crafted swimming pools, luxury villa landscaping, and outdoor living projects completed across Dubai.
           </p>
         </div>
 
-        {/* Two Tabs: Swimming Pools & Landscaping */}
+        {/* Dynamic Category Filter Tabs */}
         <div className="flex items-center justify-center mb-8 sm:mb-10">
           <div
             role="tablist"
             aria-label="Gallery Categories"
-            className="inline-flex p-1.5 rounded-full bg-muted/80 backdrop-blur-sm border border-border shadow-xs max-w-md w-full sm:w-auto"
+            className="inline-flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl sm:rounded-full bg-muted/80 backdrop-blur-sm border border-border shadow-xs max-w-3xl"
           >
-            <button
-              type="button"
-              role="tab"
-              id="tab-pools"
-              aria-selected={activeTab === "pools"}
-              aria-controls="gallery-panel-pools"
-              onClick={() => handleTabChange("pools")}
-              className={cn(
-                "flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm",
-                activeTab === "pools"
-                  ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
-                  : "text-muted-foreground hover:text-foreground hover:bg-background/60",
-              )}
-            >
-              <span>Swimming Pools</span>
-            </button>
-
-            <button
-              type="button"
-              role="tab"
-              id="tab-landscaping"
-              aria-selected={activeTab === "landscaping"}
-              aria-controls="gallery-panel-landscaping"
-              onClick={() => handleTabChange("landscaping")}
-              className={cn(
-                "flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm",
-                activeTab === "landscaping"
-                  ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
-                  : "text-muted-foreground hover:text-foreground hover:bg-background/60",
-              )}
-            >
-              <span>Landscaping</span>
-            </button>
+            {categoryTabs.map((cat) => {
+              const isActive = activeTab === cat.id;
+              const count = cat.count;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  role="tab"
+                  id={`tab-${cat.id}`}
+                  aria-selected={isActive}
+                  aria-controls={`gallery-panel-${cat.id}`}
+                  onClick={() => handleTabChange(cat.id)}
+                  className={cn(
+                    "inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm",
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
+                      : "text-muted-foreground hover:text-foreground hover:bg-background/60",
+                  )}
+                >
+                  <span>{cat.label}</span>
+                  {count > 0 && (
+                    <span
+                      className={cn(
+                        "rounded-full px-2 py-0.5 text-[10px] sm:text-[11px] font-semibold transition-colors",
+                        isActive
+                          ? "bg-white/20 text-white"
+                          : "bg-muted text-muted-foreground",
+                      )}
+                    >
+                      {count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 
