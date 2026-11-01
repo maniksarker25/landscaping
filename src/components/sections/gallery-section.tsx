@@ -2,13 +2,14 @@
 
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { ArrowRight, Waves, Trees } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { PageHero } from "@/components/sections/page-hero";
 import { GalleryCard } from "@/components/sections/gallery/gallery-card";
+import { GallerySkeleton } from "@/components/sections/gallery/gallery-skeleton";
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 import type { Testimonial } from "@/types";
 import type { LightboxItem } from "@/components/common/lightbox-modal";
@@ -46,17 +47,61 @@ export interface GalleryProps {
 }
 
 export function Gallery({
+  initialData = [],
   initialTestimonials,
   defaultTab = "pools",
 }: GalleryProps) {
   const pathname = usePathname();
+  const isProjectsPage = pathname === "/projects";
+
   const [activeTab, setActiveTab] = useState<GalleryTab>(defaultTab);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
   );
 
-  // Extract unique recentWorkGallery items from POOLS_STATIC_DATA
-  const poolsItems: GalleryItem[] = useMemo(() => {
+  // API items state - initialized with initialData if provided from SSR
+  const [apiItems, setApiItems] = useState<GalleryItem[]>(initialData || []);
+  const [isLoading, setIsLoading] = useState<boolean>(
+    !initialData || initialData.length === 0,
+  );
+
+  // Client-side fetch from /api/gallery with loader
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadGalleryFromApi() {
+      try {
+        if (!initialData || initialData.length === 0) {
+          setIsLoading(true);
+        }
+
+        const res = await fetch("/api/gallery?limit=100");
+        if (!res.ok) {
+          throw new Error(`Failed to fetch from /api/gallery (${res.status})`);
+        }
+
+        const json = await res.json();
+        if (isMounted && json.success && Array.isArray(json.data)) {
+          setApiItems(json.data);
+        }
+      } catch (err) {
+        console.warn("Could not load gallery from API, falling back to mock:", err);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadGalleryFromApi();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [initialData]);
+
+  // Extract unique recentWorkGallery items from POOLS_STATIC_DATA (Mock fallback)
+  const poolsMockItems: GalleryItem[] = useMemo(() => {
     const seen = new Set<string>();
     const items: GalleryItem[] = [];
 
@@ -81,8 +126,8 @@ export function Gallery({
     return items;
   }, []);
 
-  // Extract unique recentWorkGallery items from LANDSCAPING_STATIC_DATA
-  const landscapingItems: GalleryItem[] = useMemo(() => {
+  // Extract unique recentWorkGallery items from LANDSCAPING_STATIC_DATA (Mock fallback)
+  const landscapingMockItems: GalleryItem[] = useMemo(() => {
     const seen = new Set<string>();
     const items: GalleryItem[] = [];
 
@@ -107,12 +152,29 @@ export function Gallery({
     return items;
   }, []);
 
-  // Current active list
-  const activeItems = useMemo(() => {
-    return activeTab === "pools" ? poolsItems : landscapingItems;
-  }, [activeTab, poolsItems, landscapingItems]);
+  // Filter API items by category
+  const apiPoolsItems = useMemo(() => {
+    return apiItems.filter((item) => {
+      const cat = (item.category || "").toLowerCase().trim();
+      return cat === "pools" || cat.includes("pool");
+    });
+  }, [apiItems]);
 
-  const isProjectsPage = pathname === "/projects";
+  const apiLandscapingItems = useMemo(() => {
+    return apiItems.filter((item) => {
+      const cat = (item.category || "").toLowerCase().trim();
+      return cat === "landscaping" || cat.includes("landscap");
+    });
+  }, [apiItems]);
+
+  // Use API items if available; otherwise gracefully fall back to mock data
+  const activeItems = useMemo(() => {
+    if (activeTab === "pools") {
+      return apiPoolsItems.length > 0 ? apiPoolsItems : poolsMockItems;
+    } else {
+      return apiLandscapingItems.length > 0 ? apiLandscapingItems : landscapingMockItems;
+    }
+  }, [activeTab, apiPoolsItems, poolsMockItems, apiLandscapingItems, landscapingMockItems]);
 
   // Sliced items for homepage (limit 12) vs full list on /projects
   const displayItems = useMemo(() => {
@@ -218,29 +280,33 @@ export function Gallery({
           </div>
         </div>
 
-        {/* Gallery Grid */}
+        {/* Gallery Grid or Loading Skeleton */}
         <div
           id={`gallery-panel-${activeTab}`}
           role="tabpanel"
           aria-labelledby={`tab-${activeTab}`}
         >
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5">
-            <AnimatePresence mode="popLayout">
-              {displayItems.map((item, index) => (
-                <GalleryCard
-                  key={item._id}
-                  item={item}
-                  index={index}
-                  targetSlug={item.slug}
-                  onSelectImage={handleSelectImageCard}
-                  isShowText={isProjectsPage}
-                />
-              ))}
-            </AnimatePresence>
-          </div>
+          {isLoading ? (
+            <GallerySkeleton count={isProjectsPage ? 8 : 4} />
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5">
+              <AnimatePresence mode="popLayout">
+                {displayItems.map((item, index) => (
+                  <GalleryCard
+                    key={item._id}
+                    item={item}
+                    index={index}
+                    targetSlug={item.slug}
+                    onSelectImage={handleSelectImageCard}
+                    isShowText={isProjectsPage}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
+          )}
 
           {/* Homepage CTA to view all projects */}
-          {!isProjectsPage && activeItems.length > 12 && (
+          {!isLoading && !isProjectsPage && activeItems.length > 12 && (
             <div className="flex items-center justify-center pt-8 sm:pt-10">
               <Button
                 asChild

@@ -1,17 +1,14 @@
 import * as React from "react";
 
-export function GallerySkeleton() {
+export function GallerySkeleton({ count = 8 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-      {Array.from({ length: 6 }).map((_, i) => (
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5">
+      {Array.from({ length: count }).map((_, i) => (
         <div
           key={i}
-          className="rounded-xl overflow-hidden bg-card border border-border/80 shadow-sm animate-pulse flex flex-col"
+          className="relative w-full aspect-[3/2] rounded-lg overflow-hidden bg-muted/60 border border-border/70 animate-pulse shadow-sm"
         >
-          <div className="w-full aspect-[4/3] bg-muted/60" />
-          <div className="py-4 px-4 border-t border-border/40 flex justify-center">
-            <div className="h-4 w-3/4 bg-muted/80 rounded" />
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-muted/80 via-muted/40 to-muted/80" />
         </div>
       ))}
     </div>
