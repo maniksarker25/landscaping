@@ -51,13 +51,6 @@ export interface GalleryProps {
   defaultTab?: GalleryTab;
 }
 
-const BASE_CATEGORIES: { id: string; label: string }[] = [
-  { id: "all", label: "All Projects" },
-  { id: "pools", label: "Swimming Pools" },
-  { id: "landscaping", label: "Landscaping" },
-  { id: "outdoor-living", label: "Outdoor Living" },
-];
-
 /**
  * Checks whether an item's category matches the user-selected category tab.
  */
@@ -75,14 +68,6 @@ function matchesCategory(
     return cat === "pools" || cat.includes("pool");
   }
 
-  if (target === "landscaping") {
-    return (
-      cat === "landscaping" ||
-      cat.includes("landscap") ||
-      cat.includes("garden")
-    );
-  }
-
   if (target === "outdoor-living") {
     return (
       cat === "outdoor-living" ||
@@ -90,6 +75,14 @@ function matchesCategory(
       cat.includes("living") ||
       cat.includes("pergola") ||
       cat.includes("patio")
+    );
+  }
+
+  if (target === "landscaping") {
+    return (
+      cat === "landscaping" ||
+      cat.includes("landscap") ||
+      cat.includes("garden")
     );
   }
 
@@ -154,7 +147,7 @@ export function Gallery({
     };
   }, [initialData]);
 
-  // Extract unique recentWorkGallery items from POOLS_STATIC_DATA (Mock fallback)
+  // Extract unique recentWorkGallery items from POOLS_STATIC_DATA (Mock fallback ONLY when 0 API items)
   const poolsMockItems: GalleryItem[] = useMemo(() => {
     const seen = new Set<string>();
     const items: GalleryItem[] = [];
@@ -180,7 +173,7 @@ export function Gallery({
     return items;
   }, []);
 
-  // Extract unique recentWorkGallery items from LANDSCAPING_STATIC_DATA (Mock fallback)
+  // Extract unique recentWorkGallery items from LANDSCAPING_STATIC_DATA (Mock fallback ONLY when 0 API items)
   const landscapingMockItems: GalleryItem[] = useMemo(() => {
     const seen = new Set<string>();
     const items: GalleryItem[] = [];
@@ -206,92 +199,105 @@ export function Gallery({
     return items;
   }, []);
 
-  // Filter or slice mock items suitable for outdoor-living fallback
-  const outdoorLivingMockItems: GalleryItem[] = useMemo(() => {
-    return landscapingMockItems
-      .filter(
-        (i) =>
-          i.imageAlt.toLowerCase().includes("pergola") ||
-          i.imageAlt.toLowerCase().includes("patio") ||
-          i.imageAlt.toLowerCase().includes("outdoor") ||
-          i.imageAlt.toLowerCase().includes("living"),
-      )
-      .slice(0, 8);
-  }, [landscapingMockItems]);
-
-  // Compute category tabs dynamically with counts based on API response
+  // Dynamic category tabs derived strictly from available data
   const categoryTabs = useMemo(() => {
-    const tabs = [...BASE_CATEGORIES];
-    const existingIds = new Set(tabs.map((t) => t.id));
+    // When API items are available, show ONLY categories that actually have data
+    if (apiItems.length > 0) {
+      const categoryMap = new Map<string, { label: string; count: number }>();
 
-    // Discover any additional category from the API items
-    apiItems.forEach((item) => {
-      const raw = (item.category || "").toLowerCase().trim();
-      if (raw && !existingIds.has(raw)) {
-        const isCovered =
-          raw.includes("pool") ||
-          raw.includes("landscap") ||
-          raw.includes("garden") ||
+      apiItems.forEach((item) => {
+        const raw = (item.category || "").toLowerCase().trim();
+        if (!raw) return;
+
+        let key = raw;
+        let label = raw
+          .split("-")
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(" ");
+
+        if (raw === "pools" || raw.includes("pool")) {
+          key = "pools";
+          label = "Swimming Pools";
+        } else if (
+          raw === "outdoor-living" ||
           raw.includes("outdoor") ||
-          raw.includes("living");
-
-        if (!isCovered) {
-          existingIds.add(raw);
-          const label = raw
-            .split("-")
-            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(" ");
-          tabs.push({ id: raw, label });
+          raw.includes("living") ||
+          raw.includes("pergola")
+        ) {
+          key = "outdoor-living";
+          label = "Outdoor Living";
+        } else if (raw === "landscaping" || raw.includes("landscap")) {
+          key = "landscaping";
+          label = "Landscaping";
         }
-      }
-    });
 
-    // Compute live count for each category
-    return tabs.map((tab) => {
-      const count =
-        tab.id === "all"
-          ? apiItems.length
-          : apiItems.filter((item) => matchesCategory(item.category, tab.id))
-              .length;
-      return { ...tab, count };
-    });
-  }, [apiItems]);
+        const existing = categoryMap.get(key);
+        if (existing) {
+          existing.count += 1;
+        } else {
+          categoryMap.set(key, { label, count: 1 });
+        }
+      });
 
-  // Filter items strictly based on user-selected category
-  const activeItems = useMemo(() => {
-    // 1. Filter API items based on user selected category
-    const matchingApiItems =
-      activeTab === "all"
-        ? apiItems
-        : apiItems.filter((item) => matchesCategory(item.category, activeTab));
+      const tabs: { id: string; label: string; count: number }[] = [
+        { id: "all", label: "All Projects", count: apiItems.length },
+      ];
 
-    // If API returned items matching this category, show them!
-    if (matchingApiItems.length > 0) {
-      return matchingApiItems;
+      categoryMap.forEach((val, key) => {
+        tabs.push({ id: key, label: val.label, count: val.count });
+      });
+
+      return tabs;
     }
 
-    // 2. Otherwise gracefully fall back to mock data
+    // Only when API has 0 total items (e.g. database empty/offline), fallback to default mock tabs
+    return [
+      {
+        id: "all",
+        label: "All Projects",
+        count: poolsMockItems.length + landscapingMockItems.length,
+      },
+      { id: "pools", label: "Swimming Pools", count: poolsMockItems.length },
+      {
+        id: "landscaping",
+        label: "Landscaping",
+        count: landscapingMockItems.length,
+      },
+    ];
+  }, [apiItems, poolsMockItems, landscapingMockItems]);
+
+  // Ensure active tab points to a valid available tab
+  useEffect(() => {
+    if (
+      categoryTabs.length > 0 &&
+      !categoryTabs.some((t) => t.id === activeTab)
+    ) {
+      setActiveTab("all");
+    }
+  }, [categoryTabs, activeTab]);
+
+  // Display items strictly based on available API data (NO dummy data when API has data)
+  const activeItems = useMemo(() => {
+    // 1. If API has data, strictly show API data
+    if (apiItems.length > 0) {
+      if (activeTab === "all") {
+        return apiItems;
+      }
+      return apiItems.filter((item) =>
+        matchesCategory(item.category, activeTab),
+      );
+    }
+
+    // 2. Only if API has zero items overall, fall back to mock data
     if (activeTab === "pools") {
       return poolsMockItems;
-    }
-    if (activeTab === "outdoor-living") {
-      return outdoorLivingMockItems.length > 0
-        ? outdoorLivingMockItems
-        : landscapingMockItems.slice(0, 6);
     }
     if (activeTab === "landscaping") {
       return landscapingMockItems;
     }
 
-    // "all" fallback when API is empty
     return [...poolsMockItems, ...landscapingMockItems];
-  }, [
-    activeTab,
-    apiItems,
-    poolsMockItems,
-    landscapingMockItems,
-    outdoorLivingMockItems,
-  ]);
+  }, [activeTab, apiItems, poolsMockItems, landscapingMockItems]);
 
   // Sliced items for homepage (limit 12) vs full list on /projects
   const displayItems = useMemo(() => {
@@ -354,7 +360,7 @@ export function Gallery({
           </p>
         </div>
 
-        {/* Dynamic Category Filter Tabs */}
+        {/* Dynamic Category Filter Tabs - Showing ONLY available categories */}
         <div className="flex items-center justify-center mb-8 sm:mb-10">
           <div
             role="tablist"
