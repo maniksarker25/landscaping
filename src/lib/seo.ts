@@ -53,7 +53,7 @@ export function buildOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
-    name: siteConfig.name,
+    name: "Dream Floor LLC | Landscaping",
     description: siteConfig.description,
     url: siteConfig.url,
     telephone: siteConfig.phone,
