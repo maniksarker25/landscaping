@@ -24,6 +24,7 @@ export interface PoolStaticDetailViewProps {
   /** The full pool or landscaping static data object (optional if passing section props directly) */
   data?: Partial<PoolStaticDetail | LandscapingStaticDetail>;
   typesTitle?: string;
+  recentWorkTitle?: string;
 
   /** Optional custom data overrides for individual sections */
   hero?: {
@@ -69,6 +70,7 @@ export function PoolStaticDetailView({
   gallery1,
   videos,
   recentWorkGallery,
+  recentWorkTitle,
   sections,
   ctaBanner,
   sidebarServiceTitle,
@@ -95,7 +97,9 @@ export function PoolStaticDetailView({
   const effectivePoolTypes = poolTypes || data?.poolTypes;
   const effectiveGallery1 = gallery1 || data?.gallery1;
   const effectiveVideos = videos || data?.videos;
-  const effectiveRecentWork = recentWorkGallery || data?.recentWorkGallery;
+  // Strictly API gallery items only: never fall back to static data images
+  const effectiveRecentWork =
+    recentWorkGallery && recentWorkGallery.length > 0 ? recentWorkGallery : null;
   const effectiveSections = sections || data?.sections || [];
   const effectiveCtaBanner = ctaBanner || data?.ctaBanner;
   const effectiveSidebarTitle =
@@ -200,7 +204,7 @@ export function PoolStaticDetailView({
               effectiveRecentWork &&
               effectiveRecentWork.length > 0 && (
                 <ImageGallerySection
-                  title="Get Inspired By Our Recent Work"
+                  title={recentWorkTitle || "Get Inspired By Our Recent Work Gallery"}
                   images={effectiveRecentWork}
                   columns={4}
                 />

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Layers } from "lucide-react";
 import Link from "next/link";
 
 import { PageHero } from "@/components/sections/page-hero";
@@ -13,8 +13,7 @@ import { GallerySkeleton } from "@/components/sections/gallery/gallery-skeleton"
 import type { GalleryItem, GalleryMeta } from "@/types/gallery";
 import type { Testimonial } from "@/types";
 import type { LightboxItem } from "@/components/common/lightbox-modal";
-import { POOLS_STATIC_DATA } from "@/data/pools-static-data";
-import { LANDSCAPING_STATIC_DATA } from "@/data/landscaping-static-data";
+import { fetchGalleryData } from "@/lib/api/gallery";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
@@ -106,13 +105,13 @@ export function Gallery({
     null,
   );
 
-  // API items state - initialized with initialData if provided from SSR
+  // API items state - strictly from database/API
   const [apiItems, setApiItems] = useState<GalleryItem[]>(initialData || []);
   const [isLoading, setIsLoading] = useState<boolean>(
     !initialData || initialData.length === 0,
   );
 
-  // Client-side fetch from /api/gallery with loader
+  // Client-side fetch from API with loader
   useEffect(() => {
     let isMounted = true;
 
@@ -122,17 +121,12 @@ export function Gallery({
           setIsLoading(true);
         }
 
-        const res = await fetch("/api/gallery?limit=100");
-        if (!res.ok) {
-          throw new Error(`Failed to fetch from /api/gallery (${res.status})`);
-        }
-
-        const json = await res.json();
-        if (isMounted && json.success && Array.isArray(json.data)) {
-          setApiItems(json.data);
+        const res = await fetchGalleryData({ limit: 100 });
+        if (isMounted && res.data && res.data.length > 0) {
+          setApiItems(res.data);
         }
       } catch (err) {
-        console.warn("Could not load gallery from API, falling back to mock:", err);
+        console.warn("Could not load gallery from API:", err);
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -147,124 +141,58 @@ export function Gallery({
     };
   }, [initialData]);
 
-  // Extract unique recentWorkGallery items from POOLS_STATIC_DATA (Mock fallback ONLY when 0 API items)
-  const poolsMockItems: GalleryItem[] = useMemo(() => {
-    const seen = new Set<string>();
-    const items: GalleryItem[] = [];
-
-    Object.values(POOLS_STATIC_DATA).forEach((service) => {
-      (service.recentWorkGallery || []).forEach((img) => {
-        if (img?.url && !seen.has(img.url)) {
-          seen.add(img.url);
-          items.push({
-            _id: `pool-${items.length}-${encodeURIComponent(img.url.slice(-25))}`,
-            location: "Dubai, UAE",
-            image: img.url,
-            imageAlt: img.alt || "Luxury Swimming Pool Project Dubai",
-            category: "Pools",
-            slug: `/services/${service.slug || "swimming-pool-construction"}`,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          });
-        }
-      });
-    });
-
-    return items;
-  }, []);
-
-  // Extract unique recentWorkGallery items from LANDSCAPING_STATIC_DATA (Mock fallback ONLY when 0 API items)
-  const landscapingMockItems: GalleryItem[] = useMemo(() => {
-    const seen = new Set<string>();
-    const items: GalleryItem[] = [];
-
-    Object.values(LANDSCAPING_STATIC_DATA).forEach((service) => {
-      (service.recentWorkGallery || []).forEach((img) => {
-        if (img?.url && !seen.has(img.url)) {
-          seen.add(img.url);
-          items.push({
-            _id: `landscaping-${items.length}-${encodeURIComponent(img.url.slice(-25))}`,
-            location: "Dubai, UAE",
-            image: img.url,
-            imageAlt: img.alt || "Luxury Villa Landscaping Dubai",
-            category: "Landscaping",
-            slug: `/services/${service.slug || "villa-landscaping"}`,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          });
-        }
-      });
-    });
-
-    return items;
-  }, []);
-
-  // Dynamic category tabs derived strictly from available data
+  // Dynamic category tabs derived strictly from available API items
   const categoryTabs = useMemo(() => {
-    // When API items are available, show ONLY categories that actually have data
-    if (apiItems.length > 0) {
-      const categoryMap = new Map<string, { label: string; count: number }>();
-
-      apiItems.forEach((item) => {
-        const raw = (item.category || "").toLowerCase().trim();
-        if (!raw) return;
-
-        let key = raw;
-        let label = raw
-          .split("-")
-          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(" ");
-
-        if (raw === "pools" || raw.includes("pool")) {
-          key = "pools";
-          label = "Swimming Pools";
-        } else if (
-          raw === "outdoor-living" ||
-          raw.includes("outdoor") ||
-          raw.includes("living") ||
-          raw.includes("pergola")
-        ) {
-          key = "outdoor-living";
-          label = "Outdoor Living";
-        } else if (raw === "landscaping" || raw.includes("landscap")) {
-          key = "landscaping";
-          label = "Landscaping";
-        }
-
-        const existing = categoryMap.get(key);
-        if (existing) {
-          existing.count += 1;
-        } else {
-          categoryMap.set(key, { label, count: 1 });
-        }
-      });
-
-      const tabs: { id: string; label: string; count: number }[] = [
-        { id: "all", label: "All Projects", count: apiItems.length },
-      ];
-
-      categoryMap.forEach((val, key) => {
-        tabs.push({ id: key, label: val.label, count: val.count });
-      });
-
-      return tabs;
+    if (apiItems.length === 0) {
+      return [{ id: "all", label: "All Projects", count: 0 }];
     }
 
-    // Only when API has 0 total items (e.g. database empty/offline), fallback to default mock tabs
-    return [
-      {
-        id: "all",
-        label: "All Projects",
-        count: poolsMockItems.length + landscapingMockItems.length,
-      },
-      { id: "pools", label: "Swimming Pools", count: poolsMockItems.length },
-      {
-        id: "landscaping",
-        label: "Landscaping",
-        count: landscapingMockItems.length,
-      },
+    const categoryMap = new Map<string, { label: string; count: number }>();
+
+    apiItems.forEach((item) => {
+      const raw = (item.category || "").toLowerCase().trim();
+      if (!raw) return;
+
+      let key = raw;
+      let label = raw
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+
+      if (raw === "pools" || raw.includes("pool")) {
+        key = "pools";
+        label = "Swimming Pools";
+      } else if (
+        raw === "outdoor-living" ||
+        raw.includes("outdoor") ||
+        raw.includes("living") ||
+        raw.includes("pergola")
+      ) {
+        key = "outdoor-living";
+        label = "Outdoor Living";
+      } else if (raw === "landscaping" || raw.includes("landscap")) {
+        key = "landscaping";
+        label = "Landscaping";
+      }
+
+      const existing = categoryMap.get(key);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        categoryMap.set(key, { label, count: 1 });
+      }
+    });
+
+    const tabs: { id: string; label: string; count: number }[] = [
+      { id: "all", label: "All Projects", count: apiItems.length },
     ];
-  }, [apiItems, poolsMockItems, landscapingMockItems]);
+
+    categoryMap.forEach((val, key) => {
+      tabs.push({ id: key, label: val.label, count: val.count });
+    });
+
+    return tabs;
+  }, [apiItems]);
 
   // Ensure active tab points to a valid available tab
   useEffect(() => {
@@ -276,28 +204,15 @@ export function Gallery({
     }
   }, [categoryTabs, activeTab]);
 
-  // Display items strictly based on available API data (NO dummy data when API has data)
+  // Display items strictly from the API (NO static mock items)
   const activeItems = useMemo(() => {
-    // 1. If API has data, strictly show API data
-    if (apiItems.length > 0) {
-      if (activeTab === "all") {
-        return apiItems;
-      }
-      return apiItems.filter((item) =>
-        matchesCategory(item.category, activeTab),
-      );
+    if (activeTab === "all") {
+      return apiItems;
     }
-
-    // 2. Only if API has zero items overall, fall back to mock data
-    if (activeTab === "pools") {
-      return poolsMockItems;
-    }
-    if (activeTab === "landscaping") {
-      return landscapingMockItems;
-    }
-
-    return [...poolsMockItems, ...landscapingMockItems];
-  }, [activeTab, apiItems, poolsMockItems, landscapingMockItems]);
+    return apiItems.filter((item) =>
+      matchesCategory(item.category, activeTab),
+    );
+  }, [activeTab, apiItems]);
 
   // Sliced items for homepage (limit 12) vs full list on /projects
   const displayItems = useMemo(() => {
@@ -305,7 +220,7 @@ export function Gallery({
     return activeItems.slice(0, 12);
   }, [isProjectsPage, activeItems]);
 
-  // Lightbox items mapping directly to the visible items
+  // Lightbox items mapping directly to the visible API items
   const lightboxItems: LightboxItem[] = useMemo(() => {
     return displayItems.map((item) => ({
       id: item._id,
@@ -356,54 +271,56 @@ export function Gallery({
             Our Recent Completed Projects
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-            Browse our hand-crafted swimming pools, luxury villa landscaping, and outdoor living projects completed across Dubai.
+            Browse our completed luxury swimming pools, villa landscaping, and outdoor living projects across Dubai.
           </p>
         </div>
 
-        {/* Dynamic Category Filter Tabs - Showing ONLY available categories */}
-        <div className="flex items-center justify-center mb-8 sm:mb-10">
-          <div
-            role="tablist"
-            aria-label="Gallery Categories"
-            className="inline-flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl sm:rounded-full bg-muted/80 backdrop-blur-sm border border-border shadow-xs max-w-3xl"
-          >
-            {categoryTabs.map((cat) => {
-              const isActive = activeTab === cat.id;
-              const count = cat.count;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  role="tab"
-                  id={`tab-${cat.id}`}
-                  aria-selected={isActive}
-                  aria-controls={`gallery-panel-${cat.id}`}
-                  onClick={() => handleTabChange(cat.id)}
-                  className={cn(
-                    "inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm",
-                    isActive
-                      ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
-                      : "text-muted-foreground hover:text-foreground hover:bg-background/60",
-                  )}
-                >
-                  <span>{cat.label}</span>
-                  {count > 0 && (
-                    <span
-                      className={cn(
-                        "rounded-full px-2 py-0.5 text-[10px] sm:text-[11px] font-semibold transition-colors",
-                        isActive
-                          ? "bg-white/20 text-white"
-                          : "bg-muted text-muted-foreground",
-                      )}
-                    >
-                      {count}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
+        {/* Dynamic Category Filter Tabs - Showing ONLY categories from API */}
+        {categoryTabs.length > 1 && (
+          <div className="flex items-center justify-center mb-8 sm:mb-10">
+            <div
+              role="tablist"
+              aria-label="Gallery Categories"
+              className="inline-flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl sm:rounded-full bg-muted/80 backdrop-blur-sm border border-border shadow-xs max-w-3xl"
+            >
+              {categoryTabs.map((cat) => {
+                const isActive = activeTab === cat.id;
+                const count = cat.count;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    role="tab"
+                    id={`tab-${cat.id}`}
+                    aria-selected={isActive}
+                    aria-controls={`gallery-panel-${cat.id}`}
+                    onClick={() => handleTabChange(cat.id)}
+                    className={cn(
+                      "inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm",
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
+                        : "text-muted-foreground hover:text-foreground hover:bg-background/60",
+                    )}
+                  >
+                    <span>{cat.label}</span>
+                    {count > 0 && (
+                      <span
+                        className={cn(
+                          "rounded-full px-2 py-0.5 text-[10px] sm:text-[11px] font-semibold transition-colors",
+                          isActive
+                            ? "bg-white/20 text-white"
+                            : "bg-muted text-muted-foreground",
+                        )}
+                      >
+                        {count}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Gallery Grid or Loading Skeleton */}
         <div
@@ -413,7 +330,7 @@ export function Gallery({
         >
           {isLoading ? (
             <GallerySkeleton count={isProjectsPage ? 8 : 4} />
-          ) : (
+          ) : displayItems.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-3.5">
               <AnimatePresence mode="popLayout">
                 {displayItems.map((item, index) => (
@@ -427,6 +344,27 @@ export function Gallery({
                   />
                 ))}
               </AnimatePresence>
+            </div>
+          ) : (
+            <div className="py-16 text-center max-w-md mx-auto space-y-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto">
+                <Layers className="w-6 h-6" />
+              </div>
+              <h3 className="text-base font-bold text-foreground">
+                No Projects Found
+              </h3>
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                There are currently no projects in this category. Please check back soon or browse all projects.
+              </p>
+              {activeTab !== "all" && (
+                <button
+                  type="button"
+                  onClick={() => handleTabChange("all")}
+                  className="text-xs font-semibold text-primary hover:underline pt-2 block mx-auto"
+                >
+                  View All Projects
+                </button>
+              )}
             </div>
           )}
 

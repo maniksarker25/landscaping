@@ -6,6 +6,7 @@ import { ArrowRight, Sparkles, PhoneCall } from "lucide-react";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
 import { LANDSCAPING_STATIC_DATA } from "@/data/landscaping-static-data";
+import { fetchGalleryData } from "@/lib/api/gallery";
 import ImageGallerySection from "@/components/sections/image-gallery-section";
 import GoogleReviewsSection from "@/components/sections/google-reviews-section";
 import ContactMapSection from "@/components/sections/contact-map-section";
@@ -17,9 +18,29 @@ export const metadata: Metadata = {
     "Explore our premier luxury landscaping and garden design services in Dubai. Villa landscaping, residential landscaping, commercial landscaping, and professional gardening services.",
 };
 
-export default function LandscapingOverviewPage() {
+export default async function LandscapingOverviewPage() {
   const landscapingList = Object.values(LANDSCAPING_STATIC_DATA);
-  const recentWork = LANDSCAPING_STATIC_DATA["villa-landscaping"]?.recentWorkGallery || [];
+  const galleryRes = await fetchGalleryData({ limit: 100 });
+  const landscapingApiImages = (galleryRes.data || [])
+    .filter((item) => {
+      const cat = (item.category || "").toLowerCase().trim();
+      return (
+        cat === "landscaping" ||
+        cat.includes("landscap") ||
+        cat.includes("garden") ||
+        cat === "outdoor-living" ||
+        cat.includes("outdoor") ||
+        cat.includes("living") ||
+        cat.includes("pergola")
+      );
+    })
+    .map((item) => ({
+      url: item.image,
+      alt: item.imageAlt || item.location || "Luxury Villa Landscaping Project Dubai",
+      title: item.imageAlt || item.location,
+    }));
+
+  const recentWork = landscapingApiImages;
 
   return (
     <main className="min-h-screen bg-background">
@@ -175,7 +196,7 @@ export default function LandscapingOverviewPage() {
               Our Portfolio
             </span>
             <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-primary">
-              Get Inspired By Our Recent Work
+              Get Inspired By Our Recent Works
             </h2>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
               Browse through our recent villa landscape construction, garden makeovers, swimming pool integration, and pergola installations across Dubai.

@@ -8,19 +8,169 @@ import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { buildMetadata } from "@/lib/seo";
-import { projects, getProjectBySlug } from "@/data/projects";
+import { fetchGalleryData } from "@/lib/api/gallery";
+import { projects } from "@/data/projects";
+
+export const dynamicParams = true;
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+export interface DetailedProject {
+  slug: string;
+  title: string;
+  category: string;
+  location: string;
+  year: string;
+  coverImage: string;
+  gallery: string[];
+  summary: string;
+  scope: string[];
+}
+
+/**
+ * Fetch project details using strictly live API gallery data.
+ * NEVER uses static data from pools-static-data.ts or landscaping-static-data.ts.
+ */
+async function getProjectData(slug: string): Promise<DetailedProject | null> {
+  const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
+  const apiRes = await fetchGalleryData({ limit: 100 });
+  const allApiItems = apiRes.data || [];
+
+  // Try matching directly against API gallery items
+  const matchedItem = allApiItems.find((item) => {
+    const itemSlug = (item.slug || "").toLowerCase().trim();
+    const itemId = (item._id || "").toLowerCase().trim();
+    const slugifiedAlt = (item.imageAlt || "")
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    return (
+      itemSlug === decodedSlug ||
+      itemId === decodedSlug ||
+      slugifiedAlt === decodedSlug ||
+      (decodedSlug.length > 5 && (itemSlug.includes(decodedSlug) || decodedSlug.includes(itemSlug)))
+    );
+  });
+
+  // Extract all valid images from API
+  const allApiImages = allApiItems
+    .map((i) => i.image)
+    .filter((img): img is string => Boolean(img && img.trim() && !img.includes("about-intro-pool")));
+
+  if (matchedItem) {
+    const categoryName = (matchedItem.category || "landscaping").toLowerCase();
+    const categoryLabel = categoryName.includes("pool")
+      ? "Swimming Pool Construction"
+      : categoryName.includes("outdoor")
+      ? "Outdoor Living & Pergola"
+      : "Luxury Villa Landscaping";
+
+    // Related images from the same category in API
+    const categoryImages = allApiItems
+      .filter((i) => i._id !== matchedItem._id && (i.category || "").toLowerCase() === categoryName)
+      .map((i) => i.image)
+      .filter((img): img is string => Boolean(img && img.trim()));
+
+    // Other images from API to populate gallery
+    const otherImages = allApiItems
+      .filter((i) => i._id !== matchedItem._id && (i.category || "").toLowerCase() !== categoryName)
+      .map((i) => i.image)
+      .filter((img): img is string => Boolean(img && img.trim()));
+
+    const galleryImages = [
+      matchedItem.image,
+      ...categoryImages,
+      ...otherImages,
+    ].slice(0, 5);
+
+    return {
+      slug,
+      title: matchedItem.imageAlt || `${categoryLabel} Project`,
+      category: categoryLabel,
+      location: matchedItem.location || "Dubai, UAE",
+      year: matchedItem.createdAt
+        ? new Date(matchedItem.createdAt).getFullYear().toString()
+        : "2024",
+      coverImage: matchedItem.image,
+      gallery: galleryImages.length > 1 ? galleryImages : [matchedItem.image],
+      summary: `A bespoke luxury ${matchedItem.category} project located in ${matchedItem.location || "Dubai, UAE"}, completed with high-end architectural craftsmanship by Dream Floor Landscaping.`,
+      scope: [
+        `${categoryLabel} Engineering & Execution`,
+        "Site Preparation & Custom Masonry",
+        "Landscape Lighting & Irrigation",
+        "Handover, Commissioning & Warranty",
+      ],
+    };
+  }
+
+  // Fallback: match static slug names (e.g. al-barari-villa-oasis), but OVERRIDE images with real API images!
+  const staticMatch = projects.find((p) => p.slug === decodedSlug);
+  if (staticMatch) {
+    const isPool = staticMatch.category.toLowerCase().includes("pool");
+    const matchedCategoryImages = allApiItems
+      .filter((i) => {
+        const cat = (i.category || "").toLowerCase();
+        return isPool ? cat.includes("pool") : !cat.includes("pool");
+      })
+      .map((i) => i.image)
+      .filter((img): img is string => Boolean(img && img.trim()));
+
+    const resolvedImages = matchedCategoryImages.length > 0 ? matchedCategoryImages : allApiImages;
+    const coverImage = resolvedImages[0] || staticMatch.coverImage;
+    const gallery = resolvedImages.length > 1 ? resolvedImages.slice(0, 5) : [coverImage];
+
+    return {
+      ...staticMatch,
+      coverImage,
+      gallery,
+    };
+  }
+
+  // If there are API items available, show the first relevant API item instead of 404
+  if (allApiItems.length > 0 && allApiItems[0]) {
+    const fallbackItem = allApiItems[0];
+    return {
+      slug,
+      title: fallbackItem.imageAlt || "Luxury Completed Project",
+      category: fallbackItem.category || "Landscaping",
+      location: fallbackItem.location || "Dubai, UAE",
+      year: "2024",
+      coverImage: fallbackItem.image,
+      gallery: allApiImages.length > 0 ? allApiImages.slice(0, 5) : [fallbackItem.image],
+      summary: "Explore our luxury swimming pool construction and landscaping projects completed in Dubai.",
+      scope: [
+        "Architectural 3D Landscape Design",
+        "Swimming Pool Construction & MEP",
+        "Pergolas, Gazebos & Outdoor Majlis",
+        "Garden Irrigation & Softscaping",
+      ],
+    };
+  }
+
+  return null;
+}
+
+export async function generateStaticParams() {
+  try {
+    const apiRes = await fetchGalleryData({ limit: 100 });
+    const apiSlugs = (apiRes.data || [])
+      .map((item) => item.slug || item._id)
+      .filter(Boolean);
+    const staticSlugs = projects.map((project) => project.slug);
+    const combined = Array.from(new Set([...staticSlugs, ...apiSlugs]));
+    return combined.map((slug) => ({ slug }));
+  } catch {
+    return projects.map((project) => ({ slug: project.slug }));
+  }
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectData(slug);
   if (!project) return buildMetadata({ title: "Project Not Found", noIndex: true });
 
   return buildMetadata({
@@ -33,7 +183,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectData(slug);
   if (!project) notFound();
 
   return (
@@ -110,7 +260,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <div className="grid grid-cols-2 gap-4">
             {project.gallery.map((image, index) => (
               <div
-                key={image}
+                key={`${image}-${index}`}
                 className={`relative overflow-hidden rounded-lg ${
                   index === 0 ? "col-span-2 aspect-[16/9]" : "aspect-square"
                 }`}

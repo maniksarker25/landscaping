@@ -52,27 +52,41 @@ export async function GET(req: NextRequest) {
         : new Date().toISOString(),
     }));
 
-    return NextResponse.json({
-      success: true,
-      count: mapped.length,
-      meta: {
-        page,
-        limit,
-        total,
-        totalPage: Math.ceil(total / limit) || 0,
-      },
-      data: mapped,
-    });
+    if (mapped.length > 0) {
+      return NextResponse.json({
+        success: true,
+        count: mapped.length,
+        meta: {
+          page,
+          limit,
+          total,
+          totalPage: Math.ceil(total / limit) || 0,
+        },
+        data: mapped,
+      });
+    }
   } catch (error) {
-    console.error("Public gallery GET error:", error);
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch projects from database",
-        meta: { page: 1, limit: 50, total: 0, totalPage: 0 },
-        data: [],
-      },
-      { status: 500 },
-    );
+    console.warn("Public gallery MongoDB query error:", error);
   }
+
+  // Fallback to production API if local connection failed or returned 0
+  try {
+    const prodRes = await fetch(`https://www.dreamfloor.ae/api/gallery${req.nextUrl.search}`, {
+      headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(4000),
+    });
+    if (prodRes.ok) {
+      const prodData = await prodRes.json();
+      return NextResponse.json(prodData);
+    }
+  } catch (prodErr) {
+    console.warn("Public gallery production API fallback failed:", prodErr);
+  }
+
+  return NextResponse.json({
+    success: true,
+    count: 0,
+    meta: { page: 1, limit: 50, total: 0, totalPage: 0 },
+    data: [],
+  });
 }

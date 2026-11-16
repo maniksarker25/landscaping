@@ -95,11 +95,52 @@ export async function generateMetadata({
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
 
+  // Fetch live gallery items from the API to show real project works
+  const galleryRes = await fetchGalleryData({ limit: 100 });
+  const allGalleryItems = galleryRes.data || [];
+
+  // Categorize API gallery items: Pools vs Landscaping
+  const poolGalleryImages = allGalleryItems
+    .filter((item) => {
+      const cat = (item.category || "").toLowerCase().trim();
+      return cat === "pools" || cat.includes("pool");
+    })
+    .map((item) => ({
+      url: item.image,
+      alt: item.imageAlt || item.location || "Luxury Swimming Pool Project Dubai",
+      title: item.imageAlt || item.location,
+    }));
+
+  const landscapingGalleryImages = allGalleryItems
+    .filter((item) => {
+      const cat = (item.category || "").toLowerCase().trim();
+      return (
+        cat === "landscaping" ||
+        cat.includes("landscap") ||
+        cat.includes("garden") ||
+        cat === "outdoor-living" ||
+        cat.includes("outdoor") ||
+        cat.includes("living") ||
+        cat.includes("pergola")
+      );
+    })
+    .map((item) => ({
+      url: item.image,
+      alt: item.imageAlt || item.location || "Luxury Villa Landscaping Project Dubai",
+      title: item.imageAlt || item.location,
+    }));
+
   // 1. Check if this route matches one of the static pool pages
   const poolStatic = getPoolStaticDataBySlug(slug);
 
   if (poolStatic) {
-    return <PoolStaticDetailView data={poolStatic} />;
+    return (
+      <PoolStaticDetailView
+        data={poolStatic}
+        recentWorkGallery={poolGalleryImages}
+        recentWorkTitle="Get Inspired By Our Recent Work Gallery"
+      />
+    );
   }
 
   // 2. Check if this route matches one of the static landscaping pages
@@ -112,20 +153,29 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         typesTitle={
           landscapingStatic.typesTitle || "Types of Landscaping in Dubai"
         }
+        recentWorkGallery={landscapingGalleryImages}
+        recentWorkTitle="Get Inspired By Our Recent Work Gallery"
       />
     );
   }
 
   // 3. Fallback for other dynamic/fallback services
-  const [service, testimonialsRes, galleryRes] = await Promise.all([
+  const [service, testimonialsRes] = await Promise.all([
     getServiceDetailBySlugAsync(slug),
     fetchTestimonialsData(),
-    fetchGalleryData({ limit: 60 }),
   ]);
 
   if (!service) {
     notFound();
   }
+
+  const isPool =
+    (service?.category || "").toLowerCase().includes("pool") ||
+    slug.includes("pool");
+
+  const relevantGalleryItems = isPool
+    ? allGalleryItems.filter((item) => (item.category || "").toLowerCase().includes("pool"))
+    : allGalleryItems.filter((item) => !(item.category || "").toLowerCase().includes("pool"));
 
   const heroSection = service?.sections?.find(
     (s) => s.blockType === "hero_section" || s.type === "hero_section",
@@ -149,7 +199,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               sections={service?.sections}
               googleReviews={service?.googleReviews}
               initialTestimonials={testimonialsRes.data || []}
-              initialGalleryItems={galleryRes?.data || []}
+              initialGalleryItems={relevantGalleryItems}
             />
           </div>
 

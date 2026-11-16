@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ZoomIn } from "lucide-react";
+import { ZoomIn, ArrowUpRight } from "lucide-react";
 import type { GalleryItem } from "@/types/gallery";
 
 export interface GalleryCardProps {
@@ -18,10 +19,17 @@ export const GalleryCard = React.memo(function GalleryCard({
   item,
   index,
   onSelectImage,
+  isShowText,
 }: GalleryCardProps) {
   const handleClickImage = React.useCallback(() => {
     onSelectImage(index);
   }, [onSelectImage, index]);
+
+  const detailSlug = item?.slug
+    ? item.slug.startsWith("/")
+      ? item.slug
+      : `/projects/${item.slug}`
+    : `/projects/${item?._id}`;
 
   return (
     <motion.div
@@ -40,7 +48,7 @@ export const GalleryCard = React.memo(function GalleryCard({
           alt={item?.imageAlt || item?.location || "Project Image"}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          quality={80}
+          quality={85}
           priority={index < 4}
           className="object-cover transition-transform duration-500 ease-out transform-gpu group-hover:scale-110"
         />
@@ -53,6 +61,17 @@ export const GalleryCard = React.memo(function GalleryCard({
           <span className="text-white text-xs font-semibold drop-shadow-md line-clamp-1 max-w-[90%]">
             {item?.imageAlt || item?.location || "View Project"}
           </span>
+
+          {isShowText && (
+            <Link
+              href={detailSlug}
+              onClick={(e) => e.stopPropagation()}
+              className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-primary-foreground bg-primary/90 hover:bg-primary px-3 py-1 rounded-full transition-all shadow-md transform hover:scale-105"
+            >
+              <span>View Details</span>
+              <ArrowUpRight className="h-3 w-3" />
+            </Link>
+          )}
         </div>
       </div>
     </motion.div>
