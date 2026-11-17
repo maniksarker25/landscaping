@@ -1,9 +1,6 @@
 import type { Testimonial } from "@/types";
 import type { TestimonialItem } from "@/types/testimonial";
 import { fetchTestimonialsData } from "@/lib/api/testimonials";
-import { defaultTestimonials } from "@/data/default-testimonials";
-
-export { defaultTestimonials } from "@/data/default-testimonials";
 
 export function convertTestimonialItemToTestimonial(
   item: TestimonialItem,
@@ -26,10 +23,8 @@ export async function getTestimonialsAsync(): Promise<Testimonial[]> {
     if (res.data && Array.isArray(res.data) && res.data.length > 0) {
       return res.data.map(convertTestimonialItemToTestimonial);
     }
-  } catch {
-    // fallback below
+  } catch (err) {
+    console.warn("Could not load testimonials from API:", err);
   }
-  return defaultTestimonials;
+  return [];
 }
-
-export const testimonials: Testimonial[] = defaultTestimonials;

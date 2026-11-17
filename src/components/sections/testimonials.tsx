@@ -9,10 +9,7 @@ import { SectionTitle } from "@/components/common/section-title";
 import { TestimonialCard } from "@/components/cards/testimonial-card";
 import type { Testimonial } from "@/types";
 import type { TestimonialItem } from "@/types/testimonial";
-import {
-  convertTestimonialItemToTestimonial,
-  defaultTestimonials,
-} from "@/data/testimonials";
+import { convertTestimonialItemToTestimonial } from "@/data/testimonials";
 import { fetchTestimonialsData } from "@/lib/api/testimonials";
 
 interface TestimonialsProps {
@@ -28,12 +25,9 @@ export function Testimonials({
   title = "Words From Our Customers",
   align = "left",
 }: TestimonialsProps) {
-  const [dataList, setDataList] = React.useState<Testimonial[]>(() => {
-    if (initialTestimonials && initialTestimonials.length > 0) {
-      return initialTestimonials;
-    }
-    return defaultTestimonials;
-  });
+  const [dataList, setDataList] = React.useState<Testimonial[]>(
+    initialTestimonials ?? [],
+  );
 
   React.useEffect(() => {
     if (initialTestimonials && initialTestimonials.length > 0) {
