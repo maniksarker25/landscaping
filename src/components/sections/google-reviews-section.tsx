@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { Star, ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { fetchTestimonialsData } from "@/lib/api/testimonials";
 
 export interface ReviewItem {
   id: string;
@@ -13,73 +14,42 @@ export interface ReviewItem {
   avatar?: string;
 }
 
-export const DEFAULT_GOOGLE_REVIEWS: ReviewItem[] = [
-  {
-    id: "rev-1",
-    name: "Nidhi Aggarwal",
-    rating: 5,
-    text: "We had a great experience with Dream Floor Landscaping. We hired three different contractor teams to work on our house, and Dream Floor Landscaping was by far the most efficient and professional of the three. The work was completed on time and to a high standard. We are very happy with the results.",
-  },
-  {
-    id: "rev-2",
-    name: "Igor Loktev",
-    rating: 5,
-    text: "Great team! All the work was completed perfectly, and communication was clear, friendly, and timely. Thank you so much for a job well done! ❤️🙏",
-  },
-  {
-    id: "rev-3",
-    name: "MUHAMMAD MUSHARAF ZAIDI",
-    rating: 5,
-    text: "We had a great experience with this pool contractor. The team was professional, responsive, and transparent throughout the process. The work was completed as agreed, with excellent attention to detail and a high-quality finish. They were flexible with site coordination and handled any changes professionally.",
-  },
-  {
-    id: "rev-4",
-    name: "Sameer Bhat",
-    rating: 5,
-    text: "Very professional team. The work was completed to our satisfaction, and we are pleased with the results.",
-  },
-  {
-    id: "rev-5",
-    name: "Viktoriia Loktev",
-    rating: 5,
-    text: "We had a great experience working with this company. The team built our swimming pool and fire pit and completed the entire landscaping project. Everything was completed quickly and to an excellent standard. Communication was easy, clear, and straightforward throughout the process.",
-  },
-  {
-    id: "rev-6",
-    name: "Conrad Lee",
-    rating: 5,
-    text: "The work was completed on time and to a good standard. We hired the team to handle our driveway and replace our water tank, and we were happy with the results.",
-  },
-  {
-    id: "rev-7",
-    name: "Wajdi Elhakim",
-    rating: 5,
-    text: "We had an excellent experience with the entire team. The work was highly professional, and the finishing was excellent. Most importantly, the project was completed exactly within the promised timeline. The pricing was fair, and the quality reflected the value for money. All approvals and documentation were handled flawlessly.",
-  },
-  {
-    id: "rev-8",
-    name: "Lilian K",
-    rating: 5,
-    text: "I recently hired Dream Floor Landscaping to build a swimming pool and landscape my property in Arabian Ranches. The team was professional, detail-oriented, and efficient. The project was completed ahead of schedule and at a competitive price. I am very pleased with the results.",
-  },
-  {
-    id: "rev-9",
-    name: "Borja Burguillos",
-    rating: 5,
-    text: "Outstanding service! The team completed the job a full week ahead of schedule. I highly recommend them!",
-  },
-];
-
 export interface GoogleReviewsSectionProps {
   reviews?: ReviewItem[];
   className?: string;
 }
 
 export function GoogleReviewsSection({
-  reviews = DEFAULT_GOOGLE_REVIEWS,
+  reviews: reviewsProp,
   className,
 }: GoogleReviewsSectionProps) {
   const [startIndex, setStartIndex] = useState(0);
+  const [apiReviews, setApiReviews] = useState<ReviewItem[]>([]);
+
+  // Load reviews strictly from the API (no static defaults)
+  useEffect(() => {
+    if (reviewsProp) return;
+    let isMounted = true;
+    fetchTestimonialsData()
+      .then((res) => {
+        if (!isMounted || !Array.isArray(res.data)) return;
+        setApiReviews(
+          res.data.map((item) => ({
+            id: item._id,
+            name: item.name,
+            rating: item.rating || 5,
+            text: item.quote,
+            avatar: item.image,
+          })),
+        );
+      })
+      .catch((err) => console.error("Failed to fetch reviews:", err));
+    return () => {
+      isMounted = false;
+    };
+  }, [reviewsProp]);
+
+  const reviews = reviewsProp ?? apiReviews;
 
   // Show 2 items per view on desktop, 1 on mobile
   const prevSlide = () => {
@@ -93,6 +63,8 @@ export function GoogleReviewsSection({
   };
 
   const visibleReviews = reviews.slice(startIndex, startIndex + 2);
+
+  if (reviews.length === 0) return null;
 
   return (
     <div className={cn("space-y-5 font-sans my-6", className)}>
@@ -136,8 +108,10 @@ export function GoogleReviewsSection({
               </div>
             </div>
             <p className="text-xs text-gray-500 font-medium">
-              Based on <strong className="text-gray-800">39 reviews</strong> on
-              Google
+              Based on{" "}
+              <strong className="text-gray-800">
+                {reviews.length} {reviews.length === 1 ? "review" : "reviews"}
+              </strong>
             </p>
           </div>
         </div>
@@ -185,7 +159,7 @@ export function GoogleReviewsSection({
                 </div>
 
                 <div className="flex text-[#fbbc04]">
-                  {[...Array(rev.rating)].map((_, i) => (
+                  {[...Array(Math.max(0, Math.min(5, Math.round(rev.rating))))].map((_, i) => (
                     <Star
                       key={i}
                       className="w-3.5 h-3.5 fill-[#fbbc04] text-[#fbbc04]"
